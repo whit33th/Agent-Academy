@@ -66,7 +66,6 @@ export default function LineupViewer({
                 <p className="font-oswald text-sm font-bold uppercase text-white">
                   {map.name}
                 </p>
-                
               </div>
             </div>
           )}
@@ -207,7 +206,7 @@ export default function LineupViewer({
                             />
                             {idx === selectedAbilityIdx && (
                               <div
-                                className="absolute -bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full"
+                                className="absolute -bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full"
                                 style={{ backgroundColor: accentColor }}
                               />
                             )}

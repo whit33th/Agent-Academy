@@ -29,19 +29,6 @@ export const agentsByMapQuery = `*[_type == "mapAgentMeta" && map._ref == $mapId
   }
 }`;
 
-export const mapsByAgentQuery = `*[_type == "mapAgentMeta" && agent._ref == $agentId] | order(viability asc) {
-  _id,
-  viability,
-  notes,
-  "map": map->{
-    _id,
-    name,
-    slug,
-    image,
-    accentColor
-  }
-}`;
-
 export const screenshotsByMapAndAgentQuery = `*[_type == "screenshot" && map._ref == $mapId && agent._ref == $agentId] | order(abilityType asc, title asc) {
   _id,
   title,
@@ -50,33 +37,6 @@ export const screenshotsByMapAndAgentQuery = `*[_type == "screenshot" && map._re
   description,
   "map": map->{name},
   "agent": agent->{name}
-}`;
-
-export const screenshotsByMapQuery = `*[_type == "screenshot" && map._ref == $mapId] | order(abilityType asc, title asc) {
-  _id,
-  title,
-  image,
-  abilityType,
-  description,
-  "map": map->{name},
-  "agent": agent->{name, image}
-}`;
-
-export const mapAgentMetaQuery = `*[_type == "mapAgentMeta" && map._ref == $mapId && agent._ref == $agentId][0] {
-  _id,
-  viability,
-  notes
-}`;
-
-/** Returns screenshot docs for a map so we can derive which agents have lineups. */
-export const screenshotsForMapQuery = `*[_type == "screenshot" && map._ref == $mapId] | order(abilityType asc, title asc) {
-  _id,
-  title,
-  image,
-  abilityType,
-  description,
-  "map": map->{name},
-  "agent": agent->{name, image}
 }`;
 
 /** Returns unique agent refs that have screenshots on a given map. */

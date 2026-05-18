@@ -223,7 +223,7 @@ export default function AgentGrid({
               </div>
             )}
             <div>
-              <h2 className="font-oswald text-3xl font-bold uppercase tracking-wider text-white md:text-4xl">
+              <h2 className="font-oswald text-3xl font-semibold uppercase tracking-wider text-white md:text-4xl">
                 <span className="text-val-red">//</span> {selectedMap.name}
               </h2>
               <p className="text-xs font-medium uppercase tracking-wider text-white/35">
@@ -309,7 +309,9 @@ export default function AgentGrid({
                             fill
                             sizes="200vw"
                             className="object-cover drop-shadow-[0_12px_24px_rgba(0,0,0,0.7)]"
-                            style={{ objectPosition: portraitCfg.objectPosition }}
+                            style={{
+                              objectPosition: portraitCfg.objectPosition,
+                            }}
                             priority={i < 6}
                           />
                         </div>
@@ -321,7 +323,7 @@ export default function AgentGrid({
                   <div className="absolute inset-x-0 bottom-0 z-20 h-2/5 bg-gradient-to-t from-black/95 via-black/40 to-transparent pointer-events-none" />
 
                   {/* Agent Name & Details at the bottom */}
-                  <div className="absolute inset-x-0 bottom-0 z-30 px-3 py-3 pointer-events-none">
+                  <div className="absolute inset-x-0 bottom-0 z-30 p-3 pointer-events-none">
                     <p className="font-oswald text-lg font-bold uppercase tracking-wider text-white text-center group-hover:text-val-teal transition-colors">
                       {agent.name}
                     </p>
@@ -329,11 +331,7 @@ export default function AgentGrid({
                       <div className="mt-1 flex items-center justify-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white/70 transition-colors">
                         {agent.roleIcon && (
                           <div className="relative size-2.5 opacity-60 group-hover:opacity-100 group-hover:scale-109 transition-[scale,opacity] duration-200">
-                            <Image
-                              src={agent.roleIcon}
-                              alt=""
-                              fill
-                            />
+                            <Image src={agent.roleIcon} alt="" fill />
                           </div>
                         )}
                         <span>{agent.roleName}</span>

@@ -56,11 +56,23 @@ img {
 /* ── Angular clip-paths (Valorant's design language) ── */
 
 .clip-angular {
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%
+  );
 }
 
 .clip-angular-sm {
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%
+  );
 }
 
 .clip-angular-top {
@@ -76,7 +88,9 @@ img {
 .val-card {
   position: relative;
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.3s ease;
 }
 
 .val-card::before {
@@ -103,7 +117,9 @@ img {
 .agent-card {
   position: relative;
   overflow: visible;
-  transition: transform 0.25s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.3s ease;
 }
 
 .agent-card:hover {
@@ -122,7 +138,9 @@ img {
 /* ── Selection states ────────────────────────────── */
 
 .val-selected {
-  box-shadow: 0 0 0 2px var(--color-val-red), 0 0 24px rgba(255, 70, 85, 0.25);
+  box-shadow:
+    0 0 0 2px var(--color-val-red),
+    0 0 24px rgba(255, 70, 85, 0.25);
 }
 
 .val-selected::before {
@@ -141,18 +159,26 @@ img {
 /* ── Glow effects ─────────────────────────────── */
 
 .glow-red {
-  box-shadow: 0 0 20px rgba(255, 70, 85, 0.3), 0 0 60px rgba(255, 70, 85, 0.1);
+  box-shadow:
+    0 0 20px rgba(255, 70, 85, 0.3),
+    0 0 60px rgba(255, 70, 85, 0.1);
 }
 
 .glow-teal {
-  box-shadow: 0 0 20px rgba(23, 232, 180, 0.3), 0 0 60px rgba(23, 232, 180, 0.1);
+  box-shadow:
+    0 0 20px rgba(23, 232, 180, 0.3),
+    0 0 60px rgba(23, 232, 180, 0.1);
 }
 
 /* ── Skeleton shimmer ──────────────────────────── */
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .skeleton {
@@ -166,12 +192,36 @@ img {
   animation: shimmer 1.8s ease-in-out infinite;
 }
 
+/* ── Subtle float (ease-out-expo, natural deceleration) ── */
+
+@keyframes subtle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-subtle-float {
+  animation: subtle-float 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
 /* ── Viability badges ──────────────────────────── */
 
-.badge-s { background: var(--color-val-red); }
-.badge-a { background: var(--color-val-gold); }
-.badge-b { background: var(--color-role-sentinel); }
-.badge-c { background: #555; }
+.badge-s {
+  background: var(--color-val-red);
+}
+.badge-a {
+  background: var(--color-val-gold);
+}
+.badge-b {
+  background: var(--color-role-sentinel);
+}
+.badge-c {
+  background: #555;
+}
 
 /* ── Reduced motion ────────────────────────────── */
 

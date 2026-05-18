@@ -21,7 +21,7 @@ export default function MapGrid({ maps, agentCount }: MapGridProps) {
         {/* Hero header */}
         <div>
           <div className="mb-4 inline-flex items-center gap-2 rounded-sm bg-white/3 px-4 py-1.5 ring-1 ring-white/6">
-            <div className="h-1.5 w-1.5 rounded-full bg-val-red animate-pulse" />
+            <div className="size-1.5 rounded-full bg-val-red animate-pulse" />
             <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">
               Tactical Reference
             </span>

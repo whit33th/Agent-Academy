@@ -112,10 +112,16 @@ async function main() {
     const uploadTasks: Promise<void>[] = [];
     const validExts = new Set([".png", ".jpg", ".jpeg", ".webp"]);
 
-    for (const agentName of agentNames) {
-      const agentPath = path.join(VALORANT_DIR, agentName);
-      const agentDoc = await findOrCreateAgent(agentName);
+    // Pre-create all agents in parallel
+    const agentDocs = await Promise.all(
+      agentNames.map(async (agentName) => {
+        const agentPath = path.join(VALORANT_DIR, agentName);
+        const agentDoc = await findOrCreateAgent(agentName);
+        return { agentName, agentPath, agentDoc };
+      }),
+    );
 
+    for (const { agentPath, agentDoc } of agentDocs) {
       const mapEntries = await readdir(agentPath);
       const mapStats = await Promise.all(
         mapEntries.map(async (mapName) => {

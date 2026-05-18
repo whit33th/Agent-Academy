@@ -4,7 +4,6 @@ import {
   mapsQuery,
   agentsQuery,
   agentsByMapQuery,
-  mapsByAgentQuery,
   screenshotsByMapAndAgentQuery,
   agentRefsByMapQuery,
 } from "./queries";
@@ -23,37 +22,31 @@ import type {
  * Every function is cached with unstable_cache for ISR.
  */
 
-export const getCachedValorantAssets = unstable_cache(
+const getCachedValorantAssets = unstable_cache(
   async () => fetchValorantAssets(),
   ["valorant-assets"],
   { revalidate: 86400, tags: ["valorant-assets"] },
 );
 
-export const getCachedMaps = unstable_cache(
+const getCachedMaps = unstable_cache(
   async () => client.fetch(mapsQuery),
   ["sanity-maps"],
   { revalidate: 3600, tags: ["sanity-maps"] },
 );
 
-export const getCachedAgents = unstable_cache(
+const getCachedAgents = unstable_cache(
   async () => client.fetch(agentsQuery),
   ["sanity-agents"],
   { revalidate: 3600, tags: ["sanity-agents"] },
 );
 
-export const getCachedAgentsByMap = unstable_cache(
+const getCachedAgentsByMap = unstable_cache(
   async (mapId: string) => client.fetch(agentsByMapQuery, { mapId }),
   ["sanity-agents-by-map"],
   { revalidate: 3600, tags: ["sanity-agents-by-map"] },
 );
 
-export const getCachedMapsByAgent = unstable_cache(
-  async (agentId: string) => client.fetch(mapsByAgentQuery, { agentId }),
-  ["sanity-maps-by-agent"],
-  { revalidate: 3600, tags: ["sanity-maps-by-agent"] },
-);
-
-export const getCachedScreenshots = unstable_cache(
+const getCachedScreenshots = unstable_cache(
   async (mapId: string, agentId: string) =>
     client.fetch(screenshotsByMapAndAgentQuery, { mapId, agentId }),
   ["sanity-screenshots"],
@@ -61,7 +54,7 @@ export const getCachedScreenshots = unstable_cache(
 );
 
 /** Get agent refs that have screenshots on a given map. */
-export const getCachedAgentRefsByMap = unstable_cache(
+const getCachedAgentRefsByMap = unstable_cache(
   async (mapId: string) =>
     client.fetch<string[]>(agentRefsByMapQuery, { mapId }),
   ["sanity-agent-refs-by-map"],
@@ -167,22 +160,6 @@ export async function getAgentsForMap(mapId: string): Promise<Agent[]> {
         notes: meta?.notes ?? null,
       };
     });
-}
-
-/** Get maps for a specific agent, enriched with images. */
-export async function getMapsForAgent(agentId: string) {
-  const [agentMaps, valorantAssets] = await Promise.all([
-    getCachedMapsByAgent(agentId),
-    getCachedValorantAssets(),
-  ]);
-
-  return agentMaps.map((am: any) => ({
-    ...am,
-    map: {
-      ...am.map,
-      imageUrl: getMapData(valorantAssets.maps, am.map.name)?.splash || null,
-    },
-  }));
 }
 
 /** Get screenshots for a map+agent combo. */
