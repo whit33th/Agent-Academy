@@ -24,13 +24,21 @@ async function downloadImage(url: string, dest: string): Promise<void> {
 }
 
 async function uploadImageToSanity(filePath: string, title: string) {
-  const asset = await client.assets.upload("image", createReadStream(filePath), {
-    filename: path.basename(filePath),
-  });
+  const asset = await client.assets.upload(
+    "image",
+    createReadStream(filePath),
+    {
+      filename: path.basename(filePath),
+    },
+  );
   return asset._id;
 }
 
-async function updateDocumentImage(docType: string, docName: string, imageAssetId: string) {
+async function updateDocumentImage(
+  docType: string,
+  docName: string,
+  imageAssetId: string,
+) {
   const doc = await client.fetch(`*[_type == $type && name == $name][0]`, {
     type: docType,
     name: docName,
@@ -62,53 +70,71 @@ async function main() {
 
     // Fetch maps from Valorant API
     const mapsRes = await fetch("https://valorant-api.com/v1/maps");
-    const mapsData = await mapsRes.json() as { data: ValorantMap[] };
+    const mapsData = (await mapsRes.json()) as { data: ValorantMap[] };
     const apiMaps = mapsData.data.filter(
-      (m) => !["Basic Training", "The Range", "Corrode", "Sunset"].includes(m.displayName)
+      (m) =>
+        !["Basic Training", "The Range", "Corrode", "Sunset"].includes(
+          m.displayName,
+        ),
     );
 
     // Fetch agents from Valorant API
-    const agentsRes = await fetch("https://valorant-api.com/v1/agents?isPlayableCharacter=true");
-    const agentsData = await agentsRes.json() as { data: ValorantAgent[] };
+    const agentsRes = await fetch(
+      "https://valorant-api.com/v1/agents?isPlayableCharacter=true",
+    );
+    const agentsData = (await agentsRes.json()) as { data: ValorantAgent[] };
     const apiAgents = agentsData.data;
 
     // Get existing Sanity docs
     const sanityMaps = await client.fetch(`*[_type == "map"]{name}`);
     const sanityAgents = await client.fetch(`*[_type == "agent"]{name}`);
 
+    const sanityMapByName = new Map<string, any>(
+      sanityMaps.map((m: any) => [m.name.toLowerCase(), m]),
+    );
+    const sanityAgentByName = new Map<string, any>(
+      sanityAgents.map((a: any) => [a.name.toLowerCase(), a]),
+    );
+
     // Download and upload map images
-    for (const map of apiMaps) {
-      const sanityDoc = sanityMaps.find((m: any) => m.name.toLowerCase() === map.displayName.toLowerCase());
-      if (!sanityDoc) continue;
+    await Promise.all(
+      apiMaps.map(async (map) => {
+        const sanityDoc = sanityMapByName.get(map.displayName.toLowerCase());
+        if (!sanityDoc) return;
 
-      const fileName = `map-${map.displayName}.png`;
-      const filePath = path.join(TEMP_DIR, fileName);
+        const fileName = `map-${map.displayName}.png`;
+        const filePath = path.join(TEMP_DIR, fileName);
 
-      console.log(`Downloading map image: ${map.displayName}`);
-      await downloadImage(map.splash, filePath);
+        console.log(`Downloading map image: ${map.displayName}`);
+        await downloadImage(map.splash, filePath);
 
-      const assetId = await uploadImageToSanity(filePath, map.displayName);
-      await updateDocumentImage("map", sanityDoc.name, assetId);
+        const assetId = await uploadImageToSanity(filePath, map.displayName);
+        await updateDocumentImage("map", sanityDoc.name, assetId);
 
-      await unlink(filePath);
-    }
+        await unlink(filePath);
+      }),
+    );
 
     // Download and upload agent images
-    for (const agent of apiAgents) {
-      const sanityDoc = sanityAgents.find((a: any) => a.name.toLowerCase() === agent.displayName.toLowerCase());
-      if (!sanityDoc) continue;
+    await Promise.all(
+      apiAgents.map(async (agent) => {
+        const sanityDoc = sanityAgentByName.get(
+          agent.displayName.toLowerCase(),
+        );
+        if (!sanityDoc) return;
 
-      const fileName = `agent-${agent.displayName}.png`;
-      const filePath = path.join(TEMP_DIR, fileName);
+        const fileName = `agent-${agent.displayName}.png`;
+        const filePath = path.join(TEMP_DIR, fileName);
 
-      console.log(`Downloading agent image: ${agent.displayName}`);
-      await downloadImage(agent.fullPortrait, filePath);
+        console.log(`Downloading agent image: ${agent.displayName}`);
+        await downloadImage(agent.fullPortrait, filePath);
 
-      const assetId = await uploadImageToSanity(filePath, agent.displayName);
-      await updateDocumentImage("agent", sanityDoc.name, assetId);
+        const assetId = await uploadImageToSanity(filePath, agent.displayName);
+        await updateDocumentImage("agent", sanityDoc.name, assetId);
 
-      await unlink(filePath);
-    }
+        await unlink(filePath);
+      }),
+    );
 
     console.log("Done importing images!");
   } catch (error) {

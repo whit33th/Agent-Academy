@@ -1,21 +1,50 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-background: #0a0e14;
+@theme {
+  --color-background: #0a0a0a;
   --color-foreground: #ece8e1;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, monospace;
   --font-oswald: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+
+  /* Valorant palette — true dark blacks */
+  --color-val-bg: #0a0a0a;
+  --color-val-surface: #111111;
+  --color-val-elevated: #1a1a1a;
+  --color-val-border: #222222;
+  --color-val-red: #ff4655;
+  --color-val-teal: #17e8b4;
+  --color-val-cream: #ece8e1;
+  --color-val-gold: #f5a623;
+
+  /* Role colors */
+  --color-role-duelist: #ff4655;
+  --color-role-controller: #0faf4b;
+  --color-role-sentinel: #2e8de5;
+  --color-role-initiator: #f5a623;
 }
 
+/* ── Base ─────────────────────────────────────────────── */
+
 body {
-  background: #0a0e14;
-  color: #ece8e1;
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  background: var(--color-val-bg);
+  color: var(--color-val-cream);
+  font-family: var(--font-sans);
   overflow-x: hidden;
 }
 
-/* Hide scrollbar for horizontal scroll areas */
+::selection {
+  background: rgba(255, 70, 85, 0.4);
+  color: #ffffff;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -24,14 +53,135 @@ body {
   display: none;
 }
 
-/* Custom selection color */
-::selection {
-  background: rgba(255, 70, 85, 0.4);
-  color: #ffffff;
+/* ── Angular clip-paths (Valorant's design language) ── */
+
+.clip-angular {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
 }
 
-/* Smooth image rendering */
-img {
-  -webkit-user-drag: none;
-  user-select: none;
+.clip-angular-sm {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+}
+
+.clip-angular-top {
+  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.clip-diamond {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* ── Card hover ──────────────────────────────────────── */
+
+.val-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.val-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  z-index: 1;
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+
+.val-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.val-card:hover::before {
+  border-color: rgba(255, 70, 85, 0.4);
+}
+
+/* ── Agent card with overflow portrait ────────────── */
+
+.agent-card {
+  position: relative;
+  overflow: visible;
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.agent-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+}
+
+.agent-card .agent-portrait {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.agent-card:hover .agent-portrait {
+  transform: scale(1.08) translateY(-4px);
+}
+
+/* ── Selection states ────────────────────────────── */
+
+.val-selected {
+  box-shadow: 0 0 0 2px var(--color-val-red), 0 0 24px rgba(255, 70, 85, 0.25);
+}
+
+.val-selected::before {
+  border-color: var(--color-val-red) !important;
+}
+
+/* ── Diagonal slash decorator ──────────────────── */
+
+.slash-decorator::before {
+  content: "//";
+  margin-right: 0.5em;
+  color: var(--color-val-red);
+  font-weight: 700;
+}
+
+/* ── Glow effects ─────────────────────────────── */
+
+.glow-red {
+  box-shadow: 0 0 20px rgba(255, 70, 85, 0.3), 0 0 60px rgba(255, 70, 85, 0.1);
+}
+
+.glow-teal {
+  box-shadow: 0 0 20px rgba(23, 232, 180, 0.3), 0 0 60px rgba(23, 232, 180, 0.1);
+}
+
+/* ── Skeleton shimmer ──────────────────────────── */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 25%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.02) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ── Viability badges ──────────────────────────── */
+
+.badge-s { background: var(--color-val-red); }
+.badge-a { background: var(--color-val-gold); }
+.badge-b { background: var(--color-role-sentinel); }
+.badge-c { background: #555; }
+
+/* ── Reduced motion ────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

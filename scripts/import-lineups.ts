@@ -13,7 +13,10 @@ const agentRoles: Record<string, string> = {
 function determineAbilityType(agentName: string, fileName: string): string {
   const lower = fileName.toLowerCase();
   if (lower.includes("ult")) return "ultimate";
-  if (agentName.toLowerCase() === "viper" && (lower.includes("atk") || lower.includes("def"))) {
+  if (
+    agentName.toLowerCase() === "viper" &&
+    (lower.includes("atk") || lower.includes("def"))
+  ) {
     return "wall";
   }
   if (agentName.toLowerCase() === "killjoy" && lower.includes("def")) {
@@ -23,7 +26,10 @@ function determineAbilityType(agentName: string, fileName: string): string {
 }
 
 async function findOrCreateAgent(name: string) {
-  const existing = await client.fetch(`*[_type == "agent" && name == $name][0]`, { name });
+  const existing = await client.fetch(
+    `*[_type == "agent" && name == $name][0]`,
+    { name },
+  );
   if (existing) return existing;
 
   const role = agentRoles[name.toLowerCase()] || "other";
@@ -38,7 +44,9 @@ async function findOrCreateAgent(name: string) {
 }
 
 async function findOrCreateMap(name: string) {
-  const existing = await client.fetch(`*[_type == "map" && name == $name][0]`, { name });
+  const existing = await client.fetch(`*[_type == "map" && name == $name][0]`, {
+    name,
+  });
   if (existing) return existing;
 
   const doc = await client.create({
@@ -53,10 +61,12 @@ async function findOrCreateMap(name: string) {
 async function uploadScreenshot(
   filePath: string,
   agentId: string,
-  mapId: string
+  mapId: string,
 ) {
   const fileName = path.basename(filePath, path.extname(filePath));
-  const agentDoc = await client.fetch(`*[_type == "agent" && _id == $id][0]`, { id: agentId });
+  const agentDoc = await client.fetch(`*[_type == "agent" && _id == $id][0]`, {
+    id: agentId,
+  });
   const abilityType = determineAbilityType(agentDoc?.name || "", fileName);
 
   const asset = await client.assets.upload("image", createReadStream(filePath));
@@ -88,52 +98,85 @@ async function uploadScreenshot(
 async function main() {
   try {
     const entries = await readdir(VALORANT_DIR);
-    const agents = entries.filter(async (e) => {
-      const s = await stat(path.join(VALORANT_DIR, e));
-      return s.isDirectory();
-    });
+    const agentEntries = await Promise.all(
+      entries.map(async (e) => {
+        const s = await stat(path.join(VALORANT_DIR, e));
+        return { name: e, isDir: s.isDirectory() };
+      }),
+    );
+    const agentNames: string[] = [];
+    for (const e of agentEntries) {
+      if (e.isDir) agentNames.push(e.name);
+    }
 
-    for (const agentName of entries) {
+    const uploadTasks: Promise<void>[] = [];
+    const validExts = new Set([".png", ".jpg", ".jpeg", ".webp"]);
+
+    for (const agentName of agentNames) {
       const agentPath = path.join(VALORANT_DIR, agentName);
-      const agentStat = await stat(agentPath);
-      if (!agentStat.isDirectory()) continue;
-
       const agentDoc = await findOrCreateAgent(agentName);
 
       const mapEntries = await readdir(agentPath);
-      for (const mapName of mapEntries) {
-        const mapPath = path.join(agentPath, mapName);
-        const mapStat = await stat(mapPath);
-        if (!mapStat.isDirectory()) continue;
+      const mapStats = await Promise.all(
+        mapEntries.map(async (mapName) => {
+          const mapPath = path.join(agentPath, mapName);
+          const s = await stat(mapPath);
+          return { name: mapName, path: mapPath, isDir: s.isDirectory() };
+        }),
+      );
 
-        const mapDoc = await findOrCreateMap(mapName);
+      for (const mapEntry of mapStats) {
+        if (!mapEntry.isDir) continue;
+        const mapDoc = await findOrCreateMap(mapEntry.name);
 
-        const files = await readdir(mapPath);
-        for (const file of files) {
-          const filePath = path.join(mapPath, file);
-          const fileStat = await stat(filePath);
-          if (!fileStat.isFile()) {
-            // nested folder (e.g. "Ult placement")
-            if (fileStat.isDirectory()) {
-              const nestedFiles = await readdir(filePath);
-              for (const nestedFile of nestedFiles) {
-                const nestedPath = path.join(filePath, nestedFile);
-                const nestedStat = await stat(nestedPath);
-                if (nestedStat.isFile()) {
-                  await uploadScreenshot(nestedPath, agentDoc._id, mapDoc._id);
-                }
+        const files = await readdir(mapEntry.path);
+        const fileStats = await Promise.all(
+          files.map(async (file) => {
+            const filePath = path.join(mapEntry.path, file);
+            const s = await stat(filePath);
+            return {
+              name: file,
+              path: filePath,
+              isFile: s.isFile(),
+              isDir: s.isDirectory(),
+            };
+          }),
+        );
+
+        for (const file of fileStats) {
+          if (file.isDir) {
+            const nestedFiles = await readdir(file.path);
+            const nestedPaths = nestedFiles.map((nf) =>
+              path.join(file.path, nf),
+            );
+            const nestedStats = await Promise.all(
+              nestedPaths.map(async (np) => {
+                const s = await stat(np);
+                return { path: np, isFile: s.isFile() };
+              }),
+            );
+            for (const ns of nestedStats) {
+              if (ns.isFile) {
+                uploadTasks.push(
+                  uploadScreenshot(ns.path, agentDoc._id, mapDoc._id),
+                );
               }
             }
             continue;
           }
 
-          const ext = path.extname(file).toLowerCase();
-          if (![".png", ".jpg", ".jpeg", ".webp"].includes(ext)) continue;
+          if (!file.isFile) continue;
+          const ext = path.extname(file.name).toLowerCase();
+          if (!validExts.has(ext)) continue;
 
-          await uploadScreenshot(filePath, agentDoc._id, mapDoc._id);
+          uploadTasks.push(
+            uploadScreenshot(file.path, agentDoc._id, mapDoc._id),
+          );
         }
       }
     }
+
+    await Promise.all(uploadTasks);
 
     console.log("Done!");
   } catch (error) {

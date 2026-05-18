@@ -9,7 +9,8 @@ export default defineType({
       name: "name",
       title: "Name",
       type: "string",
-      validation: (Rule) => Rule.required(),
+      description:
+        "Deprecated — name is pulled from Valorant API. Kept for backwards compatibility.",
     }),
     defineField({
       name: "slug",
@@ -30,7 +31,8 @@ export default defineType({
           { title: "Initiator", value: "initiator" },
         ],
       },
-      validation: (Rule) => Rule.required(),
+      description:
+        "Deprecated — role is pulled from Valorant API. Kept for backwards compatibility.",
     }),
     defineField({
       name: "image",

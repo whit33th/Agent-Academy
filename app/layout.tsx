@@ -16,7 +16,8 @@ const oswald = Oswald({
 
 export const metadata: Metadata = {
   title: "Valorant Lineups",
-  description: "Personal lineup reference for Valorant",
+  description:
+    "Personal lineup reference for Valorant — browse agents, maps, and tactical screenshots.",
 };
 
 export default function RootLayout({
@@ -29,8 +30,8 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${oswald.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#0A0E14] text-white">
-        <LenisProvider/>
+      <body className="min-h-full bg-val-bg text-val-cream">
+        <LenisProvider />
         {children}
       </body>
     </html>

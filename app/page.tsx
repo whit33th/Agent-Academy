@@ -1,121 +1,91 @@
-import { client } from "@/lib/sanity";
 import {
-  mapsQuery,
-  agentsQuery,
-  agentsByMapQuery,
-  mapsByAgentQuery,
-  screenshotsByMapAndAgentQuery,
-} from "@/lib/queries";
-import MainContent from "@/components/MainContent";
-import BottomRail from "@/components/BottomRail";
+  getEnrichedMaps,
+  getEnrichedAgents,
+  getAgentsForMap,
+  getScreenshots,
+} from "@/lib/data";
+import type { GameMap, Agent } from "@/lib/types";
+import BackButton from "@/components/BackButton";
+import MapGrid from "@/components/MapGrid";
+import AgentGrid from "@/components/AgentGrid";
+import LineupViewer from "@/components/LineupViewer";
 
-export const dynamic = "force-dynamic";
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function Home({ searchParams }: PageProps) {
   const params = await searchParams;
-  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-
-  if (!projectId) {
-    return (
-      <div className="flex h-screen flex-col items-center justify-center px-4 text-center">
-        <h1 className="font-oswald text-4xl font-bold uppercase text-white">
-          Sanity Not Configured
-        </h1>
-        <p className="mt-4 max-w-md text-white/50">
-          Add your Sanity project ID to{" "}
-          <code className="rounded bg-white/10 px-2 py-1 text-sm">
-            .env.local
-          </code>
-          .
-        </p>
-        <ol className="mt-6 space-y-2 text-left text-sm text-white/40">
-          <li>1. Create a project at sanity.io/manage</li>
-          <li>2. Copy the project ID</li>
-          <li>
-            3. Paste it into .env.local as NEXT_PUBLIC_SANITY_PROJECT_ID=your_id
-          </li>
-          <li>4. Restart the dev server</li>
-        </ol>
-      </div>
-    );
-  }
+  const mapSlug = params.map;
+  const agentSlug = params.agent;
 
   try {
-    const selectedMapSlug = typeof params.map === "string" ? params.map : null;
-    const selectedAgentSlug =
-      typeof params.agent === "string" ? params.agent : null;
-
     const [maps, agents] = await Promise.all([
-      client.fetch(mapsQuery),
-      client.fetch(agentsQuery),
+      getEnrichedMaps(),
+      getEnrichedAgents(),
     ]);
 
-    const selectedMap = maps.find(
-      (m: any) => m.slug?.current === selectedMapSlug,
-    );
-    const selectedAgent = agents.find(
-      (a: any) => a.slug?.current === selectedAgentSlug,
-    );
+    // Resolve selections
+    const selectedMap = mapSlug
+      ? (maps.find((m) => m.slug?.current === mapSlug || m._id === mapSlug) ??
+        null)
+      : null;
+    const selectedAgent = agentSlug
+      ? (agents.find(
+          (a) => a.slug?.current === agentSlug || a._id === agentSlug,
+        ) ?? null)
+      : null;
+
     const selectedMapId = selectedMap?._id ?? null;
     const selectedAgentId = selectedAgent?._id ?? null;
 
-    let mapAgents: any[] = [];
-    let agentMaps: any[] = [];
-    let screenshots: any[] = [];
+    let content: React.ReactNode;
 
-    if (selectedMapId && !selectedAgentId) {
-      mapAgents = await client.fetch(agentsByMapQuery, {
-        mapId: selectedMapId,
-      });
-    }
-    if (selectedAgentId && !selectedMapId) {
-      agentMaps = await client.fetch(mapsByAgentQuery, {
-        agentId: selectedAgentId,
-      });
-    }
-    if (selectedMapId && selectedAgentId) {
-      screenshots = await client.fetch(screenshotsByMapAndAgentQuery, {
-        mapId: selectedMapId,
-        agentId: selectedAgentId,
-      });
+    if (selectedMapId && selectedAgentId && selectedAgent && selectedMap) {
+      // State 3: Both selected → show lineups with agent panel
+      const screenshots = await getScreenshots(selectedMapId, selectedAgentId);
+      content = (
+        <LineupViewer
+          screenshots={screenshots}
+          agent={selectedAgent}
+          map={selectedMap}
+        />
+      );
+    } else if (selectedMapId) {
+      // State 2: Map selected → show agent grid for this map
+      const mapAgents = await getAgentsForMap(selectedMapId);
+      const agentList = mapAgents.length > 0 ? mapAgents : agents;
+      content = (
+        <>
+          <BackButton href="/" />
+          <AgentGrid
+            agents={agentList}
+            selectedMapSlug={mapSlug}
+            selectedMap={selectedMap}
+          />
+        </>
+      );
+    } else {
+      // State 1: Nothing selected → show map grid
+      content = <MapGrid maps={maps} agentCount={agents.length} />;
     }
 
     return (
-      <div className="flex h-screen flex-col overflow-hidden">
-        <MainContent
-          maps={maps}
-          agents={agents}
-          selectedMapSlug={selectedMapSlug}
-          selectedAgentSlug={selectedAgentSlug}
-          selectedMapId={selectedMapId}
-          selectedAgentId={selectedAgentId}
-          mapAgents={mapAgents}
-          agentMaps={agentMaps}
-          screenshots={screenshots}
-        />
-        <BottomRail
-          maps={maps}
-          agents={agents}
-          railMode={railMode}
-          selectedMapSlug={selectedMapSlug}
-          selectedAgentSlug={selectedAgentSlug}
-        />
-      </div>
+      <div className="min-h-screen bg-val-bg p-4 md:p-6 lg:p-8">{content}</div>
     );
   } catch (error) {
-    console.error("Sanity fetch error:", error);
+    console.error("Data fetch error:", error);
     return (
-      <div className="flex h-screen flex-col items-center justify-center px-4 text-center">
+      <div className="flex flex-1 flex-col items-center justify-center text-center">
+        <div className="mb-6 flex size-20 items-center justify-center clip-diamond bg-val-red/20">
+          <span className="text-3xl">⚠</span>
+        </div>
         <h1 className="font-oswald text-4xl font-bold uppercase text-white">
           Connection Error
         </h1>
-        <p className="mt-4 max-w-md text-white/50">
-          Could not connect to Sanity. Make sure your project ID and dataset are
-          correct.
+        <p className="mt-4 max-w-md text-sm text-white/40">
+          Could not connect to data sources. Make sure your Sanity project ID
+          and dataset are correct.
         </p>
       </div>
     );
