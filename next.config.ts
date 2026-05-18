@@ -2,7 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  
+  experimental: {
+    optimizeCss: true,
+  },
+
   images: {
     remotePatterns: [
       {
@@ -14,6 +17,7 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
       },
     ],
+    minimumCacheTTL: 60 * 60 * 24 * 7, // 1 day
   },
 };
 
