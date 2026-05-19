@@ -66,13 +66,15 @@ export default function MapGrid({ maps, agentCount }: MapGridProps) {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                       {/* Red accent line at bottom */}
                       <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-all duration-200 group-hover:w-full" />
+
+                      {/* Map name overlay */}
+                      <div className="absolute inset-x-0 bottom-0 z-10 p-3">
+                        <p className="font-oswald text-lg font-bold uppercase tracking-wide text-white">
+                          {map.name}
+                        </p>
+                      </div>
                     </div>
                   )}
-                  <div className="px-4 py-3">
-                    <p className="font-oswald text-lg font-bold uppercase tracking-wide text-white">
-                      {map.name}
-                    </p>
-                  </div>
                 </Link>
               </m.div>
             );

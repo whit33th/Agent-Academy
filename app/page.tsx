@@ -10,8 +10,6 @@ import MapGrid from "@/components/MapGrid";
 import AgentGrid from "@/components/AgentGrid";
 import LineupViewer from "@/components/LineupViewer";
 
-export const revalidate = 3600;
-
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }

@@ -1,6 +1,8 @@
 import { createReadStream } from "fs";
 import { readdir, stat } from "fs/promises";
 import path from "path";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 import { client } from "../lib/sanity";
 
 const VALORANT_DIR = path.join(process.cwd(), "valorant");
@@ -95,8 +97,21 @@ async function uploadScreenshot(
   console.log(`Uploaded: ${fileName} (${abilityType})`);
 }
 
+async function clearExistingScreenshots() {
+  const screenshots = await client.fetch(`*[_type == "screenshot"]{_id}`);
+  if (screenshots.length === 0) return;
+  console.log(`Removing ${screenshots.length} existing screenshots...`);
+  await Promise.all(
+    screenshots.map((s: { _id: string }) =>
+      client.delete(s._id).catch(() => {}),
+    ),
+  );
+  console.log("Cleared existing screenshots.");
+}
+
 async function main() {
   try {
+    await clearExistingScreenshots();
     const entries = await readdir(VALORANT_DIR);
     const agentEntries = await Promise.all(
       entries.map(async (e) => {

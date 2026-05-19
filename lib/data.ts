@@ -22,31 +22,42 @@ import type {
  * Every function is cached with unstable_cache for ISR.
  */
 
-const getCachedValorantAssets = unstable_cache(
+function conditionalCache<T extends (...args: any[]) => Promise<any>>(
+  fn: T,
+  _keyParts: string[],
+  _opts: { revalidate?: number; tags?: string[] },
+): T {
+  if (process.env.NODE_ENV === "development") {
+    return fn;
+  }
+  return unstable_cache(fn, _keyParts, _opts) as T;
+}
+
+const getCachedValorantAssets = conditionalCache(
   async () => fetchValorantAssets(),
   ["valorant-assets"],
   { revalidate: 86400, tags: ["valorant-assets"] },
 );
 
-const getCachedMaps = unstable_cache(
+const getCachedMaps = conditionalCache(
   async () => client.fetch(mapsQuery),
   ["sanity-maps"],
   { revalidate: 3600, tags: ["sanity-maps"] },
 );
 
-const getCachedAgents = unstable_cache(
+const getCachedAgents = conditionalCache(
   async () => client.fetch(agentsQuery),
   ["sanity-agents"],
   { revalidate: 3600, tags: ["sanity-agents"] },
 );
 
-const getCachedAgentsByMap = unstable_cache(
+const getCachedAgentsByMap = conditionalCache(
   async (mapId: string) => client.fetch(agentsByMapQuery, { mapId }),
   ["sanity-agents-by-map"],
   { revalidate: 3600, tags: ["sanity-agents-by-map"] },
 );
 
-const getCachedScreenshots = unstable_cache(
+const getCachedScreenshots = conditionalCache(
   async (mapId: string, agentId: string) =>
     client.fetch(screenshotsByMapAndAgentQuery, { mapId, agentId }),
   ["sanity-screenshots"],
@@ -54,7 +65,7 @@ const getCachedScreenshots = unstable_cache(
 );
 
 /** Get agent refs that have screenshots on a given map. */
-const getCachedAgentRefsByMap = unstable_cache(
+const getCachedAgentRefsByMap = conditionalCache(
   async (mapId: string) =>
     client.fetch<string[]>(agentRefsByMapQuery, { mapId }),
   ["sanity-agent-refs-by-map"],

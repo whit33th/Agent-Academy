@@ -39,7 +39,7 @@ export default function LineupViewer({
     <LazyMotion features={domAnimation}>
       <div className="flex flex-col">
         {/* Top bar */}
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col gap-4 mb-4 items-start justify-between">
           <Link
             href={`/?map=${mapSlug}`}
             className="group inline-flex items-center gap-2 transition-all"
@@ -53,18 +53,28 @@ export default function LineupViewer({
           </Link>
 
           {map?.imageUrl && (
-            <div className="relative h-16 w-32 overflow-hidden clip-angular-sm ring-1 ring-white/10">
-              <Image
-                src={map.imageUrl}
-                alt={map.name}
-                fill
-                className="object-cover"
-                sizes="128px"
-              />
-              <div className="absolute inset-0 bg-linear-to-r from-black/70 to-transparent" />
-              <div className="absolute bottom-1.5 left-2.5">
-                <p className="font-oswald text-sm font-bold uppercase text-white">
-                  {map.name}
+            <div className="flex items-center gap-4">
+              <div className="relative size-14 overflow-visible">
+                <div className="absolute inset-x-0 bottom-0 top-2 overflow-hidden clip-angular-sm bg-val-surface ring-1 ring-white/10" />
+                <div className="absolute inset-x-0 bottom-0 top-0 overflow-hidden pointer-events-none z-10">
+                  <Image
+                    src={map.imageUrl}
+                    alt={map.name}
+                    width={100}
+                    height={100}
+                    className="object-cover object-center w-full h-full scale-110 -translate-y-[8%]"
+                  />
+                </div>
+              </div>
+              <div className="flex h-full flex-col gap-1 justify-center">
+                <h2 className="font-oswald flex items-center gap-1 text-3xl font-semibold uppercase tracking-wider text-white md:text-4xl leading-[0.9]">
+                  <span className="text-val-red inline-flex leading-none">
+                    //
+                  </span>
+                  <span>{map.name}</span>
+                </h2>
+                <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.22em] text-white/35 leading-none">
+                  Lineups
                 </p>
               </div>
             </div>
@@ -154,14 +164,20 @@ export default function LineupViewer({
 
               {/* Name */}
               <h1
-                className="mb-3 font-oswald text-5xl font-bold uppercase leading-none text-white"
-                style={{ textShadow: `0 0 40px ${accentColor}50` }}
+                className="mb-3 font-oswald text-5xl brightness-155 font-bold uppercase leading-none"
+                style={{
+                  color: accentColor,
+                  textShadow: `0 0 40px ${accentColor}30`,
+                }}
               >
                 {agent?.name}
               </h1>
 
               {/* Description */}
-              <p className="mb-5 text-sm leading-relaxed text-white/45">
+              <p
+                className="mb-5 text-sm leading-relaxed brightness-190"
+                style={{ color: `${accentColor}B1` }}
+              >
                 {description}
               </p>
 
@@ -216,7 +232,10 @@ export default function LineupViewer({
                   </div>
                   {selectedAbility && (
                     <div>
-                      <p className="mb-1 text-xs font-bold uppercase tracking-wider text-white">
+                      <p
+                        className="mb-1 text-xs font-bold uppercase tracking-wider"
+                        style={{ color: accentColor }}
+                      >
                         {selectedAbility.displayName}
                       </p>
                       <p className="text-xs leading-relaxed text-white/40">

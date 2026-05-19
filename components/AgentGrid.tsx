@@ -52,7 +52,7 @@ const agentPortraitConfig: Record<
   },
   viper: {
     scale: 1.75,
-    x: 9,
+    x: 4,
     y: 60,
     objectPosition: "center 2%",
   },
@@ -154,8 +154,8 @@ const agentPortraitConfig: Record<
   },
   deadlock: {
     scale: 1.75,
-    x: 9,
-    y: 60,
+    x: 20,
+    y: 65,
     objectPosition: "center 2%",
   },
   iso: {
@@ -166,8 +166,8 @@ const agentPortraitConfig: Record<
   },
   clove: {
     scale: 1.75,
-    x: 9,
-    y: 60,
+    x: 23,
+    y: 80,
     objectPosition: "center 2%",
   },
   vyse: {
@@ -222,11 +222,16 @@ export default function AgentGrid({
                 </div>
               </div>
             )}
-            <div>
-              <h2 className="font-oswald text-3xl font-semibold uppercase tracking-wider text-white md:text-4xl">
-                <span className="text-val-red">//</span> {selectedMap.name}
+            <div className="flex h-full flex-col gap-1 justify-center">
+              <h2 className="font-oswald flex items-center gap-1 text-3xl font-semibold uppercase tracking-wider text-white md:text-4xl leading-[0.9]">
+                <span className="text-val-red inline-flex leading-none">
+                  //
+                </span>
+
+                <span>{selectedMap.name}</span>
               </h2>
-              <p className="text-xs font-medium uppercase tracking-wider text-white/35">
+
+              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.22em] text-white/35 leading-none">
                 Select agent
               </p>
             </div>
@@ -272,8 +277,14 @@ export default function AgentGrid({
                 >
                   {/* Card Background & Clip Container */}
                   <div
-                    className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 transition-all duration-200 group-hover:border-val-teal/80 group-hover:shadow-[0_12px_30px_rgba(23,232,180,0.15)]"
-                    style={{ background: cardBg }}
+                    className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 transition-all duration-200 group-hover:border-[var(--agent-accent)]/80 group-hover:shadow-[0_12px_30px_var(--agent-accent-shadow)]"
+                    style={
+                      {
+                        background: cardBg,
+                        "--agent-accent": primaryColor,
+                        "--agent-accent-shadow": `${primaryColor}26`,
+                      } as React.CSSProperties
+                    }
                   >
                     {/* Character background element */}
                     {agent.background && (
@@ -324,7 +335,7 @@ export default function AgentGrid({
 
                   {/* Agent Name & Details at the bottom */}
                   <div className="absolute inset-x-0 bottom-0 z-30 p-3 pointer-events-none">
-                    <p className="font-oswald text-lg font-bold uppercase tracking-wider text-white text-center group-hover:text-val-teal transition-colors">
+                    <p className="font-oswald text-lg font-bold uppercase tracking-wider text-white text-center group-hover:text-[var(--agent-accent)] transition-colors">
                       {agent.name}
                     </p>
                     {agent.roleName && (
