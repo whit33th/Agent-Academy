@@ -3,12 +3,11 @@
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { Agent, GameMap } from "@/lib/types";
+import type { Agent } from "@/lib/types";
 
 interface AgentGridProps {
   agents: Agent[];
   selectedMapSlug?: string;
-  selectedMap?: GameMap | null;
 }
 
 /**
@@ -191,11 +190,7 @@ const defaultConfig = {
   objectPosition: "center 8%",
 };
 
-export default function AgentGrid({
-  agents,
-  selectedMapSlug,
-  selectedMap,
-}: AgentGridProps) {
+export default function AgentGrid({ agents, selectedMapSlug }: AgentGridProps) {
   return (
     <LazyMotion features={domAnimation}>
       <m.div
@@ -203,41 +198,6 @@ export default function AgentGrid({
         animate={{ opacity: 1 }}
         transition={{ duration: 0.25 }}
       >
-        {/* Header */}
-        {selectedMap && (
-          <div className="mb-4 flex items-center gap-4">
-            {selectedMap.imageUrl && (
-              <div className="relative size-14 overflow-visible">
-                {/* Visible base cropped box */}
-                <div className="absolute inset-x-0 bottom-0 top-2 overflow-hidden clip-angular-sm bg-val-surface ring-1 ring-white/10" />
-                {/* Image wrapper allowing top overflow but side-clipping */}
-                <div className="absolute inset-x-0 bottom-0 top-0 overflow-hidden pointer-events-none z-10">
-                  <Image
-                    src={selectedMap.imageUrl}
-                    alt={selectedMap.name}
-                    width={100}
-                    height={100}
-                    className="object-cover object-center w-full h-full scale-110 -translate-y-[8%]"
-                  />
-                </div>
-              </div>
-            )}
-            <div className="flex h-full flex-col gap-1 justify-center">
-              <h2 className="font-oswald flex items-center gap-1 text-3xl font-semibold uppercase tracking-wider text-white md:text-4xl leading-[0.9]">
-                <span className="text-val-red inline-flex leading-none">
-                  //
-                </span>
-
-                <span>{selectedMap.name}</span>
-              </h2>
-
-              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.22em] text-white/35 leading-none">
-                Select agent
-              </p>
-            </div>
-          </div>
-        )}
-
         {/* High-fidelity Valorant Agent Select Screen Grid */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4 ">
           {agents.map((agent, i) => {

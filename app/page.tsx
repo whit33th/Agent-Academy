@@ -5,7 +5,7 @@ import {
   getScreenshots,
 } from "@/lib/data";
 import type { GameMap, Agent } from "@/lib/types";
-import BackButton from "@/components/BackButton";
+import MapHeader from "@/components/MapHeader";
 import MapGrid from "@/components/MapGrid";
 import AgentGrid from "@/components/AgentGrid";
 import LineupViewer from "@/components/LineupViewer";
@@ -55,23 +55,21 @@ export default async function Home({ searchParams }: PageProps) {
       // State 2: Map selected → show agent grid for this map
       const mapAgents = await getAgentsForMap(selectedMapId);
       const agentList = mapAgents.length > 0 ? mapAgents : agents;
-      content = (
-        <>
-          <BackButton href="/" />
-          <AgentGrid
-            agents={agentList}
-            selectedMapSlug={mapSlug}
-            selectedMap={selectedMap}
-          />
-        </>
-      );
+      content = <AgentGrid agents={agentList} selectedMapSlug={mapSlug} />;
     } else {
       // State 1: Nothing selected → show map grid
       content = <MapGrid maps={maps} agentCount={agents.length} />;
     }
 
+    const backHref = selectedAgentId ? `/?map=${mapSlug}` : "/";
+
     return (
-      <div className="min-h-screen bg-val-bg p-4 md:p-6 lg:p-8">{content}</div>
+      <div className="min-h-screen bg-val-bg p-4 md:p-6 lg:p-8">
+        {selectedMap && (
+          <MapHeader selectedMap={selectedMap} backHref={backHref} />
+        )}
+        {content}
+      </div>
     );
   } catch (error) {
     console.error("Data fetch error:", error);
