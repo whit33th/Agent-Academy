@@ -75,6 +75,16 @@ img {
   );
 }
 
+.clip-angular-sm-left {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+}
+
 .clip-angular-top {
   clip-path: polygon(0 12px, 12px 0, 100% 0, 100% 100%, 0 100%);
 }

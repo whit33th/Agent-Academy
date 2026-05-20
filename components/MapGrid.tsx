@@ -18,22 +18,6 @@ export default function MapGrid({ maps, agentCount }: MapGridProps) {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.25 }}
       >
-        {/* Hero header */}
-        <div>
-          <div className="mb-4 inline-flex items-center gap-2 rounded-sm bg-white/3 px-4 py-1.5 ring-1 ring-white/6">
-            <div className="size-1.5 rounded-full bg-val-red animate-pulse" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">
-              Tactical Reference
-            </span>
-          </div>
-          <h1 className="font-oswald mb-5.5 text-5xl font-bold uppercase leading-none tracking-tight text-white md:text-7xl">
-            Select <span className="text-val-red">Map</span>
-          </h1>
-          {/* <p className="my-3 max-w-lg text-sm leading-relaxed text-white/30 md:text-base">
-            Matchmaking: {maps.length} maps
-          </p> */}
-        </div>
-
         {/* Map grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {maps.map((map, i: number) => {

@@ -6,11 +6,84 @@ import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import type { Agent, GameMap, Screenshot } from "@/lib/types";
 import ScreenshotLightbox from "./ScreenshotLightbox";
+import { LayoutGrid } from "lucide-react";
 
 interface LineupViewerProps {
   screenshots: Screenshot[];
   agent: Agent;
   map: GameMap;
+}
+
+// Helper to match screenshots to specific abilities by mapping slots, types, and keywords
+function matchScreenshotToAbility(screenshot: Screenshot, ability: any, agentName: string): boolean {
+  const title = (screenshot.title || "").toLowerCase();
+  const abilityType = (screenshot.abilityType || "").toLowerCase();
+  const abilityName = (ability.displayName || "").toLowerCase();
+  const slot = (ability.slot || "").toLowerCase();
+
+  // Ultimate slot check
+  if (slot === "ultimate" || abilityName.includes("ultimate")) {
+    return (
+      abilityType === "ultimate" ||
+      title.includes("ult") ||
+      title.includes("ultimate") ||
+      title.includes(abilityName)
+    );
+  }
+
+  const agent = agentName.toLowerCase();
+
+  if (agent === "killjoy") {
+    if (abilityName.includes("nanoswarm") || slot === "grenade") {
+      return (
+        abilityType === "molly" ||
+        title.includes("molly") ||
+        title.includes("nanoswarm") ||
+        title.includes("granade") ||
+        title.includes("grenade") ||
+        title.includes("swarm")
+      );
+    }
+    if (abilityName.includes("turret") || slot === "ability2") {
+      return title.includes("turret") || title.includes("turet");
+    }
+    if (abilityName.includes("alarmbot") || slot === "ability1") {
+      return title.includes("alarm") || title.includes("bot");
+    }
+  }
+
+  if (agent === "viper") {
+    if (abilityName.includes("toxic screen") || slot === "ability2") {
+      return (
+        abilityType === "wall" ||
+        title.includes("wall") ||
+        title.includes("screen") ||
+        title.includes("toxic screen")
+      );
+    }
+    if (abilityName.includes("poison cloud") || slot === "ability1") {
+      return (
+        title.includes("cloud") ||
+        title.includes("orb") ||
+        title.includes("smoke") ||
+        title.includes("poison") ||
+        title.includes("cloud")
+      );
+    }
+    if (abilityName.includes("snake bite") || slot === "grenade") {
+      return title.includes("bite") || title.includes("snake") || title.includes("molly");
+    }
+  }
+
+  // Generic keyword matching
+  const keywords = abilityName.split(" ");
+  for (const keyword of keywords) {
+    if (keyword.length > 3 && title.includes(keyword)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export default function LineupViewer({
@@ -19,7 +92,8 @@ export default function LineupViewer({
   map,
 }: LineupViewerProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [selectedAbilityIdx, setSelectedAbilityIdx] = useState(0);
+  const [selectedAbilityIdx, setSelectedAbilityIdx] = useState<number>(-1); // -1 means "All"
+  const [selectedSide, setSelectedSide] = useState<"all" | "atk" | "def">("all");
 
   const roleName = agent?.roleName ?? "";
   const roleIcon = agent?.roleIcon;
@@ -30,19 +104,62 @@ export default function LineupViewer({
     ? `#${gradientColors[0].slice(0, 6)}`
     : "#ff4655";
 
-  const selectedAbility = abilities[selectedAbilityIdx];
-  const mapSlug = map?.slug?.current || map?._id || "";
+  const selectedAbility = selectedAbilityIdx !== -1 ? abilities[selectedAbilityIdx] : null;
+
+  // Filter screenshots based on selected Side (ATK/DEF) and Ability Type
+  const filteredScreenshots = screenshots.filter((screenshot) => {
+    // 1. Filter by Side
+    if (selectedSide !== "all") {
+      const title = (screenshot.title || "").toLowerCase();
+      const isAtk = title.includes("atk") || title.includes("attack");
+      const isDef = title.includes("def") || title.includes("defense") || title.includes("retake");
+      if (selectedSide === "atk" && !isAtk) return false;
+      if (selectedSide === "def" && !isDef) return false;
+    }
+
+    // 2. Filter by Ability
+    if (selectedAbilityIdx !== -1) {
+      const ability = abilities[selectedAbilityIdx];
+      if (!ability) return true;
+      return matchScreenshotToAbility(screenshot, ability, agent?.name || "");
+    }
+
+    return true;
+  });
 
   return (
     <LazyMotion features={domAnimation}>
       <div className="flex flex-col">
         {/* Main content */}
         <div className="flex flex-1 flex-col gap-6 lg:flex-row">
-          {/* Left — Screenshots grid */}
+          {/* Left — Screenshots grid & side filters */}
           <div className="flex-1 min-w-0">
-            {screenshots.length > 0 ? (
+            {/* Side Tabs Selector */}
+            <div className="mb-5 flex items-center justify-between border-b border-white/5 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-white/40 mr-2">Side:</span>
+                {(["all", "atk", "def"] as const).map((side) => (
+                  <button
+                    key={side}
+                    onClick={() => setSelectedSide(side)}
+                    className={`px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider transition-all border ${
+                      selectedSide === side
+                        ? "border-val-red/30 bg-val-red/10 text-val-red"
+                        : "border-white/5 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    {side === "all" ? "All" : side === "atk" ? "Attack (ATK)" : "Defense (DEF)"}
+                  </button>
+                ))}
+              </div>
+              <div className="text-xs text-white/30 font-medium">
+                Showing {filteredScreenshots.length} of {screenshots.length} setups
+              </div>
+            </div>
+
+            {filteredScreenshots.length > 0 ? (
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3">
-                {screenshots.map((screenshot, i) => (
+                {filteredScreenshots.map((screenshot, i) => (
                   <m.div
                     key={screenshot._id}
                     initial={{ opacity: 0, y: 20 }}
@@ -69,11 +186,6 @@ export default function LineupViewer({
                         <p className="text-sm font-medium text-white truncate">
                           {screenshot.title}
                         </p>
-                        {/* {screenshot.abilityType && (
-                          <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-val-red/70">
-                            {screenshot.abilityType}
-                          </p>
-                        )} */}
                       </div>
                     </button>
                   </m.div>
@@ -85,10 +197,10 @@ export default function LineupViewer({
                   <span className="text-2xl text-white/20">?</span>
                 </div>
                 <p className="text-sm font-medium text-white/40">
-                  No lineups yet for this combo.
+                  No matching setups found.
                 </p>
                 <p className="mt-1 text-xs text-white/20">
-                  Add screenshots in Sanity Studio.
+                  Try changing your filters or adding screenshots.
                 </p>
               </div>
             )}
@@ -153,71 +265,103 @@ export default function LineupViewer({
               )}
 
               {/* Abilities */}
-              {abilities.length > 0 && (
-                <div className="mt-2">
-                  <div className="mb-3 flex items-center gap-2">
-                    {abilities.map(
-                      (ability, idx) =>
-                        ability.displayIcon && (
-                          <button
-                            key={ability.slot || idx}
-                            onClick={() => setSelectedAbilityIdx(idx)}
-                            className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-all ${
-                              idx === selectedAbilityIdx
-                                ? "border-white/40 bg-white/10"
-                                : "border-white/10 bg-white/5 opacity-60 hover:opacity-100"
-                            }`}
-                          >
-                            <Image
-                              src={ability.displayIcon}
-                              alt={ability.displayName}
-                              width={22}
-                              height={22}
-                              className="object-contain"
-                            />
-                            {idx === selectedAbilityIdx && (
-                              <div
-                                className="absolute -bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full"
-                                style={{ backgroundColor: accentColor }}
-                              />
-                            )}
-                          </button>
-                        ),
+              <div className="mt-2">
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-white/40">
+                  Abilities Filter:
+                </p>
+                <div className="mb-4 flex items-center gap-2 flex-wrap">
+                  {/* All Abilities Button */}
+                  <button
+                    onClick={() => setSelectedAbilityIdx(-1)}
+                    className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-all ${
+                      selectedAbilityIdx === -1
+                        ? "border-val-red bg-val-red/10 text-val-red"
+                        : "border-white/10 bg-white/5 text-white/40 hover:text-white hover:opacity-100"
+                    }`}
+                    title="Show all abilities"
+                  >
+                    <LayoutGrid size={16} />
+                    {selectedAbilityIdx === -1 && (
+                      <div
+                        className="absolute -bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full"
+                        style={{ backgroundColor: accentColor }}
+                      />
                     )}
-                  </div>
-                  {selectedAbility && (
-                    <div>
-                      <p
-                        className="mb-1 text-xs font-bold uppercase tracking-wider"
-                        style={{ color: accentColor }}
-                      >
-                        {selectedAbility.displayName}
-                      </p>
-                      <p className="text-xs leading-relaxed text-white/40">
-                        {selectedAbility.description}
-                      </p>
-                    </div>
+                  </button>
+
+                  {abilities.map(
+                    (ability, idx) =>
+                      ability.displayIcon && (
+                        <button
+                          key={ability.slot || idx}
+                          onClick={() => setSelectedAbilityIdx(idx)}
+                          className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-all ${
+                            idx === selectedAbilityIdx
+                              ? "border-white/40 bg-white/10"
+                              : "border-white/10 bg-white/5 opacity-60 hover:opacity-100"
+                          }`}
+                          title={ability.displayName}
+                        >
+                          <Image
+                            src={ability.displayIcon}
+                            alt={ability.displayName}
+                            width={22}
+                            height={22}
+                            className="object-contain"
+                          />
+                          {idx === selectedAbilityIdx && (
+                            <div
+                              className="absolute -bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full"
+                              style={{ backgroundColor: accentColor }}
+                            />
+                          )}
+                        </button>
+                      ),
                   )}
                 </div>
-              )}
+                {selectedAbility ? (
+                  <div>
+                    <p
+                      className="mb-1 text-xs font-bold uppercase tracking-wider"
+                      style={{ color: accentColor }}
+                    >
+                      {selectedAbility.displayName}
+                    </p>
+                    <p className="text-xs leading-relaxed text-white/40">
+                      {selectedAbility.description}
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <p
+                      className="mb-1 text-xs font-bold uppercase tracking-wider text-white/60"
+                    >
+                      All Setups
+                    </p>
+                    <p className="text-xs leading-relaxed text-white/40">
+                      Showing setups for all abilities. Select an icon above to filter.
+                    </p>
+                  </div>
+                )}
+              </div>
             </m.div>
           </div>
         </div>
 
         <ScreenshotLightbox
-          screenshots={screenshots}
+          screenshots={filteredScreenshots}
           currentIndex={lightboxIndex ?? 0}
           isOpen={lightboxIndex !== null}
           onClose={() => setLightboxIndex(null)}
           onNext={() =>
             setLightboxIndex((prev) =>
-              prev !== null ? (prev + 1) % screenshots.length : 0,
+              prev !== null ? (prev + 1) % filteredScreenshots.length : 0,
             )
           }
           onPrev={() =>
             setLightboxIndex((prev) =>
               prev !== null
-                ? (prev - 1 + screenshots.length) % screenshots.length
+                ? (prev - 1 + filteredScreenshots.length) % filteredScreenshots.length
                 : 0,
             )
           }
