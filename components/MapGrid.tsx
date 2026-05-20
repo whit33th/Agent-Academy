@@ -250,11 +250,12 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div onClick={() => { setIsModalOpen(false); setSearchQuery(""); setError(null); }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm cursor-pointer">
           <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-4xl overflow-hidden bg-val-surface border border-white/10 clip-angular"
+            className="w-full max-w-4xl overflow-hidden bg-val-surface border border-white/10 clip-angular cursor-default"
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/5">
@@ -351,11 +352,12 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
 
       {/* Map Actions Modal */}
       {selectedMapForModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div onClick={() => setSelectedMapForModal(null)} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm cursor-pointer">
           <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-sm bg-val-surface border border-white/10 clip-angular overflow-hidden"
+            className="w-full max-w-sm bg-val-surface border border-white/10 clip-angular overflow-hidden cursor-default"
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/5">

@@ -144,8 +144,8 @@ export default function LiveSyncStatus() {
 
       {/* Help Modal */}
       {isHelpModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm pointer-events-auto">
-          <div className="w-full max-w-md bg-val-surface border border-white/10 clip-angular overflow-hidden p-6 flex flex-col gap-5">
+        <div onClick={() => setIsHelpModalOpen(false)} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm pointer-events-auto cursor-pointer">
+          <div onClick={(e) => e.stopPropagation()} className="w-full max-w-md bg-val-surface border border-white/10 clip-angular overflow-hidden p-6 flex flex-col gap-5 cursor-default">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <h3 className="font-oswald text-lg font-bold uppercase tracking-wider text-white flex items-center gap-2">

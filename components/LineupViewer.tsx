@@ -786,11 +786,12 @@ export default function LineupViewer({
 
         {/* Upload Screenshot Modal */}
         {isUploadModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto" data-lenis-prevent>
+          <div onClick={() => { setIsUploadModalOpen(false); setImageFile(null); setImagePreview(null); setUploadError(null); }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto cursor-pointer" data-lenis-prevent>
             <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-lg bg-val-surface border border-white/10 clip-angular my-8"
+              className="w-full max-w-lg bg-val-surface border border-white/10 clip-angular my-8 cursor-default"
+              onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
               <div className="flex items-center justify-between p-4 border-b border-white/5">
@@ -989,11 +990,12 @@ export default function LineupViewer({
 
         {/* Edit Screenshot Modal */}
         {isEditModalOpen && editingScreenshot && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto" data-lenis-prevent>
+          <div onClick={() => { setIsEditModalOpen(false); setEditingScreenshot(null); setEditImageFile(null); setEditImagePreview(null); setEditError(null); }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto cursor-pointer" data-lenis-prevent>
             <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-lg bg-val-surface border border-white/10 clip-angular my-8"
+              className="w-full max-w-lg bg-val-surface border border-white/10 clip-angular my-8 cursor-default"
+              onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
               <div className="flex items-center justify-between p-4 border-b border-white/5">

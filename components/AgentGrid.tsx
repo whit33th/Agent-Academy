@@ -1141,11 +1141,12 @@ export default function AgentGrid({
 
       {/* Add Agent Modal */}
       {isAddAgentModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm pointer-events-auto">
+        <div onClick={() => { setIsAddAgentModalOpen(false); setAgentSearchQuery(""); setAddAgentError(null); }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm pointer-events-auto cursor-pointer">
           <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md overflow-hidden bg-val-surface border border-white/10 clip-angular"
+            className="w-full max-w-md overflow-hidden bg-val-surface border border-white/10 clip-angular cursor-default"
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/5">
@@ -1228,11 +1229,12 @@ export default function AgentGrid({
 
       {/* Agent Actions Modal */}
       {selectedAgentForModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div onClick={() => setSelectedAgentForModal(null)} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm cursor-pointer">
           <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-sm bg-val-surface border border-white/10 clip-angular overflow-hidden"
+            className="w-full max-w-sm bg-val-surface border border-white/10 clip-angular overflow-hidden cursor-default"
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/5">
