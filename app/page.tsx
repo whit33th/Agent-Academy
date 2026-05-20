@@ -116,7 +116,7 @@ export default async function Home({ searchParams }: PageProps) {
                   
                 </div>
                 {/* Brand Text styled like the sync badge */}
-                <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-val-red drop-shadow-[0_0_8px_rgba(255,70,85,0.5)]">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground/70 drop-shadow-[0_0_8px_rgba(255,70,85,0.5)]">
                   Agent Academy
                 </span>
               </div>
