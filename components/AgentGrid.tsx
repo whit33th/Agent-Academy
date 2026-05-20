@@ -846,7 +846,7 @@ export default function AgentGrid({
                   />
                   {/* Viability tag */}
                   {viability && (
-                    <div className="absolute right-2.5 top-7.5 z-40 flex size-10 items-center justify-center select-none filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                    <div className="absolute right-1/2 translate-x-1/2 bottom-16 z-40 flex size-10 items-center justify-center select-none filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.83)]">
                       <Image
                         src={`/ranks/${viability.toLowerCase()}.png`}
                         alt={`${viability} Rank`}
