@@ -139,13 +139,10 @@ export async function getEnrichedMaps(): Promise<GameMap[]> {
  * Optional viability from mapAgentMeta is merged in.
  */
 export async function getAgentsForMap(mapId: string): Promise<Agent[]> {
-  const [allAgents, agentRefs, mapAgentsMeta] = await Promise.all([
+  const [allAgents, mapAgentsMeta] = await Promise.all([
     getEnrichedAgents(),
-    getCachedAgentRefsByMap(mapId),
     getCachedAgentsByMap(mapId),
   ]);
-
-  const uniqueAgentRefs = new Set(agentRefs);
 
   // Build a quick lookup for viability from mapAgentMeta
   const metaByAgentId = new Map<
@@ -160,17 +157,14 @@ export async function getAgentsForMap(mapId: string): Promise<Agent[]> {
     });
   }
 
-  // Only keep agents that actually have screenshots on this map
-  return allAgents
-    .filter((agent) => uniqueAgentRefs.has(agent._id))
-    .map((agent) => {
-      const meta = metaByAgentId.get(agent._id);
-      return {
-        ...agent,
-        viability: meta?.viability ?? null,
-        notes: meta?.notes ?? null,
-      };
-    });
+  return allAgents.map((agent) => {
+    const meta = metaByAgentId.get(agent._id);
+    return {
+      ...agent,
+      viability: meta?.viability ?? null,
+      notes: meta?.notes ?? null,
+    };
+  });
 }
 
 /** Get screenshots for a map+agent combo. */
@@ -180,3 +174,73 @@ export async function getScreenshots(
 ): Promise<Screenshot[]> {
   return getCachedScreenshots(mapId, agentId);
 }
+
+/** Get list of maps that are in Valorant API but not in Sanity. */
+export async function getUnaddedMaps(): Promise<ValorantMap[]> {
+  const [sanityMaps, assets] = await Promise.all([
+    getCachedMaps(),
+    getCachedValorantAssets(),
+  ]);
+  const sanityMapNames = new Set(
+    sanityMaps.map((m: any) =>
+      (m.name || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+    ),
+  );
+  return Object.values(assets.maps).filter(
+    (m) =>
+      !sanityMapNames.has(
+        (m.displayName || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+      ),
+  );
+}
+
+/** Get all playable agents from Valorant API formatted as Agent objects. */
+export async function getAllApiAgents(): Promise<Agent[]> {
+  const assets = await getCachedValorantAssets();
+  return Object.values(assets.agents).map((apiAgent) => ({
+    _id: apiAgent.uuid,
+    slug: {
+      current: (apiAgent.displayName || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, ""),
+    },
+    name: apiAgent.displayName,
+    roleName: apiAgent.role?.displayName || "",
+    roleIcon: apiAgent.role?.displayIcon || null,
+    imageUrl: apiAgent.fullPortrait || apiAgent.displayIcon || null,
+    fullPortraitV2: apiAgent.fullPortraitV2 || null,
+    bustPortrait: apiAgent.bustPortrait || null,
+    displayIcon: apiAgent.displayIcon || null,
+    background: apiAgent.background || null,
+    backgroundGradientColors: apiAgent.backgroundGradientColors || [],
+    description: apiAgent.description || null,
+    abilities: (apiAgent.abilities || []).map((ab) => ({
+      slot: ab.slot,
+      displayName: ab.displayName,
+      description: ab.description,
+      displayIcon: ab.displayIcon || null,
+    })),
+  }));
+}
+
+/** Get list of agents that are in Valorant API but not in Sanity. */
+export async function getUnaddedAgents(): Promise<ValorantAgent[]> {
+  const [sanityAgents, assets] = await Promise.all([
+    getCachedAgents(),
+    getCachedValorantAssets(),
+  ]);
+  const sanityAgentNames = new Set(
+    sanityAgents.map((a: any) =>
+      (a.name || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+    ),
+  );
+  return Object.values(assets.agents).filter(
+    (a) =>
+      !sanityAgentNames.has(
+        (a.displayName || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+      ),
+  );
+}
+
+
+

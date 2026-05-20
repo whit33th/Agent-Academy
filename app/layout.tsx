@@ -15,9 +15,9 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "Valorant Lineups",
+  title: "Agent Academy",
   description:
-    "Personal lineup reference for Valorant — browse agents, maps, and tactical screenshots.",
+    "Agent Academy — browse Valorant agents, maps, and tactical lineups.",
 };
 
 export default function RootLayout({

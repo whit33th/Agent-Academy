@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import type { Agent, GameMap, Screenshot } from "@/lib/types";
 import ScreenshotLightbox from "./ScreenshotLightbox";
-import { LayoutGrid } from "lucide-react";
+import { LayoutGrid, Plus, X, Loader2, Upload, Pencil, Trash2 } from "lucide-react";
 
 interface LineupViewerProps {
   screenshots: Screenshot[];
@@ -86,6 +86,67 @@ function matchScreenshotToAbility(screenshot: Screenshot, ability: any, agentNam
   return false;
 }
 
+const getSlotKey = (slot: string): string => {
+  const s = slot.toLowerCase();
+  if (s.includes("ability1")) return "Q";
+  if (s.includes("ability2")) return "E";
+  if (s.includes("grenade")) return "C";
+  if (s.includes("ultimate")) return "X";
+  if (s.includes("passive")) return "Passive";
+  return slot;
+};
+
+function mapAbilityToGenericType(
+  slot: string,
+  displayName: string,
+  description: string
+): string {
+  const name = (displayName || "").toLowerCase();
+  const desc = (description || "").toLowerCase();
+  const s = (slot || "").toLowerCase();
+
+  if (s === "ultimate") return "ultimate";
+
+  if (
+    name.includes("smoke") || name.includes("cloud") || name.includes("nebula") ||
+    desc.includes("smoke") || desc.includes("cloud") || desc.includes("block vision")
+  ) {
+    return "smoke";
+  }
+  if (
+    name.includes("wall") || name.includes("barrier") || name.includes("screen") ||
+    desc.includes("wall") || desc.includes("barrier") || desc.includes("screen")
+  ) {
+    return "wall";
+  }
+  if (
+    name.includes("flash") || name.includes("blind") || name.includes("guiding light") || name.includes("flashbang") ||
+    desc.includes("flash") || desc.includes("blind")
+  ) {
+    return "flash";
+  }
+  if (
+    name.includes("molly") || name.includes("swarm") || name.includes("grenade") || name.includes("bite") || name.includes("incendiary") || name.includes("fire") ||
+    desc.includes("molly") || desc.includes("swarm") || desc.includes("grenade") || desc.includes("burning") || desc.includes("damage over time")
+  ) {
+    return "molly";
+  }
+  if (
+    name.includes("recon") || name.includes("scan") || name.includes("reveal") || name.includes("sensor") || name.includes("dart") || name.includes("drone") || name.includes("camera") || name.includes("spy") ||
+    desc.includes("scan") || desc.includes("reveal") || desc.includes("detect") || desc.includes("sonar")
+  ) {
+    return "recon";
+  }
+  if (
+    name.includes("heal") || name.includes("support") || name.includes("revive") ||
+    desc.includes("heal") || desc.includes("revive") || desc.includes("health")
+  ) {
+    return "heal";
+  }
+
+  return "other";
+}
+
 export default function LineupViewer({
   screenshots,
   agent,
@@ -94,6 +155,224 @@ export default function LineupViewer({
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [selectedAbilityIdx, setSelectedAbilityIdx] = useState<number>(-1); // -1 means "All"
   const [selectedSide, setSelectedSide] = useState<"all" | "atk" | "def">("all");
+
+  // Upload screenshot states
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [selectedAbilitySlot, setSelectedAbilitySlot] = useState("");
+  const [title, setTitle] = useState("");
+  const [descriptionText, setDescriptionText] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  // Edit screenshot states
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingScreenshot, setEditingScreenshot] = useState<Screenshot | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editAbilitySlot, setEditAbilitySlot] = useState("");
+  const [editImageFile, setEditImageFile] = useState<File | null>(null);
+  const [editImagePreview, setEditImagePreview] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editError, setEditError] = useState<string | null>(null);
+
+  const handleEditClick = (screenshot: Screenshot) => {
+    setEditingScreenshot(screenshot);
+    setEditTitle(screenshot.title || "");
+    setEditDescription(screenshot.description || "");
+    
+    // Reverse map abilityType (e.g. "smoke", "molly") to a slot if possible
+    const matchingAbility = agent.abilities?.find(
+      (a) => mapAbilityToGenericType(a.slot, a.displayName || "", a.description || "") === screenshot.abilityType
+    );
+    setEditAbilitySlot(matchingAbility?.slot || agent.abilities?.[0]?.slot || "");
+    setEditImagePreview(screenshot.image ? urlFor(screenshot.image).url() : null);
+    setEditImageFile(null);
+    setEditError(null);
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setEditImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setEditImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingScreenshot) return;
+    if (!editTitle) {
+      setEditError("Title is required.");
+      return;
+    }
+    if (!editAbilitySlot) {
+      setEditError("Ability is required.");
+      return;
+    }
+
+    setIsEditing(true);
+    setEditError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("screenshotId", editingScreenshot._id);
+      formData.append("title", editTitle);
+      formData.append("description", editDescription);
+
+      const selectedAbilityObj = agent.abilities?.find(
+        (a) => a.slot === editAbilitySlot
+      );
+      const genericType = mapAbilityToGenericType(
+        editAbilitySlot,
+        selectedAbilityObj?.displayName || "",
+        selectedAbilityObj?.description || ""
+      );
+      formData.append("abilityType", genericType);
+
+      if (editImageFile) {
+        formData.append("image", editImageFile);
+      }
+
+      const res = await fetch("/api/edit-screenshot", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to edit setup.");
+      }
+
+      setIsEditModalOpen(false);
+      setEditingScreenshot(null);
+      setEditImageFile(null);
+      setEditImagePreview(null);
+      setEditTitle("");
+      setEditDescription("");
+      window.location.reload();
+    } catch (err: any) {
+      console.error(err);
+      setEditError(err.message || "Error editing setup.");
+    } finally {
+      setIsEditing(false);
+    }
+  };
+
+  const handleDeleteScreenshot = async (screenshotId: string) => {
+    if (!confirm("Are you sure you want to delete this setup?")) return;
+
+    try {
+      const res = await fetch("/api/delete-screenshot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ screenshotId }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete setup");
+      }
+      window.location.reload();
+    } catch (err: any) {
+      alert(err.message || "An error occurred");
+    }
+  };
+
+  // Pre-select first ability when component mounts or agent changes
+  useEffect(() => {
+    if (agent?.abilities && agent.abilities.length > 0) {
+      setSelectedAbilitySlot(agent.abilities[0].slot);
+    } else {
+      setSelectedAbilitySlot("");
+    }
+  }, [agent]);
+
+  // Lock body scroll when upload or edit modal is open
+  useEffect(() => {
+    if (isUploadModalOpen || isEditModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isUploadModalOpen, isEditModalOpen]);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUploadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!imageFile) {
+      setUploadError("Please upload a screenshot.");
+      return;
+    }
+    if (!selectedAbilitySlot) {
+      setUploadError("Please select an ability.");
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("agentSlug", agent.slug?.current || agent._id);
+      formData.append("mapSlug", map.slug?.current || map._id);
+      formData.append("title", title);
+      formData.append("description", descriptionText);
+
+      // Find the display name/description of the selected ability to do smart mapping
+      const selectedAbilityObj = agent.abilities?.find(
+        (a) => a.slot === selectedAbilitySlot
+      );
+      const genericType = mapAbilityToGenericType(
+        selectedAbilitySlot,
+        selectedAbilityObj?.displayName || "",
+        selectedAbilityObj?.description || ""
+      );
+      formData.append("abilityType", genericType);
+      formData.append("image", imageFile);
+
+      const res = await fetch("/api/upload-screenshot", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to upload setup.");
+      }
+
+      setIsUploadModalOpen(false);
+      setImageFile(null);
+      setImagePreview(null);
+      setTitle("");
+      setDescriptionText("");
+      window.location.reload();
+    } catch (err: any) {
+      console.error(err);
+      setUploadError(err.message || "Error uploading setup.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const roleName = agent?.roleName ?? "";
   const roleIcon = agent?.roleIcon;
@@ -135,9 +414,8 @@ export default function LineupViewer({
           {/* Left — Screenshots grid & side filters */}
           <div className="flex-1 min-w-0">
             {/* Side Tabs Selector */}
-            <div className="mb-5 flex items-center justify-between border-b border-white/5 pb-3">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-3">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-white/40 mr-2">Side:</span>
                 {(["all", "atk", "def"] as const).map((side) => (
                   <button
                     key={side}
@@ -148,12 +426,21 @@ export default function LineupViewer({
                         : "border-white/5 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white"
                     }`}
                   >
-                    {side === "all" ? "All" : side === "atk" ? "Attack (ATK)" : "Defense (DEF)"}
+                    {side === "all" ? "All" : side === "atk" ? "Attack" : "Defense"}
                   </button>
                 ))}
               </div>
-              <div className="text-xs text-white/30 font-medium">
-                Showing {filteredScreenshots.length} of {screenshots.length} setups
+              <div className="flex items-center gap-4">
+                <div className="text-xs text-white/30 font-medium hidden sm:block">
+                  Showing {filteredScreenshots.length} of {screenshots.length} setups
+                </div>
+                <button
+                  onClick={() => setIsUploadModalOpen(true)}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white hover:bg-white/90 text-black text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:scale-[1.02] cursor-pointer"
+                >
+                  <Plus size={14} className="stroke-[3]" />
+                  Add Setup
+                </button>
               </div>
             </div>
 
@@ -166,28 +453,54 @@ export default function LineupViewer({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.02, duration: 0.25 }}
                   >
-                    <button
-                      onClick={() => setLightboxIndex(i)}
-                      className="val-card group block w-full clip-angular bg-val-surface text-left"
-                    >
-                      <div className="relative aspect-video w-full bg-val-bg">
-                        <Image
-                          src={urlFor(screenshot.image)
-                            .width(800)
-                            .height(450)
-                            .url()}
-                          alt={screenshot.title}
-                          fill
-                          className="object-contain transition-filter duration-75 group-hover:brightness-110"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        />
+                    <div className="val-card group relative block w-full clip-angular bg-val-surface text-left">
+                      <button
+                        onClick={() => setLightboxIndex(i)}
+                        className="block w-full text-left cursor-pointer"
+                      >
+                        <div className="relative aspect-video w-full bg-val-bg">
+                          <Image
+                            src={urlFor(screenshot.image)
+                              .width(800)
+                              .height(450)
+                              .url()}
+                            alt={screenshot.title}
+                            fill
+                            className="object-contain transition-filter duration-75 group-hover:brightness-110"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          />
+                        </div>
+                        <div className="p-3">
+                          <p className="text-sm font-medium text-white truncate pr-16">
+                            {screenshot.title}
+                          </p>
+                        </div>
+                      </button>
+
+                      {/* Edit/Delete Overlay actions inside card */}
+                      <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEditClick(screenshot);
+                          }}
+                          className="flex size-7 items-center justify-center rounded-sm bg-white/10 hover:bg-white text-white hover:text-black transition-colors cursor-pointer"
+                          title="Edit setup"
+                        >
+                          <Pencil size={12} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteScreenshot(screenshot._id);
+                          }}
+                          className="flex size-7 items-center justify-center rounded-sm bg-white/10 hover:bg-val-red text-white hover:text-white transition-colors cursor-pointer"
+                          title="Delete setup"
+                        >
+                          <Trash2 size={12} />
+                        </button>
                       </div>
-                      <div className="p-3">
-                        <p className="text-sm font-medium text-white truncate">
-                          {screenshot.title}
-                        </p>
-                      </div>
-                    </button>
+                    </div>
                   </m.div>
                 ))}
               </div>
@@ -214,7 +527,7 @@ export default function LineupViewer({
               transition={{ duration: 0.25 }}
             >
               {/* Role */}
-              <div className="mb-2 flex items-center gap-2">
+              <div className=" lg:pb-3 h-[42px] flex items-center gap-2">
                 {roleIcon && (
                   <Image
                     src={roleIcon}
@@ -229,22 +542,45 @@ export default function LineupViewer({
                 </p>
               </div>
 
-              {/* Name */}
-              <h1
-                className="mb-3 font-oswald text-5xl brightness-155 font-bold uppercase leading-none"
-                style={{
-                  color: accentColor,
-                  textShadow: `0 0 40px ${accentColor}30`,
-                }}
-              >
-                {agent?.name}
-              </h1>
+              {/* Name & Delete */}
+              <div className="flex items-center justify-between gap-4 mb-3">
+                <h1
+                  className="font-oswald text-5xl brightness-170 font-bold uppercase leading-none"
+                  style={{
+                    color: accentColor,
+                    textShadow: `0 0 40px ${accentColor}30`,
+                  }}
+                >
+                  {agent?.name}
+                </h1>
+                <button
+                  onClick={async () => {
+                    if (confirm(`Are you sure you want to delete the agent "${agent?.name}"? This will also delete all of their screenshots.`)) {
+                      try {
+                        const res = await fetch("/api/delete-agent", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ agentId: agent._id }),
+                        });
+                        if (!res.ok) {
+                          const data = await res.json();
+                          throw new Error(data.error || "Failed to delete agent");
+                        }
+                        window.location.href = `/`;
+                      } catch (err: any) {
+                        alert(err.message || "An error occurred");
+                      }
+                    }
+                  }}
+                  className="flex size-8 items-center justify-center rounded-sm bg-white/5 border border-white/10 text-white/40 hover:border-val-red hover:bg-val-red/10 hover:text-val-red transition-colors cursor-pointer shrink-0"
+                  title={`Delete agent ${agent?.name}`}
+                >
+                  <Trash2 size={14} />
+                </button>
+              </div>
 
               {/* Description */}
-              <p
-                className="mb-5 text-sm leading-relaxed brightness-190"
-                style={{ color: `${accentColor}B1` }}
-              >
+              <p className="mb-5 text-sm leading-relaxed text-white/60 font-light">
                 {description}
               </p>
 
@@ -275,9 +611,18 @@ export default function LineupViewer({
                     onClick={() => setSelectedAbilityIdx(-1)}
                     className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-all ${
                       selectedAbilityIdx === -1
-                        ? "border-val-red bg-val-red/10 text-val-red"
+                        ? ""
                         : "border-white/10 bg-white/5 text-white/40 hover:text-white hover:opacity-100"
                     }`}
+                    style={
+                      selectedAbilityIdx === -1
+                        ? {
+                            borderColor: `${accentColor}50`,
+                            backgroundColor: `${accentColor}15`,
+                            color: accentColor,
+                          }
+                        : {}
+                    }
                     title="Show all abilities"
                   >
                     <LayoutGrid size={16} />
@@ -297,9 +642,17 @@ export default function LineupViewer({
                           onClick={() => setSelectedAbilityIdx(idx)}
                           className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-all ${
                             idx === selectedAbilityIdx
-                              ? "border-white/40 bg-white/10"
+                              ? ""
                               : "border-white/10 bg-white/5 opacity-60 hover:opacity-100"
                           }`}
+                          style={
+                            idx === selectedAbilityIdx
+                              ? {
+                                  borderColor: `${accentColor}50`,
+                                  backgroundColor: `${accentColor}15`,
+                                }
+                              : {}
+                          }
                           title={ability.displayName}
                         >
                           <Image
@@ -334,7 +687,8 @@ export default function LineupViewer({
                 ) : (
                   <div>
                     <p
-                      className="mb-1 text-xs font-bold uppercase tracking-wider text-white/60"
+                      className="mb-1 text-xs font-bold uppercase tracking-wider"
+                      style={{ color: accentColor }}
                     >
                       All Setups
                     </p>
@@ -366,6 +720,410 @@ export default function LineupViewer({
             )
           }
         />
+
+        {/* Upload Screenshot Modal */}
+        {isUploadModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto" data-lenis-prevent>
+            <m.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="w-full max-w-lg bg-val-surface border border-white/10 clip-angular my-8"
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 border-b border-white/5">
+                <div>
+                  <h3 className="font-oswald text-lg font-bold uppercase tracking-wider text-white">
+                    Add {agent?.name} Lineup
+                  </h3>
+                  
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsUploadModalOpen(false);
+                    setImageFile(null);
+                    setImagePreview(null);
+                    setUploadError(null);
+                  }}
+                  className="text-white/60 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <form onSubmit={handleUploadSubmit} className="p-4 flex flex-col gap-4">
+                {uploadError && (
+                  <div className="text-xs text-val-red bg-val-red/10 border border-val-red/20 p-2 rounded-sm">
+                    {uploadError}
+                  </div>
+                )}
+
+                {/* Ability Selector Grid */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                    Ability
+                  </label>
+                  {abilities && abilities.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {abilities.map((ability) => {
+                        const isSelected = selectedAbilitySlot === ability.slot;
+                        const keyBind = getSlotKey(ability.slot);
+
+                        return (
+                          <button
+                            key={ability.slot}
+                            type="button"
+                            onClick={() => setSelectedAbilitySlot(ability.slot)}
+                            className={`group relative flex flex-col items-center justify-center p-3 rounded-sm border transition-all cursor-pointer select-none text-center h-24 ${
+                              isSelected
+                                ? "border-val-red bg-val-red/10 text-white shadow-[0_0_15px_rgba(255,70,85,0.2)]"
+                                : "border-white/10 bg-white/5 text-white/60 hover:text-white hover:border-white/20"
+                            }`}
+                          >
+                            {/* Key Bind Badge */}
+                            <span className="absolute top-1.5 right-1.5 px-1 py-0.5 text-[9px] font-bold font-oswald bg-black/60 rounded-sm text-white/80 group-hover:text-white">
+                              {keyBind}
+                            </span>
+
+                            {/* Ability Icon */}
+                            {ability.displayIcon ? (
+                              <div className="relative size-8 mb-1.5 transition-transform duration-200 group-hover:scale-110">
+                                <Image
+                                  src={ability.displayIcon}
+                                  alt={ability.displayName}
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
+                            ) : (
+                              <div className="size-8 mb-1.5 flex items-center justify-center bg-white/5 rounded-sm">
+                                <span className="text-[10px] font-bold text-white/30">{keyBind}</span>
+                              </div>
+                            )}
+
+                            {/* Ability Name */}
+                            <span className="text-[10px] font-bold uppercase tracking-wider truncate w-full px-1">
+                              {ability.displayName}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="text-sm text-white/40 italic">
+                      No abilities found for this agent.
+                    </div>
+                  )}
+                </div>
+
+                {/* Title */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. A Site Default Plant Molly"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    className="w-full h-10 px-3 rounded-sm bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-val-red text-white"
+                  />
+                </div>
+
+                {/* Description */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                    Description / Notes
+                  </label>
+                  <textarea
+                    placeholder="Describe where to stand and where to aim..."
+                    value={descriptionText}
+                    onChange={(e) => setDescriptionText(e.target.value)}
+                    rows={3}
+                    className="w-full p-3 rounded-sm bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-val-red text-white resize-none"
+                  />
+                </div>
+
+                {/* Image Upload Area */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                    Screenshot
+                  </label>
+                  {imagePreview ? (
+                    <div className="relative aspect-video w-full rounded-sm overflow-hidden border border-white/10 group bg-black/40">
+                      <Image
+                        src={imagePreview}
+                        alt="Preview"
+                        fill
+                        className="object-contain"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setImageFile(null);
+                          setImagePreview(null);
+                        }}
+                        className="absolute top-2 right-2 p-1.5 rounded-full bg-black/70 hover:bg-val-red text-white transition-colors cursor-pointer"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-all">
+                      <div className="flex flex-col items-center gap-1 text-white/40">
+                        <Upload className="size-8 mb-1" />
+                        <span className="text-sm font-medium">Click to upload screenshot</span>
+                        <span className="text-[10px] text-white/30">PNG, JPG, WebP up to 10MB</span>
+                      </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="hidden"
+                        required
+                      />
+                    </label>
+                  )}
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center justify-end gap-3 mt-2 border-t border-white/5 pt-4">
+                  <button
+                    type="button"
+                    disabled={isUploading}
+                    onClick={() => {
+                      setIsUploadModalOpen(false);
+                      setImageFile(null);
+                      setImagePreview(null);
+                      setUploadError(null);
+                    }}
+                    className="px-4 h-10 rounded-sm hover:bg-white/5 text-sm text-white/60 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isUploading}
+                    className="px-6 h-10 rounded-sm bg-val-red hover:bg-val-red-hover text-white text-sm font-bold uppercase tracking-wider transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-2"
+                  >
+                    {isUploading ? (
+                      <>
+                        <Loader2 className="size-4 animate-spin" />
+                        Uploading...
+                      </>
+                    ) : (
+                      "Share Setup"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </m.div>
+          </div>
+        )}
+
+        {/* Edit Screenshot Modal */}
+        {isEditModalOpen && editingScreenshot && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto" data-lenis-prevent>
+            <m.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="w-full max-w-lg bg-val-surface border border-white/10 clip-angular my-8"
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 border-b border-white/5">
+                <div>
+                  <h3 className="font-oswald text-lg font-bold uppercase tracking-wider text-white">
+                    Edit Setup
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditModalOpen(false);
+                    setEditingScreenshot(null);
+                    setEditImageFile(null);
+                    setEditImagePreview(null);
+                    setEditError(null);
+                  }}
+                  className="text-white/60 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <form onSubmit={handleEditSubmit} className="p-4 flex flex-col gap-4">
+                {editError && (
+                  <div className="text-xs text-val-red bg-val-red/10 border border-val-red/20 p-2 rounded-sm">
+                    {editError}
+                  </div>
+                )}
+
+                {/* Ability Selector Grid */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                    Ability
+                  </label>
+                  {abilities && abilities.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {abilities.map((ability) => {
+                        const isSelected = editAbilitySlot === ability.slot;
+                        const keyBind = getSlotKey(ability.slot);
+
+                        return (
+                          <button
+                            key={ability.slot}
+                            type="button"
+                            onClick={() => setEditAbilitySlot(ability.slot)}
+                            className={`group relative flex flex-col items-center justify-center p-3 rounded-sm border transition-all cursor-pointer select-none text-center h-24 ${
+                              isSelected
+                                ? "border-val-red bg-val-red/10 text-white shadow-[0_0_15px_rgba(255,70,85,0.2)]"
+                                : "border-white/10 bg-white/5 text-white/60 hover:text-white hover:border-white/20"
+                            }`}
+                          >
+                            {/* Key Bind Badge */}
+                            <span className="absolute top-1.5 right-1.5 px-1 py-0.5 text-[9px] font-bold font-oswald bg-black/60 rounded-sm text-white/80 group-hover:text-white">
+                              {keyBind}
+                            </span>
+
+                            {/* Ability Icon */}
+                            {ability.displayIcon ? (
+                              <div className="relative size-8 mb-1.5 transition-transform duration-200 group-hover:scale-110">
+                                <Image
+                                  src={ability.displayIcon}
+                                  alt={ability.displayName}
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
+                            ) : (
+                              <div className="size-8 mb-1.5 flex items-center justify-center bg-white/5 rounded-sm">
+                                <span className="text-[10px] font-bold text-white/30">{keyBind}</span>
+                              </div>
+                            )}
+
+                            {/* Ability Name */}
+                            <span className="text-[10px] font-bold uppercase tracking-wider truncate w-full px-1">
+                              {ability.displayName}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="text-sm text-white/40 italic">
+                      No abilities found for this agent.
+                    </div>
+                  )}
+                </div>
+
+                {/* Title */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. A Site Default Plant Molly"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    required
+                    className="w-full h-10 px-3 rounded-sm bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-val-red text-white"
+                  />
+                </div>
+
+                {/* Description */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                    Description / Notes
+                  </label>
+                  <textarea
+                    placeholder="Describe where to stand and where to aim..."
+                    value={editDescription}
+                    onChange={(e) => setEditDescription(e.target.value)}
+                    rows={3}
+                    className="w-full p-3 rounded-sm bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-val-red text-white resize-none"
+                  />
+                </div>
+
+                {/* Image Upload Area */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                    Screenshot (Optional - leave blank to keep current)
+                  </label>
+                  {editImagePreview ? (
+                    <div className="relative aspect-video w-full rounded-sm overflow-hidden border border-white/10 group bg-black/40">
+                      <Image
+                        src={editImagePreview}
+                        alt="Preview"
+                        fill
+                        className="object-contain"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditImageFile(null);
+                          // Revert preview to original image or empty
+                          setEditImagePreview(editingScreenshot.image ? urlFor(editingScreenshot.image).url() : null);
+                        }}
+                        className="absolute top-2 right-2 p-1.5 rounded-full bg-black/70 hover:bg-val-red text-white transition-colors cursor-pointer"
+                        title="Remove chosen file"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-all">
+                      <div className="flex flex-col items-center gap-1 text-white/40">
+                        <Upload className="size-8 mb-1" />
+                        <span className="text-sm font-medium">Click to upload new screenshot</span>
+                        <span className="text-[10px] text-white/30">PNG, JPG, WebP up to 10MB</span>
+                      </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleEditImageChange}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center justify-end gap-3 mt-2 border-t border-white/5 pt-4">
+                  <button
+                    type="button"
+                    disabled={isEditing}
+                    onClick={() => {
+                      setIsEditModalOpen(false);
+                      setEditingScreenshot(null);
+                      setEditImageFile(null);
+                      setEditImagePreview(null);
+                      setEditError(null);
+                    }}
+                    className="px-4 h-10 rounded-sm hover:bg-white/5 text-sm text-white/60 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isEditing}
+                    className="px-6 h-10 rounded-sm bg-val-red hover:bg-val-red-hover text-white text-sm font-bold uppercase tracking-wider transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-2"
+                  >
+                    {isEditing ? (
+                      <>
+                        <Loader2 className="size-4 animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      "Save Changes"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </m.div>
+          </div>
+        )}
       </div>
     </LazyMotion>
   );

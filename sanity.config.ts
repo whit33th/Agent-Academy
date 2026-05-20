@@ -7,8 +7,8 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
 export default defineConfig({
-  name: "valorant-lineups",
-  title: "Valorant Lineups",
+  name: "agent-academy",
+  title: "Agent Academy",
   basePath: "/studio",
   projectId,
   dataset,

@@ -3,6 +3,9 @@ import {
   getEnrichedAgents,
   getAgentsForMap,
   getScreenshots,
+  getUnaddedMaps,
+  getAllApiAgents,
+  getUnaddedAgents,
 } from "@/lib/data";
 import type { GameMap, Agent } from "@/lib/types";
 import MapGrid from "@/components/MapGrid";
@@ -23,9 +26,12 @@ export default async function Home({ searchParams }: PageProps) {
   const agentSlug = params.agent;
 
   try {
-    const [maps, agents] = await Promise.all([
+    const [maps, agents, unaddedMaps, allApiAgents, unaddedAgents] = await Promise.all([
       getEnrichedMaps(),
       getEnrichedAgents(),
+      getUnaddedMaps(),
+      getAllApiAgents(),
+      getUnaddedAgents(),
     ]);
 
     // Resolve selections
@@ -54,14 +60,27 @@ export default async function Home({ searchParams }: PageProps) {
           map={selectedMap}
         />
       );
-    } else if (selectedMapId) {
+    } else if (selectedMapId && selectedMap) {
       // State 2: Map selected → show agent grid for this map
       const mapAgents = await getAgentsForMap(selectedMapId);
-      const agentList = mapAgents.length > 0 ? mapAgents : agents;
-      content = <AgentGrid agents={agentList} selectedMapSlug={mapSlug} />;
+      content = (
+        <AgentGrid
+          agents={mapAgents}
+          allAgents={allApiAgents}
+          unaddedAgents={unaddedAgents}
+          selectedMapSlug={mapSlug}
+          selectedMapName={selectedMap.name}
+        />
+      );
     } else {
       // State 1: Nothing selected → show map grid
-      content = <MapGrid maps={maps} agentCount={agents.length} />;
+      content = (
+        <MapGrid
+          maps={maps}
+          agentCount={agents.length}
+          unaddedMaps={unaddedMaps}
+        />
+      );
     }
 
     const backHref = selectedAgentId ? `/?map=${mapSlug}` : "/";

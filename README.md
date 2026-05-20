@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agent Academy
+
+A Next.js application designed to view and manage tactical lineups, map information, and character assets for Valorant.
 
 ## Getting Started
 

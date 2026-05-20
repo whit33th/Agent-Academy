@@ -36,15 +36,15 @@ export default function LiveSyncStatus() {
           const matchTs = data.timestamp;
           
           // Check if we already redirected for this specific match timestamp
-          const lastRedirected = sessionStorage.getItem("val_picker_last_redirected_ts");
+          const lastRedirected = sessionStorage.getItem("agent_academy_last_redirected_ts");
 
           if (currentMapSlug !== mapSlug && lastRedirected !== matchTs) {
             // Direct auto-redirect (only once per match timestamp)
-            sessionStorage.setItem("val_picker_last_redirected_ts", matchTs);
+            sessionStorage.setItem("agent_academy_last_redirected_ts", matchTs);
             router.push(`/?map=${mapSlug}`);
           } else if (currentMapSlug === mapSlug && lastRedirected !== matchTs) {
             // Acknowledge if already on the correct map
-            sessionStorage.setItem("val_picker_last_redirected_ts", matchTs);
+            sessionStorage.setItem("agent_academy_last_redirected_ts", matchTs);
           }
         }
       } catch (err) {

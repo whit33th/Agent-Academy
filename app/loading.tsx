@@ -1,15 +1,21 @@
 export default function Loading() {
   return (
     <div className="min-h-screen bg-val-bg p-4 md:p-6 lg:p-8">
-      {/* Header Skeleton */}
-      <div>
-        <div className="mb-4 inline-flex items-center gap-2 rounded-sm bg-white/3 px-4 py-1.5 ring-1 ring-white/6">
-          <div className="size-1.5 rounded-full bg-val-red animate-pulse" />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">
-            Tactical Reference
-          </span>
+      {/* Row 1: Symmetrical Top Navigation Bar Skeleton */}
+      <div className="flex flex-row justify-between items-center w-full mb-4">
+        <div>
+          <div className="inline-flex items-center gap-2 clip-angular-sm bg-white/6 px-4 h-9">
+            <div className="size-1.5 rounded-full bg-val-red animate-pulse" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">
+              Agent Academy
+            </span>
+          </div>
         </div>
-        <h1 className="font-oswald mb-5.5 text-5xl font-bold uppercase leading-none tracking-tight text-white md:text-7xl">
+      </div>
+
+      {/* Row 2: Page Content Title/Header Context Skeleton */}
+      <div className="mb-6">
+        <h1 className="font-oswald text-5xl font-bold uppercase leading-none tracking-tight text-white md:text-7xl">
           Select <span className="text-val-red">Map</span>
         </h1>
       </div>
