@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, useRef } from "react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -155,6 +155,58 @@ export default function LineupViewer({
 }: LineupViewerProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
+  const [selectedScreenshotForModal, setSelectedScreenshotForModal] = useState<Screenshot | null>(null);
+
+  const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isLongPressActive = useRef(false);
+  const startCoordsRef = useRef<{ x: number; y: number } | null>(null);
+
+  const handlePointerDown = (screenshot: Screenshot) => (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+
+    isLongPressActive.current = false;
+    startCoordsRef.current = { x: e.clientX, y: e.clientY };
+
+    longPressTimeoutRef.current = setTimeout(() => {
+      isLongPressActive.current = true;
+      setSelectedScreenshotForModal(screenshot);
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    }, 600);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!startCoordsRef.current || !longPressTimeoutRef.current) return;
+    const dx = e.clientX - startCoordsRef.current.x;
+    const dy = e.clientY - startCoordsRef.current.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance > 10) {
+      clearTimeout(longPressTimeoutRef.current);
+      longPressTimeoutRef.current = null;
+      startCoordsRef.current = null;
+    }
+  };
+
+  const handlePointerUpOrLeave = () => {
+    if (longPressTimeoutRef.current) {
+      clearTimeout(longPressTimeoutRef.current);
+      longPressTimeoutRef.current = null;
+    }
+    startCoordsRef.current = null;
+  };
+
+  const handleCardClick = (index: number) => (e: React.MouseEvent) => {
+    if (isLongPressActive.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      isLongPressActive.current = false;
+      return;
+    }
+    setLightboxIndex(index);
+  };
 
   const [localScreenshots, setLocalScreenshots] = useState<Screenshot[]>(screenshots);
   useEffect(() => {
@@ -478,7 +530,7 @@ export default function LineupViewer({
                   <button
                     key={side}
                     onClick={() => setSelectedSide(side)}
-                    className={`px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider transition-all border ${
+                    className={`px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider transition-colors border ${
                       selectedSide === side
                         ? "border-val-red/30 bg-val-red/10 text-val-red"
                         : "border-white/5 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white"
@@ -494,7 +546,7 @@ export default function LineupViewer({
                 </div>
                 <button
                   onClick={() => setIsUploadModalOpen(true)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white hover:bg-white/90 text-black text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:scale-[1.02] cursor-pointer"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white hover:bg-white/90 text-black text-xs font-bold uppercase tracking-wider transition-[background-color,box-shadow,scale] shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:scale-[1.02] cursor-pointer"
                 >
                   <Plus size={14} className="stroke-[3]" />
                   Add Setup
@@ -513,8 +565,13 @@ export default function LineupViewer({
                   >
                     <div className="val-card group relative block w-full clip-angular bg-val-surface text-left">
                       <button
-                        onClick={() => setLightboxIndex(i)}
-                        className="block w-full text-left cursor-pointer"
+                        onPointerDown={handlePointerDown(screenshot)}
+                        onPointerMove={handlePointerMove}
+                        onPointerUp={handlePointerUpOrLeave}
+                        onPointerCancel={handlePointerUpOrLeave}
+                        onPointerLeave={handlePointerUpOrLeave}
+                        onClick={handleCardClick(i)}
+                        className="block w-full text-left cursor-pointer select-none touch-pan-y touch-callout-none"
                       >
                         <div className="relative aspect-video w-full bg-val-bg">
                           <Image
@@ -533,35 +590,11 @@ export default function LineupViewer({
                           />
                         </div>
                         <div className="p-3">
-                          <p className="text-sm font-medium text-white truncate pr-16">
+                          <p className="text-sm font-medium text-white truncate pr-2">
                             {screenshot.title}
                           </p>
                         </div>
                       </button>
-
-                      {/* Edit/Delete Overlay actions inside card */}
-                      <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleEditClick(screenshot);
-                          }}
-                          className="flex size-7 items-center justify-center rounded-sm bg-white/10 hover:bg-white text-white hover:text-black transition-colors cursor-pointer"
-                          title="Edit setup"
-                        >
-                          <Pencil size={12} />
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDeleteScreenshot(screenshot._id);
-                          }}
-                          className="flex size-7 items-center justify-center rounded-sm bg-white/10 hover:bg-val-red text-white hover:text-white transition-colors cursor-pointer"
-                          title="Delete setup"
-                        >
-                          <Trash2 size={12} />
-                        </button>
-                      </div>
                     </div>
                   </m.div>
                 ))}
@@ -615,30 +648,7 @@ export default function LineupViewer({
                 >
                   {agent?.name}
                 </h1>
-                <button
-                  onClick={async () => {
-                    if (confirm(`Are you sure you want to delete the agent "${agent?.name}"? This will also delete all of their screenshots.`)) {
-                      try {
-                        const res = await fetch("/api/delete-agent", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ agentId: agent._id, mapId: map._id }),
-                        });
-                        if (!res.ok) {
-                          const data = await res.json();
-                          throw new Error(data.error || "Failed to delete agent");
-                        }
-                        router.push(map.slug?.current ? `/?map=${map.slug.current}` : "/");
-                      } catch (err: any) {
-                        alert(err.message || "An error occurred");
-                      }
-                    }
-                  }}
-                  className="flex size-8 items-center justify-center rounded-sm bg-white/5 border border-white/10 text-white/40 hover:border-val-red hover:bg-val-red/10 hover:text-val-red transition-colors cursor-pointer shrink-0"
-                  title={`Delete agent ${agent?.name}`}
-                >
-                  <Trash2 size={14} />
-                </button>
+                
               </div>
 
               {/* Description */}
@@ -672,7 +682,7 @@ export default function LineupViewer({
                   {/* All Abilities Button */}
                   <button
                     onClick={() => setSelectedAbilityIdx(-1)}
-                    className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-all ${
+                    className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-[border-color,background-color,color,opacity] ${
                       selectedAbilityIdx === -1
                         ? ""
                         : "border-white/10 bg-white/5 text-white/40 hover:text-white hover:opacity-100"
@@ -703,7 +713,7 @@ export default function LineupViewer({
                         <button
                           key={ability.slot || idx}
                           onClick={() => setSelectedAbilityIdx(idx)}
-                          className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-all ${
+                          className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-[border-color,background-color,color,opacity] ${
                             idx === selectedAbilityIdx
                               ? ""
                               : "border-white/10 bg-white/5 opacity-60 hover:opacity-100"
@@ -838,7 +848,7 @@ export default function LineupViewer({
                             key={ability.slot}
                             type="button"
                             onClick={() => setSelectedAbilitySlot(ability.slot)}
-                            className={`group relative flex flex-col items-center justify-center p-3 rounded-sm border transition-all cursor-pointer select-none text-center h-24 ${
+                            className={`group relative flex flex-col items-center justify-center p-3 rounded-sm border transition-[border-color,background-color,color,box-shadow] cursor-pointer select-none text-center h-24 ${
                               isSelected
                                 ? "border-val-red bg-val-red/10 text-white shadow-[0_0_15px_rgba(255,70,85,0.2)]"
                                 : "border-white/10 bg-white/5 text-white/60 hover:text-white hover:border-white/20"
@@ -936,7 +946,7 @@ export default function LineupViewer({
                       </button>
                     </div>
                   ) : (
-                    <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-all">
+                    <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-[border-color,background-color]">
                       <div className="flex flex-col items-center gap-1 text-white/40">
                         <Upload className="size-8 mb-1" />
                         <span className="text-sm font-medium">Click to upload screenshot</span>
@@ -1042,7 +1052,7 @@ export default function LineupViewer({
                             key={ability.slot}
                             type="button"
                             onClick={() => setEditAbilitySlot(ability.slot)}
-                            className={`group relative flex flex-col items-center justify-center p-3 rounded-sm border transition-all cursor-pointer select-none text-center h-24 ${
+                            className={`group relative flex flex-col items-center justify-center p-3 rounded-sm border transition-[border-color,background-color,color,box-shadow] cursor-pointer select-none text-center h-24 ${
                               isSelected
                                 ? "border-val-red bg-val-red/10 text-white shadow-[0_0_15px_rgba(255,70,85,0.2)]"
                                 : "border-white/10 bg-white/5 text-white/60 hover:text-white hover:border-white/20"
@@ -1142,7 +1152,7 @@ export default function LineupViewer({
                       </button>
                     </div>
                   ) : (
-                    <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-all">
+                    <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-[border-color,background-color]">
                       <div className="flex flex-col items-center gap-1 text-white/40">
                         <Upload className="size-8 mb-1" />
                         <span className="text-sm font-medium">Click to upload new screenshot</span>
@@ -1190,6 +1200,93 @@ export default function LineupViewer({
                   </button>
                 </div>
               </form>
+            </m.div>
+          </div>
+        )}
+
+        {/* Setup Actions Modal */}
+        {selectedScreenshotForModal && (
+          <div onClick={() => setSelectedScreenshotForModal(null)} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm cursor-pointer">
+            <m.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="w-full max-w-sm bg-val-surface border border-white/10 clip-angular overflow-hidden cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 border-b border-white/5">
+                <h3 className="font-oswald text-lg font-bold uppercase text-white truncate">
+                  Setup Actions
+                </h3>
+                <button
+                  onClick={() => setSelectedScreenshotForModal(null)}
+                  className="text-white/60 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="p-4 flex flex-col gap-4">
+                {/* Setup Thumbnail Display */}
+                <div className="relative aspect-video w-full rounded-sm overflow-hidden bg-black/40 border border-white/5">
+                  <Image
+                    src={
+                      selectedScreenshotForModal._id.startsWith("optimistic-")
+                        ? ((selectedScreenshotForModal as any).tempPreview || "")
+                        : urlFor(selectedScreenshotForModal.image)
+                            .width(400)
+                            .height(225)
+                            .url()
+                    }
+                    alt={selectedScreenshotForModal.title}
+                    fill
+                    className="object-contain"
+                    sizes="320px"
+                  />
+                </div>
+
+                {/* Title display */}
+                <div className="bg-white/3 p-3 border border-white/5 clip-angular-sm">
+                  <span className="font-semibold text-white block truncate">
+                    {selectedScreenshotForModal.title}
+                  </span>
+                  {selectedScreenshotForModal.description && (
+                    <p className="text-[11px] text-white/40 line-clamp-2 mt-1">
+                      {selectedScreenshotForModal.description}
+                    </p>
+                  )}
+                </div>
+
+                {/* Actions Grid */}
+                <div className="flex flex-col gap-2.5">
+                  {/* Edit Button */}
+                  <button
+                    onClick={() => {
+                      const screenshot = selectedScreenshotForModal;
+                      setSelectedScreenshotForModal(null);
+                      handleEditClick(screenshot);
+                    }}
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-sm bg-white/5 border border-white/10 text-white hover:bg-white hover:text-black transition-colors cursor-pointer font-bold uppercase tracking-wider text-xs font-bold"
+                  >
+                    <span>Edit Setup</span>
+                    <Pencil size={14} />
+                  </button>
+
+                  {/* Delete Button */}
+                  <button
+                    onClick={async () => {
+                      const screenshotId = selectedScreenshotForModal._id;
+                      setSelectedScreenshotForModal(null);
+                      await handleDeleteScreenshot(screenshotId);
+                    }}
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-sm bg-val-red/10 border border-val-red/20 text-val-red hover:bg-val-red hover:text-white hover:border-val-red transition-colors cursor-pointer font-bold uppercase tracking-wider text-xs font-bold"
+                  >
+                    <span>Delete Setup</span>
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              </div>
             </m.div>
           </div>
         )}

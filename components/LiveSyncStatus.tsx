@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Activity, X } from "lucide-react";
+import Image from "next/image";
 
 interface SyncResponse {
   activeMapName?: string;
@@ -104,7 +105,11 @@ export default function LiveSyncStatus() {
       <div className="flex items-center gap-3">
         {/* Symmetrical status text label */}
         <span
-          onClick={syncData.status === "offline" ? () => setIsHelpModalOpen(true) : undefined}
+          onClick={
+            syncData.status === "offline"
+              ? () => setIsHelpModalOpen(true)
+              : undefined
+          }
           className={`text-[11px] font-semibold uppercase tracking-[0.15em] transition-colors select-none ${getStatusColorClass()}`}
         >
           {getStatusText()}
@@ -113,7 +118,7 @@ export default function LiveSyncStatus() {
         {/* Symmetrical Square Button with mirrored left bottom crop */}
         <button
           onClick={handleBadgeClick}
-          className={`flex size-9 items-center justify-center clip-angular-sm-left transition-all border-0 outline-none p-0 cursor-pointer active:scale-95 ${
+          className={`flex size-9 items-center relative justify-center clip-angular-sm-left transition-[scale,background-color,color] border-0 outline-none p-0 cursor-pointer active:scale-95 ${
             syncData.status !== "offline"
               ? isClickable
                 ? "bg-white/6 text-val-red hover:bg-val-red/20"
@@ -124,11 +129,11 @@ export default function LiveSyncStatus() {
             syncData.status === "offline"
               ? "How to activate auto sync?"
               : isClickable
-              ? `Click to view setups for ${syncData.activeMapName}`
-              : undefined
+                ? `Click to view setups for ${syncData.activeMapName}`
+                : undefined
           }
         >
-          <Activity
+          {/* <Activity
             size={16}
             style={
               syncData.status !== "offline"
@@ -138,14 +143,35 @@ export default function LiveSyncStatus() {
             className={`${
               syncData.status !== "offline" ? "text-val-red animate-pulse" : "text-white/60"
             }`}
+          /> */}
+
+          <img
+            src="/valorant-icon.svg"
+            alt="Sync Icon"
+            style={
+              syncData.status !== "offline"
+                ? { filter: "drop-shadow(0 0 5px rgba(255, 70, 85, 0.75))" }
+                : undefined
+            }
+            className={`w-full h-full bg-val-red p-1 object-contain ${
+              syncData.status !== "offline"
+                ? "text-val-red animate-pulse"
+                : "text-white/60"
+            }`}
           />
         </button>
       </div>
 
       {/* Help Modal */}
       {isHelpModalOpen && (
-        <div onClick={() => setIsHelpModalOpen(false)} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm pointer-events-auto cursor-pointer">
-          <div onClick={(e) => e.stopPropagation()} className="w-full max-w-md bg-val-surface border border-white/10 clip-angular overflow-hidden p-6 flex flex-col gap-5 cursor-default">
+        <div
+          onClick={() => setIsHelpModalOpen(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm pointer-events-auto cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md bg-val-surface border border-white/10 clip-angular overflow-hidden p-6 flex flex-col gap-5 cursor-default"
+          >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <h3 className="font-oswald text-lg font-bold uppercase tracking-wider text-white flex items-center gap-2">
@@ -163,9 +189,10 @@ export default function LiveSyncStatus() {
             {/* Instruction Body */}
             <div className="flex flex-col gap-4 text-sm text-white/70">
               <p className="leading-relaxed">
-                Чтобы задеплоенный сайт автоматически определял вашу карту в Valorant во время игры, запустите наш мини-автонастройщик.
+                Чтобы задеплоенный сайт автоматически определял вашу карту в
+                Valorant во время игры, запустите наш мини-автонастройщик.
               </p>
-              
+
               <div className="flex flex-col gap-3 bg-black/40 p-4 rounded-sm border border-white/5">
                 <span className="text-[10px] uppercase font-bold text-white/45 tracking-wider">
                   Шаг 1: Скачайте скрипт настройки
@@ -173,28 +200,39 @@ export default function LiveSyncStatus() {
                 <a
                   href="/install-sync.bat"
                   download="install-sync.bat"
-                  className="flex items-center justify-center gap-2 py-3 bg-val-red hover:bg-val-red-hover text-white font-bold uppercase tracking-wider text-xs rounded transition-all active:scale-98 select-none text-center"
+                  className="flex items-center justify-center gap-2 py-3 bg-val-red hover:bg-val-red-hover text-white font-bold uppercase tracking-wider text-xs rounded transition-[scale,background-color] active:scale-98 select-none text-center"
                 >
                   Скачать установщик (.bat)
                 </a>
               </div>
 
               <div className="flex flex-col gap-1.5 text-xs text-white/55 leading-relaxed list-decimal pl-4">
-                <li>Запустите скачанный файл <strong>install-sync.bat</strong>.</li>
-                <li>Если Windows SmartScreen покажет синее предупреждение, нажмите <strong>«Подробнее» (More info)</strong>, затем <strong>«Выполнить в любом случае» (Run anyway)</strong>.</li>
-                <li>Скрипт автоматически создаст фоновую службу и настроит её автозагрузку с Windows.</li>
+                <li>
+                  Запустите скачанный файл <strong>install-sync.bat</strong>.
+                </li>
+                <li>
+                  Если Windows SmartScreen покажет синее предупреждение, нажмите{" "}
+                  <strong>«Подробнее» (More info)</strong>, затем{" "}
+                  <strong>«Выполнить в любом случае» (Run anyway)</strong>.
+                </li>
+                <li>
+                  Скрипт автоматически создаст фоновую службу и настроит её
+                  автозагрузку с Windows.
+                </li>
               </div>
 
               <p className="text-[10px] text-white/40 italic mt-1 leading-normal">
-                * Установщик абсолютно прозрачен и состоит из нескольких строк открытого Node.js кода, который читает локальный лог Valorant и передает его сайту.
+                * Установщик абсолютно прозрачен и состоит из нескольких строк
+                открытого Node.js кода, который читает локальный лог Valorant и
+                передает его сайту.
               </p>
-            </div>игт
+            </div>
 
             {/* Actions */}
             <div className="flex border-t border-white/5 pt-4">
               <button
                 onClick={() => setIsHelpModalOpen(false)}
-                className="w-full py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-all cursor-pointer font-bold uppercase tracking-wider text-xs text-center active:scale-95"
+                className="w-full py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-[scale,background-color] cursor-pointer font-bold uppercase tracking-wider text-xs text-center active:scale-95"
               >
                 Закрыть
               </button>

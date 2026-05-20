@@ -100,9 +100,9 @@ export default async function Home({ searchParams }: PageProps) {
             {selectedMap ? (
               <Link
                 href={backHref}
-                className="group inline-flex items-center gap-2 transition-all"
+                className="group inline-flex items-center gap-2"
               >
-                <div className="flex size-9 items-center justify-center clip-angular-sm bg-white/6 text-white/60 transition-all group-hover:bg-val-red/20 group-hover:text-val-red">
+                <div className="flex size-9 items-center justify-center clip-angular-sm bg-white/6 text-white/60 transition-colors group-hover:bg-val-red/20 group-hover:text-val-red">
                   <ArrowLeft size={16} />
                 </div>
                 <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/30 group-hover:text-white/50 transition-colors">
@@ -110,9 +110,13 @@ export default async function Home({ searchParams }: PageProps) {
                 </span>
               </Link>
             ) : (
-              <div className="inline-flex items-center gap-2 clip-angular-sm bg-white/6 px-4 h-9">
-                <div className="size-1.5 rounded-full bg-val-red animate-pulse" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">
+              <div className="flex items-center gap-3">
+                {/* Custom Brand Logo */}
+                <div className="flex size-9 items-center justify-center bg-foreground/7 clip-angular-sm shadow-[0_0_15px_rgba(255,70,85,0.35)] select-none">
+                  
+                </div>
+                {/* Brand Text styled like the sync badge */}
+                <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-val-red drop-shadow-[0_0_8px_rgba(255,70,85,0.5)]">
                   Agent Academy
                 </span>
               </div>

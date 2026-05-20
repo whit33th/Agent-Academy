@@ -201,13 +201,13 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                         src={map.imageUrl}
                         alt={map.name}
                         fill
-                        className="object-cover transition-all duration-200 group-hover:scale-110 group-hover:brightness-110 pointer-events-none"
+                        className="object-cover transition-[scale,filter] duration-200 group-hover:scale-110 group-hover:brightness-110 pointer-events-none"
                         sizes="(max-width: 640px) 200vw, (max-width: 1024px) 100vw, 66vw"
                       />
                       {/* Gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
                       {/* Red accent line at bottom */}
-                      <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-all duration-200 group-hover:w-full pointer-events-none" />
+                      <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-[width] duration-200 group-hover:w-full pointer-events-none" />
 
                       {/* Map name overlay */}
                       <div className="absolute inset-x-0 bottom-0 z-10 p-3 pointer-events-none">
@@ -242,7 +242,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                 </span>
               </div>
               {/* Red accent line at bottom */}
-              <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-all duration-200 group-hover:w-full" />
+              <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-[width] duration-200 group-hover:w-full" />
             </button>
           </m.div>
         </div>
@@ -260,7 +260,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/5">
               <h3 className="font-oswald text-xl font-bold uppercase text-white">
-                Add Map from Valorant
+                Add Map
               </h3>
               <button
                 onClick={() => {
@@ -303,7 +303,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                         key={map.uuid}
                         disabled={isAdding}
                         onClick={() => handleAddMap(map.displayName)}
-                        className="group relative w-full clip-angular bg-black/40 border border-white/5 hover:border-val-red/30 transition-all cursor-pointer disabled:opacity-50 aspect-video overflow-hidden"
+                        className="group relative w-full clip-angular bg-black/40 border border-white/5 hover:border-val-red/30 transition-[border-color,opacity] cursor-pointer disabled:opacity-50 aspect-video overflow-hidden"
                       >
                         {/* Image */}
                         {(map.splash || map.listViewIcon) && (
@@ -311,7 +311,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                             src={map.splash || map.listViewIcon}
                             alt={map.displayName}
                             fill
-                            className="object-cover transition-all duration-200 group-hover:scale-110 group-hover:brightness-110 pointer-events-none"
+                            className="object-cover transition-[scale,filter] duration-200 group-hover:scale-110 group-hover:brightness-110 pointer-events-none"
                             sizes="(max-width: 640px) 200vw, (max-width: 1024px) 100vw, 66vw"
                           />
                         )}
@@ -320,7 +320,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
                         
                         {/* Red accent line at bottom */}
-                        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-all duration-200 group-hover:w-full pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-[width] duration-200 group-hover:w-full pointer-events-none" />
 
                         {/* Map info */}
                         <div className="absolute inset-x-0 bottom-0 z-10 p-3 pointer-events-none flex items-end justify-between">
@@ -328,7 +328,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                             {map.displayName}
                           </span>
                           
-                          <div className="flex size-7 items-center justify-center rounded-sm bg-black/40 border border-white/10 group-hover:border-val-red/30 group-hover:bg-val-red/20 text-white/60 group-hover:text-val-red transition-all">
+                          <div className="flex size-7 items-center justify-center rounded-sm bg-black/40 border border-white/10 group-hover:border-val-red/30 group-hover:bg-val-red/20 text-white/60 group-hover:text-val-red transition-colors">
                             {isAdding ? (
                               <Loader2 className="size-4 animate-spin" />
                             ) : (
@@ -380,7 +380,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                   setSelectedMapForModal(null);
                   await handleDeleteMap(mapToDelete);
                 }}
-                className="w-full flex items-center justify-between px-4 py-3 rounded-sm bg-val-red/10 border border-val-red/20 text-val-red hover:bg-val-red hover:text-white hover:border-val-red transition-all cursor-pointer font-bold uppercase tracking-wider text-xs"
+                className="w-full flex items-center justify-between px-4 py-3 rounded-sm bg-val-red/10 border border-val-red/20 text-val-red hover:bg-val-red hover:text-white hover:border-val-red transition-colors cursor-pointer font-bold uppercase tracking-wider text-xs"
               >
                 <span>Delete Map</span>
                 <Trash2 size={14} />

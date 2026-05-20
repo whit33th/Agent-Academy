@@ -12,7 +12,7 @@
   --color-val-surface: #111111;
   --color-val-elevated: #1a1a1a;
   --color-val-border: #222222;
-  --color-val-red: #ff4655;
+  --color-val-red: #FF4655;
   --color-val-teal: #17e8b4;
   --color-val-cream: #ece8e1;
   --color-val-gold: #f5a623;
@@ -34,7 +34,7 @@ body {
 }
 
 ::selection {
-  background: rgba(255, 70, 85, 0.4);
+  background: rgb(182, 46, 57);
   color: #ffffff;
 }
 

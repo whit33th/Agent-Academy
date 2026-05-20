@@ -4,9 +4,13 @@ export default function Loading() {
       {/* Row 1: Symmetrical Top Navigation Bar Skeleton */}
       <div className="flex flex-row justify-between items-center w-full mb-4">
         <div>
-          <div className="inline-flex items-center gap-2 clip-angular-sm bg-white/6 px-4 h-9">
-            <div className="size-1.5 rounded-full bg-val-red animate-pulse" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">
+          <div className="flex items-center gap-3">
+            {/* Custom Brand Logo */}
+            <div className="flex size-9 items-center justify-center bg-val-red clip-angular-sm shadow-[0_0_15px_rgba(255,70,85,0.35)] select-none">
+             {/* svg */}
+            </div>
+            {/* Brand Text styled like the sync badge */}
+            <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-val-red select-none drop-shadow-[0_0_8px_rgba(255,70,85,0.5)]">
               Agent Academy
             </span>
           </div>

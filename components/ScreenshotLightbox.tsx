@@ -76,7 +76,7 @@ export default function ScreenshotLightbox({
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 flex size-10 items-center justify-center clip-angular-sm bg-white/10 text-white/70 transition-all hover:bg-val-red/30 hover:text-white"
+              className="absolute top-4 right-4 z-10 flex size-10 items-center justify-center clip-angular-sm bg-white/10 text-white/70 transition-colors hover:bg-val-red/30 hover:text-white"
             >
               <X size={18} />
             </button>
@@ -87,7 +87,7 @@ export default function ScreenshotLightbox({
                 e.stopPropagation();
                 onPrev();
               }}
-              className="absolute left-4 z-10 flex size-10 items-center justify-center clip-angular-sm bg-white/10 text-white/70 transition-all hover:bg-white/20 hover:text-white"
+              className="absolute left-4 z-10 flex size-10 items-center justify-center clip-angular-sm bg-white/10 text-white/70 transition-colors hover:bg-white/20 hover:text-white"
             >
               <ChevronLeft size={18} />
             </button>
@@ -98,7 +98,7 @@ export default function ScreenshotLightbox({
                 e.stopPropagation();
                 onNext();
               }}
-              className="absolute right-4 z-10 flex size-10 items-center justify-center clip-angular-sm bg-white/10 text-white/70 transition-all hover:bg-white/20 hover:text-white"
+              className="absolute right-4 z-10 flex size-10 items-center justify-center clip-angular-sm bg-white/10 text-white/70 transition-colors hover:bg-white/20 hover:text-white"
             >
               <ChevronRight size={18} />
             </button>

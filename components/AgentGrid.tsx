@@ -5,7 +5,7 @@ import { m, LazyMotion, domAnimation } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Plus, X, Loader2, Upload, Search, Trash2 } from "lucide-react";
+import { Plus, X, Loader2, Upload, Search, Trash2, Check } from "lucide-react";
 import type { Agent } from "@/lib/types";
 
 interface AgentGridProps {
@@ -617,11 +617,25 @@ export default function AgentGrid({
     }
   };
 
-  const filteredUnaddedAgents = (unaddedAgents || []).filter((agent) =>
-    (agent.displayName || "")
-      .toLowerCase()
-      .includes(agentSearchQuery.toLowerCase()),
-  );
+  const getAgentFields = (agent: any) => {
+    const id = agent._id || agent.uuid || "";
+    const name = agent.name || agent.displayName || "";
+    const displayIcon = agent.displayIcon || "";
+    return { id, name, displayIcon };
+  };
+
+  const agentsToShow = allAgents && allAgents.length > 0 ? allAgents : (unaddedAgents || []);
+
+  const filteredAgentsToShow = agentsToShow.filter((agent) => {
+    const { name } = getAgentFields(agent);
+    return name.toLowerCase().includes(agentSearchQuery.toLowerCase());
+  });
+
+  const sortedAgentsToShow = [...filteredAgentsToShow].sort((a, b) => {
+    const nameA = getAgentFields(a).name.toLowerCase();
+    const nameB = getAgentFields(b).name.toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -743,11 +757,11 @@ export default function AgentGrid({
                   onPointerLeave={handlePointerUpOrLeave}
                   onClick={handleCardClick}
                   onContextMenu={(e) => e.preventDefault()}
-                  className="group relative block w-full h-[340px] overflow-visible transition-all duration-200 hover:-translate-y-1.5 select-none touch-pan-y touch-callout-none"
+                  className="group relative block w-full h-[340px] overflow-visible transition-[transform,translate] duration-200 hover:-translate-y-1.5 select-none touch-pan-y touch-callout-none"
                 >
                   {/* Card Background & Clip Container */}
                   <div
-                    className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 transition-all duration-200 group-hover:border-[var(--agent-accent)]/80 group-hover:shadow-[0_12px_30px_var(--agent-accent-shadow)]"
+                    className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 transition-[border-color,box-shadow] duration-200 group-hover:border-[var(--agent-accent)]/80 group-hover:shadow-[0_12px_30px_var(--agent-accent-shadow)]"
                     style={
                       {
                         background: cardBg,
@@ -857,10 +871,10 @@ export default function AgentGrid({
               onClick={() => {
                 setIsAddAgentModalOpen(true);
               }}
-              className="group relative block w-full h-[340px] overflow-visible transition-all duration-200 hover:-translate-y-1.5 cursor-pointer text-left border-0 outline-none p-0 bg-transparent"
+              className="group relative block w-full h-85 overflow-visible transition-[transform,translate] duration-150 hover:-translate-y-1.5 cursor-pointer text-left border-0 outline-none p-0 bg-transparent"
             >
               {/* Card Background & Clip Container */}
-              <div className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 bg-gradient-to-b from-zinc-800/40 to-zinc-950/80 transition-all duration-200 group-hover:border-val-red/80 group-hover:shadow-[0_12px_30px_rgba(255,70,85,0.15)]">
+              <div className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 bg-gradient-to-b from-zinc-800/40 to-zinc-950/80 transition-[border-color,box-shadow] duration-200 group-hover:border-val-red/80 group-hover:shadow-[0_12px_30px_rgba(255,70,85,0.15)]">
                 {/* Silhouette Character Image */}
                 <div className="absolute inset-0 opacity-25 group-hover:opacity-40 transition-opacity duration-200">
                   <Image
@@ -874,7 +888,7 @@ export default function AgentGrid({
 
                 {/* Big Plus in the center */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                  <div className="flex size-14 items-center justify-center rounded-full bg-white/5 border border-white/10 group-hover:border-val-red/40 group-hover:bg-val-red/10 text-white/40 group-hover:text-val-red transition-all">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-white/5 border border-white/10 group-hover:border-val-red/40 group-hover:bg-val-red/10 text-white/40 group-hover:text-val-red transition-colors">
                     <Plus size={32} />
                   </div>
                 </div>
@@ -983,7 +997,7 @@ export default function AgentGrid({
                           key={ability.slot}
                           type="button"
                           onClick={() => setSelectedAbilitySlot(ability.slot)}
-                          className={`group relative flex flex-col items-center justify-center p-3 rounded-sm border transition-all cursor-pointer select-none text-center h-24 ${
+                          className={`group relative flex flex-col items-center justify-center p-3 rounded-sm border transition-[border-color,background-color,color,box-shadow] cursor-pointer select-none text-center h-24 ${
                             isSelected
                               ? "border-val-red bg-val-red/10 text-white shadow-[0_0_15px_rgba(255,70,85,0.2)]"
                               : "border-white/10 bg-white/5 text-white/60 hover:text-white hover:border-white/20"
@@ -1083,7 +1097,7 @@ export default function AgentGrid({
                     </button>
                   </div>
                 ) : (
-                  <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-all">
+                  <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-[border-color,background-color]">
                     <div className="flex flex-col items-center gap-1 text-white/40">
                       <Upload className="size-8 mb-1" />
                       <span className="text-sm font-medium">
@@ -1190,35 +1204,57 @@ export default function AgentGrid({
                 className="max-h-[320px] overflow-y-auto pr-1 custom-scrollbar"
                 data-lenis-prevent
               >
-                {filteredUnaddedAgents.length > 0 ? (
+                {sortedAgentsToShow.length > 0 ? (
                   <div className="grid grid-cols-5 gap-2">
-                    {filteredUnaddedAgents.map((agent) => (
-                      <button
-                        key={agent.uuid}
-                        disabled={isAddingAgent}
-                        onClick={() => handleAddAgent(agent.displayName)}
-                        className="group relative aspect-square w-full rounded-sm overflow-hidden bg-white/3 hover:bg-val-red/10 border border-white/5 hover:border-val-red/30 transition-all cursor-pointer disabled:opacity-50 active:scale-95"
-                        title={agent.displayName}
-                      >
-                        {agent.displayIcon && (
-                          <Image
-                            src={agent.displayIcon}
-                            alt={agent.displayName}
-                            fill
-                            sizes="160px"
-                            className="object-cover transition-transform duration-200 group-hover:scale-110"
-                          />
-                        )}
-                        {/* Name overlay on hover */}
-                        <div className="absolute inset-x-0 bottom-0  text-[9px] text-center font-bold text-white py-0.5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none truncate px-0.5">
-                          {agent.displayName}
-                        </div>
-                      </button>
-                    ))}
+                    {sortedAgentsToShow.map((agent) => {
+                      const { id, name, displayIcon } = getAgentFields(agent);
+                      const isAlreadyAdded = localAgents.some(
+                        (la) => la._id === id || la.name.toLowerCase() === name.toLowerCase()
+                      );
+
+                      return (
+                        <button
+                          key={id}
+                          disabled={isAddingAgent || isAlreadyAdded}
+                          onClick={() => handleAddAgent(name)}
+                          className={`group relative aspect-square w-full rounded-sm overflow-hidden bg-white/3 border transition-[background-color,border-color,scale,opacity] select-none ${
+                            isAlreadyAdded
+                              ? "border-white/5 opacity-55 cursor-default"
+                              : "hover:bg-val-red/10 border-white/5 hover:border-val-red/30 cursor-pointer active:scale-95"
+                          }`}
+                          title={isAlreadyAdded ? `${name} (Already added)` : name}
+                        >
+                          {displayIcon && (
+                            <Image
+                              src={displayIcon}
+                              alt={name}
+                              fill
+                              sizes="160px"
+                              className={`object-cover transition-transform duration-200 ${
+                                isAlreadyAdded ? "grayscale brightness-75" : "group-hover:scale-110"
+                              }`}
+                            />
+                          )}
+                          {/* Name overlay on hover */}
+                          <div className="absolute inset-x-0 bottom-0 text-[9px] text-center font-bold text-white py-0.5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none truncate px-0.5">
+                            {name}
+                          </div>
+
+                          {/* Checked overlay for already added agents */}
+                          {isAlreadyAdded && (
+                            <div className="absolute inset-0 bg-black/45 flex items-center justify-center pointer-events-none">
+                              <div className="flex size-7 items-center justify-center rounded bg-val-red/25 border border-val-red/35 text-white">
+                                <Check size={14} className="stroke-[3]" />
+                              </div>
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="text-center py-6 text-sm text-white/40">
-                    No unadded agents found.
+                    No agents found.
                   </div>
                 )}
               </div>
@@ -1292,7 +1328,7 @@ export default function AgentGrid({
                         onClick={() =>
                           handleUpdateViability(selectedAgentForModal, tier)
                         }
-                        className={`relative flex size-10 sm:size-12 items-center aspect-square justify-center transition-all cursor-pointer select-none active:scale-95 filter ${
+                        className={`relative flex size-10 sm:size-12 items-center aspect-square justify-center transition-[scale,opacity,filter] cursor-pointer select-none active:scale-95 filter ${
                           isCurrent
                             ? "scale-115 opacity-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
                             : "opacity-50 hover:opacity-100 hover:scale-105"
@@ -1315,7 +1351,7 @@ export default function AgentGrid({
                     onClick={() =>
                       handleUpdateViability(selectedAgentForModal, null)
                     }
-                    className={`relative flex size-10 sm:size-12 items-center aspect-square justify-center transition-all cursor-pointer select-none active:scale-95 filter ${
+                    className={`relative flex size-10 sm:size-12 items-center aspect-square justify-center transition-[scale,opacity,filter] cursor-pointer select-none active:scale-95 filter ${
                       !selectedAgentForModal.viability
                         ? "scale-115 opacity-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
                         : "opacity-50 hover:opacity-100 hover:scale-105"
@@ -1343,7 +1379,7 @@ export default function AgentGrid({
                     setSelectedAgentForModal(null);
                     await handleDeleteAgent(agentToDelete);
                   }}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-sm bg-val-red/10 border border-val-red/20 text-val-red hover:bg-val-red hover:text-white hover:border-val-red transition-all cursor-pointer font-bold uppercase tracking-wider text-xs"
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-sm bg-val-red/10 border border-val-red/20 text-val-red hover:bg-val-red hover:text-white hover:border-val-red transition-colors cursor-pointer font-bold uppercase tracking-wider text-xs"
                 >
                   <span>Remove Agent from Map</span>
                   <Trash2 size={14} />
