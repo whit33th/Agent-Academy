@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition, useRef } from "react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Plus, X, Loader2, Upload, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Plus, X, Loader2, Upload, Search, Trash2 } from "lucide-react";
 import type { Agent } from "@/lib/types";
 
 interface AgentGridProps {
@@ -13,6 +14,7 @@ interface AgentGridProps {
   unaddedAgents?: any[];
   selectedMapSlug?: string;
   selectedMapName?: string;
+  selectedMapId?: string | null;
 }
 
 /**
@@ -276,13 +278,187 @@ function mapAbilityToGenericType(
   return "other";
 }
 
+const rankPriority: Record<string, number> = {
+  S: 1,
+  A: 2,
+  B: 3,
+  C: 4,
+  D: 5,
+};
+
+const getViabilityStyle = (viability: string) => {
+  const v = viability.toUpperCase();
+  if (v === "S") {
+    return {
+      backgroundColor: "#f6de83",
+      boxShadow: "0 0 12px rgba(255, 70, 85, 0.6)",
+      borderColor: "rgba(255, 70, 85, 0.8)",
+    };
+  }
+  if (v === "A") {
+    return {
+      backgroundColor: "#b93757",
+      boxShadow: "0 0 12px rgba(245, 166, 35, 0.6)",
+      borderColor: "rgba(245, 166, 35, 0.8)",
+    };
+  }
+  if (v === "B") {
+    return {
+      backgroundColor: "#1e7e58 ",
+      boxShadow: "0 0 12px rgba(46, 141, 229, 0.6)",
+      borderColor: "rgba(46, 141, 229, 0.8)",
+    };
+  }
+  if (v === "C") {
+    return {
+      backgroundColor: "#8657a8",
+      boxShadow: "0 0 6px rgba(85, 85, 85, 0.4)",
+      borderColor: "rgba(85, 85, 85, 0.6)",
+    };
+  }
+  if (v === "D") {
+    return {
+      backgroundColor: "#428b9d",
+      boxShadow: "0 0 4px rgba(51, 51, 51, 0.4)",
+      borderColor: "rgba(51, 51, 51, 0.6)",
+    };
+  }
+  return {
+    backgroundColor: "#cd9f41",
+    boxShadow: "none",
+    borderColor: "rgba(255, 255, 255, 0.1)",
+  };
+};
+
 export default function AgentGrid({
   agents,
   allAgents = [],
   unaddedAgents = [],
   selectedMapSlug,
   selectedMapName,
+  selectedMapId,
 }: AgentGridProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const [localAgents, setLocalAgents] = useState<Agent[]>(agents);
+  const [selectedAgentForModal, setSelectedAgentForModal] = useState<Agent | null>(null);
+
+  const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isLongPressActive = useRef(false);
+
+  const handlePointerDown = (agent: Agent) => (e: React.PointerEvent) => {
+    // Only handle primary button (left click) or touch
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    
+    isLongPressActive.current = false;
+    
+    longPressTimeoutRef.current = setTimeout(() => {
+      isLongPressActive.current = true;
+      setSelectedAgentForModal(agent);
+    }, 800);
+  };
+
+  const handlePointerUpOrLeave = () => {
+    if (longPressTimeoutRef.current) {
+      clearTimeout(longPressTimeoutRef.current);
+      longPressTimeoutRef.current = null;
+    }
+  };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (isLongPressActive.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      isLongPressActive.current = false;
+    }
+  };
+
+  const handleDeleteAgent = async (agent: Agent) => {
+    if (!selectedMapId) return;
+    if (confirm(`Are you sure you want to delete the agent "${agent.name}"? This will also delete all of their screenshots.`)) {
+      const oldAgents = [...localAgents];
+      setLocalAgents((prev) => prev.filter((a) => a._id !== agent._id));
+
+      try {
+        const res = await fetch("/api/delete-agent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ agentId: agent._id, mapId: selectedMapId }),
+        });
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || "Failed to delete agent");
+        }
+        startTransition(() => {
+          router.refresh();
+        });
+      } catch (err: any) {
+        alert(err.message || "An error occurred");
+        setLocalAgents(oldAgents);
+      }
+    }
+  };
+
+  const handleUpdateViability = async (agent: Agent, tier: string | null) => {
+    if (!selectedMapId) return;
+    const oldAgents = [...localAgents];
+    
+    // Optimistic Update
+    setLocalAgents((prev) =>
+      prev.map((a) =>
+        a._id === agent._id ? { ...a, viability: tier } : a
+      )
+    );
+    setSelectedAgentForModal(null);
+
+    try {
+      const res = await fetch("/api/update-agent-viability", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          agentId: agent._id,
+          mapId: selectedMapId,
+          viability: tier,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to update viability");
+      }
+      startTransition(() => {
+        router.refresh();
+      });
+    } catch (err: any) {
+      alert(err.message || "An error occurred");
+      setLocalAgents(oldAgents);
+    }
+  };
+
+  const sortedAgents = [...localAgents].sort((a, b) => {
+    const viaA = a.viability;
+    const viaB = b.viability;
+    const hasViaA = !!viaA;
+    const hasViaB = !!viaB;
+
+    if (hasViaA && !hasViaB) return -1;
+    if (!hasViaA && hasViaB) return 1;
+
+    if (hasViaA && hasViaB) {
+      const pA = rankPriority[viaA!.toUpperCase()] ?? 99;
+      const pB = rankPriority[viaB!.toUpperCase()] ?? 99;
+      if (pA !== pB) {
+        return pA - pB;
+      }
+    }
+
+    return (a.name || "").localeCompare(b.name || "");
+  });
+
+  useEffect(() => {
+    setLocalAgents(agents);
+  }, [agents]);
+
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [selectedAgentSlug, setSelectedAgentSlug] = useState("");
   const [selectedAbilitySlot, setSelectedAbilitySlot] = useState("");
@@ -299,7 +475,7 @@ export default function AgentGrid({
   const [isAddingAgent, setIsAddingAgent] = useState(false);
   const [addAgentError, setAddAgentError] = useState<string | null>(null);
 
-  const agentsForDropdown = allAgents.length > 0 ? allAgents : agents;
+  const agentsForDropdown = allAgents.length > 0 ? allAgents : localAgents;
   
   const selectedAgentObj = agentsForDropdown.find(
     (a) => (a.slug?.current ?? a._id) === selectedAgentSlug
@@ -329,21 +505,48 @@ export default function AgentGrid({
   const handleAddAgent = async (agentName: string) => {
     setIsAddingAgent(true);
     setAddAgentError(null);
+    const oldAgents = [...localAgents];
+
+    // Find the unadded agent info to show its portrait immediately
+    const apiAgent = (unaddedAgents || []).find((a) => a.displayName === agentName);
+    const optimisticAgent: Agent = {
+      _id: `optimistic-${Date.now()}`,
+      name: agentName,
+      imageUrl: apiAgent?.fullPortrait || apiAgent?.displayIcon || null,
+      fullPortraitV2: apiAgent?.fullPortraitV2 || null,
+      bustPortrait: apiAgent?.bustPortrait || null,
+      displayIcon: apiAgent?.displayIcon || null,
+      roleName: apiAgent?.role?.displayName || "",
+      roleIcon: apiAgent?.role?.displayIcon || null,
+      description: apiAgent?.description || "",
+      abilities: apiAgent?.abilities || [],
+      background: apiAgent?.background || null,
+      backgroundGradientColors: apiAgent?.backgroundGradientColors || [],
+      slug: {
+        current: (agentName || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+      },
+    };
+
+    setLocalAgents((prev) => [...prev, optimisticAgent]);
+    setIsAddAgentModalOpen(false);
+
     try {
       const res = await fetch("/api/add-agent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ agentName }),
+        body: JSON.stringify({ agentName, mapSlug: selectedMapSlug }),
       });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error || "Failed to add agent");
       }
-      setIsAddAgentModalOpen(false);
-      window.location.reload();
+      startTransition(() => {
+        router.refresh();
+      });
     } catch (err: any) {
       console.error(err);
       setAddAgentError(err.message || "Error adding agent");
+      setLocalAgents(oldAgents); // Rollback
     } finally {
       setIsAddingAgent(false);
     }
@@ -415,7 +618,9 @@ export default function AgentGrid({
       setTitle("");
       setDescription("");
       
-      window.location.reload();
+      startTransition(() => {
+        router.refresh();
+      });
     } catch (err: any) {
       console.error(err);
       setUploadError(err.message || "An error occurred during upload.");
@@ -433,7 +638,7 @@ export default function AgentGrid({
       >
         {/* High-fidelity Valorant Agent Select Screen Grid */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4 ">
-          {agents.map((agent, i) => {
+          {sortedAgents.map((agent, i) => {
             const viability = agent.viability;
             const slug = agent.slug?.current ?? agent._id;
             const gradientColors = agent.backgroundGradientColors || [];
@@ -459,14 +664,19 @@ export default function AgentGrid({
 
             return (
               <m.div
-                key={agent._id}
+                key={agent.name}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.02, duration: 0.25 }}
               >
                 <Link
                   href={`/?${params.toString()}`}
-                  className="group relative block w-full h-[340px] overflow-visible transition-all duration-200 hover:-translate-y-1.5"
+                  onPointerDown={handlePointerDown(agent)}
+                  onPointerUp={handlePointerUpOrLeave}
+                  onPointerCancel={handlePointerUpOrLeave}
+                  onPointerLeave={handlePointerUpOrLeave}
+                  onClick={handleCardClick}
+                  className="group relative block w-full h-[340px] overflow-visible transition-all duration-200 hover:-translate-y-1.5 select-none touch-none touch-callout-none"
                 >
                   {/* Card Background & Clip Container */}
                   <div
@@ -555,11 +765,14 @@ export default function AgentGrid({
                   />
                   {/* Viability tag */}
                   {viability && (
-                    <div
-                      className="absolute right-3 top-8 z-40 flex size-7 items-center justify-center font-oswald text-xs font-bold text-white shadow-lg clip-diamond"
-                      style={{ backgroundColor: primaryColor }}
-                    >
-                      {viability}
+                    <div className="absolute right-2.5 top-7.5 z-40 flex size-10 items-center justify-center select-none filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                      <Image
+                        src={`/ranks/${viability.toLowerCase()}.png`}
+                        alt={`${viability} Rank`}
+                        fill
+                        sizes="40px"
+                        className="object-contain"
+                      />
                     </div>
                   )}
                 </Link>
@@ -571,7 +784,7 @@ export default function AgentGrid({
           <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: agents.length * 0.02, duration: 0.25 }}
+            transition={{ delay: localAgents.length * 0.02, duration: 0.25 }}
           >
             <button
               onClick={() => {
@@ -889,48 +1102,161 @@ export default function AgentGrid({
                 </div>
               )}
 
-              {/* List of agents */}
-              <div className="max-h-[300px] overflow-y-auto pr-1 flex flex-col gap-2 custom-scrollbar" data-lenis-prevent>
+              {/* Grid of agents */}
+              <div className="max-h-[320px] overflow-y-auto pr-1 custom-scrollbar" data-lenis-prevent>
                 {filteredUnaddedAgents.length > 0 ? (
-                  filteredUnaddedAgents.map((agent) => (
-                    <button
-                      key={agent.uuid}
-                      disabled={isAddingAgent}
-                      onClick={() => handleAddAgent(agent.displayName)}
-                      className="group flex items-center justify-between p-2 rounded-sm bg-white/3 hover:bg-val-red/10 border border-white/5 hover:border-val-red/30 text-left transition-all cursor-pointer disabled:opacity-50 w-full"
-                    >
-                      <div className="flex items-center gap-3">
+                  <div className="grid grid-cols-5 gap-2">
+                    {filteredUnaddedAgents.map((agent) => (
+                      <button
+                        key={agent.uuid}
+                        disabled={isAddingAgent}
+                        onClick={() => handleAddAgent(agent.displayName)}
+                        className="group relative aspect-square w-full rounded-sm overflow-hidden bg-white/3 hover:bg-val-red/10 border border-white/5 hover:border-val-red/30 transition-all cursor-pointer disabled:opacity-50 active:scale-95"
+                        title={agent.displayName}
+                      >
                         {agent.displayIcon && (
-                          <div className="relative size-12 rounded-sm overflow-hidden bg-black/40 flex-shrink-0">
-                            <Image
-                              src={agent.displayIcon}
-                              alt={agent.displayName}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
+                          <Image
+                            src={agent.displayIcon}
+                            alt={agent.displayName}
+                            fill
+                            sizes="80px"
+                            className="object-cover transition-transform duration-200 group-hover:scale-110"
+                          />
                         )}
-                        <div>
-                          <span className="font-semibold text-white group-hover:text-val-red transition-colors block">
-                            {agent.displayName}
-                          </span>
-                          {agent.role?.displayName && (
-                            <span className="text-[10px] text-white/40">
-                              {agent.role.displayName}
-                            </span>
-                          )}
+                        {/* Name overlay on hover */}
+                        <div className="absolute inset-x-0 bottom-0  text-[9px] text-center font-bold text-white py-0.5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none truncate px-0.5">
+                          {agent.displayName}
                         </div>
-                      </div>
-                      <div className="text-xs font-bold uppercase tracking-wider text-val-red opacity-0 group-hover:opacity-100 transition-opacity">
-                        {isAddingAgent ? "Adding..." : "Add"}
-                      </div>
-                    </button>
-                  ))
+                      </button>
+                    ))}
+                  </div>
                 ) : (
                   <div className="text-center py-6 text-sm text-white/40">
                     No unadded agents found.
                   </div>
                 )}
+              </div>
+            </div>
+          </m.div>
+        </div>
+      )}
+
+      {/* Agent Actions Modal */}
+      {selectedAgentForModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <m.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-sm bg-val-surface border border-white/10 clip-angular overflow-hidden"
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 border-b border-white/5">
+              <h3 className="font-oswald text-lg font-bold uppercase text-white truncate">
+                Agent Actions: {selectedAgentForModal.name}
+              </h3>
+              <button
+                onClick={() => setSelectedAgentForModal(null)}
+                className="text-white/60 hover:text-white transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            {/* Modal Body */}
+            <div className="p-4 flex flex-col gap-4">
+              {/* Agent display info */}
+              <div className="flex items-center gap-3 bg-white/3 p-3 border border-white/5 clip-angular-sm">
+                {selectedAgentForModal.displayIcon && (
+                  <div className="relative size-12 rounded-sm overflow-hidden bg-black/40 flex-shrink-0">
+                    <Image
+                      src={selectedAgentForModal.displayIcon}
+                      alt={selectedAgentForModal.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div>
+                  <span className="font-semibold text-white block">
+                    {selectedAgentForModal.name}
+                  </span>
+                  <span className="text-[10px] text-white/40 uppercase tracking-wider">
+                    {selectedAgentForModal.roleName}
+                  </span>
+                </div>
+              </div>
+
+              {/* Set Viability Tier section */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-white/60">
+                   Tier:
+                </span>
+                
+                <div className="flex items-center justify-between gap-1 bg-black/30  p-2 sm:p-3 rounded-sm border border-white/5">
+                  {["S", "A", "B", "C", "D"].map((tier) => {
+                    const isCurrent = (selectedAgentForModal.viability || "").toUpperCase() === tier;
+                    
+                    return (
+                      <button
+                        key={tier}
+                        onClick={() =>
+                          handleUpdateViability(selectedAgentForModal, tier)
+                        }
+                        className={`relative flex size-10 sm:size-12 items-center aspect-square justify-center transition-all cursor-pointer select-none active:scale-95 filter ${
+                          isCurrent
+                            ? "scale-115 opacity-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                            : "opacity-50 hover:opacity-100 hover:scale-105"
+                        }`}
+                        title={`${tier}-Tier`}
+                      >
+                          <Image
+                            src={`/ranks/${tier.toLowerCase()}.png`}
+                            alt={`${tier} Rank`}
+                            fill
+                            sizes="48px"
+                            className="object-contain"
+                          />
+                       
+                      </button>
+                    );
+                  })}
+                  
+                  {/* Clear tier button */}
+                  <button
+                    onClick={() => handleUpdateViability(selectedAgentForModal, null)}
+                    className={`relative flex size-10 sm:size-12 items-center aspect-square justify-center transition-all cursor-pointer select-none active:scale-95 filter ${
+                      !selectedAgentForModal.viability
+                        ? "scale-115 opacity-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                        : "opacity-50 hover:opacity-100 hover:scale-105"
+                    }`}
+                    title="Remove Tier (Unranked)"
+                  >
+                    <div className="relative size-full">
+                      <Image
+                        src="/ranks/unranked.png"
+                        alt="Unranked"
+                        fill
+                        sizes="48px"
+                        className="object-contain"
+                      />
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Danger Zone / Deletion */}
+              <div className="border-t border-white/5 pt-4 flex flex-col gap-2">
+                <button
+                  onClick={async () => {
+                    const agentToDelete = selectedAgentForModal;
+                    setSelectedAgentForModal(null);
+                    await handleDeleteAgent(agentToDelete);
+                  }}
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-sm bg-val-red/10 border border-val-red/20 text-val-red hover:bg-val-red hover:text-white hover:border-val-red transition-all cursor-pointer font-bold uppercase tracking-wider text-xs"
+                >
+                  <span>Remove Agent from Map</span>
+                  <Trash2 size={14} />
+                </button>
               </div>
             </div>
           </m.div>

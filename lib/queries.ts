@@ -1,4 +1,4 @@
-export const mapsQuery = `*[_type == "map"] | order(name asc) {
+export const mapsQuery = `*[_type == "map"] | order(_createdAt asc) {
   _id,
   name,
   slug,

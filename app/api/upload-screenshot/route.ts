@@ -52,6 +52,29 @@ export async function POST(request: Request) {
       revalidateTag("sanity-agents", { expire: 0 });
     }
 
+    // 2b. Ensure mapAgentMeta exists for this map-agent combo
+    const existingMeta = await client.fetch(
+      `*[_type == "mapAgentMeta" && map._ref == $mapId && agent._ref == $agentId][0]`,
+      { mapId: mapDoc._id, agentId: agentDoc._id }
+    );
+    if (!existingMeta) {
+      console.log(`Creating mapAgentMeta reference for ${agentSlug} on ${mapSlug}...`);
+      await client.create({
+        _type: "mapAgentMeta",
+        map: {
+          _type: "reference",
+          _ref: mapDoc._id,
+        },
+        agent: {
+          _type: "reference",
+          _ref: agentDoc._id,
+        },
+        viability: "a",
+      });
+      revalidateTag("sanity-agents-by-map", { expire: 0 });
+      revalidateTag("sanity-agent-refs-by-map", { expire: 0 });
+    }
+
     // 3. Upload image file to Sanity
     const arrayBuffer = await imageFile.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);

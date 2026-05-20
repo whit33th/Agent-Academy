@@ -6,6 +6,7 @@ import {
   getUnaddedMaps,
   getAllApiAgents,
   getUnaddedAgents,
+  getUnaddedAgentsForMap,
 } from "@/lib/data";
 import type { GameMap, Agent } from "@/lib/types";
 import MapGrid from "@/components/MapGrid";
@@ -26,7 +27,7 @@ export default async function Home({ searchParams }: PageProps) {
   const agentSlug = params.agent;
 
   try {
-    const [maps, agents, unaddedMaps, allApiAgents, unaddedAgents] = await Promise.all([
+    const [maps, agents, unaddedMaps, allApiAgents, globalUnaddedAgents] = await Promise.all([
       getEnrichedMaps(),
       getEnrichedAgents(),
       getUnaddedMaps(),
@@ -47,6 +48,10 @@ export default async function Home({ searchParams }: PageProps) {
 
     const selectedMapId = selectedMap?._id ?? null;
     const selectedAgentId = selectedAgent?._id ?? null;
+
+    const unaddedAgents = selectedMapId
+      ? await getUnaddedAgentsForMap(selectedMapId)
+      : globalUnaddedAgents;
 
     let content: React.ReactNode;
 
@@ -70,6 +75,7 @@ export default async function Home({ searchParams }: PageProps) {
           unaddedAgents={unaddedAgents}
           selectedMapSlug={mapSlug}
           selectedMapName={selectedMap.name}
+          selectedMapId={selectedMapId}
         />
       );
     } else {

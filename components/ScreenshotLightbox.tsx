@@ -115,7 +115,11 @@ export default function ScreenshotLightbox({
               {/* Image container (absolute positioning container for Next.js Image with fill) */}
               <div className="relative flex-1 w-full min-h-0 bg-black/40 flex items-center justify-center">
                 <Image
-                  src={urlFor(current.image).width(1600).height(900).url()}
+                  src={
+                    current._id.startsWith("optimistic-")
+                      ? ((current as any).tempPreview || "")
+                      : urlFor(current.image).width(1600).height(900).url()
+                  }
                   alt={current.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 1200px"

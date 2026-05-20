@@ -139,32 +139,49 @@ export async function getEnrichedMaps(): Promise<GameMap[]> {
  * Optional viability from mapAgentMeta is merged in.
  */
 export async function getAgentsForMap(mapId: string): Promise<Agent[]> {
-  const [allAgents, mapAgentsMeta] = await Promise.all([
+  const [allAgents, mapAgentsMeta, agentRefsWithScreenshots] = await Promise.all([
     getEnrichedAgents(),
     getCachedAgentsByMap(mapId),
+    getCachedAgentRefsByMap(mapId),
   ]);
 
-  // Build a quick lookup for viability from mapAgentMeta
+  // Build a set of agent IDs that are active on this map (either via mapAgentMeta or by having screenshots)
+  const activeAgentIds = new Set<string>();
+  
+  // 1. Add agent IDs from mapAgentMeta
   const metaByAgentId = new Map<
     string,
     { viability: string | null; notes: string | null }
   >();
   for (const ma of mapAgentsMeta) {
     const id = ma.agent?._id ?? ma._id;
-    metaByAgentId.set(id, {
-      viability: ma.viability ?? null,
-      notes: ma.notes ?? null,
-    });
+    if (id) {
+      activeAgentIds.add(id);
+      metaByAgentId.set(id, {
+        viability: ma.viability ?? null,
+        notes: ma.notes ?? null,
+      });
+    }
   }
 
-  return allAgents.map((agent) => {
-    const meta = metaByAgentId.get(agent._id);
-    return {
-      ...agent,
-      viability: meta?.viability ?? null,
-      notes: meta?.notes ?? null,
-    };
-  });
+  // 2. Add agent IDs from screenshots
+  for (const ref of agentRefsWithScreenshots) {
+    if (ref) {
+      activeAgentIds.add(ref);
+    }
+  }
+
+  // Only keep agents that are active on this map
+  return allAgents
+    .filter((agent) => activeAgentIds.has(agent._id))
+    .map((agent) => {
+      const meta = metaByAgentId.get(agent._id);
+      return {
+        ...agent,
+        viability: meta?.viability ?? null,
+        notes: meta?.notes ?? null,
+      };
+    });
 }
 
 /** Get screenshots for a map+agent combo. */
@@ -239,6 +256,30 @@ export async function getUnaddedAgents(): Promise<ValorantAgent[]> {
       !sanityAgentNames.has(
         (a.displayName || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
       ),
+  );
+}
+
+/** Get list of agents that are in Valorant API but not yet linked to the given map. */
+export async function getUnaddedAgentsForMap(mapId: string): Promise<ValorantAgent[]> {
+  const [mapAgentsMeta, agentRefsWithScreenshots, assets] = await Promise.all([
+    getCachedAgentsByMap(mapId),
+    getCachedAgentRefsByMap(mapId),
+    getCachedValorantAssets(),
+  ]);
+
+  const presentAgentIds = new Set<string>();
+
+  for (const ma of mapAgentsMeta) {
+    const id = ma.agent?._id ?? ma._id;
+    if (id) presentAgentIds.add(id);
+  }
+
+  for (const ref of agentRefsWithScreenshots) {
+    if (ref) presentAgentIds.add(ref);
+  }
+
+  return Object.values(assets.agents).filter(
+    (a) => !presentAgentIds.has(a.uuid)
   );
 }
 

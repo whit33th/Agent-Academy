@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { urlFor } from "@/lib/sanity";
 import type { Agent, GameMap, Screenshot } from "@/lib/types";
 import ScreenshotLightbox from "./ScreenshotLightbox";
@@ -152,6 +153,14 @@ export default function LineupViewer({
   agent,
   map,
 }: LineupViewerProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const [localScreenshots, setLocalScreenshots] = useState<Screenshot[]>(screenshots);
+  useEffect(() => {
+    setLocalScreenshots(screenshots);
+  }, [screenshots]);
+
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [selectedAbilityIdx, setSelectedAbilityIdx] = useState<number>(-1); // -1 means "All"
   const [selectedSide, setSelectedSide] = useState<"all" | "atk" | "def">("all");
@@ -187,7 +196,11 @@ export default function LineupViewer({
       (a) => mapAbilityToGenericType(a.slot, a.displayName || "", a.description || "") === screenshot.abilityType
     );
     setEditAbilitySlot(matchingAbility?.slot || agent.abilities?.[0]?.slot || "");
-    setEditImagePreview(screenshot.image ? urlFor(screenshot.image).url() : null);
+    setEditImagePreview(
+      screenshot._id.startsWith("optimistic-")
+        ? (screenshot as any).tempPreview
+        : (screenshot.image ? urlFor(screenshot.image).url() : null)
+    );
     setEditImageFile(null);
     setEditError(null);
     setIsEditModalOpen(true);
@@ -219,21 +232,43 @@ export default function LineupViewer({
 
     setIsEditing(true);
     setEditError(null);
+    const oldScreenshots = [...localScreenshots];
+
+    const selectedAbilityObj = agent.abilities?.find(
+      (a) => a.slot === editAbilitySlot
+    );
+    const genericType = mapAbilityToGenericType(
+      editAbilitySlot,
+      selectedAbilityObj?.displayName || "",
+      selectedAbilityObj?.description || ""
+    );
+
+    // Create optimistic updated screenshot
+    const updatedScreenshots = localScreenshots.map((s) => {
+      if (s._id === editingScreenshot._id) {
+        const updated = {
+          ...s,
+          title: editTitle,
+          description: editDescription,
+          abilityType: genericType,
+        };
+        if (editImagePreview) {
+          (updated as any).tempPreview = editImagePreview;
+          updated._id = `optimistic-${Date.now()}`; // change ID so that image renderer uses tempPreview if we updated the image
+        }
+        return updated;
+      }
+      return s;
+    });
+
+    setLocalScreenshots(updatedScreenshots);
+    setIsEditModalOpen(false);
 
     try {
       const formData = new FormData();
       formData.append("screenshotId", editingScreenshot._id);
       formData.append("title", editTitle);
       formData.append("description", editDescription);
-
-      const selectedAbilityObj = agent.abilities?.find(
-        (a) => a.slot === editAbilitySlot
-      );
-      const genericType = mapAbilityToGenericType(
-        editAbilitySlot,
-        selectedAbilityObj?.displayName || "",
-        selectedAbilityObj?.description || ""
-      );
       formData.append("abilityType", genericType);
 
       if (editImageFile) {
@@ -250,16 +285,18 @@ export default function LineupViewer({
         throw new Error(data.error || "Failed to edit setup.");
       }
 
-      setIsEditModalOpen(false);
       setEditingScreenshot(null);
       setEditImageFile(null);
       setEditImagePreview(null);
       setEditTitle("");
       setEditDescription("");
-      window.location.reload();
+      startTransition(() => {
+        router.refresh();
+      });
     } catch (err: any) {
       console.error(err);
       setEditError(err.message || "Error editing setup.");
+      setLocalScreenshots(oldScreenshots); // Rollback
     } finally {
       setIsEditing(false);
     }
@@ -267,6 +304,9 @@ export default function LineupViewer({
 
   const handleDeleteScreenshot = async (screenshotId: string) => {
     if (!confirm("Are you sure you want to delete this setup?")) return;
+
+    const oldScreenshots = [...localScreenshots];
+    setLocalScreenshots((prev) => prev.filter((s) => s._id !== screenshotId));
 
     try {
       const res = await fetch("/api/delete-screenshot", {
@@ -278,9 +318,12 @@ export default function LineupViewer({
         const data = await res.json();
         throw new Error(data.error || "Failed to delete setup");
       }
-      window.location.reload();
+      startTransition(() => {
+        router.refresh();
+      });
     } catch (err: any) {
       alert(err.message || "An error occurred");
+      setLocalScreenshots(oldScreenshots);
     }
   };
 
@@ -330,6 +373,29 @@ export default function LineupViewer({
 
     setIsUploading(true);
     setUploadError(null);
+    const oldScreenshots = [...localScreenshots];
+
+    // Find the display name/description of the selected ability to do smart mapping
+    const selectedAbilityObj = agent.abilities?.find(
+      (a) => a.slot === selectedAbilitySlot
+    );
+    const genericType = mapAbilityToGenericType(
+      selectedAbilitySlot,
+      selectedAbilityObj?.displayName || "",
+      selectedAbilityObj?.description || ""
+    );
+
+    const optimisticScreenshot: Screenshot = {
+      _id: `optimistic-${Date.now()}`,
+      title: title,
+      description: descriptionText,
+      abilityType: genericType,
+      image: null,
+    };
+    (optimisticScreenshot as any).tempPreview = imagePreview;
+
+    setLocalScreenshots((prev) => [...prev, optimisticScreenshot]);
+    setIsUploadModalOpen(false);
 
     try {
       const formData = new FormData();
@@ -337,16 +403,6 @@ export default function LineupViewer({
       formData.append("mapSlug", map.slug?.current || map._id);
       formData.append("title", title);
       formData.append("description", descriptionText);
-
-      // Find the display name/description of the selected ability to do smart mapping
-      const selectedAbilityObj = agent.abilities?.find(
-        (a) => a.slot === selectedAbilitySlot
-      );
-      const genericType = mapAbilityToGenericType(
-        selectedAbilitySlot,
-        selectedAbilityObj?.displayName || "",
-        selectedAbilityObj?.description || ""
-      );
       formData.append("abilityType", genericType);
       formData.append("image", imageFile);
 
@@ -360,15 +416,17 @@ export default function LineupViewer({
         throw new Error(data.error || "Failed to upload setup.");
       }
 
-      setIsUploadModalOpen(false);
       setImageFile(null);
       setImagePreview(null);
       setTitle("");
       setDescriptionText("");
-      window.location.reload();
+      startTransition(() => {
+        router.refresh();
+      });
     } catch (err: any) {
       console.error(err);
       setUploadError(err.message || "Error uploading setup.");
+      setLocalScreenshots(oldScreenshots);
     } finally {
       setIsUploading(false);
     }
@@ -386,7 +444,7 @@ export default function LineupViewer({
   const selectedAbility = selectedAbilityIdx !== -1 ? abilities[selectedAbilityIdx] : null;
 
   // Filter screenshots based on selected Side (ATK/DEF) and Ability Type
-  const filteredScreenshots = screenshots.filter((screenshot) => {
+  const filteredScreenshots = localScreenshots.filter((screenshot) => {
     // 1. Filter by Side
     if (selectedSide !== "all") {
       const title = (screenshot.title || "").toLowerCase();
@@ -432,7 +490,7 @@ export default function LineupViewer({
               </div>
               <div className="flex items-center gap-4">
                 <div className="text-xs text-white/30 font-medium hidden sm:block">
-                  Showing {filteredScreenshots.length} of {screenshots.length} setups
+                  Showing {filteredScreenshots.length} of {localScreenshots.length} setups
                 </div>
                 <button
                   onClick={() => setIsUploadModalOpen(true)}
@@ -460,10 +518,14 @@ export default function LineupViewer({
                       >
                         <div className="relative aspect-video w-full bg-val-bg">
                           <Image
-                            src={urlFor(screenshot.image)
-                              .width(800)
-                              .height(450)
-                              .url()}
+                            src={
+                              screenshot._id.startsWith("optimistic-")
+                                ? ((screenshot as any).tempPreview || "")
+                                : urlFor(screenshot.image)
+                                    .width(800)
+                                    .height(450)
+                                    .url()
+                            }
                             alt={screenshot.title}
                             fill
                             className="object-contain transition-filter duration-75 group-hover:brightness-110"
@@ -560,13 +622,13 @@ export default function LineupViewer({
                         const res = await fetch("/api/delete-agent", {
                           method: "POST",
                           headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ agentId: agent._id }),
+                          body: JSON.stringify({ agentId: agent._id, mapId: map._id }),
                         });
                         if (!res.ok) {
                           const data = await res.json();
                           throw new Error(data.error || "Failed to delete agent");
                         }
-                        window.location.href = `/`;
+                        router.push(map.slug?.current ? `/?map=${map.slug.current}` : "/");
                       } catch (err: any) {
                         alert(err.message || "An error occurred");
                       }

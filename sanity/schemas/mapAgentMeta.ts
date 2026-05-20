@@ -29,9 +29,9 @@ export default defineType({
           { title: "A - Great", value: "A" },
           { title: "B - Good", value: "B" },
           { title: "C - Situational", value: "C" },
+          { title: "D - Weak", value: "D" },
         ],
       },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "notes",

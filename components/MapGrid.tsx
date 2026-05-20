@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition, useRef } from "react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Plus, Search, X, Loader2, Trash2 } from "lucide-react";
 import type { GameMap } from "@/lib/types";
 
@@ -14,10 +15,49 @@ interface MapGridProps {
 }
 
 export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const [localMaps, setLocalMaps] = useState<GameMap[]>(maps);
+  const [selectedMapForModal, setSelectedMapForModal] = useState<GameMap | null>(null);
+  
+  const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isLongPressActive = useRef(false);
+
+  const handlePointerDown = (map: GameMap) => (e: React.PointerEvent) => {
+    // Only handle primary button (left click) or touch
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    
+    isLongPressActive.current = false;
+    
+    longPressTimeoutRef.current = setTimeout(() => {
+      isLongPressActive.current = true;
+      setSelectedMapForModal(map);
+    }, 800);
+  };
+
+  const handlePointerUpOrLeave = () => {
+    if (longPressTimeoutRef.current) {
+      clearTimeout(longPressTimeoutRef.current);
+      longPressTimeoutRef.current = null;
+    }
+  };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (isLongPressActive.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      isLongPressActive.current = false;
+    }
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLocalMaps(maps);
+  }, [maps]);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -33,6 +73,24 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
   const handleAddMap = async (mapName: string) => {
     setIsAdding(true);
     setError(null);
+    const oldMaps = [...localMaps];
+
+    // Find the unadded map info to show its splash/list image immediately
+    const apiMap = unaddedMaps.find((m) => m.displayName === mapName);
+    const optimisticMap: GameMap = {
+      _id: `optimistic-${Date.now()}`,
+      name: mapName,
+      imageUrl: apiMap?.splash || apiMap?.listViewIcon || null,
+      listViewIcon: apiMap?.listViewIcon || null,
+      stylizedBackgroundImage: apiMap?.stylizedBackgroundImage || null,
+      slug: {
+        current: (mapName || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+      },
+    };
+
+    setLocalMaps((prev) => [...prev, optimisticMap]);
+    setIsModalOpen(false);
+
     try {
       const res = await fetch("/api/add-map", {
         method: "POST",
@@ -43,13 +101,40 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
       if (!res.ok) {
         throw new Error(data.error || "Failed to add map");
       }
-      // Reload page to fetch updated maps
-      window.location.reload();
+      startTransition(() => {
+        router.refresh();
+      });
     } catch (err: any) {
       console.error(err);
       setError(err.message || "An error occurred");
+      setLocalMaps(oldMaps); // Rollback on error
     } finally {
       setIsAdding(false);
+    }
+  };
+
+  const handleDeleteMap = async (map: GameMap) => {
+    if (confirm(`Are you sure you want to delete the map "${map.name}"? This will also delete all of its screenshots.`)) {
+      const oldMaps = [...localMaps];
+      setLocalMaps((prev) => prev.filter((m) => m._id !== map._id));
+
+      try {
+        const res = await fetch("/api/delete-map", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mapId: map._id }),
+        });
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || "Failed to delete map");
+        }
+        startTransition(() => {
+          router.refresh();
+        });
+      } catch (err: any) {
+        alert(err.message || "An error occurred");
+        setLocalMaps(oldMaps); // Rollback on error
+      }
     }
   };
 
@@ -66,12 +151,12 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
       >
         {/* Map grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {maps.map((map, i: number) => {
+          {localMaps.map((map, i: number) => {
             const slug = map.slug?.current ?? map._id;
 
             return (
               <m.div
-                key={map._id}
+                key={map.name}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.02, duration: 0.25 }}
@@ -79,7 +164,12 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
               >
                 <Link
                   href={`/?map=${slug}`}
-                  className="val-card group block clip-angular bg-val-surface text-left"
+                  onPointerDown={handlePointerDown(map)}
+                  onPointerUp={handlePointerUpOrLeave}
+                  onPointerCancel={handlePointerUpOrLeave}
+                  onPointerLeave={handlePointerUpOrLeave}
+                  onClick={handleCardClick}
+                  className="val-card group block clip-angular bg-val-surface text-left select-none touch-none touch-callout-none"
                 >
                   {map.imageUrl && (
                     <div
@@ -90,16 +180,16 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                         src={map.imageUrl}
                         alt={map.name}
                         fill
-                        className="object-cover transition-all duration-200 group-hover:scale-110 group-hover:brightness-110"
+                        className="object-cover transition-all duration-200 group-hover:scale-110 group-hover:brightness-110 pointer-events-none"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
                       {/* Red accent line at bottom */}
-                      <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-all duration-200 group-hover:w-full" />
+                      <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-all duration-200 group-hover:w-full pointer-events-none" />
 
                       {/* Map name overlay */}
-                      <div className="absolute inset-x-0 bottom-0 z-10 p-3">
+                      <div className="absolute inset-x-0 bottom-0 z-10 p-3 pointer-events-none">
                         <p className="font-oswald text-lg font-bold uppercase tracking-wide text-white">
                           {map.name}
                         </p>
@@ -107,34 +197,6 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                     </div>
                   )}
                 </Link>
-
-                {/* Delete Map Button */}
-                <button
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (confirm(`Are you sure you want to delete the map "${map.name}"? This will also delete all of its screenshots.`)) {
-                      try {
-                        const res = await fetch("/api/delete-map", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ mapId: map._id }),
-                        });
-                        if (!res.ok) {
-                          const data = await res.json();
-                          throw new Error(data.error || "Failed to delete map");
-                        }
-                        window.location.reload();
-                      } catch (err: any) {
-                        alert(err.message || "An error occurred");
-                      }
-                    }
-                  }}
-                  className="absolute top-2 right-2 z-20 flex size-8 items-center justify-center rounded-sm bg-black/60 hover:bg-val-red text-white transition-colors opacity-0 group-hover:opacity-100 cursor-pointer"
-                  title={`Delete map ${map.name}`}
-                >
-                  <Trash2 size={14} />
-                </button>
               </m.div>
             );
           })}
@@ -250,6 +312,45 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                   </div>
                 )}
               </div>
+            </div>
+          </m.div>
+        </div>
+      )}
+
+      {/* Map Actions Modal */}
+      {selectedMapForModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <m.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-sm bg-val-surface border border-white/10 clip-angular overflow-hidden"
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 border-b border-white/5">
+              <h3 className="font-oswald text-lg font-bold uppercase text-white truncate">
+                Map Actions: {selectedMapForModal.name}
+              </h3>
+              <button
+                onClick={() => setSelectedMapForModal(null)}
+                className="text-white/60 hover:text-white transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            {/* Actions list */}
+            <div className="p-4 flex flex-col gap-2">
+              <button
+                onClick={async () => {
+                  const mapToDelete = selectedMapForModal;
+                  setSelectedMapForModal(null);
+                  await handleDeleteMap(mapToDelete);
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-sm bg-val-red/10 border border-val-red/20 text-val-red hover:bg-val-red hover:text-white hover:border-val-red transition-all cursor-pointer font-bold uppercase tracking-wider text-xs"
+              >
+                <span>Delete Map</span>
+                <Trash2 size={14} />
+              </button>
             </div>
           </m.div>
         </div>

@@ -4,20 +4,44 @@ import { revalidateTag } from "next/cache";
 
 export async function POST(request: Request) {
   try {
-    const { agentId } = await request.json();
+    const { agentId, mapId } = await request.json();
     if (!agentId) {
       return NextResponse.json({ error: "agentId is required" }, { status: 400 });
     }
 
-    // Find and delete all screenshots associated with this agent to keep data clean
-    const screenshots = await client.fetch<string[]>(
-      `*[_type == "screenshot" && agent._ref == $agentId]._id`,
-      { agentId }
-    );
-
     const tx = client.transaction();
-    screenshots.forEach((id) => tx.delete(id));
-    tx.delete(agentId);
+
+    if (mapId) {
+      // Find the specific mapAgentMeta document linking this agent to this map
+      const metas = await client.fetch<string[]>(
+        `*[_type == "mapAgentMeta" && map._ref == $mapId && agent._ref == $agentId]._id`,
+        { mapId, agentId }
+      );
+      metas.forEach((id) => tx.delete(id));
+
+      // Delete all screenshots associated with this agent on this map
+      const screenshots = await client.fetch<string[]>(
+        `*[_type == "screenshot" && map._ref == $mapId && agent._ref == $agentId]._id`,
+        { mapId, agentId }
+      );
+      screenshots.forEach((id) => tx.delete(id));
+    } else {
+      // Global deletion: Delete all screenshots associated with this agent to keep data clean
+      const screenshots = await client.fetch<string[]>(
+        `*[_type == "screenshot" && agent._ref == $agentId]._id`,
+        { agentId }
+      );
+      screenshots.forEach((id) => tx.delete(id));
+      
+      // Delete all mapAgentMeta associations
+      const metas = await client.fetch<string[]>(
+        `*[_type == "mapAgentMeta" && agent._ref == $agentId]._id`,
+        { agentId }
+      );
+      metas.forEach((id) => tx.delete(id));
+
+      tx.delete(agentId);
+    }
     
     await tx.commit();
 

@@ -15,8 +15,15 @@ export async function POST(request: Request) {
       { mapId }
     );
 
+    // Find and delete all mapAgentMeta associations linked to this map
+    const metas = await client.fetch<string[]>(
+      `*[_type == "mapAgentMeta" && map._ref == $mapId]._id`,
+      { mapId }
+    );
+
     const tx = client.transaction();
     screenshots.forEach((id) => tx.delete(id));
+    metas.forEach((id) => tx.delete(id));
     tx.delete(mapId);
     
     await tx.commit();
