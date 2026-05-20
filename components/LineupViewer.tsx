@@ -529,7 +529,7 @@ export default function LineupViewer({
                             alt={screenshot.title}
                             fill
                             className="object-contain transition-filter duration-75 group-hover:brightness-110"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            sizes="(max-width: 640px) 200vw, (max-width: 1024px) 100vw, 66vw"
                           />
                         </div>
                         <div className="p-3">
@@ -653,6 +653,7 @@ export default function LineupViewer({
                     src={agent.displayIcon}
                     alt={agent?.name}
                     fill
+                    sizes="336px"
                     className="object-cover object-center"
                     style={{
                       filter: `drop-shadow(0 20px 40px ${accentColor}40)`,
@@ -854,6 +855,7 @@ export default function LineupViewer({
                                   src={ability.displayIcon}
                                   alt={ability.displayName}
                                   fill
+                                  sizes="64px"
                                   className="object-contain"
                                 />
                               </div>
@@ -918,6 +920,7 @@ export default function LineupViewer({
                         src={imagePreview}
                         alt="Preview"
                         fill
+                        sizes="(max-width: 480px) 100vw, 450px"
                         className="object-contain"
                       />
                       <button
@@ -1055,6 +1058,7 @@ export default function LineupViewer({
                                   src={ability.displayIcon}
                                   alt={ability.displayName}
                                   fill
+                                  sizes="64px"
                                   className="object-contain"
                                 />
                               </div>
@@ -1119,6 +1123,7 @@ export default function LineupViewer({
                         src={editImagePreview}
                         alt="Preview"
                         fill
+                        sizes="(max-width: 480px) 100vw, 450px"
                         className="object-contain"
                       />
                       <button

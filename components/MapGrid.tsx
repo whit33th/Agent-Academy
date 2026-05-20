@@ -23,17 +23,35 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
   
   const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isLongPressActive = useRef(false);
+  const startCoordsRef = useRef<{ x: number; y: number } | null>(null);
 
   const handlePointerDown = (map: GameMap) => (e: React.PointerEvent) => {
     // Only handle primary button (left click) or touch
     if (e.pointerType === "mouse" && e.button !== 0) return;
     
     isLongPressActive.current = false;
+    startCoordsRef.current = { x: e.clientX, y: e.clientY };
     
     longPressTimeoutRef.current = setTimeout(() => {
       isLongPressActive.current = true;
       setSelectedMapForModal(map);
-    }, 800);
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    }, 600);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!startCoordsRef.current || !longPressTimeoutRef.current) return;
+    const dx = e.clientX - startCoordsRef.current.x;
+    const dy = e.clientY - startCoordsRef.current.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    if (distance > 10) {
+      clearTimeout(longPressTimeoutRef.current);
+      longPressTimeoutRef.current = null;
+      startCoordsRef.current = null;
+    }
   };
 
   const handlePointerUpOrLeave = () => {
@@ -41,6 +59,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
       clearTimeout(longPressTimeoutRef.current);
       longPressTimeoutRef.current = null;
     }
+    startCoordsRef.current = null;
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
@@ -165,11 +184,13 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                 <Link
                   href={`/?map=${slug}`}
                   onPointerDown={handlePointerDown(map)}
+                  onPointerMove={handlePointerMove}
                   onPointerUp={handlePointerUpOrLeave}
                   onPointerCancel={handlePointerUpOrLeave}
                   onPointerLeave={handlePointerUpOrLeave}
                   onClick={handleCardClick}
-                  className="val-card group block clip-angular bg-val-surface text-left select-none touch-none touch-callout-none"
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="val-card group block clip-angular bg-val-surface text-left select-none touch-pan-y touch-callout-none"
                 >
                   {map.imageUrl && (
                     <div
@@ -181,7 +202,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                         alt={map.name}
                         fill
                         className="object-cover transition-all duration-200 group-hover:scale-110 group-hover:brightness-110 pointer-events-none"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 200vw, (max-width: 1024px) 100vw, 66vw"
                       />
                       {/* Gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
@@ -233,7 +254,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
           <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md overflow-hidden bg-val-surface border border-white/10 clip-angular"
+            className="w-full max-w-4xl overflow-hidden bg-val-surface border border-white/10 clip-angular"
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/5">
@@ -253,7 +274,7 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
             </div>
 
             {/* Modal Body */}
-            <div className="p-4 flex flex-col gap-4">
+            <div className="p-5 flex flex-col gap-4">
               {/* Search input */}
               <div className="relative">
                 <Search className="absolute left-3 top-2.5 size-4 text-white/40" />
@@ -272,42 +293,53 @@ export default function MapGrid({ maps, agentCount, unaddedMaps = [] }: MapGridP
                 </div>
               )}
 
-              {/* List of maps */}
-              <div className="max-h-[300px] overflow-y-auto pr-1 flex flex-col gap-2 custom-scrollbar" data-lenis-prevent>
+              {/* List of maps in grid */}
+              <div className="max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar" data-lenis-prevent>
                 {filteredMaps.length > 0 ? (
-                  filteredMaps.map((map) => (
-                    <button
-                      key={map.uuid}
-                      disabled={isAdding}
-                      onClick={() => handleAddMap(map.displayName)}
-                      className="group flex items-center justify-between p-2 rounded-sm bg-white/3 hover:bg-val-red/10 border border-white/5 hover:border-val-red/30 text-left transition-all cursor-pointer disabled:opacity-50 w-full"
-                    >
-                      <div className="flex items-center gap-3">
-                        {map.listViewIcon && (
-                          <div className="relative size-12 rounded-sm overflow-hidden bg-black/40 flex-shrink-0">
-                            <Image
-                              src={map.listViewIcon}
-                              alt={map.displayName}
-                              fill
-                              className="object-cover"
-                            />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {filteredMaps.map((map) => (
+                      <button
+                        key={map.uuid}
+                        disabled={isAdding}
+                        onClick={() => handleAddMap(map.displayName)}
+                        className="group relative w-full clip-angular bg-black/40 border border-white/5 hover:border-val-red/30 transition-all cursor-pointer disabled:opacity-50 aspect-video overflow-hidden"
+                      >
+                        {/* Image */}
+                        {(map.splash || map.listViewIcon) && (
+                          <Image
+                            src={map.splash || map.listViewIcon}
+                            alt={map.displayName}
+                            fill
+                            className="object-cover transition-all duration-200 group-hover:scale-110 group-hover:brightness-110 pointer-events-none"
+                            sizes="(max-width: 640px) 200vw, (max-width: 1024px) 100vw, 66vw"
+                          />
+                        )}
+                        
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+                        
+                        {/* Red accent line at bottom */}
+                        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-all duration-200 group-hover:w-full pointer-events-none" />
+
+                        {/* Map info */}
+                        <div className="absolute inset-x-0 bottom-0 z-10 p-3 pointer-events-none flex items-end justify-between">
+                          <span className="font-oswald text-base font-bold uppercase tracking-wider text-white group-hover:text-val-red transition-colors">
+                            {map.displayName}
+                          </span>
+                          
+                          <div className="flex size-7 items-center justify-center rounded-sm bg-black/40 border border-white/10 group-hover:border-val-red/30 group-hover:bg-val-red/20 text-white/60 group-hover:text-val-red transition-all">
+                            {isAdding ? (
+                              <Loader2 className="size-4 animate-spin" />
+                            ) : (
+                              <Plus size={16} />
+                            )}
                           </div>
-                        )}
-                        <span className="font-semibold text-white group-hover:text-val-red transition-colors">
-                          {map.displayName}
-                        </span>
-                      </div>
-                      <div className="flex size-7 items-center justify-center rounded-sm bg-white/5 group-hover:bg-val-red/20 text-white/60 group-hover:text-val-red transition-all">
-                        {isAdding ? (
-                          <Loader2 className="size-4 animate-spin" />
-                        ) : (
-                          <Plus size={16} />
-                        )}
-                      </div>
-                    </button>
-                  ))
+                        </div>
+                      </button>
+                    ))}
+                  </div>
                 ) : (
-                  <div className="text-center py-6 text-sm text-white/40">
+                  <div className="text-center py-12 text-sm text-white/40">
                     No unadded maps found
                   </div>
                 )}

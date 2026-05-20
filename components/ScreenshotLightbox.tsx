@@ -109,7 +109,7 @@ export default function ScreenshotLightbox({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="flex flex-col w-full max-w-5xl h-[85vh] max-h-[85vh] md:max-h-[90vh] bg-val-bg border border-white/10 overflow-hidden shadow-2xl clip-angular"
+              className="flex flex-col w-full max-w-6xl h-[85vh] max-h-[85vh] md:max-h-[90vh] bg-val-bg border border-white/10 overflow-hidden shadow-2xl clip-angular"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image container (absolute positioning container for Next.js Image with fill) */}
@@ -122,7 +122,7 @@ export default function ScreenshotLightbox({
                   }
                   alt={current.title}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 1200px"
+                  sizes="(max-width: 1024px) 200vw, 2400px"
                   className="object-contain pointer-events-none"
                   priority
                 />

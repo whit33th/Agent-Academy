@@ -188,7 +188,7 @@ export default function LiveSyncStatus() {
               <p className="text-[10px] text-white/40 italic mt-1 leading-normal">
                 * Установщик абсолютно прозрачен и состоит из нескольких строк открытого Node.js кода, который читает локальный лог Valorant и передает его сайту.
               </p>
-            </div>
+            </div>игт
 
             {/* Actions */}
             <div className="flex border-t border-white/5 pt-4">

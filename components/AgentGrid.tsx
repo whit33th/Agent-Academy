@@ -230,7 +230,7 @@ const getSlotKey = (slot: string) => {
 function mapAbilityToGenericType(
   slot: string,
   displayName: string,
-  description: string
+  description: string,
 ): string {
   const name = (displayName || "").toLowerCase();
   const desc = (description || "").toLowerCase();
@@ -239,38 +239,73 @@ function mapAbilityToGenericType(
   if (s === "ultimate") return "ultimate";
 
   if (
-    name.includes("smoke") || name.includes("cloud") || name.includes("nebula") ||
-    desc.includes("smoke") || desc.includes("cloud") || desc.includes("block vision")
+    name.includes("smoke") ||
+    name.includes("cloud") ||
+    name.includes("nebula") ||
+    desc.includes("smoke") ||
+    desc.includes("cloud") ||
+    desc.includes("block vision")
   ) {
     return "smoke";
   }
   if (
-    name.includes("wall") || name.includes("barrier") || name.includes("screen") ||
-    desc.includes("wall") || desc.includes("barrier") || desc.includes("screen")
+    name.includes("wall") ||
+    name.includes("barrier") ||
+    name.includes("screen") ||
+    desc.includes("wall") ||
+    desc.includes("barrier") ||
+    desc.includes("screen")
   ) {
     return "wall";
   }
   if (
-    name.includes("flash") || name.includes("blind") || name.includes("guiding light") || name.includes("flashbang") ||
-    desc.includes("flash") || desc.includes("blind")
+    name.includes("flash") ||
+    name.includes("blind") ||
+    name.includes("guiding light") ||
+    name.includes("flashbang") ||
+    desc.includes("flash") ||
+    desc.includes("blind")
   ) {
     return "flash";
   }
   if (
-    name.includes("molly") || name.includes("swarm") || name.includes("grenade") || name.includes("bite") || name.includes("incendiary") || name.includes("fire") ||
-    desc.includes("molly") || desc.includes("swarm") || desc.includes("grenade") || desc.includes("burning") || desc.includes("damage over time")
+    name.includes("molly") ||
+    name.includes("swarm") ||
+    name.includes("grenade") ||
+    name.includes("bite") ||
+    name.includes("incendiary") ||
+    name.includes("fire") ||
+    desc.includes("molly") ||
+    desc.includes("swarm") ||
+    desc.includes("grenade") ||
+    desc.includes("burning") ||
+    desc.includes("damage over time")
   ) {
     return "molly";
   }
   if (
-    name.includes("recon") || name.includes("scan") || name.includes("reveal") || name.includes("sensor") || name.includes("dart") || name.includes("drone") || name.includes("camera") || name.includes("spy") ||
-    desc.includes("scan") || desc.includes("reveal") || desc.includes("detect") || desc.includes("sonar")
+    name.includes("recon") ||
+    name.includes("scan") ||
+    name.includes("reveal") ||
+    name.includes("sensor") ||
+    name.includes("dart") ||
+    name.includes("drone") ||
+    name.includes("camera") ||
+    name.includes("spy") ||
+    desc.includes("scan") ||
+    desc.includes("reveal") ||
+    desc.includes("detect") ||
+    desc.includes("sonar")
   ) {
     return "recon";
   }
   if (
-    name.includes("heal") || name.includes("support") || name.includes("revive") ||
-    desc.includes("heal") || desc.includes("revive") || desc.includes("health")
+    name.includes("heal") ||
+    name.includes("support") ||
+    name.includes("revive") ||
+    desc.includes("heal") ||
+    desc.includes("revive") ||
+    desc.includes("health")
   ) {
     return "heal";
   }
@@ -342,21 +377,42 @@ export default function AgentGrid({
   const [isPending, startTransition] = useTransition();
 
   const [localAgents, setLocalAgents] = useState<Agent[]>(agents);
-  const [selectedAgentForModal, setSelectedAgentForModal] = useState<Agent | null>(null);
+  const [selectedAgentForModal, setSelectedAgentForModal] =
+    useState<Agent | null>(null);
 
-  const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const isLongPressActive = useRef(false);
+  const startCoordsRef = useRef<{ x: number; y: number } | null>(null);
 
   const handlePointerDown = (agent: Agent) => (e: React.PointerEvent) => {
     // Only handle primary button (left click) or touch
     if (e.pointerType === "mouse" && e.button !== 0) return;
-    
+
     isLongPressActive.current = false;
-    
+    startCoordsRef.current = { x: e.clientX, y: e.clientY };
+
     longPressTimeoutRef.current = setTimeout(() => {
       isLongPressActive.current = true;
       setSelectedAgentForModal(agent);
-    }, 800);
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    }, 600);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!startCoordsRef.current || !longPressTimeoutRef.current) return;
+    const dx = e.clientX - startCoordsRef.current.x;
+    const dy = e.clientY - startCoordsRef.current.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    if (distance > 10) {
+      clearTimeout(longPressTimeoutRef.current);
+      longPressTimeoutRef.current = null;
+      startCoordsRef.current = null;
+    }
   };
 
   const handlePointerUpOrLeave = () => {
@@ -364,6 +420,7 @@ export default function AgentGrid({
       clearTimeout(longPressTimeoutRef.current);
       longPressTimeoutRef.current = null;
     }
+    startCoordsRef.current = null;
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
@@ -376,7 +433,11 @@ export default function AgentGrid({
 
   const handleDeleteAgent = async (agent: Agent) => {
     if (!selectedMapId) return;
-    if (confirm(`Are you sure you want to delete the agent "${agent.name}"? This will also delete all of their screenshots.`)) {
+    if (
+      confirm(
+        `Are you sure you want to delete the agent "${agent.name}"? This will also delete all of their screenshots.`,
+      )
+    ) {
       const oldAgents = [...localAgents];
       setLocalAgents((prev) => prev.filter((a) => a._id !== agent._id));
 
@@ -403,12 +464,10 @@ export default function AgentGrid({
   const handleUpdateViability = async (agent: Agent, tier: string | null) => {
     if (!selectedMapId) return;
     const oldAgents = [...localAgents];
-    
+
     // Optimistic Update
     setLocalAgents((prev) =>
-      prev.map((a) =>
-        a._id === agent._id ? { ...a, viability: tier } : a
-      )
+      prev.map((a) => (a._id === agent._id ? { ...a, viability: tier } : a)),
     );
     setSelectedAgentForModal(null);
 
@@ -476,14 +535,18 @@ export default function AgentGrid({
   const [addAgentError, setAddAgentError] = useState<string | null>(null);
 
   const agentsForDropdown = allAgents.length > 0 ? allAgents : localAgents;
-  
+
   const selectedAgentObj = agentsForDropdown.find(
-    (a) => (a.slug?.current ?? a._id) === selectedAgentSlug
+    (a) => (a.slug?.current ?? a._id) === selectedAgentSlug,
   );
 
   // Auto-select first ability when agent changes
   useEffect(() => {
-    if (selectedAgentObj && selectedAgentObj.abilities && selectedAgentObj.abilities.length > 0) {
+    if (
+      selectedAgentObj &&
+      selectedAgentObj.abilities &&
+      selectedAgentObj.abilities.length > 0
+    ) {
       setSelectedAbilitySlot(selectedAgentObj.abilities[0].slot);
     } else {
       setSelectedAbilitySlot("");
@@ -508,7 +571,9 @@ export default function AgentGrid({
     const oldAgents = [...localAgents];
 
     // Find the unadded agent info to show its portrait immediately
-    const apiAgent = (unaddedAgents || []).find((a) => a.displayName === agentName);
+    const apiAgent = (unaddedAgents || []).find(
+      (a) => a.displayName === agentName,
+    );
     const optimisticAgent: Agent = {
       _id: `optimistic-${Date.now()}`,
       name: agentName,
@@ -555,7 +620,7 @@ export default function AgentGrid({
   const filteredUnaddedAgents = (unaddedAgents || []).filter((agent) =>
     (agent.displayName || "")
       .toLowerCase()
-      .includes(agentSearchQuery.toLowerCase())
+      .includes(agentSearchQuery.toLowerCase()),
   );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -590,15 +655,15 @@ export default function AgentGrid({
 
     // Map selection to generic ability type for validation/filtering compatibility
     const selectedAbilityObj = selectedAgentObj?.abilities.find(
-      (a) => a.slot === selectedAbilitySlot
+      (a) => a.slot === selectedAbilitySlot,
     );
     const genericAbilityType = mapAbilityToGenericType(
       selectedAbilitySlot,
       selectedAbilityObj?.displayName || "",
-      selectedAbilityObj?.description || ""
+      selectedAbilityObj?.description || "",
     );
     formData.append("abilityType", genericAbilityType);
-    
+
     formData.append("image", imageFile);
 
     try {
@@ -617,7 +682,7 @@ export default function AgentGrid({
       setImagePreview(null);
       setTitle("");
       setDescription("");
-      
+
       startTransition(() => {
         router.refresh();
       });
@@ -672,11 +737,13 @@ export default function AgentGrid({
                 <Link
                   href={`/?${params.toString()}`}
                   onPointerDown={handlePointerDown(agent)}
+                  onPointerMove={handlePointerMove}
                   onPointerUp={handlePointerUpOrLeave}
                   onPointerCancel={handlePointerUpOrLeave}
                   onPointerLeave={handlePointerUpOrLeave}
                   onClick={handleCardClick}
-                  className="group relative block w-full h-[340px] overflow-visible transition-all duration-200 hover:-translate-y-1.5 select-none touch-none touch-callout-none"
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="group relative block w-full h-[340px] overflow-visible transition-all duration-200 hover:-translate-y-1.5 select-none touch-pan-y touch-callout-none"
                 >
                   {/* Card Background & Clip Container */}
                   <div
@@ -770,7 +837,7 @@ export default function AgentGrid({
                         src={`/ranks/${viability.toLowerCase()}.png`}
                         alt={`${viability} Rank`}
                         fill
-                        sizes="40px"
+                        sizes="80px"
                         className="object-contain"
                       />
                     </div>
@@ -793,15 +860,14 @@ export default function AgentGrid({
               className="group relative block w-full h-[340px] overflow-visible transition-all duration-200 hover:-translate-y-1.5 cursor-pointer text-left border-0 outline-none p-0 bg-transparent"
             >
               {/* Card Background & Clip Container */}
-              <div
-                className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 bg-gradient-to-b from-zinc-800/40 to-zinc-950/80 transition-all duration-200 group-hover:border-val-red/80 group-hover:shadow-[0_12px_30px_rgba(255,70,85,0.15)]"
-              >
+              <div className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 bg-gradient-to-b from-zinc-800/40 to-zinc-950/80 transition-all duration-200 group-hover:border-val-red/80 group-hover:shadow-[0_12px_30px_rgba(255,70,85,0.15)]">
                 {/* Silhouette Character Image */}
                 <div className="absolute inset-0 opacity-25 group-hover:opacity-40 transition-opacity duration-200">
                   <Image
                     src="/new_agent_card.png"
                     alt="Add Agent background"
                     fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
                     className="object-cover object-top"
                   />
                 </div>
@@ -838,7 +904,10 @@ export default function AgentGrid({
 
       {/* Upload Screenshot Modal */}
       {isUploadModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto" data-lenis-prevent>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
+          data-lenis-prevent
+        >
           <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -863,7 +932,10 @@ export default function AgentGrid({
             </div>
 
             {/* Modal Form */}
-            <form onSubmit={handleUploadSubmit} className="p-4 flex flex-col gap-4">
+            <form
+              onSubmit={handleUploadSubmit}
+              className="p-4 flex flex-col gap-4"
+            >
               {uploadError && (
                 <div className="text-xs text-val-red bg-val-red/10 border border-val-red/20 p-2.5 rounded-sm">
                   {uploadError}
@@ -898,7 +970,9 @@ export default function AgentGrid({
                 <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
                   Ability
                 </label>
-                {selectedAgentObj && selectedAgentObj.abilities && selectedAgentObj.abilities.length > 0 ? (
+                {selectedAgentObj &&
+                selectedAgentObj.abilities &&
+                selectedAgentObj.abilities.length > 0 ? (
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {selectedAgentObj.abilities.map((ability) => {
                       const isSelected = selectedAbilitySlot === ability.slot;
@@ -927,12 +1001,15 @@ export default function AgentGrid({
                                 src={ability.displayIcon}
                                 alt={ability.displayName}
                                 fill
+                                sizes="64px"
                                 className="object-contain"
                               />
                             </div>
                           ) : (
                             <div className="size-8 mb-1.5 flex items-center justify-center bg-white/5 rounded-sm">
-                              <span className="text-[10px] font-bold text-white/30">{keyBind}</span>
+                              <span className="text-[10px] font-bold text-white/30">
+                                {keyBind}
+                              </span>
                             </div>
                           )}
 
@@ -991,6 +1068,7 @@ export default function AgentGrid({
                       src={imagePreview}
                       alt="Preview"
                       fill
+                      sizes="(max-width: 480px) 100vw, 450px"
                       className="object-contain"
                     />
                     <button
@@ -1008,8 +1086,12 @@ export default function AgentGrid({
                   <label className="flex flex-col items-center justify-center w-full aspect-video border border-dashed border-white/15 rounded-sm hover:border-val-red/40 hover:bg-white/1 cursor-pointer transition-all">
                     <div className="flex flex-col items-center gap-1 text-white/40">
                       <Upload className="size-8 mb-1" />
-                      <span className="text-sm font-medium">Click to upload screenshot</span>
-                      <span className="text-[10px] text-white/30">PNG, JPG, WebP up to 10MB</span>
+                      <span className="text-sm font-medium">
+                        Click to upload screenshot
+                      </span>
+                      <span className="text-[10px] text-white/30">
+                        PNG, JPG, WebP up to 10MB
+                      </span>
                     </div>
                     <input
                       type="file"
@@ -1103,7 +1185,10 @@ export default function AgentGrid({
               )}
 
               {/* Grid of agents */}
-              <div className="max-h-[320px] overflow-y-auto pr-1 custom-scrollbar" data-lenis-prevent>
+              <div
+                className="max-h-[320px] overflow-y-auto pr-1 custom-scrollbar"
+                data-lenis-prevent
+              >
                 {filteredUnaddedAgents.length > 0 ? (
                   <div className="grid grid-cols-5 gap-2">
                     {filteredUnaddedAgents.map((agent) => (
@@ -1119,7 +1204,7 @@ export default function AgentGrid({
                             src={agent.displayIcon}
                             alt={agent.displayName}
                             fill
-                            sizes="80px"
+                            sizes="160px"
                             className="object-cover transition-transform duration-200 group-hover:scale-110"
                           />
                         )}
@@ -1161,7 +1246,7 @@ export default function AgentGrid({
                 <X size={18} />
               </button>
             </div>
-            
+
             {/* Modal Body */}
             <div className="p-4 flex flex-col gap-4">
               {/* Agent display info */}
@@ -1172,6 +1257,7 @@ export default function AgentGrid({
                       src={selectedAgentForModal.displayIcon}
                       alt={selectedAgentForModal.name}
                       fill
+                      sizes="96px"
                       className="object-cover"
                     />
                   </div>
@@ -1189,13 +1275,15 @@ export default function AgentGrid({
               {/* Set Viability Tier section */}
               <div className="flex flex-col gap-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-white/60">
-                   Tier:
+                  Tier:
                 </span>
-                
+
                 <div className="flex items-center justify-between gap-1 bg-black/30  p-2 sm:p-3 rounded-sm border border-white/5">
                   {["S", "A", "B", "C", "D"].map((tier) => {
-                    const isCurrent = (selectedAgentForModal.viability || "").toUpperCase() === tier;
-                    
+                    const isCurrent =
+                      (selectedAgentForModal.viability || "").toUpperCase() ===
+                      tier;
+
                     return (
                       <button
                         key={tier}
@@ -1209,21 +1297,22 @@ export default function AgentGrid({
                         }`}
                         title={`${tier}-Tier`}
                       >
-                          <Image
-                            src={`/ranks/${tier.toLowerCase()}.png`}
-                            alt={`${tier} Rank`}
-                            fill
-                            sizes="48px"
-                            className="object-contain"
-                          />
-                       
+                        <Image
+                          src={`/ranks/${tier.toLowerCase()}.png`}
+                          alt={`${tier} Rank`}
+                          fill
+                          sizes="96px"
+                          className="object-contain"
+                        />
                       </button>
                     );
                   })}
-                  
+
                   {/* Clear tier button */}
                   <button
-                    onClick={() => handleUpdateViability(selectedAgentForModal, null)}
+                    onClick={() =>
+                      handleUpdateViability(selectedAgentForModal, null)
+                    }
                     className={`relative flex size-10 sm:size-12 items-center aspect-square justify-center transition-all cursor-pointer select-none active:scale-95 filter ${
                       !selectedAgentForModal.viability
                         ? "scale-115 opacity-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
@@ -1236,7 +1325,7 @@ export default function AgentGrid({
                         src="/ranks/unranked.png"
                         alt="Unranked"
                         fill
-                        sizes="48px"
+                        sizes="96px"
                         className="object-contain"
                       />
                     </div>
@@ -1265,4 +1354,3 @@ export default function AgentGrid({
     </LazyMotion>
   );
 }
-
