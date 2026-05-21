@@ -1,0 +1,239 @@
+{
+  "downloadedAt": "2026-05-21T02:36:09.503Z",
+  "count": 29,
+  "agents": [
+    {
+      "name": "Gekko",
+      "slug": "gekko",
+      "sourcePage": "https://valorant.fandom.com/wiki/Gekko/Quotes",
+      "sourceFile": "GekkoPick.mp3",
+      "publicPath": "/sounds/agents/gekko.mp3",
+      "bytes": 98473
+    },
+    {
+      "name": "Fade",
+      "slug": "fade",
+      "sourcePage": "https://valorant.fandom.com/wiki/Fade/Quotes",
+      "sourceFile": "FadePick.mp3",
+      "publicPath": "/sounds/agents/fade.mp3",
+      "bytes": 55232
+    },
+    {
+      "name": "Breach",
+      "slug": "breach",
+      "sourcePage": "https://valorant.fandom.com/wiki/Breach/Quotes",
+      "sourceFile": "BreachPick.mp3",
+      "publicPath": "/sounds/agents/breach.mp3",
+      "bytes": 153600
+    },
+    {
+      "name": "Deadlock",
+      "slug": "deadlock",
+      "sourcePage": "https://valorant.fandom.com/wiki/Deadlock/Quotes",
+      "sourceFile": "DeadlockPick.mp3",
+      "publicPath": "/sounds/agents/deadlock.mp3",
+      "bytes": 127502
+    },
+    {
+      "name": "Tejo",
+      "slug": "tejo",
+      "sourcePage": "https://valorant.fandom.com/wiki/Tejo/Quotes",
+      "sourceFile": "TejoPick.mp3",
+      "publicPath": "/sounds/agents/tejo.mp3",
+      "bytes": 147885
+    },
+    {
+      "name": "Raze",
+      "slug": "raze",
+      "sourcePage": "https://valorant.fandom.com/wiki/Raze/Quotes",
+      "sourceFile": "RazePick.mp3",
+      "publicPath": "/sounds/agents/raze.mp3",
+      "bytes": 117120
+    },
+    {
+      "name": "Chamber",
+      "slug": "chamber",
+      "sourcePage": "https://valorant.fandom.com/wiki/Chamber/Quotes",
+      "sourceFile": "ChamberPick.mp3",
+      "publicPath": "/sounds/agents/chamber.mp3",
+      "bytes": 46496
+    },
+    {
+      "name": "KAY/O",
+      "slug": "kayo",
+      "sourcePage": "https://valorant.fandom.com/wiki/KAYO/Quotes",
+      "sourceFile": "KAYOPick.mp3",
+      "publicPath": "/sounds/agents/kayo.mp3",
+      "bytes": 96000
+    },
+    {
+      "name": "Skye",
+      "slug": "skye",
+      "sourcePage": "https://valorant.fandom.com/wiki/Skye/Quotes",
+      "sourceFile": "SkyePick.mp3",
+      "publicPath": "/sounds/agents/skye.mp3",
+      "bytes": 127680
+    },
+    {
+      "name": "Cypher",
+      "slug": "cypher",
+      "sourcePage": "https://valorant.fandom.com/wiki/Cypher/Quotes",
+      "sourceFile": "CypherPick.mp3",
+      "publicPath": "/sounds/agents/cypher.mp3",
+      "bytes": 114240
+    },
+    {
+      "name": "Sova",
+      "slug": "sova",
+      "sourcePage": "https://valorant.fandom.com/wiki/Sova/Quotes",
+      "sourceFile": "SovaPick.mp3",
+      "publicPath": "/sounds/agents/sova.mp3",
+      "bytes": 136320
+    },
+    {
+      "name": "Miks",
+      "slug": "miks",
+      "sourcePage": "https://valorant.fandom.com/wiki/Miks/Quotes",
+      "sourceFile": "MiksPick.mp3",
+      "publicPath": "/sounds/agents/miks.mp3",
+      "bytes": 112365
+    },
+    {
+      "name": "Killjoy",
+      "slug": "killjoy",
+      "sourcePage": "https://valorant.fandom.com/wiki/Killjoy/Quotes",
+      "sourceFile": "KilljoyPick.mp3",
+      "publicPath": "/sounds/agents/killjoy.mp3",
+      "bytes": 163200
+    },
+    {
+      "name": "Harbor",
+      "slug": "harbor",
+      "sourcePage": "https://valorant.fandom.com/wiki/Harbor/Quotes",
+      "sourceFile": "HarborPick.mp3",
+      "publicPath": "/sounds/agents/harbor.mp3",
+      "bytes": 21960
+    },
+    {
+      "name": "Vyse",
+      "slug": "vyse",
+      "sourcePage": "https://valorant.fandom.com/wiki/Vyse/Quotes",
+      "sourceFile": "VysePick.mp3",
+      "publicPath": "/sounds/agents/vyse.mp3",
+      "bytes": 141165
+    },
+    {
+      "name": "Viper",
+      "slug": "viper",
+      "sourcePage": "https://valorant.fandom.com/wiki/Viper/Quotes",
+      "sourceFile": "ViperPick.mp3",
+      "publicPath": "/sounds/agents/viper.mp3",
+      "bytes": 153600
+    },
+    {
+      "name": "Phoenix",
+      "slug": "phoenix",
+      "sourcePage": "https://valorant.fandom.com/wiki/Phoenix/Quotes",
+      "sourceFile": "PhoenixPick.mp3",
+      "publicPath": "/sounds/agents/phoenix.mp3",
+      "bytes": 144960
+    },
+    {
+      "name": "Veto",
+      "slug": "veto",
+      "sourcePage": "https://valorant.fandom.com/wiki/Veto/Quotes",
+      "sourceFile": "VetoPick.mp3",
+      "publicPath": "/sounds/agents/veto.mp3",
+      "bytes": 117165
+    },
+    {
+      "name": "Astra",
+      "slug": "astra",
+      "sourcePage": "https://valorant.fandom.com/wiki/Astra/Quotes",
+      "sourceFile": "AstraPick.mp3",
+      "publicPath": "/sounds/agents/astra.mp3",
+      "bytes": 182400
+    },
+    {
+      "name": "Brimstone",
+      "slug": "brimstone",
+      "sourcePage": "https://valorant.fandom.com/wiki/Brimstone/Quotes",
+      "sourceFile": "BrimstonePick.mp3",
+      "publicPath": "/sounds/agents/brimstone.mp3",
+      "bytes": 253440
+    },
+    {
+      "name": "Iso",
+      "slug": "iso",
+      "sourcePage": "https://valorant.fandom.com/wiki/Iso/Quotes",
+      "sourceFile": "IsoPick.mp3",
+      "publicPath": "/sounds/agents/iso.mp3",
+      "bytes": 136906
+    },
+    {
+      "name": "Clove",
+      "slug": "clove",
+      "sourcePage": "https://valorant.fandom.com/wiki/Clove/Quotes",
+      "sourceFile": "ClovePick.mp3",
+      "publicPath": "/sounds/agents/clove.mp3",
+      "bytes": 46293
+    },
+    {
+      "name": "Neon",
+      "slug": "neon",
+      "sourcePage": "https://valorant.fandom.com/wiki/Neon/Quotes",
+      "sourceFile": "NeonPick.mp3",
+      "publicPath": "/sounds/agents/neon.mp3",
+      "bytes": 37088
+    },
+    {
+      "name": "Yoru",
+      "slug": "yoru",
+      "sourcePage": "https://valorant.fandom.com/wiki/Yoru/Quotes",
+      "sourceFile": "YoruPick.mp3",
+      "publicPath": "/sounds/agents/yoru.mp3",
+      "bytes": 218880
+    },
+    {
+      "name": "Waylay",
+      "slug": "waylay",
+      "sourcePage": "https://valorant.fandom.com/wiki/Waylay/Quotes",
+      "sourceFile": "WaylayPick.mp3",
+      "publicPath": "/sounds/agents/waylay.mp3",
+      "bytes": 134445
+    },
+    {
+      "name": "Sage",
+      "slug": "sage",
+      "sourcePage": "https://valorant.fandom.com/wiki/Sage/Quotes",
+      "sourceFile": "SagePick.mp3",
+      "publicPath": "/sounds/agents/sage.mp3",
+      "bytes": 137280
+    },
+    {
+      "name": "Reyna",
+      "slug": "reyna",
+      "sourcePage": "https://valorant.fandom.com/wiki/Reyna/Quotes",
+      "sourceFile": "ReynaPick.mp3",
+      "publicPath": "/sounds/agents/reyna.mp3",
+      "bytes": 192000
+    },
+    {
+      "name": "Omen",
+      "slug": "omen",
+      "sourcePage": "https://valorant.fandom.com/wiki/Omen/Quotes",
+      "sourceFile": "OmenPick.mp3",
+      "publicPath": "/sounds/agents/omen.mp3",
+      "bytes": 152640
+    },
+    {
+      "name": "Jett",
+      "slug": "jett",
+      "sourcePage": "https://valorant.fandom.com/wiki/Jett/Quotes",
+      "sourceFile": "JettPick.mp3",
+      "publicPath": "/sounds/agents/jett.mp3",
+      "bytes": 96960
+    }
+  ],
+  "failures": []
+}

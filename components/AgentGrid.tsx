@@ -585,6 +585,9 @@ export default function AgentGrid({
       roleIcon: apiAgent?.role?.displayIcon || null,
       description: apiAgent?.description || "",
       abilities: apiAgent?.abilities || [],
+      voiceLineUrl:
+        apiAgent?.voiceLine?.mediaList?.[0]?.wave ??
+        `/sounds/agents/${agentName.toLowerCase().replace(/[^a-z0-9]/g, "")}.mp3`,
       background: apiAgent?.background || null,
       backgroundGradientColors: apiAgent?.backgroundGradientColors || [],
       slug: {

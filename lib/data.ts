@@ -33,6 +33,12 @@ function conditionalCache<T extends (...args: any[]) => Promise<any>>(
   return unstable_cache(fn, _keyParts, _opts) as T;
 }
 
+function getLocalAgentVoiceLineUrl(agentName: string | null | undefined): string | null {
+  if (!agentName) return null;
+  const slug = agentName.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return slug ? `/sounds/agents/${slug}.mp3` : null;
+}
+
 const getCachedValorantAssets = conditionalCache(
   async () => fetchValorantAssets(),
   ["valorant-assets"],
@@ -96,7 +102,9 @@ function enrichAgent(
       displayIcon: ab.displayIcon ?? null,
     })),
     accentColor: sanityAgent.accentColor ?? null,
-    voiceLineUrl: apiAgent?.voiceLine?.mediaList?.[0]?.wave ?? null,
+    voiceLineUrl:
+      apiAgent?.voiceLine?.mediaList?.[0]?.wave ??
+      getLocalAgentVoiceLineUrl(apiAgent?.displayName ?? sanityAgent.name),
   };
 }
 
@@ -238,7 +246,9 @@ export async function getAllApiAgents(): Promise<Agent[]> {
       description: ab.description,
       displayIcon: ab.displayIcon || null,
     })),
-    voiceLineUrl: apiAgent.voiceLine?.mediaList?.[0]?.wave ?? null,
+    voiceLineUrl:
+      apiAgent.voiceLine?.mediaList?.[0]?.wave ??
+      getLocalAgentVoiceLineUrl(apiAgent.displayName),
   }));
 }
 
@@ -284,6 +294,5 @@ export async function getUnaddedAgentsForMap(mapId: string): Promise<ValorantAge
     (a) => !presentAgentIds.has(a.uuid)
   );
 }
-
 
 
