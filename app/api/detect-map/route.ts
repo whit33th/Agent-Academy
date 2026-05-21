@@ -51,28 +51,30 @@ const AGENT_UUID_TO_SLUG: Record<string, string> = {
   "569fdd95-4d10-43ab-ca70-79becc718b46": "sage",
   "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc": "reyna",
   "8e253930-4c05-31dd-1b6c-968525494517": "omen",
-  "add6443a-41bd-e414-f6ad-e58d267f4e95": "jett"
+  "add6443a-41bd-e414-f6ad-e58d267f4e95": "jett",
 };
 
 // ─── HTTPS request helper ───
 
-function httpsRequest(options: https.RequestOptions): Promise<{ statusCode: number; body: string }> {
+function httpsRequest(
+  options: https.RequestOptions,
+): Promise<{ statusCode: number; body: string }> {
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
-      let body = '';
-      res.on('data', (chunk: Buffer) => body += chunk);
-      res.on('end', () => {
+      let body = "";
+      res.on("data", (chunk: Buffer) => (body += chunk));
+      res.on("end", () => {
         resolve({ statusCode: res.statusCode ?? 0, body });
       });
     });
-    req.on('error', reject);
+    req.on("error", reject);
     req.end();
   });
 }
 
 function getSlugFromMapId(mapId: string | null): string | null {
   if (!mapId) return null;
-  const parts = mapId.split('/');
+  const parts = mapId.split("/");
   const baseName = parts[parts.length - 1].toLowerCase();
   return CODENAME_TO_SLUG[baseName] || baseName;
 }
@@ -80,42 +82,56 @@ function getSlugFromMapId(mapId: string | null): string | null {
 // ─── Secure Riot API integration ───
 
 async function getGameStatusFromApi(localAppData: string) {
-  const lockfilePath = path.join(localAppData, 'Riot Games', 'Riot Client', 'Config', 'lockfile');
+  const lockfilePath = path.join(
+    localAppData,
+    "Riot Games",
+    "Riot Client",
+    "Config",
+    "lockfile",
+  );
 
-  const lockfileContent = await fs.readFile(lockfilePath, 'utf8');
-  const parts = lockfileContent.split(':');
+  const lockfileContent = await fs.readFile(lockfilePath, "utf8");
+  const parts = lockfileContent.split(":");
   const port = parts[2];
   const password = parts[3];
-  const auth = Buffer.from(`riot:${password}`).toString('base64');
+  const auth = Buffer.from(`riot:${password}`).toString("base64");
 
   // Query local Riot Client for credentials/tokens
   const localRes = await httpsRequest({
-    hostname: '127.0.0.1',
+    hostname: "127.0.0.1",
     port: parseInt(port),
-    path: '/entitlements/v1/token',
-    method: 'GET',
-    headers: { 'Authorization': `Basic ${auth}` },
-    agent: new https.Agent({ rejectUnauthorized: false })
+    path: "/entitlements/v1/token",
+    method: "GET",
+    headers: { Authorization: `Basic ${auth}` },
+    agent: new https.Agent({ rejectUnauthorized: false }),
   });
 
   if (localRes.statusCode !== 200) {
-    throw new Error('Failed to get local entitlements');
+    throw new Error("Failed to get local entitlements");
   }
 
   const { accessToken, token, subject } = JSON.parse(localRes.body);
 
   // Parse region, cluster, and version from ShooterGame.log
-  const logPath = path.join(localAppData, "VALORANT", "Saved", "Logs", "ShooterGame.log");
-  let cluster = 'eu-1';
-  let region = 'eu';
-  let clientVersion = 'release-12.09-shipping-26-4704114';
+  const logPath = path.join(
+    localAppData,
+    "VALORANT",
+    "Saved",
+    "Logs",
+    "ShooterGame.log",
+  );
+  let cluster = "eu-1";
+  let region = "eu";
+  let clientVersion = "release-12.09-shipping-26-4704114";
 
   try {
-    const logContent = await fs.readFile(logPath, 'utf8');
+    const logContent = await fs.readFile(logPath, "utf8");
     const lines = logContent.split(/\r?\n/);
 
     for (let i = lines.length - 1; i >= 0; i--) {
-      const match = lines[i].match(/https:\/\/glz-([a-z0-9-]+)\.([a-z0-9]+)\.a\.pvp\.net/i);
+      const match = lines[i].match(
+        /https:\/\/glz-([a-z0-9-]+)\.([a-z0-9]+)\.a\.pvp\.net/i,
+      );
       if (match) {
         cluster = match[1];
         region = match[2];
@@ -134,27 +150,30 @@ async function getGameStatusFromApi(localAppData: string) {
     // Log reading failed, use defaults
   }
 
-  const clientPlatform = Buffer.from(JSON.stringify({
-    platformType: "PC",
-    platformOS: "Windows",
-    platformOSVersion: "10.0.19042.1.256.64bit",
-    platformChipset: "Unknown"
-  })).toString('base64');
+  const clientPlatform = Buffer.from(
+    JSON.stringify({
+      platformType: "PC",
+      platformOS: "Windows",
+      platformOSVersion: "10.0.19042.1.256.64bit",
+      platformChipset: "Unknown",
+    }),
+  ).toString("base64");
 
   const secureHeaders = {
-    'Authorization': `Bearer ${accessToken}`,
-    'X-Riot-Entitlements-JWT': token,
-    'X-Riot-ClientPlatform': clientPlatform,
-    'X-Riot-ClientVersion': clientVersion,
-    'User-Agent': 'ShooterGame/10.08.00.3129486 rriot-rso-winstore-retail Windows/10.0.19045.1.256.64bit'
+    Authorization: `Bearer ${accessToken}`,
+    "X-Riot-Entitlements-JWT": token,
+    "X-Riot-ClientPlatform": clientPlatform,
+    "X-Riot-ClientVersion": clientVersion,
+    "User-Agent":
+      "ShooterGame/10.08.00.3129486 rriot-rso-winstore-retail Windows/10.0.19045.1.256.64bit",
   };
 
   // 1. Query pregame
   const pregameRes = await httpsRequest({
     hostname: `glz-${cluster}.${region}.a.pvp.net`,
     path: `/pregame/v1/players/${subject}`,
-    method: 'GET',
-    headers: secureHeaders
+    method: "GET",
+    headers: secureHeaders,
   });
 
   if (pregameRes.statusCode === 200) {
@@ -164,8 +183,8 @@ async function getGameStatusFromApi(localAppData: string) {
     const pregameMatchRes = await httpsRequest({
       hostname: `glz-${cluster}.${region}.a.pvp.net`,
       path: `/pregame/v1/matches/${matchId}`,
-      method: 'GET',
-      headers: secureHeaders
+      method: "GET",
+      headers: secureHeaders,
     });
 
     if (pregameMatchRes.statusCode === 200) {
@@ -173,10 +192,12 @@ async function getGameStatusFromApi(localAppData: string) {
       const activeMapSlug = getSlugFromMapId(matchDetails.MapID);
 
       return {
-        activeMapName: activeMapSlug ? activeMapSlug.charAt(0).toUpperCase() + activeMapSlug.slice(1) : null,
+        activeMapName: activeMapSlug
+          ? activeMapSlug.charAt(0).toUpperCase() + activeMapSlug.slice(1)
+          : null,
         activeMapSlug,
         activeAgentSlug: null,
-        status: 'pregame' as const,
+        status: "pregame" as const,
         timestamp: matchId,
       };
     }
@@ -186,8 +207,8 @@ async function getGameStatusFromApi(localAppData: string) {
   const coreGameRes = await httpsRequest({
     hostname: `glz-${cluster}.${region}.a.pvp.net`,
     path: `/core-game/v1/players/${subject}`,
-    method: 'GET',
-    headers: secureHeaders
+    method: "GET",
+    headers: secureHeaders,
   });
 
   if (coreGameRes.statusCode === 200) {
@@ -197,8 +218,8 @@ async function getGameStatusFromApi(localAppData: string) {
     const coreMatchRes = await httpsRequest({
       hostname: `glz-${cluster}.${region}.a.pvp.net`,
       path: `/core-game/v1/matches/${matchId}`,
-      method: 'GET',
-      headers: secureHeaders
+      method: "GET",
+      headers: secureHeaders,
     });
 
     if (coreMatchRes.statusCode === 200) {
@@ -206,16 +227,20 @@ async function getGameStatusFromApi(localAppData: string) {
       const activeMapSlug = getSlugFromMapId(matchDetails.MapID);
 
       const playerInfo = matchDetails.Players?.find(
-        (p: { Subject: string }) => p.Subject === subject
+        (p: { Subject: string }) => p.Subject === subject,
       );
       const characterId = playerInfo ? playerInfo.CharacterID : null;
-      const activeAgentSlug = characterId ? (AGENT_UUID_TO_SLUG[characterId.toLowerCase()] || null) : null;
+      const activeAgentSlug = characterId
+        ? AGENT_UUID_TO_SLUG[characterId.toLowerCase()] || null
+        : null;
 
       return {
-        activeMapName: activeMapSlug ? activeMapSlug.charAt(0).toUpperCase() + activeMapSlug.slice(1) : null,
+        activeMapName: activeMapSlug
+          ? activeMapSlug.charAt(0).toUpperCase() + activeMapSlug.slice(1)
+          : null,
         activeMapSlug,
         activeAgentSlug,
-        status: 'match' as const,
+        status: "match" as const,
         timestamp: matchId,
       };
     }
@@ -225,8 +250,8 @@ async function getGameStatusFromApi(localAppData: string) {
     activeMapName: null,
     activeMapSlug: null,
     activeAgentSlug: null,
-    status: 'lobby' as const,
-    timestamp: 'lobby',
+    status: "lobby" as const,
+    timestamp: "lobby",
   };
 }
 
@@ -235,7 +260,9 @@ async function getGameStatusFromApi(localAppData: string) {
 /**
  * Searches the log file backwards in 64KB chunks to find the last map load event.
  */
-async function findLastMapLoad(filePath: string): Promise<{ mapName: string; timestamp: string | null } | null> {
+async function findLastMapLoad(
+  filePath: string,
+): Promise<{ mapName: string; timestamp: string | null } | null> {
   const CHUNK_SIZE = 64 * 1024;
   const MAX_SEARCH_SIZE = 5 * 1024 * 1024;
 
@@ -249,7 +276,7 @@ async function findLastMapLoad(filePath: string): Promise<{ mapName: string; tim
     let buffer = Buffer.alloc(CHUNK_SIZE);
     let overflow = "";
 
-    while (position > 0 && (size - position) < MAX_SEARCH_SIZE) {
+    while (position > 0 && size - position < MAX_SEARCH_SIZE) {
       const bytesToRead = Math.min(CHUNK_SIZE, position);
       position -= bytesToRead;
 
@@ -261,7 +288,9 @@ async function findLastMapLoad(filePath: string): Promise<{ mapName: string; tim
 
       for (let i = lines.length - 1; i >= 1; i--) {
         const line = lines[i];
-        const match = line.match(/LogMapLoadModel: Update: \[Map Name: ([a-zA-Z0-9_]+)/i);
+        const match = line.match(
+          /LogMapLoadModel: Update: \[Map Name: ([a-zA-Z0-9_]+)/i,
+        );
         if (match) {
           const mapName = match[1];
           let timestamp: string | null = null;
@@ -275,7 +304,9 @@ async function findLastMapLoad(filePath: string): Promise<{ mapName: string; tim
     }
 
     if (overflow) {
-      const match = overflow.match(/LogMapLoadModel: Update: \[Map Name: ([a-zA-Z0-9_]+)/i);
+      const match = overflow.match(
+        /LogMapLoadModel: Update: \[Map Name: ([a-zA-Z0-9_]+)/i,
+      );
       if (match) {
         const mapName = match[1];
         let timestamp: string | null = null;
@@ -312,7 +343,7 @@ async function findLastAgentLock(filePath: string): Promise<string | null> {
     let buffer = Buffer.alloc(CHUNK_SIZE);
     let overflow = "";
 
-    while (position > 0 && (size - position) < MAX_SEARCH_SIZE) {
+    while (position > 0 && size - position < MAX_SEARCH_SIZE) {
       const bytesToRead = Math.min(CHUNK_SIZE, position);
       position -= bytesToRead;
 
@@ -324,7 +355,9 @@ async function findLastAgentLock(filePath: string): Promise<string | null> {
 
       for (let i = lines.length - 1; i >= 1; i--) {
         const line = lines[i];
-        const match = line.match(/Pregame_LockCharacter.*?\/lock\/([a-f0-9-]+)/i);
+        const match = line.match(
+          /Pregame_LockCharacter.*?\/lock\/([a-f0-9-]+)/i,
+        );
         if (match) {
           return match[1];
         }
@@ -332,7 +365,9 @@ async function findLastAgentLock(filePath: string): Promise<string | null> {
     }
 
     if (overflow) {
-      const match = overflow.match(/Pregame_LockCharacter.*?\/lock\/([a-f0-9-]+)/i);
+      const match = overflow.match(
+        /Pregame_LockCharacter.*?\/lock\/([a-f0-9-]+)/i,
+      );
       if (match) {
         return match[1];
       }
@@ -363,7 +398,7 @@ export async function GET() {
     "VALORANT",
     "Saved",
     "Logs",
-    "ShooterGame.log"
+    "ShooterGame.log",
   );
 
   try {
@@ -382,7 +417,8 @@ export async function GET() {
       return NextResponse.json({
         activeMapSlug: null,
         status: "offline",
-        message: "VALORANT log file not found. Game has never been run or logs deleted.",
+        message:
+          "VALORANT log file not found. Game has never been run or logs deleted.",
       });
     }
 
@@ -424,7 +460,8 @@ export async function GET() {
     if (status === "match") {
       const lastAgentUuid = await findLastAgentLock(logPath);
       if (lastAgentUuid) {
-        activeAgentSlug = AGENT_UUID_TO_SLUG[lastAgentUuid.toLowerCase()] || null;
+        activeAgentSlug =
+          AGENT_UUID_TO_SLUG[lastAgentUuid.toLowerCase()] || null;
       }
     }
 
@@ -433,15 +470,17 @@ export async function GET() {
       activeMapSlug: status === "match" ? activeMapSlug : null,
       activeAgentSlug,
       status,
-      timestamp: timestamp || 'fallback',
+      timestamp: timestamp || "fallback",
       secondsSinceLastWrite,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error reading VALORANT log file:", error);
+    const message =
+      error instanceof Error ? error.message : "Failed to read log file.";
     return NextResponse.json({
       activeMapSlug: null,
       status: "offline",
-      error: error.message || "Failed to read log file.",
+      error: message,
     });
   }
 }

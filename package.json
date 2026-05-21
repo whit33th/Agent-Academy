@@ -1,6 +1,6 @@
 {
   "name": "agent-academy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +11,7 @@
   "dependencies": {
     "@sanity/client": "^7.22.0",
     "@sanity/image-url": "^2.1.1",
-    "@sanity/types": "^5.25.1",
+    "@sanity/types": "^5.26.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.39.0",
@@ -24,15 +24,15 @@
     "react-fast-marquee": "^1.6.5"
   },
   "devDependencies": {
-    "@sanity/vision": "^5.25.1",
+    "@sanity/vision": "^5.26.0",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/node": "^22.19.19",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^10.4.0",
     "eslint-config-next": "16.2.6",
-    "sanity": "^5.25.1",
+    "sanity": "^5.26.0",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },

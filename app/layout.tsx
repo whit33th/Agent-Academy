@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
+import GlobalAmbientInit from "@/components/GlobalAmbientInit";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-val-bg text-val-cream">
         <LenisProvider />
+        <GlobalAmbientInit />
         {children}
       </body>
     </html>

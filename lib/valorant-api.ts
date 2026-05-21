@@ -73,6 +73,7 @@ export interface ValorantMap {
   listViewIcon: string | null;
   listViewIconTall: string | null;
   stylizedBackgroundImage: string | null;
+  displayIcon: string | null;
 }
 
 export async function fetchValorantAssets() {
@@ -170,6 +171,7 @@ export async function fetchValorantAssets() {
       listViewIcon: map.listViewIcon,
       listViewIconTall: map.listViewIconTall,
       stylizedBackgroundImage: map.stylizedBackgroundImage,
+      displayIcon: map.displayIcon || null,
     };
   }
 

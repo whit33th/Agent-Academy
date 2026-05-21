@@ -1,0 +1,41 @@
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { findMap } from "@/lib/data/maps";
+import { getAllApiAgents } from "@/lib/data/agents";
+import BackLink from "@/components/layout/BackLink";
+import MapTitle from "@/components/layout/MapTitle";
+import LiveSyncStatus from "@/components/hud/LiveSyncStatus";
+import AudioSettingsHUD from "@/components/AudioSettingsHUD";
+import TacticalBoardButton from "@/components/hud/TacticalBoardButton";
+
+interface LayoutProps {
+  children: React.ReactNode;
+  params: Promise<{ map: string }>;
+}
+
+export default async function MapLayout({ children, params }: LayoutProps) {
+  const { map: mapSlug } = await params;
+  const map = await findMap(mapSlug);
+  if (!map) notFound();
+
+  const allAgents = await getAllApiAgents();
+
+  return (
+    <main className="min-h-screen bg-val-bg p-4 md:p-6 lg:p-8">
+      <header className="flex flex-row justify-between items-center w-full mb-4">
+        <BackLink href="/" />
+        <nav aria-label="Map controls" className="flex items-center gap-3 shrink-0">
+          <TacticalBoardButton map={map} allAgents={allAgents} />
+          <LiveSyncStatus />
+          <AudioSettingsHUD />
+        </nav>
+      </header>
+
+      <section className="mb-6">
+        <MapTitle map={map} />
+      </section>
+
+      <Suspense fallback={null}>{children}</Suspense>
+    </main>
+  );
+}
