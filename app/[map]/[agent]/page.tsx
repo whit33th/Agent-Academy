@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { findMap } from "@/lib/data/maps";
 import { findAgent } from "@/lib/data/agents";
 import { getScreenshots } from "@/lib/data/screenshots";
@@ -20,8 +21,23 @@ export default async function LineupPage({ params }: PageProps) {
 
   return (
     <Suspense fallback={<LineupSkeleton />}>
+      <AgentHero agent={agent} />
       <LineupSection map={map} agent={agent} />
     </Suspense>
+  );
+}
+
+function AgentHero({ agent }: { agent: Agent }) {
+  if (!agent.artBackground) return null;
+  return (
+    <Image
+      src={agent.artBackground}
+      alt={`${agent.name} background`}
+      width={24}
+      height={24}
+      className="object-cover inset-0 w-full h-full  absolute object-center brightness-4 -z-1 blur-lg"
+      priority
+    />
   );
 }
 

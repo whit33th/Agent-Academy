@@ -41,6 +41,7 @@ function makeOptimisticAgent(api: ValorantAgent): Agent {
     bustPortrait: api.bustPortrait ?? null,
     displayIcon: api.displayIcon ?? null,
     background: api.background ?? null,
+    artBackground: null,
     backgroundGradientColors: api.backgroundGradientColors ?? [],
     description: api.description ?? null,
     abilities: api.abilities ?? [],
@@ -80,8 +81,8 @@ export default function AgentGrid({
         {sorted.map((agent, i) => (
           <m.div
             key={agent.name}
-            initial={{ opacity: 0,  }}
-            animate={{ opacity: 1, }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: i * 0.02, duration: 0.25 }}
           >
             <AgentCard
@@ -93,8 +94,8 @@ export default function AgentGrid({
           </m.div>
         ))}
         <m.div
-          initial={{ opacity: 0,  }}
-          animate={{ opacity: 1,  }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: sorted.length * 0.02, duration: 0.25 }}
         >
           <AddAgentCard onClick={() => setAddOpen(true)} />

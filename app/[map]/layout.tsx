@@ -7,6 +7,7 @@ import MapTitle from "@/components/layout/MapTitle";
 import LiveSyncStatus from "@/components/hud/LiveSyncStatus";
 import AudioSettingsHUD from "@/components/AudioSettingsHUD";
 import TacticalBoardButton from "@/components/hud/TacticalBoardButton";
+import Image from "next/image";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -21,10 +22,13 @@ export default async function MapLayout({ children, params }: LayoutProps) {
   const allAgents = await getAllApiAgents();
 
   return (
-    <main className="min-h-screen bg-val-bg p-4 md:p-6 lg:p-8">
+    <main className="min-h-screen  p-4 md:p-6 relative lg:p-8">
       <header className="flex flex-row justify-between items-center w-full mb-4">
-        <BackLink href="/" />
-        <nav aria-label="Map controls" className="flex items-center gap-3 shrink-0">
+        <BackLink />
+        <nav
+          aria-label="Map controls"
+          className="flex items-center gap-3 shrink-0"
+        >
           <TacticalBoardButton map={map} allAgents={allAgents} />
           <LiveSyncStatus />
           <AudioSettingsHUD />

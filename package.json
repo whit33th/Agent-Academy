@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:wiki-abilities": "bun run scripts/sync-valorant-wiki-abilities.ts",
+    "sync:maps": "bun run scripts/sync-valorant-maps.ts"
   },
   "dependencies": {
     "@sanity/client": "^7.22.0",

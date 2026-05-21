@@ -8,6 +8,8 @@ import {
   fetchAgentsByMap,
 } from "./sanity-fetch";
 import { getValorantAssets } from "./valorant-assets";
+import { existsSync } from "node:fs";
+import path from "node:path";
 
 function localVoiceLineUrl(
   agentName: string | null | undefined,
@@ -15,6 +17,21 @@ function localVoiceLineUrl(
   if (!agentName) return null;
   const slug = normalizeName(agentName);
   return slug ? `/sounds/agents/${slug}.mp3` : null;
+}
+
+/** Prefer locally-downloaded dark wallpaper from playvalorant.com. */
+function localDarkBackground(agentName: string): string | null {
+  if (!agentName) return null;
+  const slug = normalizeName(agentName);
+  if (!slug) return null;
+  const publicDir = path.join(process.cwd(), "public");
+  for (const ext of [".png", ".jpg"]) {
+    const filePath = path.join(publicDir, "imgs", "agents", `${slug}${ext}`);
+    if (existsSync(filePath)) {
+      return `/imgs/agents/${slug}${ext}`;
+    }
+  }
+  return null;
 }
 
 function buildAgent(
@@ -32,6 +49,8 @@ function buildAgent(
     bustPortrait: api?.bustPortrait ?? null,
     displayIcon: api?.displayIcon ?? null,
     background: api?.background ?? null,
+    artBackground:
+      localDarkBackground(api?.displayName ?? sanityAgent.name ?? "") ?? null,
     backgroundGradientColors: api?.backgroundGradientColors ?? [],
     description: api?.description ?? null,
     abilities: (api?.abilities ?? []).map((ab) => ({
@@ -111,6 +130,7 @@ export async function getAllApiAgents(): Promise<Agent[]> {
     bustPortrait: api.bustPortrait ?? null,
     displayIcon: api.displayIcon ?? null,
     background: api.background ?? null,
+    artBackground: localDarkBackground(api.displayName) ?? null,
     backgroundGradientColors: api.backgroundGradientColors ?? [],
     description: api.description ?? null,
     abilities: (api.abilities ?? []).map((ab) => ({

@@ -65,6 +65,7 @@ export interface Agent {
   bustPortrait: string | null;
   displayIcon: string | null;
   background: string | null;
+  artBackground: string | null;
   backgroundGradientColors: string[];
   description: string | null;
   abilities: AgentAbility[];
