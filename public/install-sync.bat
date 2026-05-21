@@ -90,6 +90,8 @@ echo const server = http.createServer((req, res^) =^> {
 echo   res.setHeader("Access-Control-Allow-Origin", "*"^);
 echo   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS"^);
 echo   res.setHeader("Access-Control-Allow-Headers", "Content-Type"^);
+echo   res.setHeader("Access-Control-Allow-Private-Network", "true"^);
+echo   res.setHeader("Vary", "Origin, Access-Control-Request-Private-Network"^);
 echo   if (req.method === "OPTIONS"^) {
 echo     res.writeHead(200^);
 echo     res.end(^);
@@ -162,6 +164,10 @@ echo Registering startup task...
 echo Set WshShell = CreateObject("WScript.Shell"^)
 echo WshShell.Run "node ""%TARGET_DIR%\companion.js""", 0, false
 ) > "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\valorant-sync.vbs"
+
+echo.
+echo Stopping existing sync service if it is already running...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-NetTCPConnection -LocalPort 23115 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }"
 
 echo.
 echo Launching sync service...
