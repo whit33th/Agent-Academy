@@ -96,6 +96,7 @@ function enrichAgent(
       displayIcon: ab.displayIcon ?? null,
     })),
     accentColor: sanityAgent.accentColor ?? null,
+    voiceLineUrl: apiAgent?.voiceLine?.mediaList?.[0]?.wave ?? null,
   };
 }
 
@@ -237,6 +238,7 @@ export async function getAllApiAgents(): Promise<Agent[]> {
       description: ab.description,
       displayIcon: ab.displayIcon || null,
     })),
+    voiceLineUrl: apiAgent.voiceLine?.mediaList?.[0]?.wave ?? null,
   }));
 }
 

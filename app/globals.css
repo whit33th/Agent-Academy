@@ -263,3 +263,35 @@ img {
   background: var(--color-val-red);
 }
 
+/* ── Voice line waveform animation ─────────────── */
+
+@keyframes waveform-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.voice-waveform {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+}
+
+.voice-waveform-bar {
+  width: 3px;
+  height: 100%;
+  border-radius: 1.5px;
+  transform-origin: center;
+  transform: scaleY(0.3);
+}
+
+.voice-waveform-bar.is-playing {
+  animation: waveform-bar 0.8s ease-in-out infinite;
+}
+
+.voice-waveform-bar:nth-child(1) { animation-delay: 0s; }
+.voice-waveform-bar:nth-child(2) { animation-delay: 0.15s; }
+.voice-waveform-bar:nth-child(3) { animation-delay: 0.3s; }
+.voice-waveform-bar:nth-child(4) { animation-delay: 0.1s; }
+.voice-waveform-bar:nth-child(5) { animation-delay: 0.25s; }
+

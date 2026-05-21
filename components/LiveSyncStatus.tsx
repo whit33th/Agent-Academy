@@ -8,6 +8,7 @@ import Image from "next/image";
 interface SyncResponse {
   activeMapName?: string;
   activeMapSlug?: string | null;
+  activeAgentSlug?: string | null;
   status: "offline" | "lobby" | "pregame" | "match";
   timestamp?: string;
   secondsSinceLastWrite?: number;
@@ -22,6 +23,8 @@ export default function LiveSyncStatus() {
 
   const [syncData, setSyncData] = useState<SyncResponse>({ status: "offline" });
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
+
+  const currentAgentSlug = searchParams.get("agent");
 
   // Poll status every 4 seconds
   useEffect(() => {
@@ -42,19 +45,36 @@ export default function LiveSyncStatus() {
 
         setSyncData(data);
 
-        // Map Sync logic (Always Auto-Switch on new match detection)
-        if (data.status === "match" && data.activeMapSlug && data.timestamp) {
+        // Map sync starts in pregame; agent sync waits for the real match.
+        const isActive = data.status === "pregame" || data.status === "match";
+        if (isActive && data.activeMapSlug && data.timestamp) {
           const mapSlug = data.activeMapSlug;
           const matchTs = data.timestamp;
-          
-          const lastRedirected = sessionStorage.getItem("agent_academy_last_redirected_ts");
+          const agentSlug = data.status === "match" ? data.activeAgentSlug : null;
 
-          if (currentMapSlug !== mapSlug && lastRedirected !== matchTs) {
-            sessionStorage.setItem("agent_academy_last_redirected_ts", matchTs);
-            router.push(`/?map=${mapSlug}`);
-          } else if (currentMapSlug === mapSlug && lastRedirected !== matchTs) {
-            sessionStorage.setItem("agent_academy_last_redirected_ts", matchTs);
+          const lastMapTs = sessionStorage.getItem("agent_academy_last_map_ts");
+          const lastAgentTs = sessionStorage.getItem("agent_academy_last_agent_ts");
+
+          // === Auto-redirect to MAP (only once per new match) ===
+          if (lastMapTs !== matchTs) {
+            // New match detected — redirect to the map
+            sessionStorage.setItem("agent_academy_last_map_ts", matchTs);
+            // Clear previous agent redirect so agent can auto-redirect once
+            sessionStorage.removeItem("agent_academy_last_agent_ts");
+            if (agentSlug) {
+              router.push(`/?map=${mapSlug}&agent=${agentSlug}`);
+              sessionStorage.setItem("agent_academy_last_agent_ts", matchTs);
+            } else {
+              router.push(`/?map=${mapSlug}`);
+            }
           }
+          // === Auto-redirect to AGENT (only once per match, only if not already done) ===
+          else if (agentSlug && lastAgentTs !== matchTs && currentMapSlug === mapSlug && !currentAgentSlug) {
+            sessionStorage.setItem("agent_academy_last_agent_ts", matchTs);
+            router.push(`/?map=${mapSlug}&agent=${agentSlug}`);
+          }
+          // If the user navigated back from the agent page to the map page,
+          // lastAgentTs === matchTs, so we won't re-redirect. This prevents the loop.
         }
       } catch (err) {
         console.error("Failed to check game sync status:", err);
@@ -65,23 +85,34 @@ export default function LiveSyncStatus() {
     checkStatus();
     const interval = setInterval(checkStatus, 4000);
     return () => clearInterval(interval);
-  }, [currentMapSlug, router]);
+  }, [currentMapSlug, currentAgentSlug, router, searchParams]);
 
   const handleBadgeClick = () => {
     if (syncData.status === "offline") {
       setIsHelpModalOpen(true);
     } else if (syncData.activeMapSlug) {
-      router.push(`/?map=${syncData.activeMapSlug}`);
+      if (syncData.status === "match" && syncData.activeAgentSlug) {
+        router.push(`/?map=${syncData.activeMapSlug}&agent=${syncData.activeAgentSlug}`);
+      } else {
+        router.push(`/?map=${syncData.activeMapSlug}`);
+      }
     }
   };
 
   // Get status text
   const getStatusText = () => {
     switch (syncData.status) {
-      case "match":
-        return `Live: ${syncData.activeMapName || "Match"}`;
-      case "pregame":
-        return "Agent Select";
+      case "match": {
+        let text = `Live: ${syncData.activeMapName || "Match"}`;
+        if (syncData.activeAgentSlug) {
+          const agentName = syncData.activeAgentSlug.charAt(0).toUpperCase() + syncData.activeAgentSlug.slice(1);
+          text += ` (${agentName})`;
+        }
+        return text;
+      }
+      case "pregame": {
+        return `Select: ${syncData.activeMapName || "Map"}`;
+      }
       case "lobby":
         return "In Lobby";
       case "offline":
@@ -98,7 +129,7 @@ export default function LiveSyncStatus() {
     return "text-val-red";
   };
 
-  const isClickable = syncData.status === "match" && !!syncData.activeMapSlug;
+  const isClickable = (syncData.status === "match" || syncData.status === "pregame") && !!syncData.activeMapSlug;
 
   return (
     <>

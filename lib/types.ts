@@ -57,6 +57,8 @@ export interface Agent {
   abilities: AgentAbility[];
   /** Optional Sanity override (kept for backwards-compat). */
   accentColor?: string | null;
+  /** Voice line audio URL from Valorant API. */
+  voiceLineUrl: string | null;
   /** Optional map-specific meta (e.g. viability from mapAgentMeta). */
   viability?: string | null;
   notes?: string | null;

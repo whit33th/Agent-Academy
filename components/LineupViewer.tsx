@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useTransition, useRef } from "react";
+import { useState, useEffect, useTransition, useRef, useCallback } from "react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { urlFor } from "@/lib/sanity";
 import type { Agent, GameMap, Screenshot } from "@/lib/types";
 import ScreenshotLightbox from "./ScreenshotLightbox";
-import { LayoutGrid, Plus, X, Loader2, Upload, Pencil, Trash2 } from "lucide-react";
+import { LayoutGrid, Plus, X, Loader2, Upload, Pencil, Trash2, Volume2 } from "lucide-react";
 
 interface LineupViewerProps {
   screenshots: Screenshot[];
@@ -157,6 +157,97 @@ export default function LineupViewer({
   const [isPending, startTransition] = useTransition();
 
   const [selectedScreenshotForModal, setSelectedScreenshotForModal] = useState<Screenshot | null>(null);
+
+  // ── Voice line audio ──
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isVoicePlaying, setIsVoicePlaying] = useState(false);
+  const hasAutoPlayedRef = useRef<string | null>(null);
+
+  // Create audio element once on mount, no preloading
+  useEffect(() => {
+    const audio = new Audio();
+    audio.preload = "none";
+    audio.volume = 0.7;
+    audioRef.current = audio;
+
+    const handleEnded = () => setIsVoicePlaying(false);
+    const handlePause = () => setIsVoicePlaying(false);
+    const handlePlay = () => setIsVoicePlaying(true);
+    const handleError = () => setIsVoicePlaying(false);
+
+    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("error", handleError);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("error", handleError);
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+    };
+  }, []);
+
+  // Auto-play voice line once when agent changes (like Valorant lock-in)
+  // If browser blocks autoplay, queue it to play on the user's first click/tap
+  useEffect(() => {
+    const voiceUrl = agent?.voiceLineUrl;
+    const agentId = agent?._id;
+    if (!voiceUrl || !agentId || !audioRef.current) return;
+    // Only auto-play once per agent
+    if (hasAutoPlayedRef.current === agentId) return;
+    hasAutoPlayedRef.current = agentId;
+
+    const audio = audioRef.current;
+    audio.pause();
+    audio.src = voiceUrl;
+    audio.load();
+
+    // Attempt autoplay
+    const playPromise = audio.play();
+    if (playPromise) {
+      playPromise.catch(() => {
+        // Autoplay blocked by browser policy — queue it on first user gesture
+        const playOnGesture = () => {
+          if (audioRef.current && audioRef.current.src) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play().catch(() => {});
+          }
+          window.removeEventListener("click", playOnGesture);
+          window.removeEventListener("pointerdown", playOnGesture);
+        };
+        window.addEventListener("click", playOnGesture, { once: true });
+        window.addEventListener("pointerdown", playOnGesture, { once: true });
+      });
+    }
+
+    return () => {
+      // Clean up gesture listeners if agent changes before user clicks
+      // (no-op if already removed by the once: true option)
+    };
+  }, [agent?._id, agent?.voiceLineUrl]);
+
+  const handlePlayVoiceLine = useCallback(() => {
+    const audio = audioRef.current;
+    const voiceUrl = agent?.voiceLineUrl;
+    if (!audio || !voiceUrl) return;
+
+    if (isVoicePlaying) {
+      audio.pause();
+      return;
+    }
+
+    // If src changed or not set, reload
+    if (audio.src !== voiceUrl) {
+      audio.src = voiceUrl;
+      audio.load();
+    }
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  }, [agent?.voiceLineUrl, isVoicePlaying]);
 
   const longPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isLongPressActive = useRef(false);
@@ -637,7 +728,7 @@ export default function LineupViewer({
                 </p>
               </div>
 
-              {/* Name & Delete */}
+              {/* Name & Voice Line */}
               <div className="flex items-center justify-between gap-4 mb-3">
                 <h1
                   className="font-oswald text-5xl brightness-170 font-bold uppercase leading-none"
@@ -650,6 +741,43 @@ export default function LineupViewer({
                 </h1>
                 
               </div>
+
+              {/* Voice Line Replay Button */}
+              {agent?.voiceLineUrl && (
+                <button
+                  onClick={handlePlayVoiceLine}
+                  className="group/voice mb-4 flex items-center gap-2.5 px-3 py-2 rounded-sm border transition-all duration-200 cursor-pointer select-none"
+                  style={{
+                    borderColor: isVoicePlaying ? `${accentColor}60` : 'rgba(255,255,255,0.1)',
+                    backgroundColor: isVoicePlaying ? `${accentColor}12` : 'rgba(255,255,255,0.03)',
+                  }}
+                  title={isVoicePlaying ? 'Stop voice line' : 'Play voice line'}
+                >
+                  {/* Icon / Waveform */}
+                  {isVoicePlaying ? (
+                    <div className="voice-waveform">
+                      {[0, 1, 2, 3, 4].map((i) => (
+                        <div
+                          key={i}
+                          className="voice-waveform-bar is-playing"
+                          style={{ backgroundColor: accentColor }}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <Volume2
+                      size={16}
+                      className="text-white/40 group-hover/voice:text-white/70 transition-colors"
+                    />
+                  )}
+                  <span
+                    className="text-[10px] font-bold uppercase tracking-[0.15em] transition-colors"
+                    style={{ color: isVoicePlaying ? accentColor : 'rgba(255,255,255,0.4)' }}
+                  >
+                    {isVoicePlaying ? 'Playing...' : 'Voice Line'}
+                  </span>
+                </button>
+              )}
 
               {/* Description */}
               <p className="mb-5 text-sm leading-relaxed text-white/60 font-light">
