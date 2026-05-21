@@ -167,7 +167,7 @@ export default function LineupViewer({
   useEffect(() => {
     const audio = new Audio();
     audio.preload = "none";
-    audio.volume = 0.7;
+    audio.volume = 0.45;
     audioRef.current = audio;
 
     const handleEnded = () => setIsVoicePlaying(false);
