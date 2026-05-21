@@ -220,42 +220,41 @@ export default function LiveSyncStatus() {
             {/* Instruction Body */}
             <div className="flex flex-col gap-4 text-sm text-white/70">
               <p className="leading-relaxed">
-                Чтобы задеплоенный сайт автоматически определял вашу карту в
-                Valorant во время игры, запустите наш мини-автонастройщик.
+                To let Agent Academy detect your VALORANT map automatically,
+                install the small local sync helper on your PC.
               </p>
 
               <div className="flex flex-col gap-3 bg-black/40 p-4 rounded-sm border border-white/5">
                 <span className="text-[10px] uppercase font-bold text-white/45 tracking-wider">
-                  Шаг 1: Скачайте скрипт настройки
+                  Download the sync installer
                 </span>
                 <a
                   href="/install-sync.bat"
                   download="install-sync.bat"
                   className="flex items-center justify-center gap-2 py-3 bg-val-red hover:bg-val-red-hover text-white font-bold uppercase tracking-wider text-xs rounded transition-[scale,background-color] active:scale-98 select-none text-center"
                 >
-                  Скачать установщик (.bat)
+                  Download Installer (.bat)
                 </a>
               </div>
 
               <div className="flex flex-col gap-1.5 text-xs text-white/55 leading-relaxed list-decimal pl-4">
                 <li>
-                  Запустите скачанный файл <strong>install-sync.bat</strong>.
+                  Run the downloaded <strong>install-sync.bat</strong> file.
                 </li>
                 <li>
-                  Если Windows SmartScreen покажет синее предупреждение, нажмите{" "}
-                  <strong>«Подробнее» (More info)</strong>, затем{" "}
-                  <strong>«Выполнить в любом случае» (Run anyway)</strong>.
+                  If Windows SmartScreen appears, click{" "}
+                  <strong>More info</strong>, then{" "}
+                  <strong>Run anyway</strong>.
                 </li>
                 <li>
-                  Скрипт автоматически создаст фоновую службу и настроит её
-                  автозагрузку с Windows.
+                  The installer sets up a background helper and starts it
+                  automatically with Windows.
                 </li>
               </div>
 
               <p className="text-[10px] text-white/40 italic mt-1 leading-normal">
-                * Установщик абсолютно прозрачен и состоит из нескольких строк
-                открытого Node.js кода, который читает локальный лог Valorant и
-                передает его сайту.
+                * The helper only reads your local VALORANT state and shares
+                the detected map and agent with this site.
               </p>
             </div>
 
@@ -265,7 +264,7 @@ export default function LiveSyncStatus() {
                 onClick={() => setIsHelpModalOpen(false)}
                 className="w-full py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-[scale,background-color] cursor-pointer font-bold uppercase tracking-wider text-xs text-center active:scale-95"
               >
-                Закрыть
+                Close
               </button>
             </div>
           </div>
