@@ -112,7 +112,7 @@ export default function LineupViewer({
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-20 text-center">
+              <div className="flex flex-col h-full items-center justify-center py-20 text-center">
                 <div className="mb-4 flex size-16 items-center justify-center clip-diamond bg-white/4">
                   <span className="text-2xl text-white/20">?</span>
                 </div>

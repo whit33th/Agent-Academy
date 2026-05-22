@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { findMap } from "@/lib/data/maps";
 import { getAllApiAgents } from "@/lib/data/agents";
@@ -30,7 +29,9 @@ export default async function MapLayout({ children, params }: LayoutProps) {
           className="flex items-center gap-3 shrink-0"
         >
           <TacticalBoardButton map={map} allAgents={allAgents} />
-          <LiveSyncStatus />
+          <div className="hidden sm:flex items-center">
+            <LiveSyncStatus />
+          </div>
           <AudioSettingsHUD />
         </nav>
       </header>
@@ -39,7 +40,7 @@ export default async function MapLayout({ children, params }: LayoutProps) {
         <MapTitle map={map} />
       </section>
 
-      <Suspense fallback={null}>{children}</Suspense>
+      {children}
     </main>
   );
 }

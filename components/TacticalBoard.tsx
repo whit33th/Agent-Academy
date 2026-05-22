@@ -404,7 +404,7 @@ export default function TacticalBoard({
         const ay = rect.top + anchor.y * rect.height;
         const rad = Math.atan2(ev.clientY - ay, ev.clientX - ax);
         const deg = (rad * 180) / Math.PI;
-        const half = (current.length ?? 0) / 2;
+        const half = (current.length ?? current.coneRange ?? 0) / 2;
         setPlacedAbilities((prev) =>
           prev.map((p) => {
             if (p.id !== id) return p;
@@ -448,7 +448,8 @@ export default function TacticalBoard({
       if (!overlay) return;
 
       const current = placedAbilities.find((ability) => ability.id === id);
-      if (!current || current.length == null) return;
+      if (!current || (current.length == null && current.coneRange == null))
+        return;
 
       const { start, end } = getAbilityEndpoints(current);
       const onMove = (ev: PointerEvent) => {
@@ -586,7 +587,7 @@ export default function TacticalBoard({
         <div className="flex-1 flex justify-center items-center p-3 min-h-0">
           <div
             ref={overlayRef}
-            className="relative aspect-square w-full max-w-[min(80vh,1000px)] touch-none select-none"
+            className="relative aspect-square h-full max-w-full touch-none select-none"
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
@@ -644,7 +645,7 @@ export default function TacticalBoard({
                   isRotating={rotatingAbilityId === a.id}
                 />
                 {(a.shape === "wall" || a.shape === "cone") &&
-                  a.length != null && (
+                  (a.length != null || a.coneRange != null) && (
                     <StartHandle
                       ability={a}
                       onPointerDown={(e) => startAbilityStartDrag(e, a.id)}
@@ -669,7 +670,7 @@ export default function TacticalBoard({
 
         {/* Ability picker row (visible when an agent is selected) */}
         {selectedAgent && (
-          <div className="flex items-center gap-1.5 px-4 py-2 justify-center bg-val-surface/90 border-t border-white/10 overflow-x-auto">
+          <div className="flex items-center gap-1.5 px-4 py-2 justify-center bg-val-surface/90 border-t border-white/10 overflow-x-auto custom-scrollbar">
             <div className="flex items-center gap-1.5">
               {selectedAgent.abilities
                 .filter((ab) => ab.displayIcon)
@@ -687,7 +688,7 @@ export default function TacticalBoard({
                         setArmedAgentDrop(false);
                       }}
                       title={`${ab.displayName}${meta ? ` — ${meta}` : ""}`}
-                      className={`relative w-10 h-10 rounded-sm border transition-colors cursor-pointer ${
+                      className={`relative size-10 xl:size-14 rounded-sm border transition-colors cursor-pointer ${
                         isArmed
                           ? "border-val-red bg-val-red/20"
                           : "border-white/10 bg-white/5 hover:border-white/40"
@@ -724,7 +725,7 @@ export default function TacticalBoard({
                 setArmedAbility(null);
               }}
               title="Place agent token on map"
-              className={`flex items-center gap-1.5 w-auto aspect-square justify-center h-full rounded-full border-2 border-white text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0 cursor-pointer ${
+              className={`flex relative items-center gap-1.5 w-auto aspect-square justify-center h-full rounded-full border-2 border-white text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0 cursor-pointer ${
                 armedAgentDrop
                   ? "border-val-teal bg-val-teal/20 text-val-teal"
                   : " bg-white/5 text-white/70  hover:text-white"
@@ -734,9 +735,9 @@ export default function TacticalBoard({
                 <Image
                   src={selectedAgent.displayIcon}
                   alt={selectedAgent.name}
-                  width={28}
-                  height={28}
-                  className="rounded-sm"
+                  fill
+                  sizes="56px"
+                  className="rounded-full"
                   unoptimized
                 />
               )}
@@ -747,8 +748,7 @@ export default function TacticalBoard({
         {/* Bottom agent strip */}
         <div
           ref={agentStripRef}
-          className="flex items-center gap-2 px-4 py-3 bg-val-surface/95 border-t border-white/10 overflow-x-auto"
-          style={{ scrollbarWidth: "thin" }}
+          className="flex items-center gap-2 px-4 py-3 bg-val-surface/95 border-t border-white/10 overflow-x-auto custom-scrollbar"
         >
           <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-white/40 font-bold mr-2 shrink-0">
             <Users size={12} /> Agents
@@ -768,7 +768,7 @@ export default function TacticalBoard({
                 }}
                 onMouseEnter={() => audio.playHover()}
                 title={agent.name}
-                className={`relative shrink-0 w-12 h-12 rounded-sm border overflow-hidden transition-all cursor-pointer ${
+                className={`relative shrink-0 size-12 xl:size-16 rounded-sm border overflow-hidden transition-all cursor-pointer ${
                   isSelected
                     ? "border-val-red scale-110 ring-2 ring-val-red/40"
                     : "border-white/10 bg-white/5 hover:border-white/40"
@@ -1132,7 +1132,7 @@ function MapCalloutLayer({ mapName }: { mapName: string }) {
             style={{ left: `${x * 100}%`, top: `${y * 100}%` }}
           >
             {isSite ? (
-              <span className="grid h-7 w-7 place-items-center rounded-sm border border-val-teal/60 bg-black/55 font-oswald text-base font-bold text-white shadow-[0_0_16px_rgba(0,243,255,0.2)]">
+              <span className="grid size-7 place-items-center rounded-sm border border-val-teal/60 bg-black/55 font-oswald text-base font-bold text-white shadow-[0_0_16px_rgba(0,243,255,0.2)]">
                 {label}
               </span>
             ) : (
@@ -1161,7 +1161,7 @@ function AgentToken({
       type="button"
       onPointerDown={onPointerDown}
       onDoubleClick={onDelete}
-      className="absolute -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border-2 border-white/85 overflow-hidden bg-black cursor-grab active:cursor-grabbing hover:scale-110 transition-transform shadow-lg"
+      className="absolute -translate-x-1/2 -translate-y-1/2 size-8 xl:size-10 rounded-full border-2 border-white/85 overflow-hidden bg-black cursor-grab active:cursor-grabbing hover:scale-110 transition-transform shadow-lg"
       style={{ left: `${placed.x * 100}%`, top: `${placed.y * 100}%` }}
       title={`${placed.agentName}  (drag to move, double-click to delete)`}
     >
@@ -1194,7 +1194,7 @@ function ToolIconButton({
       onClick={onClick}
       aria-label={label}
       title={label}
-      className="p-1.5 rounded-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+      className="p-2 rounded-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
     >
       {children}
     </button>
@@ -1233,7 +1233,7 @@ function Toolbar({
             onClick={() => onToolChange(t.key)}
             title={t.label}
             aria-label={t.label}
-            className={`p-1.5 rounded-sm transition-colors cursor-pointer ${
+            className={`p-2 rounded-sm transition-colors cursor-pointer ${
               tool === t.key
                 ? "bg-val-red text-white"
                 : "text-white/70 hover:text-white hover:bg-white/10"
@@ -1251,7 +1251,7 @@ function Toolbar({
             onClick={() => onColorChange(c)}
             title={c}
             aria-label={`Color ${c}`}
-            className={`w-4 h-4 rounded-full border transition-transform cursor-pointer ${
+            className={`size-4 xl:size-5 rounded-full border transition-transform cursor-pointer ${
               color === c ? "scale-125 border-white" : "border-white/20"
             }`}
             style={{ backgroundColor: c }}
@@ -1266,7 +1266,7 @@ function Toolbar({
             onClick={() => onWidthChange(w)}
             title={`Width ${w}px`}
             aria-label={`Width ${w}`}
-            className={`p-1 rounded-sm transition-colors cursor-pointer ${
+            className={`p-2 rounded-sm transition-colors cursor-pointer ${
               width === w ? "bg-white/20" : "hover:bg-white/10"
             }`}
           >

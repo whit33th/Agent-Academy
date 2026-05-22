@@ -32,10 +32,10 @@ function AgentHero({ agent }: { agent: Agent }) {
   return (
     <Image
       src={agent.artBackground}
-      alt={`${agent.name} background`}
+      alt={`${agent.name.toLowerCase()} background`}
       width={24}
       height={24}
-      className="object-cover inset-0 w-full h-full  absolute object-center brightness-4 -z-1 blur-lg"
+      className="object-cover inset-0 w-full h-full brightness-100 absolute object-center -z-1 blur-2xl"
       priority
     />
   );

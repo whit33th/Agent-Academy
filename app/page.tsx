@@ -14,7 +14,9 @@ export default function Home() {
           aria-label="Site controls"
           className="flex items-center gap-3 shrink-0"
         >
-          <LiveSyncStatus />
+          <div className="hidden sm:flex items-center">
+            <LiveSyncStatus />
+          </div>
           <AudioSettingsHUD />
         </nav>
       </header>
