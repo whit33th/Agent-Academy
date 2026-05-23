@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { findMap } from "@/lib/data/maps";
 import { getAllApiAgents } from "@/lib/data/agents";
@@ -40,7 +41,7 @@ export default async function MapLayout({ children, params }: LayoutProps) {
         <MapTitle map={map} />
       </section>
 
-      {children}
+      <Suspense fallback={null}>{children}</Suspense>
     </main>
   );
 }

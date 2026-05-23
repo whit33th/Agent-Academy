@@ -11,7 +11,15 @@ interface PageProps {
   params: Promise<{ map: string; agent: string }>;
 }
 
-export default async function LineupPage({ params }: PageProps) {
+export default function LineupPage({ params }: PageProps) {
+  return (
+    <Suspense fallback={<LineupSkeleton />}>
+      <LineupContent params={params} />
+    </Suspense>
+  );
+}
+
+async function LineupContent({ params }: PageProps) {
   const { map: mapSlug, agent: agentSlug } = await params;
   const [map, agent] = await Promise.all([
     findMap(mapSlug),
@@ -20,24 +28,19 @@ export default async function LineupPage({ params }: PageProps) {
   if (!map || !agent) notFound();
 
   return (
-    <Suspense fallback={<LineupSkeleton />}>
-      <AgentHero agent={agent} />
+    <>
+      {agent.artBackground && (
+        <Image
+          src={agent.artBackground}
+          alt={`${agent.name.toLowerCase()} background`}
+          width={24}
+          height={24}
+          className="object-cover inset-0 w-full h-full brightness-100 absolute object-center -z-1 blur-2xl"
+          priority
+        />
+      )}
       <LineupSection map={map} agent={agent} />
-    </Suspense>
-  );
-}
-
-function AgentHero({ agent }: { agent: Agent }) {
-  if (!agent.artBackground) return null;
-  return (
-    <Image
-      src={agent.artBackground}
-      alt={`${agent.name.toLowerCase()} background`}
-      width={24}
-      height={24}
-      className="object-cover inset-0 w-full h-full brightness-100 absolute object-center -z-1 blur-2xl"
-      priority
-    />
+    </>
   );
 }
 

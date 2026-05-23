@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
@@ -34,7 +35,7 @@ export default function RootLayout({
       <body className="min-h-full bg-val-bg text-val-cream">
         <LenisProvider />
         <GlobalAmbientInit />
-        {children}
+        <Suspense fallback={null}>{children}</Suspense>
       </body>
     </html>
   );
