@@ -188,7 +188,7 @@ export default function LiveSyncStatus() {
           <button
             type="button"
             onClick={() => setHelpOpen(true)}
-            className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/30 hover:text-white/50 transition-colors select-none"
+            className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/35 hover:text-white/50 transition-colors select-none"
           >
             {statusLabel}
           </button>

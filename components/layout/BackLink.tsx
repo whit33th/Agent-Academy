@@ -21,7 +21,7 @@ export default function BackLink() {
         <ArrowLeft size={16} />
       </span>
 
-      <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/30 transition-colors group-hover:text-white/50">
+      <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/35 transition-colors group-hover:text-white/50">
         Back
       </span>
     </Link>

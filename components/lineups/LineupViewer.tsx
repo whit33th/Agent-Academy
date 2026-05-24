@@ -81,7 +81,7 @@ export default function LineupViewer({
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-3">
               <SideTabs value={side} onChange={setSide} />
               <div className="flex items-center gap-4">
-                <span className="text-xs text-white/30 font-medium hidden sm:block">
+                <span className="text-xs text-white/35 font-medium hidden sm:block">
                   Showing {filtered.length} of {optimistic.length} setups
                 </span>
                 <button

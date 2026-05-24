@@ -48,7 +48,9 @@ export default function ImageDropArea({
       <span className="flex flex-col items-center gap-1 text-white/40">
         <Upload className="size-8 mb-1" />
         <span className="text-sm font-medium">Click to upload screenshot</span>
-        <span className="text-[10px] text-white/30">PNG, JPG, WebP up to 10MB</span>
+        <span className="text-[10px] text-white/35">
+          PNG, JPG, WebP up to 10MB
+        </span>
       </span>
       <input
         type="file"

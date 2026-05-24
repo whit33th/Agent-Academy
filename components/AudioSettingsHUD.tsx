@@ -39,7 +39,7 @@ export default function AudioSettingsHUD() {
       className={`flex size-9 items-center justify-center clip-angular-sm transition-[scale,background-color,color] border-0 outline-none p-0 cursor-pointer active:scale-95 ${
         ambientEnabled
           ? "bg-val-red/20 text-val-red"
-          : "bg-white/6 text-white/30 hover:bg-white/10 hover:text-white/60"
+          : "bg-white/6 text-white/35 hover:bg-white/10 hover:text-white/60"
       }`}
       title={ambientEnabled ? "Ambient On" : "Ambient Off"}
     >

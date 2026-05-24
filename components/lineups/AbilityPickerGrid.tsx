@@ -55,7 +55,9 @@ export default function AbilityPickerGrid({
               </span>
             ) : (
               <span className="size-8 mb-1.5 flex items-center justify-center bg-white/5 rounded-sm">
-                <span className="text-[10px] font-bold text-white/30">{keyBind}</span>
+                <span className="text-[10px] font-bold text-white/35">
+                  {keyBind}
+                </span>
               </span>
             )}
             <span className="text-[10px] font-bold uppercase tracking-wider truncate w-full px-1">
