@@ -35,7 +35,7 @@ async function LineupContent({ params }: PageProps) {
           alt={`${agent.name.toLowerCase()} background`}
           width={24}
           height={24}
-          className="object-cover inset-0 w-full h-full brightness-100 absolute object-center -z-1 blur-2xl"
+          className="object-cover inset-0 w-full h-full brightness-6 absolute object-center -z-1 blur-2xl"
           priority
         />
       )}
