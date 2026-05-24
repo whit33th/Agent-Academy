@@ -1,11 +1,10 @@
-import { Suspense } from "react";
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import { findMap } from "@/lib/data/maps";
-import { findAgent } from "@/lib/data/agents";
-import { getScreenshots } from "@/lib/data/screenshots";
 import LineupViewer from "@/components/lineups/LineupViewer";
-import type { GameMap, Agent } from "@/lib/types";
+import { findAgent } from "@/lib/data/agents";
+import { findMap } from "@/lib/data/maps";
+import { getScreenshots } from "@/lib/data/screenshots";
+import type { Agent, GameMap } from "@/lib/types";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 interface PageProps {
   params: Promise<{ map: string; agent: string }>;
@@ -29,16 +28,16 @@ async function LineupContent({ params }: PageProps) {
 
   return (
     <>
-      {agent.artBackground && (
+      {/* {agent.artBackground && (
         <Image
           src={agent.artBackground}
           alt={`${agent.name.toLowerCase()} background`}
           width={24}
           height={24}
-          className="object-cover inset-0 w-full h-full brightness-6 absolute object-center -z-1 blur-2xl"
+          className="object-cover inset-0 w-full h-full brightness-50 opacity-15 absolute object-center -z-1 blur-2xl"
           priority
         />
-      )}
+      )} */}
       <LineupSection map={map} agent={agent} />
     </>
   );
