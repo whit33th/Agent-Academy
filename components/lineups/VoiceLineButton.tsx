@@ -12,12 +12,11 @@ interface VoiceLineButtonProps {
 
 export default function VoiceLineButton({
   voiceUrl,
-  agentId,
+  agentId: _agentId,
   accentColor,
 }: VoiceLineButtonProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const hasAutoPlayedRef = useRef<string | null>(null);
 
   useEffect(() => {
     const a = new Audio();
@@ -44,34 +43,6 @@ export default function VoiceLineButton({
       a.load();
     };
   }, []);
-
-  // Auto-play once per agent; gracefully fall back to first user gesture.
-  useEffect(() => {
-    if (!voiceUrl || !audioRef.current) return;
-    if (hasAutoPlayedRef.current === agentId) return;
-    hasAutoPlayedRef.current = agentId;
-
-    const a = audioRef.current;
-    a.pause();
-    a.src = voiceUrl;
-    a.volume = sfx.getVoiceVolume() ?? 0.1;
-    a.load();
-
-    a.play().catch(() => {
-      const playOnGesture = () => {
-        const ar = audioRef.current;
-        if (ar?.src) {
-          ar.currentTime = 0;
-          ar.volume = sfx.getVoiceVolume() ?? 0.1;
-          ar.play().catch(() => {});
-        }
-        window.removeEventListener("click", playOnGesture);
-        window.removeEventListener("pointerdown", playOnGesture);
-      };
-      window.addEventListener("click", playOnGesture, { once: true });
-      window.addEventListener("pointerdown", playOnGesture, { once: true });
-    });
-  }, [agentId, voiceUrl]);
 
   const handleClick = useCallback(() => {
     const a = audioRef.current;
@@ -101,7 +72,9 @@ export default function VoiceLineButton({
       className="group/voice mb-4 flex items-center gap-2.5 px-3 py-2 rounded-sm border transition-all duration-200 cursor-pointer select-none"
       style={{
         borderColor: isPlaying ? `${accentColor}60` : "rgba(255,255,255,0.1)",
-        backgroundColor: isPlaying ? `${accentColor}12` : "rgba(255,255,255,0.03)",
+        backgroundColor: isPlaying
+          ? `${accentColor}12`
+          : "rgba(255,255,255,0.03)",
       }}
     >
       {isPlaying ? (

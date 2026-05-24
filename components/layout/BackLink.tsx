@@ -1,15 +1,19 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function BackLink() {
-  const router = useRouter();
+  const pathname = usePathname();
 
   return (
-    <button
-      type="button"
-      onClick={() => router.back()}
+    <Link
+      href={
+        /^\/[^/]+\/[^/]+$/.test(pathname)
+          ? pathname.replace(/\/[^/]+$/, "")
+          : "/"
+      }
       className="group inline-flex items-center gap-2"
       aria-label="Go back"
     >
@@ -20,6 +24,6 @@ export default function BackLink() {
       <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/30 transition-colors group-hover:text-white/50">
         Back
       </span>
-    </button>
+    </Link>
   );
 }

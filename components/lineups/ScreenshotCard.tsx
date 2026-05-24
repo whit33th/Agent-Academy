@@ -25,7 +25,7 @@ export default function ScreenshotCard({
   const src = screenshot.tempPreview
     ? screenshot.tempPreview
     : screenshot.image
-      ? urlFor(screenshot.image).width(800).height(450).url()
+      ? urlFor(screenshot.image).width(800).fit("max").url()
       : "";
 
   return (

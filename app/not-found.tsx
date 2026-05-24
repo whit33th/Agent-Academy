@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center text-center p-6 bg-val-bg">
-      <div className="mb-6 flex size-20 items-center justify-center clip-diamond bg-val-red/20">
-        <span className="text-3xl" aria-hidden>
+      <div className="mb-6 flex aspect-square  items-center justify-center clip-diamond bg-val-red/20">
+        <span className="text-3xl p-9 font-bold" aria-hidden>
           404
         </span>
       </div>

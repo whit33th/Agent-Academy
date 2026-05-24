@@ -26,7 +26,7 @@ export default function ScreenshotActionsModal({
   const src = screenshot.tempPreview
     ? screenshot.tempPreview
     : screenshot.image
-      ? urlFor(screenshot.image).width(400).height(225).url()
+      ? urlFor(screenshot.image).width(400).fit("max").url()
       : "";
 
   const handleDelete = () => {

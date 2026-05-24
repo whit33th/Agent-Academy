@@ -5,7 +5,7 @@ import { Music } from "lucide-react";
 import { audio } from "@/lib/audio";
 
 export default function AudioSettingsHUD() {
-  const [ambientEnabled, setAmbientEnabled] = useState(true);
+  const [ambientEnabled, setAmbientEnabled] = useState(false);
 
   useEffect(() => {
     setAmbientEnabled(audio.isAmbientEnabled());

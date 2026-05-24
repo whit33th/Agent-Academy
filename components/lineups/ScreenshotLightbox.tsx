@@ -107,7 +107,7 @@ export default function ScreenshotLightbox({
                     current.tempPreview
                       ? current.tempPreview
                       : current.image
-                        ? urlFor(current.image).width(1600).height(900).url()
+                        ? urlFor(current.image).width(1600).fit("max").url()
                         : ""
                   }
                   alt={current.title}
@@ -131,7 +131,9 @@ export default function ScreenshotLightbox({
                         {current.map?.name}
                       </span>
                       <span className="text-white/20">•</span>
-                      <span className="text-white/70">{current.agent?.name}</span>
+                      <span className="text-white/70">
+                        {current.agent?.name}
+                      </span>
                       {current.abilityType && (
                         <>
                           <span className="text-white/20">•</span>
