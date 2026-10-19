@@ -1,4 +1,5 @@
 "use client";
+import { useAppSession } from "@/components/auth/SessionProvider";
 
 import { startTransition, useState } from "react";
 import Image from "next/image";
@@ -30,6 +31,7 @@ export default function AddAgentModal({
   onClose,
   applyOptimistic,
 }: AddAgentModalProps) {
+  const { getToken } = useAppSession();
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -46,7 +48,7 @@ export default function AddAgentModal({
     const apiAgent = unaddedAgents.find((a) => a.displayName === agentName);
     startTransition(async () => {
       if (apiAgent) applyOptimistic(apiAgent);
-      const result = await addAgent(agentName, mapSlug);
+      const result = await addAgent(agentName, mapSlug, await getToken());
       if (!result.ok) setError(result.error);
     });
   };

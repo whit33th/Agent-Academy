@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { LayoutGrid } from "lucide-react";
-import { m } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import type { Agent, AgentAbility } from "@/lib/types";
 import { audio as sfx } from "@/lib/audio";
 import VoiceLineButton from "./VoiceLineButton";
@@ -12,6 +12,8 @@ interface AgentInfoPanelProps {
   selectedAbilityIdx: number;
   onSelectAbility: (idx: number) => void;
   accentColor: string;
+  filteredCount?: number;
+  totalCount?: number;
 }
 
 export default function AgentInfoPanel({
@@ -19,6 +21,8 @@ export default function AgentInfoPanel({
   selectedAbilityIdx,
   onSelectAbility,
   accentColor,
+  filteredCount,
+  totalCount,
 }: AgentInfoPanelProps) {
   const abilities = agent.abilities ?? [];
   const selectedAbility: AgentAbility | null =
@@ -56,6 +60,13 @@ export default function AgentInfoPanel({
         {agent.name}
       </h1>
 
+      {filteredCount !== undefined && totalCount !== undefined && (
+        <p className="mb-3 text-xs text-white/40 tabular-nums">
+          <span style={{ color: accentColor }}>{filteredCount}</span>
+          <span className="text-white/25"> / {totalCount} setups visible</span>
+        </p>
+      )}
+
       <VoiceLineButton
         voiceUrl={agent.voiceLineUrl}
         agentId={agent._id}
@@ -86,7 +97,10 @@ export default function AgentInfoPanel({
         <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-white/40">
           Abilities Filter:
         </p>
-        <div className="mb-4 flex items-center gap-2 flex-wrap">
+        <div
+          data-onboarding="ability-filter"
+          className="mb-4 flex items-center gap-2 flex-wrap"
+        >
           <button
             type="button"
             onClick={() => {
@@ -97,9 +111,9 @@ export default function AgentInfoPanel({
             title="Show all abilities"
             aria-label="Show all abilities"
             aria-pressed={selectedAbilityIdx === -1}
-            className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-[border-color,background-color,color,opacity] ${
+            className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-[border-color,background-color,color,opacity,transform] duration-200 ${
               selectedAbilityIdx === -1
-                ? ""
+                ? "scale-105"
                 : "border-white/10 bg-white/5 text-white/40 hover:text-white hover:opacity-100"
             }`}
             style={
@@ -114,9 +128,11 @@ export default function AgentInfoPanel({
           >
             <LayoutGrid size={16} />
             {selectedAbilityIdx === -1 && (
-              <span
+              <m.span
+                layoutId="ability-indicator"
                 className="absolute -bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full"
                 style={{ backgroundColor: accentColor }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
           </button>
@@ -134,9 +150,9 @@ export default function AgentInfoPanel({
                 title={ability.displayName}
                 aria-label={`Filter by ${ability.displayName}`}
                 aria-pressed={idx === selectedAbilityIdx}
-                className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-[border-color,background-color,color,opacity] ${
+                className={`relative flex h-9 w-9 items-center justify-center rounded-sm border transition-[border-color,background-color,opacity,transform] duration-200 ${
                   idx === selectedAbilityIdx
-                    ? ""
+                    ? "scale-105"
                     : "border-white/10 bg-white/5 opacity-60 hover:opacity-100"
                 }`}
                 style={
@@ -144,6 +160,7 @@ export default function AgentInfoPanel({
                     ? {
                         borderColor: `${accentColor}50`,
                         backgroundColor: `${accentColor}15`,
+                        boxShadow: `0 0 16px ${accentColor}25`,
                       }
                     : undefined
                 }
@@ -156,9 +173,11 @@ export default function AgentInfoPanel({
                   className="object-contain"
                 />
                 {idx === selectedAbilityIdx && (
-                  <span
+                  <m.span
+                    layoutId="ability-indicator"
                     className="absolute -bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full"
                     style={{ backgroundColor: accentColor }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
               </button>
@@ -166,19 +185,27 @@ export default function AgentInfoPanel({
           )}
         </div>
 
-        <div>
-          <p
-            className="mb-1 text-xs font-bold uppercase tracking-wider"
-            style={{ color: accentColor }}
+        <AnimatePresence mode="wait">
+          <m.div
+            key={selectedAbility?.displayName ?? "all"}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2 }}
           >
-            {selectedAbility ? selectedAbility.displayName : "All Setups"}
-          </p>
-          <p className="text-xs leading-relaxed text-white/40">
-            {selectedAbility
-              ? selectedAbility.description
-              : "Showing setups for all abilities. Select an icon above to filter."}
-          </p>
-        </div>
+            <p
+              className="mb-1 text-xs font-bold uppercase tracking-wider"
+              style={{ color: accentColor }}
+            >
+              {selectedAbility ? selectedAbility.displayName : "All Setups"}
+            </p>
+            <p className="text-xs leading-relaxed text-white/40">
+              {selectedAbility
+                ? selectedAbility.description
+                : "Showing setups for all abilities. Select an icon above to filter."}
+            </p>
+          </m.div>
+        </AnimatePresence>
       </section>
     </m.aside>
   );

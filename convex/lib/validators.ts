@@ -1,0 +1,9 @@
+import { v } from "convex/values";
+export const lineup = v.object({
+  _id: v.id("lineups"), _creationTime: v.number(), ownerTokenIdentifier: v.string(),
+  mapSlug: v.string(), agentSlug: v.string(), title: v.string(), description: v.optional(v.string()),
+  abilityType: v.string(), imageUrl: v.string(), imageStorageKey: v.optional(v.string()),
+  storageId: v.optional(v.id("_storage")), isPublic: v.boolean(), forkedFromId: v.optional(v.id("lineups")), createdAt: v.number(), updatedAt: v.number(),
+  legacyId: v.optional(v.string()),
+});
+export const roster = v.object({ _id: v.id("mapRoster"), _creationTime: v.number(), ownerTokenIdentifier: v.string(), mapSlug: v.string(), agentSlug: v.string(), viability: v.optional(v.string()), notes: v.optional(v.string()), createdAt: v.number(), updatedAt: v.number() });

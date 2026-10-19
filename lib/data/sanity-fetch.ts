@@ -6,6 +6,7 @@ import {
   agentsByMapQuery,
   agentRefsByMapQuery,
   screenshotsByMapAndAgentQuery,
+  screenshotCountsByMapQuery,
 } from "@/lib/queries";
 import { TAGS } from "@/lib/cache-tags";
 import type {
@@ -57,4 +58,28 @@ export async function fetchScreenshots(
     mapId,
     agentId,
   });
+}
+
+interface ScreenshotAgentRow {
+  agentId: string;
+}
+
+export async function fetchScreenshotCountsByMap(
+  mapId: string,
+): Promise<Record<string, number>> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag(TAGS.screenshotsAll);
+  cacheTag(TAGS.agentsByMap(mapId));
+
+  const rows = await client.fetch<ScreenshotAgentRow[]>(
+    screenshotCountsByMapQuery,
+    { mapId },
+  );
+
+  const out: Record<string, number> = {};
+  for (const row of rows) {
+    if (row.agentId) out[row.agentId] = (out[row.agentId] ?? 0) + 1;
+  }
+  return out;
 }

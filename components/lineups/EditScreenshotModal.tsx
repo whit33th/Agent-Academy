@@ -1,13 +1,13 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
+import { useTransition, useEffect, useState } from "react";
 import { X } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import AbilityPickerGrid from "./AbilityPickerGrid";
 import ImageDropArea from "./ImageDropArea";
 import { editScreenshot } from "@/app/_actions/screenshots";
+import { useAppSession } from "@/components/auth/SessionProvider";
 import { mapAbilityToGenericType } from "@/lib/utils/ability";
-import { urlFor } from "@/lib/sanity";
 import type { Agent, Screenshot } from "@/lib/types";
 
 interface EditScreenshotModalProps {
@@ -23,10 +23,13 @@ export default function EditScreenshotModal({
   onClose,
   applyOptimistic,
 }: EditScreenshotModalProps) {
-  const abilities = agent.abilities ?? [];
+  const { getToken } = useAppSession();
+  const [pending, startTransition] = useTransition();
+  const abilities = agent.abilities;
   const [slot, setSlot] = useState(abilities[0]?.slot ?? "");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -46,10 +49,11 @@ export default function EditScreenshotModal({
     setSlot(matching?.slot ?? abilities[0]?.slot ?? "");
     setFile(null);
     setError(null);
+    setIsPublic(Boolean(screenshot.isPublic));
     if (screenshot.tempPreview) {
       setPreview(screenshot.tempPreview);
     } else if (screenshot.image) {
-      setPreview(urlFor(screenshot.image).url());
+      setPreview(screenshot.image);
     } else {
       setPreview(null);
     }
@@ -81,6 +85,7 @@ export default function EditScreenshotModal({
       title,
       description,
       abilityType,
+      isPublic,
       tempPreview: file ? (preview ?? undefined) : screenshot.tempPreview,
     };
 
@@ -90,13 +95,13 @@ export default function EditScreenshotModal({
     formData.set("description", description);
     formData.set("abilityType", abilityType);
     if (file) formData.set("image", file);
-
-    onClose();
+    if (isPublic) formData.set("isPublic", "true");
 
     startTransition(async () => {
+      const result = await editScreenshot(formData, await getToken());
+      if (!result.ok) { setError(result.error); return; }
       applyOptimistic(next);
-      const result = await editScreenshot(formData);
-      if (!result.ok) setError(result.error);
+      onClose();
     });
   };
 
@@ -178,6 +183,16 @@ export default function EditScreenshotModal({
           />
         </div>
 
+        <label className="flex items-center gap-2 text-xs text-white/60 select-none">
+          <input
+            type="checkbox"
+            checked={isPublic}
+            onChange={(e) => setIsPublic(e.target.checked)}
+            className="size-4 accent-val-red"
+          />
+          Public content (show in Feed)
+        </label>
+
         <div className="flex flex-col gap-1.5">
           <span className="text-xs font-semibold uppercase tracking-wider text-white/50">
             Screenshot (optional - leave blank to keep current)
@@ -188,7 +203,7 @@ export default function EditScreenshotModal({
             onClear={() => {
               setFile(null);
               setPreview(
-                screenshot.image ? urlFor(screenshot.image).url() : null,
+                screenshot.image ? screenshot.image : null,
               );
             }}
           />
@@ -204,6 +219,7 @@ export default function EditScreenshotModal({
           </button>
           <button
             type="submit"
+            disabled={pending}
             className="px-6 h-10 rounded-sm bg-val-red hover:bg-val-red/90 text-white text-sm font-bold uppercase tracking-wider transition-colors cursor-pointer"
           >
             Save Changes

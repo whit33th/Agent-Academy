@@ -1,13 +1,41 @@
+import type { Metadata } from "next";
 import LineupViewer from "@/components/lineups/LineupViewer";
 import { findAgent } from "@/lib/data/agents";
 import { findMap } from "@/lib/data/maps";
 import { getScreenshots } from "@/lib/data/screenshots";
+import { buildPageMetadata } from "@/lib/metadata";
 import type { Agent, GameMap } from "@/lib/types";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 interface PageProps {
   params: Promise<{ map: string; agent: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { map: mapSlug, agent: agentSlug } = await params;
+  const [map, agent] = await Promise.all([
+    findMap(mapSlug),
+    findAgent(agentSlug),
+  ]);
+  if (!map || !agent) return { title: "Lineup not found" };
+
+  const screenshots = await getScreenshots(map._id, agent.slug?.current ?? agent._id);
+  const ogImage =
+    screenshots[0]?.image ??
+    agent.artBackground ??
+    agent.displayIcon ??
+    agent.imageUrl ??
+    map.imageUrl;
+
+  return buildPageMetadata({
+    title: `${agent.name} on ${map.name}`,
+    description: `${agent.name} lineups and ability setups for ${map.name}.`,
+    path: `/${mapSlug}/${agentSlug}`,
+    imageUrl: ogImage,
+  });
 }
 
 export default function LineupPage({ params }: PageProps) {
@@ -44,7 +72,7 @@ async function LineupContent({ params }: PageProps) {
 }
 
 async function LineupSection({ map, agent }: { map: GameMap; agent: Agent }) {
-  const screenshots = await getScreenshots(map._id, agent._id);
+  const screenshots = await getScreenshots(map._id, agent.slug?.current ?? agent._id);
   return <LineupViewer screenshots={screenshots} agent={agent} map={map} />;
 }
 

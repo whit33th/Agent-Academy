@@ -12,6 +12,11 @@
 
 # testing
 /coverage
+/outputs/
+/desktop-build/
+/release/
+/desktop/dist/
+/.clerk/
 
 # next.js
 /.next/

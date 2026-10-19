@@ -26,7 +26,7 @@ export default function MapTitle({ map }: MapTitleProps) {
             aria-hidden
             className="text-val-red inline-flex leading-none shrink-0"
           >
-            //
+            {"//"}
           </span>
           <span className="truncate">{map.name}</span>
         </h2>

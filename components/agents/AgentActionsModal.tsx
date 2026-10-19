@@ -1,4 +1,5 @@
 "use client";
+import { useAppSession } from "@/components/auth/SessionProvider";
 
 import { useTransition } from "react";
 import Image from "next/image";
@@ -23,6 +24,7 @@ export default function AgentActionsModal({
   applyOptimisticViability,
   applyOptimisticDelete,
 }: AgentActionsModalProps) {
+  const { getToken } = useAppSession();
   const [isPending, startTransition] = useTransition();
 
   if (!agent) return null;
@@ -31,18 +33,18 @@ export default function AgentActionsModal({
     onClose();
     startTransition(async () => {
       applyOptimisticViability(agent._id, tier);
-      const result = await updateAgentViability(agent._id, mapId, tier);
+      const result = await updateAgentViability(agent.slug?.current ?? agent._id, mapId, tier, await getToken());
       if (!result.ok) alert(result.error);
     });
   };
 
   const handleDelete = () => {
-    if (!confirm(`Delete ${agent.name}? This also removes their screenshots.`))
+    if (!confirm(`Hide ${agent.name} on this map? Your setups will be kept.`))
       return;
     onClose();
     startTransition(async () => {
       applyOptimisticDelete(agent._id);
-      const result = await deleteAgent(agent._id, mapId);
+      const result = await deleteAgent(agent.slug?.current ?? agent._id, mapId, await getToken());
       if (!result.ok) alert(result.error);
     });
   };

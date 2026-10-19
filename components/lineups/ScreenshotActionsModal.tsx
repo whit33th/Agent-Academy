@@ -4,8 +4,8 @@ import { startTransition } from "react";
 import Image from "next/image";
 import { Pencil, Trash2, X } from "lucide-react";
 import Modal from "@/components/ui/Modal";
-import { urlFor } from "@/lib/sanity";
 import { deleteScreenshot } from "@/app/_actions/screenshots";
+import { useAppSession } from "@/components/auth/SessionProvider";
 import type { Screenshot } from "@/lib/types";
 
 interface ScreenshotActionsModalProps {
@@ -21,21 +21,22 @@ export default function ScreenshotActionsModal({
   onEdit,
   applyOptimisticDelete,
 }: ScreenshotActionsModalProps) {
+  const { getToken } = useAppSession();
   if (!screenshot) return null;
 
   const src = screenshot.tempPreview
     ? screenshot.tempPreview
     : screenshot.image
-      ? urlFor(screenshot.image).width(400).fit("max").url()
+      ? screenshot.image
       : "";
 
   const handleDelete = () => {
     if (!confirm("Delete this setup?")) return;
     onClose();
     startTransition(async () => {
-      applyOptimisticDelete(screenshot._id);
-      const result = await deleteScreenshot(screenshot._id);
+      const result = await deleteScreenshot(screenshot._id, await getToken());
       if (!result.ok) alert(result.error);
+      else applyOptimisticDelete(screenshot._id);
     });
   };
 

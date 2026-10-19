@@ -4,7 +4,6 @@ import { useEffect, useCallback } from "react";
 import { m, AnimatePresence, LazyMotion, domAnimation } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
 import { useBodyScrollLock } from "@/lib/utils/body-scroll-lock";
 import type { Screenshot } from "@/lib/types";
 
@@ -106,9 +105,7 @@ export default function ScreenshotLightbox({
                   src={
                     current.tempPreview
                       ? current.tempPreview
-                      : current.image
-                        ? urlFor(current.image).width(1600).fit("max").url()
-                        : ""
+                      : current.image ?? ""
                   }
                   alt={current.title}
                   fill

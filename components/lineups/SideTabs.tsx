@@ -17,7 +17,12 @@ interface SideTabsProps {
 
 export default function SideTabs({ value, onChange }: SideTabsProps) {
   return (
-    <div role="tablist" aria-label="Side filter" className="flex items-center gap-2">
+    <div
+      data-onboarding="side-tabs"
+      role="tablist"
+      aria-label="Side filter"
+      className="flex items-center gap-2"
+    >
       {(Object.keys(LABEL) as SideKey[]).map((side) => (
         <button
           key={side}

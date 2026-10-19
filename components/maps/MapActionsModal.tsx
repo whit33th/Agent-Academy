@@ -1,4 +1,5 @@
 "use client";
+import { useAppSession } from "@/components/auth/SessionProvider";
 
 import { startTransition } from "react";
 import { Trash2, X } from "lucide-react";
@@ -17,17 +18,18 @@ export default function MapActionsModal({
   onClose,
   applyOptimistic,
 }: MapActionsModalProps) {
+  const { getToken } = useAppSession();
   if (!map) return null;
 
   const handleDelete = () => {
-    if (!confirm(`Delete the map "${map.name}" and all of its screenshots?`))
+    if (!confirm(`Hide "${map.name}" from your collection? Your setups will be kept.`))
       return;
     onClose();
     // Global startTransition keeps the action alive after the modal unmounts.
     startTransition(async () => {
-      applyOptimistic(map._id);
-      const result = await deleteMap(map._id);
+      const result = await deleteMap(map._id, await getToken());
       if (!result.ok) alert(result.error);
+      else applyOptimistic(map._id);
     });
   };
 

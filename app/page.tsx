@@ -1,9 +1,19 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getEnrichedMaps, getUnaddedMaps } from "@/lib/data/maps";
+import { buildPageMetadata } from "@/lib/metadata";
 import MapGrid from "@/components/maps/MapGrid";
 import BrandBadge from "@/components/layout/BrandBadge";
-import LiveSyncStatus from "@/components/hud/LiveSyncStatus";
+import HomeHeaderNav from "@/components/layout/HomeHeaderNav";
+import AuthButton from "@/components/auth/AuthButton";
 import AudioSettingsHUD from "@/components/AudioSettingsHUD";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Select Map",
+  description:
+    "Browse Valorant maps and tactical agent lineups — smokes, flashes, and post-plants.",
+  path: "/",
+});
 
 export default function Home() {
   return (
@@ -14,9 +24,8 @@ export default function Home() {
           aria-label="Site controls"
           className="flex items-center gap-3 shrink-0"
         >
-          <div className="hidden sm:flex items-center">
-            <LiveSyncStatus />
-          </div>
+          <HomeHeaderNav />
+          <AuthButton />
           <AudioSettingsHUD />
         </nav>
       </header>

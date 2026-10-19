@@ -17,9 +17,13 @@ export default function GlobalError({ error, reset }: ErrorProps) {
         Connection Error
       </h1>
       <p className="mt-4 max-w-md text-sm text-white/40">
-        Could not connect to data sources. Make sure your Sanity project ID and
-        dataset are correct.
+        Could not load data. Check your internet connection and try again.
       </p>
+      {process.env.NODE_ENV === "development" && error.message && (
+        <p className="mt-3 max-w-lg text-xs text-val-red/80 font-mono break-all">
+          {error.message}
+        </p>
+      )}
       {error.digest && (
         <p className="mt-2 text-[10px] text-white/20 font-mono">
           digest: {error.digest}

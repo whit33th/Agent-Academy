@@ -41,3 +41,8 @@ export const screenshotsByMapAndAgentQuery = `*[_type == "screenshot" && map._re
 
 /** Returns unique agent refs that have screenshots on a given map. */
 export const agentRefsByMapQuery = `*[_type == "screenshot" && map._ref == $mapId].agent._ref`;
+
+/** Screenshot rows for counting setups per agent on a map (count in app code). */
+export const screenshotCountsByMapQuery = `*[_type == "screenshot" && map._ref == $mapId && defined(agent._ref)] {
+  "agentId": agent._ref
+}`;

@@ -10,6 +10,9 @@ import AgentCard from "./AgentCard";
 import AddAgentCard from "./AddAgentCard";
 import AddAgentModal from "./AddAgentModal";
 import AgentActionsModal from "./AgentActionsModal";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useAppSession } from "@/components/auth/SessionProvider";
 
 type Action =
   | { type: "add"; agent: Agent }
@@ -64,7 +67,13 @@ export default function AgentGrid({
   mapSlug,
   mapId,
 }: AgentGridProps) {
-  const [optimistic, applyOptimistic] = useOptimistic(mapAgents, reducer);
+  const { ready } = useAppSession();
+  const roster = useQuery(api.mapRoster.listByMap, ready ? { mapSlug } : "skip");
+  const personalAgents = mapAgents.flatMap(agent => {
+    const preference = roster?.find(row => row.agentSlug === (agent.slug?.current ?? agent._id));
+    return preference?.notes === "hidden" ? [] : [{ ...agent, viability: preference?.viability ?? agent.viability }];
+  });
+  const [optimistic, applyOptimistic] = useOptimistic(personalAgents, reducer);
   const [isAddOpen, setAddOpen] = useState(false);
   const [actionsTarget, setActionsTarget] = useState<Agent | null>(null);
 

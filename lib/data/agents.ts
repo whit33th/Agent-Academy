@@ -1,12 +1,6 @@
-import { getAgentData } from "@/lib/valorant-api";
 import type { ValorantAgent } from "@/lib/valorant-api";
-import type { Agent, SanityAgent } from "@/lib/types";
+import type { Agent } from "@/lib/types";
 import { normalizeName } from "@/lib/utils/normalize";
-import {
-  fetchAgents,
-  fetchAgentRefsByMap,
-  fetchAgentsByMap,
-} from "./sanity-fetch";
 import { getValorantAssets } from "./valorant-assets";
 import { existsSync } from "node:fs";
 import path from "node:path";
@@ -34,86 +28,45 @@ function localDarkBackground(agentName: string): string | null {
   return null;
 }
 
-function buildAgent(
-  sanityAgent: SanityAgent,
-  api: ValorantAgent | null,
-): Agent {
+function buildAgent(api: ValorantAgent): Agent {
   return {
-    _id: sanityAgent._id,
-    slug: sanityAgent.slug ?? null,
-    name: api?.displayName ?? sanityAgent.name ?? "Unknown",
-    roleName: api?.role?.displayName ?? sanityAgent.role ?? "",
-    roleIcon: api?.role?.displayIcon ?? null,
-    imageUrl: api?.fullPortrait ?? api?.displayIcon ?? null,
-    fullPortraitV2: api?.fullPortraitV2 ?? null,
-    bustPortrait: api?.bustPortrait ?? null,
-    displayIcon: api?.displayIcon ?? null,
-    background: api?.background ?? null,
+    _id: api.uuid,
+    slug: { current: normalizeName(api.displayName) },
+    name: api.displayName,
+    roleName: api.role?.displayName ?? "",
+    roleIcon: api.role?.displayIcon ?? null,
+    imageUrl: api.fullPortrait ?? api.displayIcon ?? null,
+    fullPortraitV2: api.fullPortraitV2 ?? null,
+    bustPortrait: api.bustPortrait ?? null,
+    displayIcon: api.displayIcon ?? null,
+    background: api.background ?? null,
     artBackground:
-      localDarkBackground(api?.displayName ?? sanityAgent.name ?? "") ?? null,
-    backgroundGradientColors: api?.backgroundGradientColors ?? [],
-    description: api?.description ?? null,
-    abilities: (api?.abilities ?? []).map((ab) => ({
+      localDarkBackground(api.displayName) ?? null,
+    backgroundGradientColors: api.backgroundGradientColors ?? [],
+    description: api.description ?? null,
+    abilities: (api.abilities ?? []).map((ab) => ({
       slot: ab.slot,
       displayName: ab.displayName,
       description: ab.description,
       displayIcon: ab.displayIcon ?? null,
     })),
-    accentColor: sanityAgent.accentColor ?? null,
     voiceLineUrl:
-      api?.voiceLine?.mediaList?.[0]?.wave ??
-      localVoiceLineUrl(api?.displayName ?? sanityAgent.name),
+      api.voiceLine?.mediaList?.[0]?.wave ?? localVoiceLineUrl(api.displayName),
   };
 }
 
-/** All Sanity agents enriched with Valorant API data. */
+/** All agents from Valorant API formatted as Agent objects. */
 export async function getEnrichedAgents(): Promise<Agent[]> {
-  const [agents, assets] = await Promise.all([
-    fetchAgents(),
-    getValorantAssets(),
-  ]);
-  return agents.map((s) =>
-    buildAgent(s, getAgentData(assets.agents, s.name ?? "")),
-  );
+  const assets = await getValorantAssets();
+  return Object.values(assets.agents).map((api) => buildAgent(api));
 }
 
 /** Agents active on a given map (have meta or screenshots). */
 export async function getAgentsForMap(mapId: string): Promise<Agent[]> {
-  const [allAgents, mapMeta, refsWithScreenshots] = await Promise.all([
-    getEnrichedAgents(),
-    fetchAgentsByMap(mapId),
-    fetchAgentRefsByMap(mapId),
-  ]);
-
-  const activeIds = new Set<string>();
-  const metaByAgentId = new Map<
-    string,
-    { viability: string | null; notes: string | null }
-  >();
-
-  for (const ma of mapMeta) {
-    const id = ma.agent?._id ?? ma._id;
-    if (!id) continue;
-    activeIds.add(id);
-    metaByAgentId.set(id, {
-      viability: ma.viability ?? null,
-      notes: ma.notes ?? null,
-    });
-  }
-  for (const ref of refsWithScreenshots) {
-    if (ref) activeIds.add(ref);
-  }
-
-  return allAgents
-    .filter((a) => activeIds.has(a._id))
-    .map((a) => {
-      const meta = metaByAgentId.get(a._id);
-      return {
-        ...a,
-        viability: meta?.viability ?? null,
-        notes: meta?.notes ?? null,
-      };
-    });
+  // Convex will provide per-user roster + viability. For now, keep map pages usable
+  // by returning the full roster until the read-layer is wired to Convex roster.
+  void mapId;
+  return getEnrichedAgents();
 }
 
 /** All Valorant API agents formatted as Agent objects (no Sanity dependency). */
@@ -146,14 +99,8 @@ export async function getAllApiAgents(): Promise<Agent[]> {
 
 /** API agents not yet in Sanity. */
 export async function getUnaddedAgents(): Promise<ValorantAgent[]> {
-  const [sanityAgents, assets] = await Promise.all([
-    fetchAgents(),
-    getValorantAssets(),
-  ]);
-  const taken = new Set(sanityAgents.map((a) => normalizeName(a.name)));
-  return Object.values(assets.agents).filter(
-    (a) => !taken.has(normalizeName(a.displayName)),
-  );
+  // With Convex we don't maintain a separate CMS list of agents.
+  return [];
 }
 
 /** Find a single enriched agent by slug or id. */
@@ -169,20 +116,6 @@ export async function findAgent(slugOrId: string): Promise<Agent | null> {
 export async function getUnaddedAgentsForMap(
   mapId: string,
 ): Promise<ValorantAgent[]> {
-  const [mapMeta, refsWithScreenshots, assets] = await Promise.all([
-    fetchAgentsByMap(mapId),
-    fetchAgentRefsByMap(mapId),
-    getValorantAssets(),
-  ]);
-
-  const present = new Set<string>();
-  for (const ma of mapMeta) {
-    const id = ma.agent?._id ?? ma._id;
-    if (id) present.add(id);
-  }
-  for (const ref of refsWithScreenshots) {
-    if (ref) present.add(ref);
-  }
-
-  return Object.values(assets.agents).filter((a) => !present.has(a.uuid));
+  void mapId;
+  return Object.values((await getValorantAssets()).agents);
 }

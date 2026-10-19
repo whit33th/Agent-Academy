@@ -91,9 +91,12 @@ export interface GameMap {
 export interface Screenshot {
   _id: string;
   title: string;
-  image: SanityImageSource | null;
+  /** Public image URL (Vercel Blob). */
+  image: string | null;
   abilityType: string | null;
   description: string | null;
+  isPublic?: boolean;
+  canEdit?: boolean;
   map?: { name: string } | null;
   agent?: { name: string } | null;
   /** Client-only: data URL preview while optimistic. */

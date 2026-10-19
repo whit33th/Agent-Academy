@@ -9,6 +9,9 @@ import AddMapCard from "./AddMapCard";
 import AddMapModal from "./AddMapModal";
 import MapActionsModal from "./MapActionsModal";
 import MapCard from "./MapCard";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useAppSession } from "@/components/auth/SessionProvider";
 
 type Action = { type: "add"; map: GameMap } | { type: "remove"; mapId: string };
 
@@ -39,7 +42,11 @@ interface MapGridProps {
 }
 
 export default function MapGrid({ maps, unaddedMaps }: MapGridProps) {
-  const [optimisticMaps, applyOptimistic] = useOptimistic(maps, reducer);
+  const { ready } = useAppSession();
+  const preferences = useQuery(api.maps.preferences, ready ? {} : "skip");
+  const hidden = new Set(preferences?.filter(row => row.hidden).map(row => row.mapSlug));
+  const [optimisticMaps, applyOptimistic] = useOptimistic(maps.filter(map => !hidden.has(map.slug?.current ?? map._id)), reducer);
+  const hiddenMaps: ValorantMap[] = maps.filter(map => hidden.has(map.slug?.current ?? map._id)).map(map => ({ uuid: map._id, displayName: map.name, splash: map.imageUrl, listViewIcon: map.listViewIcon, displayIcon: map.displayIcon, stylizedBackgroundImage: map.stylizedBackgroundImage, listViewIconTall: null }));
   const [isAddOpen, setAddOpen] = useState(false);
   const [actionsTarget, setActionsTarget] = useState<GameMap | null>(null);
 
@@ -73,7 +80,7 @@ export default function MapGrid({ maps, unaddedMaps }: MapGridProps) {
 
       <AddMapModal
         open={isAddOpen}
-        unaddedMaps={unaddedMaps}
+        unaddedMaps={[...unaddedMaps, ...hiddenMaps]}
         onClose={() => setAddOpen(false)}
         applyOptimistic={(apiMap) =>
           applyOptimistic({ type: "add", map: makeOptimisticMap(apiMap) })

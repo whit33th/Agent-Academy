@@ -1,4 +1,5 @@
 "use client";
+import { useAppSession } from "@/components/auth/SessionProvider";
 
 import { startTransition, useState } from "react";
 import Image from "next/image";
@@ -22,6 +23,7 @@ export default function AddMapModal({
   onClose,
   applyOptimistic,
 }: AddMapModalProps) {
+  const { getToken } = useAppSession();
   const [query, setQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -35,7 +37,7 @@ export default function AddMapModal({
     onClose();
     startTransition(async () => {
       applyOptimistic(map);
-      const result = await addMap(map.displayName);
+      const result = await addMap(map.displayName, await getToken());
       if (!result.ok) setError(result.error);
     });
   };

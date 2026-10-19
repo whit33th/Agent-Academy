@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { findMap } from "@/lib/data/maps";
+import { buildPageMetadata } from "@/lib/metadata";
 import {
   getAgentsForMap,
   getAllApiAgents,
@@ -10,6 +12,21 @@ import AgentGrid from "@/components/agents/AgentGrid";
 
 interface PageProps {
   params: Promise<{ map: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { map: mapSlug } = await params;
+  const map = await findMap(mapSlug);
+  if (!map) return { title: "Map not found" };
+
+  return buildPageMetadata({
+    title: `${map.name} Lineups`,
+    description: `Agent lineups and tactical setups for ${map.name} in Valorant.`,
+    path: `/${mapSlug}`,
+    imageUrl: map.imageUrl ?? map.stylizedBackgroundImage,
+  });
 }
 
 export default function MapAgentsPage({ params }: PageProps) {

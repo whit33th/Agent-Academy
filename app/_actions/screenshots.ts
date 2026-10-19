@@ -1,174 +1,39 @@
-"use server";
-
-import { revalidateTag } from "next/cache";
-import { client } from "@/lib/sanity";
-import { TAGS } from "@/lib/cache-tags";
-import type { ActionResult } from "@/lib/types";
-
-interface UploadResult {
-  screenshotId: string;
+import { api } from '@/convex/_generated/api';
+import type { Id } from '@/convex/_generated/dataModel';
+import { authenticatedClient } from '@/lib/convex/authenticated-client';
+import type { ActionResult } from '@/lib/types';
+async function upload(file: File, token: string | null): Promise<Id<'_storage'>> {
+  authenticatedClient(token);
+  const site = process.env.NEXT_PUBLIC_CONVEX_SITE_URL;
+  if (!site) throw new Error('Cloud storage is unavailable.');
+  const response = await fetch(`${site}/images`, { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': file.type }, body: file });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.error ?? 'Upload failed');
+  return result.storageId;
 }
-
-/** Upload a new screenshot. Resolves/creates map+agent docs as needed. */
-export async function uploadScreenshot(
-  formData: FormData,
-): Promise<ActionResult<UploadResult>> {
-  try {
-    const mapSlug = String(formData.get("mapSlug") ?? "");
-    const mapName = String(formData.get("mapName") ?? "");
-    const agentSlug = String(formData.get("agentSlug") ?? "");
-    const agentName = String(formData.get("agentName") ?? "");
-    const title = String(formData.get("title") ?? "");
-    const description = String(formData.get("description") ?? "");
-    const abilityType = String(formData.get("abilityType") ?? "");
-    const imageFile = formData.get("image");
-
-    if (
-      !mapSlug ||
-      !agentSlug ||
-      !title ||
-      !abilityType ||
-      !(imageFile instanceof File)
-    ) {
-      return {
-        ok: false,
-        error:
-          "Missing required fields (mapSlug, agentSlug, title, abilityType, image)",
-      };
-    }
-
-    let mapDoc = await client.fetch<{ _id: string } | null>(
-      `*[_type == "map" && slug.current == $slug][0]{_id}`,
-      { slug: mapSlug },
-    );
-    if (!mapDoc) {
-      mapDoc = await client.create({
-        _type: "map",
-        name: mapName || titleCase(mapSlug),
-        slug: { _type: "slug", current: mapSlug },
-      });
-      revalidateTag(TAGS.maps, { expire: 0 });
-    }
-
-    let agentDoc = await client.fetch<{ _id: string } | null>(
-      `*[_type == "agent" && slug.current == $slug][0]{_id}`,
-      { slug: agentSlug },
-    );
-    if (!agentDoc) {
-      agentDoc = await client.create({
-        _type: "agent",
-        name: agentName || titleCase(agentSlug),
-        slug: { _type: "slug", current: agentSlug },
-      });
-      revalidateTag(TAGS.agents, { expire: 0 });
-    }
-
-    const existingMeta = await client.fetch<{ _id: string } | null>(
-      `*[_type == "mapAgentMeta" && map._ref == $mapId && agent._ref == $agentId][0]{_id}`,
-      { mapId: mapDoc._id, agentId: agentDoc._id },
-    );
-    if (!existingMeta) {
-      await client.create({
-        _type: "mapAgentMeta",
-        map: { _type: "reference", _ref: mapDoc._id },
-        agent: { _type: "reference", _ref: agentDoc._id },
-        viability: "a",
-      });
-      revalidateTag(TAGS.agentsByMap(mapDoc._id), { expire: 0 });
-      revalidateTag(TAGS.agentRefsByMap(mapDoc._id), { expire: 0 });
-    }
-
-    const arrayBuffer = await imageFile.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const imageAsset = await client.assets.upload("image", buffer, {
-      filename: imageFile.name,
-      contentType: imageFile.type,
-    });
-
-    const newScreenshot = await client.create({
-      _type: "screenshot",
-      title,
-      description,
-      abilityType,
-      image: {
-        _type: "image",
-        asset: { _type: "reference", _ref: imageAsset._id },
-      },
-      map: { _type: "reference", _ref: mapDoc._id },
-      agent: { _type: "reference", _ref: agentDoc._id },
-    });
-
-    revalidateTag(TAGS.screenshots(mapDoc._id, agentDoc._id), { expire: 0 });
-    revalidateTag(TAGS.agentRefsByMap(mapDoc._id), { expire: 0 });
-    revalidateTag(TAGS.agentsByMap(mapDoc._id), { expire: 0 });
-    revalidateTag(TAGS.screenshotsAll, { expire: 0 });
-
-    return { ok: true, data: { screenshotId: newScreenshot._id } };
-  } catch (e) {
-    return { ok: false, error: errorMessage(e) };
-  }
+function fields(data: FormData) {
+  return { title: String(data.get('title') ?? ''), description: String(data.get('description') ?? ''), abilityType: String(data.get('abilityType') ?? ''), isPublic: data.get('isPublic') === 'true' };
 }
-
-export async function editScreenshot(
-  formData: FormData,
-): Promise<ActionResult> {
+export async function uploadScreenshot(data: FormData, token: string | null): Promise<ActionResult<{ screenshotId: string }>> {
   try {
-    const screenshotId = String(formData.get("screenshotId") ?? "");
-    const title = String(formData.get("title") ?? "");
-    const description = String(formData.get("description") ?? "");
-    const abilityType = String(formData.get("abilityType") ?? "");
-    const imageFile = formData.get("image");
-
-    if (!screenshotId || !title || !abilityType) {
-      return { ok: false, error: "Missing required fields" };
-    }
-
-    const patchData: Record<string, unknown> = {
-      title,
-      description,
-      abilityType,
-    };
-
-    if (imageFile instanceof File && imageFile.size > 0) {
-      const arrayBuffer = await imageFile.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      const imageAsset = await client.assets.upload("image", buffer, {
-        filename: imageFile.name,
-        contentType: imageFile.type,
-      });
-      patchData.image = {
-        _type: "image",
-        asset: { _type: "reference", _ref: imageAsset._id },
-      };
-    }
-
-    await client.patch(screenshotId).set(patchData).commit();
-
-    revalidateTag(TAGS.screenshotsAll, { expire: 0 });
+    const client = authenticatedClient(token);
+    const file = data.get('image');
+    if (!(file instanceof File)) throw new Error('Choose an image.');
+    const storageId = await upload(file, token);
+    const result = await client.mutation(api.lineups.create, { ...fields(data), mapSlug: String(data.get('mapSlug')), agentSlug: String(data.get('agentSlug')), storageId });
+    return { ok: true, data: { screenshotId: result.id } };
+  } catch (error) { return { ok: false, error: error instanceof Error ? error.message : 'Upload failed' }; }
+}
+export async function editScreenshot(data: FormData, token: string | null): Promise<ActionResult> {
+  try {
+    const client = authenticatedClient(token);
+    const file = data.get('image');
+    const storageId = file instanceof File && file.size ? await upload(file, token) : undefined;
+    await client.mutation(api.lineups.update, { id: String(data.get('screenshotId')) as Id<'lineups'>, ...fields(data), ...(storageId ? { storageId } : {}) });
     return { ok: true, data: undefined };
-  } catch (e) {
-    return { ok: false, error: errorMessage(e) };
-  }
+  } catch (error) { return { ok: false, error: error instanceof Error ? error.message : 'Update failed' }; }
 }
-
-export async function deleteScreenshot(
-  screenshotId: string,
-): Promise<ActionResult> {
-  if (!screenshotId) return { ok: false, error: "screenshotId is required" };
-  try {
-    await client.delete(screenshotId);
-    revalidateTag(TAGS.screenshotsAll, { expire: 0 });
-    return { ok: true, data: undefined };
-  } catch (e) {
-    return { ok: false, error: errorMessage(e) };
-  }
-}
-
-function titleCase(slug: string): string {
-  return slug.charAt(0).toUpperCase() + slug.slice(1);
-}
-
-function errorMessage(e: unknown): string {
-  if (e instanceof Error) return e.message;
-  return "Server error";
+export async function deleteScreenshot(id: string, token: string | null): Promise<ActionResult> {
+  try { await authenticatedClient(token).mutation(api.lineups.remove, { id: id as Id<'lineups'> }); return { ok: true, data: undefined }; }
+  catch (error) { return { ok: false, error: error instanceof Error ? error.message : 'Delete failed' }; }
 }

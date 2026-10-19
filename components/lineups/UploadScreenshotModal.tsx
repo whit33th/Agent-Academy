@@ -1,11 +1,12 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
+import { useTransition, useEffect, useState } from "react";
 import { X } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import AbilityPickerGrid from "./AbilityPickerGrid";
 import ImageDropArea from "./ImageDropArea";
 import { uploadScreenshot } from "@/app/_actions/screenshots";
+import { useAppSession } from "@/components/auth/SessionProvider";
 import { mapAbilityToGenericType } from "@/lib/utils/ability";
 import type { Agent, GameMap, Screenshot } from "@/lib/types";
 
@@ -24,10 +25,13 @@ export default function UploadScreenshotModal({
   onClose,
   applyOptimistic,
 }: UploadScreenshotModalProps) {
-  const abilities = agent.abilities ?? [];
+  const { getToken } = useAppSession();
+  const [pending, startTransition] = useTransition();
+  const abilities = agent.abilities;
   const [slot, setSlot] = useState(abilities[0]?.slot ?? "");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +45,7 @@ export default function UploadScreenshotModal({
     setPreview(null);
     setTitle("");
     setDescription("");
+    setIsPublic(false);
     setError(null);
   };
 
@@ -69,6 +74,7 @@ export default function UploadScreenshotModal({
       description,
       abilityType,
       image: null,
+      isPublic,
       tempPreview: preview ?? undefined,
     };
 
@@ -81,14 +87,14 @@ export default function UploadScreenshotModal({
     formData.set("description", description);
     formData.set("abilityType", abilityType);
     formData.set("image", file);
-
-    onClose();
-    reset();
+    if (isPublic) formData.set("isPublic", "true");
 
     startTransition(async () => {
-      applyOptimistic(optimistic);
-      const result = await uploadScreenshot(formData);
-      if (!result.ok) setError(result.error);
+      const result = await uploadScreenshot(formData, await getToken());
+      if (!result.ok) { setError(result.error); return; }
+      applyOptimistic({ ...optimistic, _id: result.data.screenshotId });
+      onClose();
+      reset();
     });
   };
 
@@ -178,6 +184,16 @@ export default function UploadScreenshotModal({
           />
         </div>
 
+        <label className="flex items-center gap-2 text-xs text-white/60 select-none">
+          <input
+            type="checkbox"
+            checked={isPublic}
+            onChange={(e) => setIsPublic(e.target.checked)}
+            className="size-4 accent-val-red"
+          />
+          Public content (show in Feed)
+        </label>
+
         <div className="flex flex-col gap-1.5">
           <span className="text-xs font-semibold uppercase tracking-wider text-white/50">
             Screenshot
@@ -206,6 +222,7 @@ export default function UploadScreenshotModal({
           </button>
           <button
             type="submit"
+            disabled={pending}
             className="px-6 h-10 rounded-sm bg-val-red hover:bg-val-red/90 text-white text-sm font-bold uppercase tracking-wider transition-colors cursor-pointer"
           >
             Share Setup
