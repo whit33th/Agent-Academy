@@ -167,6 +167,117 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
   border-color: rgba(255, 70, 85, 0.4);
 }
 
+/* Select Map cards — measured from the client frame: 187×123 */
+.map-select-card {
+  container-type: size;
+  aspect-ratio: 187 / 123;
+  --stroke: max(1px, 0.813cqh);
+  --stroke-hot: max(2px, 1.626cqh);
+  --frame: #6a7c8a;
+  --frame-center: #9aabb8;
+  --frame-hot: #52d7aa;
+}
+
+.map-select-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  border: var(--stroke) solid var(--frame);
+  border-bottom: 0;
+  border-radius: 0;
+  transition: border-color 50ms linear, border-width 65ms ease-out;
+}
+
+.map-select-card:hover .map-select-frame {
+  border-color: var(--frame-hot);
+  border-width: var(--stroke-hot);
+}
+
+.map-select-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 21;
+  height: var(--stroke);
+  pointer-events: none;
+  transition: height 65ms ease-out;
+}
+
+.map-select-card:hover .map-select-bottom {
+  height: var(--stroke-hot);
+}
+
+.map-select-bottom i {
+  position: absolute;
+  bottom: 0;
+  height: var(--stroke);
+  background: var(--frame);
+  transition:
+    background-color 50ms linear,
+    height 65ms ease-out,
+    left 360ms cubic-bezier(0.33, 0.7, 0.3, 1),
+    width 360ms cubic-bezier(0.33, 0.7, 0.3, 1);
+}
+
+.map-select-bottom .l { left: 0; width: 24.5989%; }
+.map-select-bottom .r { right: 0; width: 24.5989%; }
+
+.map-select-bottom .m {
+  left: 28.3422%;
+  width: 43.3155%;
+  background: var(--frame-center);
+  transition:
+    background-color 50ms linear,
+    left 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    width 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.map-select-card:hover .map-select-bottom i {
+  background: var(--frame-hot);
+  height: var(--stroke-hot);
+}
+.map-select-card:hover .map-select-bottom .l,
+.map-select-card:hover .map-select-bottom .r { width: 25.74%; }
+.map-select-card:hover .map-select-bottom .m { left: 25.74%; width: 48.52%; }
+
+.map-select-card img {
+  transition: scale 65ms ease-out;
+}
+
+.map-select-card:hover img { scale: 1.07; }
+
+.map-select-wash {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  transition: opacity 65ms ease-out;
+}
+
+.map-select-card:hover .map-select-wash { opacity: 1; }
+
+.map-select-name {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  padding: 0 0 10.6cqh 6.42cqw;
+}
+
+.map-select-name p {
+  font-family: var(--font-oswald), sans-serif;
+  font-size: 8.94cqh;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
+}
+
 /* ── Agent card with overflow portrait ────────────── */
 
 .agent-card {

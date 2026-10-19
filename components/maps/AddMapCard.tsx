@@ -16,7 +16,7 @@ export default function AddMapCard({ onClick }: AddMapCardProps) {
         onClick();
       }}
       onMouseEnter={() => audio.playHover()}
-      className="val-card group flex w-full clip-angular bg-val-surface border border-white/5 border-dashed cursor-pointer text-center relative aspect-video"
+      className="val-card group flex w-full bg-val-surface border border-white/5 border-dashed cursor-pointer text-center relative aspect-[187/123]"
     >
       <span className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-white/40 group-hover:text-val-red transition-colors">
         <span className="flex size-12 items-center justify-center rounded-full bg-white/5 group-hover:bg-val-red/10 transition-colors">

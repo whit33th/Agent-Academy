@@ -51,7 +51,7 @@ function MapsGridSkeleton() {
       {Array.from({ length: 8 }).map((_, i) => (
         <div
           key={i}
-          className="skeleton clip-angular aspect-video bg-val-surface border border-white/4"
+          className="skeleton aspect-[187/123] bg-val-surface border border-white/4"
         />
       ))}
     </div>

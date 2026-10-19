@@ -75,7 +75,7 @@ export default function AgentCard({
             style={{ transform: `translate3d(${cfg.x}px, ${cfg.y}px, 0)` }}
           >
             <div
-              className="absolute inset-0 origin-center transition-transform duration-200 ease-out [--zoom-multiplier:1] group-hover:[--zoom-multiplier:1.05]"
+              className="absolute inset-0 origin-center transition-transform duration-[85ms] ease-out [--zoom-multiplier:1] group-hover:[--zoom-multiplier:1.05]"
               style={{
                 transform: `scale(calc(${cfg.scale} * var(--zoom-multiplier, 1)))`,
               }}
