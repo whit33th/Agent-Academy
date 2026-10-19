@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useEffectEvent } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useBodyScrollLock } from "@/lib/utils/body-scroll-lock";
@@ -26,14 +26,16 @@ export default function LineupHotkeysHelp({
 }: LineupHotkeysHelpProps) {
   useBodyScrollLock(open);
 
+  const close = useEffectEvent(() => onClose());
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open]);
 
   return (
     <AnimatePresence>

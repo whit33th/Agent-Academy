@@ -30,6 +30,22 @@ describe("trusted collection ownership", () => {
     await bob.mutation(api.lineups.remove, { id: copy.id });
     expect(await t.run(ctx => ctx.storage.getUrl(storageId))).toBeNull();
   });
+  it("stores a sanity cdn image and releases it only when nothing else references it", async () => {
+    const t = convexTest(schema, modules);
+    const alice = t.withIdentity({ subject: "alice", issuer: "https://test", tokenIdentifier: "https://test|alice" });
+    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "demo";
+    const imageUrl = `https://cdn.sanity.io/images/${projectId}/production/abc-1920x1080.png`;
+    const imageAssetId = "image-abc-1920x1080-png";
+    const base = { mapSlug: "ascent", agentSlug: "sova", title: "CDN setup", abilityType: "recon", imageUrl, imageAssetId };
+    await expect(alice.mutation(api.lineups.create, { ...base, imageUrl: "https://evil.example/abc-1920x1080.png" })).rejects.toThrow("Invalid image");
+    const { id } = await alice.mutation(api.lineups.create, base);
+    const rows = await alice.query(api.lineups.listByMapAgent, { mapSlug: "ascent", agentSlug: "sova" });
+    expect(rows[0]?.imageUrl).toBe(imageUrl);
+    await alice.mutation(api.lineups.update, { id, isPublic: true });
+    const copy = await alice.mutation(api.lineups.forkPublic, { sourceId: id, mapSlug: "ascent", agentSlug: "sova" });
+    expect((await alice.mutation(api.lineups.remove, { id })).releasedAssetId).toBeUndefined();
+    expect((await alice.mutation(api.lineups.remove, { id: copy.id })).releasedAssetId).toBe(imageAssetId);
+  });
   it("isolates personal maps/rosters and restricts shared catalog changes", async () => {
     const t = convexTest(schema, modules); const alice = t.withIdentity({ subject: "alice" }); const bob = t.withIdentity({ subject: "bob" });
     await alice.mutation(api.mapRoster.upsert, { mapSlug: "ascent", agentSlug: "sova", viability: "S" });

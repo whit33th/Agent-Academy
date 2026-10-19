@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { m } from "framer-motion";
 import { Star } from "lucide-react";
 import type { Screenshot } from "@/lib/types";
 import { audio as sfx } from "@/lib/audio";
 import { useLongPress } from "@/lib/utils/long-press";
+import LineupImage from "./LineupImage";
 
 interface ScreenshotCardProps {
   screenshot: Screenshot;
@@ -16,6 +16,7 @@ interface ScreenshotCardProps {
   abilityFilterActive?: boolean;
   abilityMatch?: boolean;
   isFavorite?: boolean;
+  priority?: boolean;
 }
 
 export default function ScreenshotCard({
@@ -27,6 +28,7 @@ export default function ScreenshotCard({
   abilityFilterActive = false,
   abilityMatch = true,
   isFavorite = false,
+  priority = false,
 }: ScreenshotCardProps) {
   const press = useLongPress<Screenshot>(onLongPress)(screenshot);
   const dimmed = abilityFilterActive && !abilityMatch;
@@ -91,10 +93,11 @@ export default function ScreenshotCard({
           }
         >
           {src && (
-            <Image
+            <LineupImage
               src={src}
               alt={screenshot.title}
               fill
+              priority={priority}
               className="object-contain transition-[filter,opacity] duration-200 group-hover:brightness-110"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />

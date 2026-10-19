@@ -43,6 +43,7 @@ export default defineSchema({
     abilityType: v.string(),
     imageUrl: v.string(),
     imageStorageKey: v.optional(v.string()),
+    imageAssetId: v.optional(v.string()),
     storageId: v.optional(v.id("_storage")),
     legacyId: v.optional(v.string()),
     isPublic: v.boolean(),
@@ -54,6 +55,7 @@ export default defineSchema({
     .index("by_map_agent_public", ["mapSlug", "agentSlug", "isPublic"])
     .index("by_map_public", ["mapSlug", "isPublic"])
     .index("by_storageId", ["storageId"])
+    .index("by_imageAssetId", ["imageAssetId"])
     .index("by_legacyId", ["legacyId"])
     .index("by_owner_map_agent", ["ownerTokenIdentifier", "mapSlug", "agentSlug"])
     .index("by_public_createdAt", ["isPublic", "createdAt"]),

@@ -2,8 +2,25 @@ import type { ValorantAgent } from "@/lib/valorant-api";
 import type { Agent } from "@/lib/types";
 import { normalizeName } from "@/lib/utils/normalize";
 import { getValorantAssets } from "./valorant-assets";
-import { existsSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import path from "node:path";
+
+const wallpapers = new Map<string, string>();
+let wallpapersRead = false;
+
+function readWallpapers() {
+  if (wallpapersRead) return;
+  wallpapersRead = true;
+  const dir = path.join(process.cwd(), "public", "imgs", "agents");
+  try {
+    for (const file of readdirSync(dir).sort()) {
+      const match = /^(.+)\.(png|jpg)$/i.exec(file);
+      if (match) wallpapers.set(match[1], `/imgs/agents/${file}`);
+    }
+  } catch {
+    // No local wallpapers in this environment.
+  }
+}
 
 function localVoiceLineUrl(
   agentName: string | null | undefined,
@@ -18,14 +35,8 @@ function localDarkBackground(agentName: string): string | null {
   if (!agentName) return null;
   const slug = normalizeName(agentName);
   if (!slug) return null;
-  const publicDir = path.join(process.cwd(), "public");
-  for (const ext of [".png", ".jpg"]) {
-    const filePath = path.join(publicDir, "imgs", "agents", `${slug}${ext}`);
-    if (existsSync(filePath)) {
-      return `/imgs/agents/${slug}${ext}`;
-    }
-  }
-  return null;
+  readWallpapers();
+  return wallpapers.get(slug) ?? null;
 }
 
 function buildAgent(api: ValorantAgent): Agent {
@@ -71,30 +82,11 @@ export async function getAgentsForMap(mapId: string): Promise<Agent[]> {
 
 /** All Valorant API agents formatted as Agent objects (no Sanity dependency). */
 export async function getAllApiAgents(): Promise<Agent[]> {
-  const assets = await getValorantAssets();
-  return Object.values(assets.agents).map((api) => ({
-    _id: api.uuid,
-    slug: { current: normalizeName(api.displayName) },
-    name: api.displayName,
-    roleName: api.role?.displayName ?? "",
-    roleIcon: api.role?.displayIcon ?? null,
-    imageUrl: api.fullPortrait ?? api.displayIcon ?? null,
-    fullPortraitV2: api.fullPortraitV2 ?? null,
-    bustPortrait: api.bustPortrait ?? null,
-    displayIcon: api.displayIcon ?? null,
-    background: api.background ?? null,
-    artBackground: localDarkBackground(api.displayName) ?? null,
-    backgroundGradientColors: api.backgroundGradientColors ?? [],
-    description: api.description ?? null,
-    abilities: (api.abilities ?? []).map((ab) => ({
-      slot: ab.slot,
-      displayName: ab.displayName,
-      description: ab.description,
-      displayIcon: ab.displayIcon ?? null,
-    })),
-    voiceLineUrl:
-      api.voiceLine?.mediaList?.[0]?.wave ?? localVoiceLineUrl(api.displayName),
-  }));
+  return getEnrichedAgents();
+}
+
+export async function getAgentCount(): Promise<number> {
+  return Object.keys((await getValorantAssets()).agents).length;
 }
 
 /** API agents not yet in Sanity. */
@@ -105,11 +97,11 @@ export async function getUnaddedAgents(): Promise<ValorantAgent[]> {
 
 /** Find a single enriched agent by slug or id. */
 export async function findAgent(slugOrId: string): Promise<Agent | null> {
-  const agents = await getEnrichedAgents();
-  return (
-    agents.find((a) => a.slug?.current === slugOrId || a._id === slugOrId) ??
-    null
+  const assets = await getValorantAssets();
+  const api = Object.values(assets.agents).find(
+    (agent) => agent.uuid === slugOrId || normalizeName(agent.displayName) === slugOrId,
   );
+  return api ? buildAgent(api) : null;
 }
 
 /** API agents not yet linked to the given map. */

@@ -1,7 +1,9 @@
+import { cacheLife, cacheTag } from "next/cache";
 import type { Screenshot } from "@/lib/types";
 import { fetchLineupsByMapAgent } from "./convex-fetch";
 import { getConvexHttpClient } from "@/lib/convex/server";
 import { api } from "@/convex/_generated/api";
+import { TAGS } from "@/lib/cache-tags";
 
 /** Screenshots for a map+agent combo. */
 export async function getScreenshots(
@@ -27,6 +29,10 @@ export async function getScreenshots(
 export async function getScreenshotCountsByMap(
   mapId: string,
 ): Promise<Record<string, number>> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag(TAGS.screenshotsAll);
+  cacheTag(TAGS.screenshots(mapId, "counts"));
   try { return await getConvexHttpClient().query(api.lineups.countsByMap, { mapSlug: mapId }); }
   catch { return {}; }
 }

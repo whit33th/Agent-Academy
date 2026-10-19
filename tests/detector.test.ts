@@ -27,6 +27,22 @@ describe("confirmed game events", () => {
     state.line(flow("MainMenu")); state.line(flow("Pregame"));
     expect(state.get().sessionId).not.toBe(first); expect(state.get().agentSlug).toBeNull(); expect(state.get().mapSlug).toBeNull();
   });
+  it("reads the current map token and a queue the log actually names", () => {
+    const state = createGameState("test");
+    state.line("Party_ConvertToDefault URL [?queueID=unrated], Response Code: [200]");
+    state.line(queue("join"));
+    expect(state.get()).toMatchObject({ phase: "queue", mode: "unrated" });
+    state.line("Party_ChangeQueue], Response Code: [200]");
+    expect(state.get().mode).toBeNull();
+    state.line("QueryName: [Party_StartCustomGame], Response Code: [200]");
+    state.line(flow("TransitionToPregame"));
+    state.line("LogMapLoadModel: Update: [Map Name: Rook | Changed: TRUE] [Local World: TRUE]");
+    state.line("LogMapLoadModel: Update: [Map Name: MainMenuV2 | Changed: FALSE]");
+    state.line(flow("InGame"));
+    expect(state.get()).toMatchObject({ phase: "match", mapSlug: "corrode", mode: "custom" });
+    state.line(flow("MainMenu"));
+    expect(state.get()).toMatchObject({ phase: "menu", mapSlug: null, mode: null });
+  });
   it("keeps unknown maps unroutable, supports late match and replay, resets on exit", () => {
     const state = createGameState("test"); state.line(flow("InGame")); state.line("LogMapLoadModel: Update: [Map Name: FutureUnknownMap]");
     expect(state.get()).toMatchObject({ phase: "match", mapSlug: null, agentSlug: null });

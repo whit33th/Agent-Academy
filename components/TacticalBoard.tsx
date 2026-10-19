@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, Fragment } from "react";
+import { useState, useEffect, useRef, useCallback, Fragment, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import {
   X,
@@ -90,7 +91,35 @@ const WIDTHS = [2, 4, 8];
 // ───────────────────────────────────────────────────────────────────────────
 // Main component
 
-export default function TacticalBoard({
+function loadSharedBoard(initialStateStr?: string) {
+  const empty = {
+    strokes: [] as Stroke[],
+    placedAbilities: [] as PlacedAbility[],
+    placedAgents: [] as PlacedAgent[],
+  };
+  if (!initialStateStr) return empty;
+  try {
+    const parsed = JSON.parse(atob(initialStateStr)) as Partial<typeof empty>;
+    return {
+      strokes: Array.isArray(parsed.strokes) ? parsed.strokes : [],
+      placedAbilities: Array.isArray(parsed.placedAbilities) ? parsed.placedAbilities : [],
+      placedAgents: Array.isArray(parsed.placedAgents) ? parsed.placedAgents : [],
+    };
+  } catch {
+    return empty;
+  }
+}
+
+function subscribeBoardPortal() {
+  return () => {};
+}
+
+function boardPortalTarget() {
+  return typeof document === "undefined" ? null : document.body;
+}
+
+
+function useTacticalBoardSession({
   map,
   allAgents,
   initialStateStr,
@@ -105,9 +134,9 @@ export default function TacticalBoard({
   const [color, setColor] = useState(COLORS[0]);
   const [width, setWidth] = useState(WIDTHS[1]);
 
-  const [strokes, setStrokes] = useState<Stroke[]>([]);
-  const [placedAbilities, setPlacedAbilities] = useState<PlacedAbility[]>([]);
-  const [placedAgents, setPlacedAgents] = useState<PlacedAgent[]>([]);
+  const [strokes, setStrokes] = useState<Stroke[]>(() => loadSharedBoard(initialStateStr).strokes);
+  const [placedAbilities, setPlacedAbilities] = useState<PlacedAbility[]>(() => loadSharedBoard(initialStateStr).placedAbilities);
+  const [placedAgents, setPlacedAgents] = useState<PlacedAgent[]>(() => loadSharedBoard(initialStateStr).placedAgents);
 
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [armedAbility, setArmedAbility] = useState<AgentAbility | null>(null);
@@ -117,21 +146,6 @@ export default function TacticalBoard({
   );
 
   const activeStrokeRef = useRef<Stroke | null>(null);
-
-  // ─── Load shared state from URL ─────────────────────────────────────────
-  useEffect(() => {
-    if (!initialStateStr) return;
-    try {
-      const parsed = JSON.parse(atob(initialStateStr));
-      if (Array.isArray(parsed.strokes)) setStrokes(parsed.strokes);
-      if (Array.isArray(parsed.placedAbilities))
-        setPlacedAbilities(parsed.placedAbilities);
-      if (Array.isArray(parsed.placedAgents))
-        setPlacedAgents(parsed.placedAgents);
-    } catch {
-      /* corrupted — ignore */
-    }
-  }, [initialStateStr]);
 
   // ─── Sizing (HiDPI canvases + ResizeObserver) ───────────────────────────
   useEffect(() => {
@@ -547,8 +561,33 @@ export default function TacticalBoard({
         ? "default"
         : "crosshair";
 
-  return (
-    <div className="fixed inset-0 z-100 bg-black/95 backdrop-blur-sm flex flex-col">
+  return {
+    map, allAgents, onClose, tool, color, width, setTool, setColor, setWidth,
+    setArmedAbility, setArmedAgentDrop, handleUndo, handleShare, handleReset,
+    overlayRef, bgCanvasRef, fgCanvasRef, agentStripRef, handlePointerDown,
+    handlePointerMove, handlePointerUp, placedAbilities, placedAgents,
+    setPlacedAbilities, setPlacedAgents, rotatingAbilityId, startRotateAbility,
+    startTokenDrag, startAbilityStartDrag, selectedAgent, setSelectedAgent,
+    armedAbility, armedAgentDrop, bgImage,
+    cursorMode,
+  };
+}
+
+export default function TacticalBoard(props: TacticalBoardProps) {
+  const {
+    map, allAgents, onClose, tool, color, width, setTool, setColor, setWidth,
+    setArmedAbility, setArmedAgentDrop, handleUndo, handleShare, handleReset,
+    overlayRef, bgCanvasRef, fgCanvasRef, agentStripRef, handlePointerDown,
+    handlePointerMove, handlePointerUp, placedAbilities, placedAgents,
+    setPlacedAbilities, setPlacedAgents, rotatingAbilityId, startRotateAbility,
+    startTokenDrag, startAbilityStartDrag, selectedAgent, setSelectedAgent,
+    armedAbility, armedAgentDrop, bgImage,
+    cursorMode,
+  } = useTacticalBoardSession(props);
+  const portalTarget = useSyncExternalStore(subscribeBoardPortal, boardPortalTarget, () => null);
+  if (!portalTarget) return null;
+  return createPortal(
+    <div className="fixed inset-0 z-[400] bg-black/95 backdrop-blur-sm flex flex-col">
       {/* Top toolbar */}
       <header className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 bg-val-surface/95 border-b border-white/10">
         <h2 className="font-oswald text-base font-bold uppercase tracking-wider text-white">
@@ -600,7 +639,8 @@ export default function TacticalBoard({
               fill
               draggable={false}
               priority
-              unoptimized
+              sizes="(max-width: 1280px) 100vw, 1400px"
+              quality={95}
               className="object-contain pointer-events-none"
             />
             <canvas
@@ -698,8 +738,9 @@ export default function TacticalBoard({
                         src={ab.displayIcon!}
                         alt={ab.displayName}
                         fill
+                        sizes="96px"
+                        quality={90}
                         className="object-contain p-1"
-                        unoptimized
                       />
                       {stats && stats.shape !== "point" && (
                         <span className="absolute -bottom-1 -right-1 rounded-xs bg-black/90 px-1 py-0.5 text-[7px] font-black uppercase leading-none text-val-teal ring-1 ring-val-teal/40">
@@ -736,9 +777,9 @@ export default function TacticalBoard({
                   src={selectedAgent.displayIcon}
                   alt={selectedAgent.name}
                   fill
-                  sizes="56px"
+                  sizes="112px"
+                  quality={90}
                   className="rounded-full"
-                  unoptimized
                 />
               )}
             </button>
@@ -768,7 +809,7 @@ export default function TacticalBoard({
                 }}
                 onMouseEnter={() => audio.playHover()}
                 title={agent.name}
-                className={`relative shrink-0 size-12 xl:size-16 rounded-sm border overflow-hidden transition-all cursor-pointer ${
+                className={`relative shrink-0 size-12 xl:size-16 rounded-sm border overflow-hidden transition-[border-color,transform,box-shadow] cursor-pointer ${
                   isSelected
                     ? "border-val-red scale-110 ring-2 ring-val-red/40"
                     : "border-white/10 bg-white/5 hover:border-white/40"
@@ -779,8 +820,9 @@ export default function TacticalBoard({
                     src={icon}
                     alt={agent.name}
                     fill
+                    sizes="128px"
+                    quality={90}
                     className="object-cover"
-                    unoptimized
                   />
                 ) : (
                   <span className="absolute inset-0 grid place-items-center text-[10px] font-bold text-white/60">
@@ -792,9 +834,11 @@ export default function TacticalBoard({
           })}
         </div>
       </div>
-    </div>
+    </div>,
+    portalTarget,
   );
 }
+
 
 // ───────────────────────────────────────────────────────────────────────────
 // Helpers / sub-components
@@ -1044,35 +1088,36 @@ function AbilityToken({
     ability.shape === "cross";
 
   return (
-    <button
-      type="button"
-      onPointerDown={onPointerDown}
-      onDoubleClick={onDelete}
-      className="absolute -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/70 border-2 backdrop-blur-sm flex items-center justify-center cursor-grab active:cursor-grabbing hover:scale-110 transition-transform"
-      style={{
-        left: `${ability.x * 100}%`,
-        top: `${ability.y * 100}%`,
-        borderColor: ability.color,
-      }}
-      title={`${ability.agentName} — ${ability.abilityName}  (drag to move, drag handle to rotate, double-click to delete)`}
+    <div
+      className="absolute -translate-x-1/2 -translate-y-1/2"
+      style={{ left: `${ability.x * 100}%`, top: `${ability.y * 100}%` }}
     >
-      {ability.abilityIcon ? (
-        <Image
-          src={ability.abilityIcon}
-          alt={ability.abilityName}
-          width={20}
-          height={20}
-          unoptimized
-          draggable={false}
-        />
-      ) : (
-        <span className="text-[8px] font-bold text-white">
-          {ability.abilityName.slice(0, 2).toUpperCase()}
-        </span>
-      )}
+      <button
+        type="button"
+        onPointerDown={onPointerDown}
+        onDoubleClick={onDelete}
+        className="relative w-8 h-8 rounded-full bg-black/70 border-2 backdrop-blur-sm flex items-center justify-center cursor-grab active:cursor-grabbing hover:scale-110 transition-transform"
+        style={{ borderColor: ability.color }}
+        title={`${ability.agentName} — ${ability.abilityName}  (drag to move, drag handle to rotate, double-click to delete)`}
+      >
+        {ability.abilityIcon ? (
+          <Image
+            src={ability.abilityIcon}
+            alt={ability.abilityName}
+            width={20}
+            height={20}
+            quality={90}
+            draggable={false}
+          />
+        ) : (
+          <span className="text-[8px] font-bold text-white">
+            {ability.abilityName.slice(0, 2).toUpperCase()}
+          </span>
+        )}
+      </button>
       {canRotate && (
-        <span
-          role="button"
+        <button
+          type="button"
           tabIndex={-1}
           onPointerDown={onRotatePointerDown}
           className={`absolute left-1/2 -top-9 h-3.5 w-3.5 -translate-x-1/2 rounded-full border border-white/80 bg-black/80 cursor-ew-resize before:absolute before:left-1/2 before:top-full before:h-5 before:w-px before:-translate-x-1/2 before:bg-white/40 ${
@@ -1081,7 +1126,7 @@ function AbilityToken({
           aria-label="Rotate ability"
         />
       )}
-    </button>
+    </div>
   );
 }
 
@@ -1095,8 +1140,8 @@ function StartHandle({
   const start = getAbilityEndpoints(ability).start;
 
   return (
-    <span
-      role="button"
+    <button
+      type="button"
       tabIndex={-1}
       onPointerDown={onPointerDown}
       className="absolute -translate-x-1/2 -translate-y-1/2 h-3.5 w-3.5 rounded-full border border-white/80 bg-black/80 cursor-grab z-10"
@@ -1170,8 +1215,9 @@ function AgentToken({
           src={placed.iconUrl}
           alt={placed.agentName}
           fill
+          sizes="80px"
+          quality={90}
           className="object-cover"
-          unoptimized
           draggable={false}
         />
       )}

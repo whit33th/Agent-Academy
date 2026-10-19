@@ -44,6 +44,7 @@ export default function MapCard({ map, onLongPress, priority }: MapCardProps) {
           fetchPriority={priority ? "high" : "auto"}
           className="object-cover transition-[scale,filter] duration-200 group-hover:scale-110 group-hover:brightness-110 pointer-events-none"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 50vw"
+          quality={95}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-val-red transition-[width] duration-200 group-hover:w-full pointer-events-none" />

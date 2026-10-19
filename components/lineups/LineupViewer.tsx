@@ -3,8 +3,13 @@
 import {
   useCallback,
   useEffect,
+  useEffectEvent,
+  useMemo,
   useOptimistic,
   useState,
+  useSyncExternalStore,
+  type Dispatch,
+  type SetStateAction,
 } from "react";
 import { LazyMotion, domAnimation, LayoutGroup } from "framer-motion";
 import { Plus, Star } from "lucide-react";
@@ -13,27 +18,32 @@ import { audio as sfx } from "@/lib/audio";
 import { matchScreenshotToAbility } from "@/lib/utils/ability";
 import { accentFromGradient } from "@/lib/utils/color";
 import {
-  getFavoriteSetupIds,
+  getFavoriteSetupsServerSnapshot,
+  getFavoriteSetupsSnapshot,
+  subscribeFavoriteSetups,
   toggleFavoriteSetup,
 } from "@/lib/utils/favorites";
 import {
   getStoredMapSide,
   setStoredMapSide,
+  subscribeMapSide,
 } from "@/lib/utils/map-side-preference";
 import AgentInfoPanel from "./AgentInfoPanel";
 import SideTabs, { type SideKey } from "./SideTabs";
 import ScreenshotCard from "./ScreenshotCard";
-import ScreenshotLightbox from "./ScreenshotLightbox";
-import UploadScreenshotModal from "./UploadScreenshotModal";
-import EditScreenshotModal from "./EditScreenshotModal";
-import ScreenshotActionsModal from "./ScreenshotActionsModal";
 import LineupEmptyState from "./LineupEmptyState";
 import LineupHotkeysHelp from "./LineupHotkeysHelp";
+import dynamic from "next/dynamic";
 import { markStep3Eligible } from "@/lib/onboarding/state";
 import { useOnboardingStep3Active } from "@/components/onboarding/useOnboarding";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useAppSession } from "@/components/auth/SessionProvider";
+
+const ScreenshotLightbox = dynamic(() => import("./ScreenshotLightbox"));
+const UploadScreenshotModal = dynamic(() => import("./UploadScreenshotModal"));
+const EditScreenshotModal = dynamic(() => import("./EditScreenshotModal"));
+const ScreenshotActionsModal = dynamic(() => import("./ScreenshotActionsModal"));
 
 type Action =
   | { type: "add"; screenshot: Screenshot }
@@ -64,19 +74,31 @@ export default function LineupViewer({
   agent,
   map,
 }: LineupViewerProps) {
-  const { ready, signedIn, subject } = useAppSession();
-  const rows = useQuery(api.lineups.listByMapAgent, ready ? { mapSlug: map.slug?.current ?? map._id, agentSlug: agent.slug?.current ?? agent._id } : "skip");
+  const { signedIn, subject } = useAppSession();
+  const rows = useQuery(api.lineups.listByMapAgent, { mapSlug: map.slug?.current ?? map._id, agentSlug: agent.slug?.current ?? agent._id });
   const screenshots: Screenshot[] = rows ? rows.filter(row => row.isPublic || (signedIn && row.ownerTokenIdentifier.endsWith(`|${subject}`))).map(row => ({ _id: row._id, title: row.title, description: row.description ?? null, abilityType: row.abilityType, image: row.imageUrl, isPublic: row.isPublic, canEdit: signedIn && row.ownerTokenIdentifier.endsWith(`|${subject}`) })) : initialScreenshots;
   const [optimistic, applyOptimistic] = useOptimistic(screenshots, reducer);
 
-  const [side, setSide] = useState<SideKey>("all");
+  const side = useSyncExternalStore(
+    subscribeMapSide,
+    () => getStoredMapSide(map._id) ?? "all",
+    () => "all" as SideKey,
+  );
   const [abilityIdx, setAbilityIdx] = useState<number>(-1);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [actionsTarget, setActionsTarget] = useState<Screenshot | null>(null);
   const [editTarget, setEditTarget] = useState<Screenshot | null>(null);
   const [isUploadOpen, setUploadOpen] = useState(false);
   const [favoritesOnly, setFavoritesOnly] = useState(false);
-  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(() => new Set());
+  const favoriteKey = useSyncExternalStore(
+    subscribeFavoriteSetups,
+    getFavoriteSetupsSnapshot,
+    getFavoriteSetupsServerSnapshot,
+  );
+  const favoriteIds = useMemo(
+    () => new Set(favoriteKey ? favoriteKey.split("\n") : []),
+    [favoriteKey],
+  );
   const [hotkeysOpen, setHotkeysOpen] = useState(false);
   const step3Onboarding = useOnboardingStep3Active();
 
@@ -95,23 +117,12 @@ export default function LineupViewer({
   const selectedAbility =
     abilityIdx !== -1 ? agent.abilities[abilityIdx] : null;
 
-  useEffect(() => {
-    const stored = getStoredMapSide(map._id);
-    if (stored) setSide(stored);
-    setFavoriteIds(getFavoriteSetupIds());
-  }, [map._id]);
-
   const handleSideChange = useCallback(
     (next: SideKey) => {
-      setSide(next);
       setStoredMapSide(map._id, next);
     },
     [map._id],
   );
-
-  const refreshFavorites = useCallback(() => {
-    setFavoriteIds(getFavoriteSetupIds());
-  }, []);
 
   const filtered = optimistic.filter((s) => {
     if (favoritesOnly && !favoriteIds.has(s._id)) return false;
@@ -142,39 +153,39 @@ export default function LineupViewer({
     if (lightboxIndex !== null && filtered[lightboxIndex]) {
       const id = filtered[lightboxIndex]._id;
       toggleFavoriteSetup(id);
-      refreshFavorites();
       sfx.playClick();
       return;
     }
     setFavoritesOnly((v) => !v);
     sfx.playClick();
-  }, [lightboxIndex, filtered, refreshFavorites]);
+  }, [lightboxIndex, filtered]);
+
+  const onLineupHotkey = useEffectEvent((e: KeyboardEvent) => {
+    const tag = (e.target as HTMLElement)?.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+    if (e.key === "?" || (e.key === "/" && e.shiftKey)) {
+      e.preventDefault();
+      openHotkeys();
+      return;
+    }
+    if (hotkeysOpen) return;
+
+    if (e.key === "f" || e.key === "F") {
+      e.preventDefault();
+      toggleFavoriteForCurrent();
+    }
+    if (e.key === "r" || e.key === "R") {
+      e.preventDefault();
+      openRandomLightbox();
+    }
+  });
 
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement)?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
-
-      if (e.key === "?" || (e.key === "/" && e.shiftKey)) {
-        e.preventDefault();
-        openHotkeys();
-        return;
-      }
-      if (hotkeysOpen) return;
-
-      if (e.key === "f" || e.key === "F") {
-        e.preventDefault();
-        toggleFavoriteForCurrent();
-      }
-      if (e.key === "r" || e.key === "R") {
-        e.preventDefault();
-        openRandomLightbox();
-      }
-    };
-
+    const onKeyDown = (e: KeyboardEvent) => onLineupHotkey(e);
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [hotkeysOpen, toggleFavoriteForCurrent, openRandomLightbox, openHotkeys]);
+  }, []);
 
   const emptyVariant =
     optimistic.length === 0 ? "no-setups" : "no-filter-match";
@@ -262,6 +273,7 @@ export default function LineupViewer({
                         abilityFilterActive={abilityFilterActive}
                         abilityMatch={abilityMatch}
                         isFavorite={favoriteIds.has(s._id)}
+                        priority={i === 0}
                       />
                     );
                     return i === 0 ? (
@@ -295,10 +307,65 @@ export default function LineupViewer({
           />
         </div>
 
+        <LineupOverlays
+          filtered={filtered}
+          lightboxIndex={lightboxIndex}
+          setLightboxIndex={setLightboxIndex}
+          hotkeysOpen={hotkeysOpen}
+          setHotkeysOpen={setHotkeysOpen}
+          isUploadOpen={isUploadOpen}
+          setUploadOpen={setUploadOpen}
+          agent={agent}
+          map={map}
+          editTarget={editTarget}
+          setEditTarget={setEditTarget}
+          actionsTarget={actionsTarget}
+          setActionsTarget={setActionsTarget}
+          applyOptimistic={applyOptimistic}
+        />
+      </div>
+    </LazyMotion>
+  );
+}
+
+function LineupOverlays({
+  filtered,
+  lightboxIndex,
+  setLightboxIndex,
+  hotkeysOpen,
+  setHotkeysOpen,
+  isUploadOpen,
+  setUploadOpen,
+  agent,
+  map,
+  editTarget,
+  setEditTarget,
+  actionsTarget,
+  setActionsTarget,
+  applyOptimistic,
+}: {
+  filtered: Screenshot[];
+  lightboxIndex: number | null;
+  setLightboxIndex: Dispatch<SetStateAction<number | null>>;
+  hotkeysOpen: boolean;
+  setHotkeysOpen: (open: boolean) => void;
+  isUploadOpen: boolean;
+  setUploadOpen: (open: boolean) => void;
+  agent: Agent;
+  map: GameMap;
+  editTarget: Screenshot | null;
+  setEditTarget: (screenshot: Screenshot | null) => void;
+  actionsTarget: Screenshot | null;
+  setActionsTarget: (screenshot: Screenshot | null) => void;
+  applyOptimistic: (action: Action) => void;
+}) {
+  return (
+    <>
+      {lightboxIndex !== null && (
         <ScreenshotLightbox
           screenshots={filtered}
-          currentIndex={lightboxIndex ?? 0}
-          isOpen={lightboxIndex !== null}
+          currentIndex={lightboxIndex}
+          isOpen
           onClose={() => setLightboxIndex(null)}
           onNext={() =>
             setLightboxIndex((prev) =>
@@ -313,40 +380,33 @@ export default function LineupViewer({
             )
           }
         />
-
-        <LineupHotkeysHelp
-          open={hotkeysOpen}
-          onClose={() => setHotkeysOpen(false)}
-        />
-
+      )}
+      <LineupHotkeysHelp open={hotkeysOpen} onClose={() => setHotkeysOpen(false)} />
+      {isUploadOpen && (
         <UploadScreenshotModal
           open={isUploadOpen}
           agent={agent}
           map={map}
           onClose={() => setUploadOpen(false)}
-          applyOptimistic={(s) =>
-            applyOptimistic({ type: "add", screenshot: s })
-          }
+          applyOptimistic={(s) => applyOptimistic({ type: "add", screenshot: s })}
         />
-
+      )}
+      {editTarget && (
         <EditScreenshotModal
           screenshot={editTarget}
           agent={agent}
           onClose={() => setEditTarget(null)}
-          applyOptimistic={(s) =>
-            applyOptimistic({ type: "update", screenshot: s })
-          }
+          applyOptimistic={(s) => applyOptimistic({ type: "update", screenshot: s })}
         />
-
+      )}
+      {actionsTarget && (
         <ScreenshotActionsModal
           screenshot={actionsTarget}
           onClose={() => setActionsTarget(null)}
           onEdit={(s) => setEditTarget(s)}
-          applyOptimisticDelete={(id) =>
-            applyOptimistic({ type: "remove", id })
-          }
+          applyOptimisticDelete={(id) => applyOptimistic({ type: "remove", id })}
         />
-      </div>
-    </LazyMotion>
+      )}
+    </>
   );
 }

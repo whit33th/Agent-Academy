@@ -3,8 +3,7 @@ import { Suspense } from "react";
 import { getEnrichedMaps, getUnaddedMaps } from "@/lib/data/maps";
 import { buildPageMetadata } from "@/lib/metadata";
 import MapGrid from "@/components/maps/MapGrid";
-import BrandBadge from "@/components/layout/BrandBadge";
-import HomeHeaderNav from "@/components/layout/HomeHeaderNav";
+import PageChrome from "@/components/layout/PageChrome";
 import AuthButton from "@/components/auth/AuthButton";
 import AudioSettingsHUD from "@/components/AudioSettingsHUD";
 
@@ -18,17 +17,12 @@ export const metadata: Metadata = buildPageMetadata({
 export default function Home() {
   return (
     <main className="min-h-screen bg-val-bg p-4 md:p-6 lg:p-8">
-      <header className="flex flex-row justify-between items-center w-full mb-4">
-        <BrandBadge />
-        <nav
-          aria-label="Site controls"
-          className="flex items-center gap-3 shrink-0"
-        >
-          <HomeHeaderNav />
+      <Suspense fallback={null}>
+        <PageChrome>
           <AuthButton />
           <AudioSettingsHUD />
-        </nav>
-      </header>
+        </PageChrome>
+      </Suspense>
 
       <section className="mb-6">
         <h1 className="font-oswald text-5xl font-bold uppercase leading-none tracking-tight text-white md:text-7xl">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useEffectEvent, useRef, useSyncExternalStore } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { useBodyScrollLock } from "@/lib/utils/body-scroll-lock";
 import { audio as sfx } from "@/lib/audio";
@@ -37,22 +37,41 @@ export default function OnboardingSpotlight({
 }: OnboardingSpotlightProps) {
   useBodyScrollLock(open);
 
+  const skip = useEffectEvent(() => onSkip());
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const viewport = useSyncExternalStore(
+    (onStoreChange) => {
+      window.addEventListener("resize", onStoreChange);
+      return () => window.removeEventListener("resize", onStoreChange);
+    },
+    () => `${window.innerWidth}x${window.innerHeight}`,
+    () => "",
+  );
+
   useEffect(() => {
-    if (!open) return;
+    const node = dialogRef.current;
+    if (!open || !node) return;
+    if (!node.open) node.show();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
-        onSkip();
+        skip();
       }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onSkip]);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      if (node.open) node.close();
+    };
+  }, [open]);
 
-  const tooltipStyle: React.CSSProperties = rect
+  const [viewportWidth, viewportHeight] = viewport
+    ? viewport.split("x").map(Number)
+    : [0, 0];
+  const tooltipStyle: React.CSSProperties = rect && viewport
     ? {
-        top: Math.min(rect.top + rect.height + 16, window.innerHeight - 240),
-        left: Math.max(16, Math.min(rect.left, window.innerWidth - 360)),
+        top: Math.min(rect.top + rect.height + 16, viewportHeight - 240),
+        left: Math.max(16, Math.min(rect.left, viewportWidth - 360)),
       }
     : {
         top: "50%",
@@ -63,10 +82,9 @@ export default function OnboardingSpotlight({
   return (
     <AnimatePresence>
       {open && (
-        <div
-          className="fixed inset-0 z-[200] pointer-events-none"
-          role="dialog"
-          aria-modal="false"
+        <dialog
+          ref={dialogRef}
+          className="fixed inset-0 z-[200] m-0 h-full max-h-none w-full max-w-none border-0 bg-transparent p-0 pointer-events-none open:block"
           aria-label={title}
         >
           {rect ? (
@@ -153,7 +171,7 @@ export default function OnboardingSpotlight({
               </button>
             </div>
           </m.div>
-        </div>
+        </dialog>
       )}
     </AnimatePresence>
   );

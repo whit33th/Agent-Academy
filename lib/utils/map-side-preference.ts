@@ -1,7 +1,14 @@
 import type { SideKey } from "@/components/lineups/SideTabs";
 
+const listeners = new Set<() => void>();
+
 function storageKey(mapId: string): string {
   return `vp_side_${mapId}`;
+}
+
+export function subscribeMapSide(onStoreChange: () => void) {
+  listeners.add(onStoreChange);
+  return () => listeners.delete(onStoreChange);
 }
 
 export function getStoredMapSide(mapId: string): SideKey | null {
@@ -14,4 +21,5 @@ export function getStoredMapSide(mapId: string): SideKey | null {
 export function setStoredMapSide(mapId: string, side: SideKey): void {
   if (typeof window === "undefined") return;
   sessionStorage.setItem(storageKey(mapId), side);
+  for (const listener of listeners) listener();
 }

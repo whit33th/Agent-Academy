@@ -3,7 +3,7 @@ import { createClerkBridge } from "@clerk/electron";
 import { storage } from "@clerk/electron/storage";
 import { access, cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { AUTH_SCHEME, DESKTOP_CHANNELS, DESKTOP_ORIGIN, initialSnapshot } from "../../lib/desktop/protocol";
+import { AUTH_SCHEME, DESKTOP_CHANNELS, DESKTOP_ORIGIN, DESKTOP_REQUEST_HEADER, initialSnapshot } from "../../lib/desktop/protocol";
 import { startWebServer } from "./web-server";
 import { startDetector } from "./detector";
 import { retireLegacyHelper } from "./legacy-helper";
@@ -12,6 +12,7 @@ if (!app.isPackaged && process.env.AGENT_ACADEMY_QA_USER_DATA) app.setPath("user
 app.setAppUserModelId("com.whit33th.agentacademy.native");
 const primary = app.requestSingleInstanceLock();
 let mainWindow: BrowserWindow | null = null;
+let pageOrigin = DESKTOP_ORIGIN;
 let tray: Tray | null = null;
 let quitting = false;
 let stopServer: (() => void) | undefined;
@@ -23,6 +24,17 @@ const clerk = primary ? createClerkBridge({
   manageSingleInstanceLock: false,
 }) : null;
 
+function trustedMainFrame(event: Electron.IpcMainInvokeEvent) {
+  const frame = event.senderFrame;
+  if (!mainWindow || event.sender !== mainWindow.webContents || frame !== mainWindow.webContents.mainFrame) return false;
+  try { return new URL(frame.url).origin === pageOrigin; } catch { return false; }
+}
+let windowChangedAt = 0;
+function publishWindowState() {
+  windowChangedAt = Date.now();
+  if (!mainWindow || mainWindow.isDestroyed()) return;
+  mainWindow.webContents.send(DESKTOP_CHANNELS.windowState, mainWindow.isMaximized());
+}
 function showWindow() {
   if (!mainWindow || mainWindow.isDestroyed()) return;
   mainWindow.show();
@@ -56,20 +68,32 @@ async function start() {
   await retireLegacyHelper(app.getPath("userData"));
   const devUrl = !app.isPackaged ? process.env.AGENT_ACADEMY_DEV_URL : undefined;
   if (devUrl && devUrl !== "http://127.0.0.1:3000") throw new Error("Only the local Next.js development origin is allowed.");
-  const origin = devUrl ?? DESKTOP_ORIGIN;
+  const origin = pageOrigin = devUrl ?? DESKTOP_ORIGIN;
   if (!devUrl) stopServer = await startWebServer(await writableWebCopy());
   Menu.setApplicationMenu(null);
   const icon = app.isPackaged ? path.join(process.resourcesPath, "web/public/valorant-icon.png") : path.resolve(app.getAppPath(), "../public/valorant-icon.png");
   mainWindow = new BrowserWindow({
-    title: "Agent Academy", width: 1440, height: 900, minWidth: 800, minHeight: 600,
-    useContentSize: true, show: false, autoHideMenuBar: true, backgroundColor: "#0a0a0a", icon,
+    title: "Agent Academy", width: 1440, height: 940, minWidth: 800, minHeight: 640,
+    useContentSize: true, show: false, frame: false, autoHideMenuBar: true, backgroundColor: "#0a0a0a", icon,
     webPreferences: { preload: path.join(app.getAppPath(), "dist/preload.cjs"), sandbox: true, contextIsolation: true, nodeIntegration: false, webSecurity: true, backgroundThrottling: false },
   });
   ipcMain.handle(DESKTOP_CHANNELS.snapshot, (event) => {
-    if (!mainWindow || event.sender !== mainWindow.webContents || event.senderFrame !== mainWindow.webContents.mainFrame || new URL(event.senderFrame.url).origin !== origin)
-      throw new Error("Unauthorized game-state request.");
+    if (!trustedMainFrame(event)) throw new Error("Unauthorized game-state request.");
     return snapshot;
   });
+  ipcMain.handle(DESKTOP_CHANNELS.window, (event, action: unknown) => {
+    if (!trustedMainFrame(event) || !mainWindow) throw new Error("Unauthorized window request.");
+    if (action === "minimize") return mainWindow.minimize();
+    if (action === "toggle-maximize") {
+      if (Date.now() - windowChangedAt < 250) return;
+      return mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
+    }
+    if (action === "close") return mainWindow.close();
+    if (action === "is-maximized") return mainWindow.isMaximized();
+    throw new Error("Unknown window action.");
+  });
+  mainWindow.on("maximize", publishWindowState);
+  mainWindow.on("unmaximize", publishWindowState);
   mainWindow.webContents.on("will-navigate", (event, url) => { if (new URL(url).origin !== origin) event.preventDefault(); });
   mainWindow.webContents.on("will-redirect", (event, url) => { if (new URL(url).origin !== origin) event.preventDefault(); });
   mainWindow.webContents.setWindowOpenHandler(({ url }) => { if (url.startsWith("https://")) void shell.openExternal(url); return { action: "deny" }; });
@@ -89,6 +113,10 @@ async function start() {
   stopDetector = startDetector(next => {
     snapshot = { ...next, revision: snapshot.revision + 1 };
     if (mainWindow && !mainWindow.isDestroyed()) mainWindow.webContents.send(DESKTOP_CHANNELS.changed, snapshot);
+  });
+  mainWindow.webContents.session.webRequest.onBeforeSendHeaders({ urls: [`${origin}/*`] }, (details, callback) => {
+    details.requestHeaders[DESKTOP_REQUEST_HEADER] = "1";
+    callback({ requestHeaders: details.requestHeaders });
   });
   await mainWindow.loadURL(origin);
 }

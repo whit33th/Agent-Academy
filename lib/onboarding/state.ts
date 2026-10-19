@@ -121,8 +121,9 @@ export function subscribeOnboarding(onStoreChange: () => void): () => void {
 /** Step shown in UI; step 1 is suppressed on mobile/tablet. */
 export function getEffectiveOnboardingStep(
   step: OnboardingStep,
+  mobile = isMobileOnboardingSkip(),
 ): OnboardingStep {
-  if (step === 1 && isMobileOnboardingSkip()) return 2;
+  if (step === 1 && mobile) return 2;
   return step;
 }
 

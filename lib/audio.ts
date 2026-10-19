@@ -7,6 +7,7 @@ class AudioManager {
   private masterVolume = 0.4;
   private ambientEnabled = true;
   private ambientAudio: HTMLAudioElement | null = null;
+  private listeners = new Set<() => void>();
 
   constructor() {
     if (typeof window !== "undefined") this.loadSettings();
@@ -57,11 +58,17 @@ class AudioManager {
     return this.ambientEnabled;
   }
 
+  subscribe(listener: () => void) {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
   setAmbientEnabled(enabled: boolean) {
     this.ambientEnabled = enabled;
     this.saveSettings();
     if (enabled) this.startAmbient();
     else this.stopAmbient();
+    for (const listener of this.listeners) listener();
   }
 
   private playFile(def: SoundDef) {

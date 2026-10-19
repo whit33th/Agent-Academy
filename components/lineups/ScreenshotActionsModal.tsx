@@ -1,12 +1,12 @@
 "use client";
 
 import { startTransition } from "react";
-import Image from "next/image";
 import { Pencil, Trash2, X } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import { deleteScreenshot } from "@/app/_actions/screenshots";
 import { useAppSession } from "@/components/auth/SessionProvider";
 import type { Screenshot } from "@/lib/types";
+import LineupImage from "./LineupImage";
 
 interface ScreenshotActionsModalProps {
   screenshot: Screenshot | null;
@@ -67,12 +67,12 @@ export default function ScreenshotActionsModal({
       <div className="p-4 flex flex-col gap-4">
         <figure className="relative aspect-video w-full rounded-sm overflow-hidden bg-black/40 border border-white/5">
           {src && (
-            <Image
+            <LineupImage
               src={src}
               alt={screenshot.title}
               fill
               className="object-contain"
-              sizes="320px"
+              sizes="640px"
             />
           )}
         </figure>

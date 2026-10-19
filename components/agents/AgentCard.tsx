@@ -59,6 +59,10 @@ export default function AgentCard({
             src={agent.background}
             alt=""
             fill
+            sizes="480px"
+            quality={75}
+            loading="lazy"
+            fetchPriority="low"
             className="object-cover object-center scale-120 mix-blend-color-burn opacity-10"
           />
         )}
@@ -80,7 +84,8 @@ export default function AgentCard({
                 src={agent.imageUrl}
                 alt={agent.name}
                 fill
-                sizes="200vw"
+                sizes="(max-width: 768px) 100vw, 840px"
+                quality={95}
                 className="object-cover drop-shadow-[0_12px_24px_rgba(0,0,0,0.7)]"
                 style={{ objectPosition: cfg.objectPosition }}
                 priority={priority}
@@ -102,7 +107,7 @@ export default function AgentCard({
           <div className="mt-1 flex items-center justify-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white/70 transition-colors">
             {agent.roleIcon && (
               <div className="relative size-2.5 opacity-60 group-hover:opacity-100 group-hover:scale-109 transition-[scale,opacity] duration-200">
-                <Image src={agent.roleIcon} alt="" fill />
+                <Image src={agent.roleIcon} alt="" fill sizes="32px" quality={90} />
               </div>
             )}
             <span>{agent.roleName}</span>
@@ -126,6 +131,7 @@ export default function AgentCard({
             alt={`${agent.viability} Rank`}
             fill
             sizes="80px"
+            quality={90}
             className="object-contain"
           />
         </div>

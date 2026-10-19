@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["26.19.67.150"],
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 90, 95],
     remotePatterns: [
       { protocol: "https", hostname: "media.valorant-api.com" },
       { protocol: "https", hostname: "cdn.sanity.io" },

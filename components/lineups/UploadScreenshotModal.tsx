@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition, useEffect, useState } from "react";
+import { useTransition, useRef, useState } from "react";
 import { X } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import AbilityPickerGrid from "./AbilityPickerGrid";
@@ -18,8 +18,12 @@ interface UploadScreenshotModalProps {
   applyOptimistic: (screenshot: Screenshot) => void;
 }
 
-export default function UploadScreenshotModal({
-  open,
+export default function UploadScreenshotModal(props: UploadScreenshotModalProps) {
+  if (!props.open) return null;
+  return <UploadScreenshotForm key={props.agent._id} {...props} />;
+}
+
+function UploadScreenshotForm({
   agent,
   map,
   onClose,
@@ -32,16 +36,12 @@ export default function UploadScreenshotModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isPublic, setIsPublic] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
+  const fileRef = useRef<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    setSlot(abilities[0]?.slot ?? "");
-  }, [agent._id, abilities]);
-
   const reset = () => {
-    setFile(null);
+    fileRef.current = null;
     setPreview(null);
     setTitle("");
     setDescription("");
@@ -50,7 +50,7 @@ export default function UploadScreenshotModal({
   };
 
   const onFile = (f: File) => {
-    setFile(f);
+    fileRef.current = f;
     const reader = new FileReader();
     reader.onloadend = () => setPreview(reader.result as string);
     reader.readAsDataURL(f);
@@ -58,6 +58,7 @@ export default function UploadScreenshotModal({
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const file = fileRef.current;
     if (!file) return setError("Please upload a screenshot.");
     if (!slot) return setError("Please select an ability.");
 
@@ -100,7 +101,7 @@ export default function UploadScreenshotModal({
 
   return (
     <Modal
-      open={open}
+      open
       onClose={() => {
         onClose();
         reset();
@@ -138,16 +139,16 @@ export default function UploadScreenshotModal({
           </p>
         )}
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+        <fieldset className="flex flex-col gap-1.5 border-0 p-0">
+          <legend className="text-xs font-semibold uppercase tracking-wider text-white/50">
             Ability
-          </label>
+          </legend>
           <AbilityPickerGrid
             abilities={abilities}
             selectedSlot={slot}
             onSelect={setSlot}
           />
-        </div>
+        </fieldset>
 
         <div className="flex flex-col gap-1.5">
           <label
@@ -203,7 +204,7 @@ export default function UploadScreenshotModal({
             required
             onChange={onFile}
             onClear={() => {
-              setFile(null);
+              fileRef.current = null;
               setPreview(null);
             }}
           />

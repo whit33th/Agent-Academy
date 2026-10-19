@@ -8,6 +8,8 @@ import InstallPrompt from "@/components/pwa/InstallPrompt";
 import OnboardingRoot from "@/components/onboarding/OnboardingRoot";
 import { buildRootMetadata } from "@/lib/metadata";
 import AppProviders from "@/components/auth/AppProviders";
+import DesktopTitleBar from "@/components/layout/DesktopTitleBar";
+import TitleBarAccount from "@/components/layout/TitleBarAccount";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,9 +38,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${oswald.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full bg-val-bg text-val-cream">
+        <DesktopTitleBar />
         <AppProviders>
+        <TitleBarAccount />
         <LenisProvider />
         <GlobalAmbientInit />
         <Suspense fallback={null}>{children}</Suspense>

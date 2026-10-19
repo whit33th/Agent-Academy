@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition, useEffect, useState } from "react";
+import { useTransition, useRef, useState } from "react";
 import { X } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import AbilityPickerGrid from "./AbilityPickerGrid";
@@ -23,46 +23,51 @@ export default function EditScreenshotModal({
   onClose,
   applyOptimistic,
 }: EditScreenshotModalProps) {
+  if (!screenshot) return null;
+  return (
+    <EditScreenshotForm
+      key={screenshot._id}
+      screenshot={screenshot}
+      agent={agent}
+      onClose={onClose}
+      applyOptimistic={applyOptimistic}
+    />
+  );
+}
+
+function initialSlot(screenshot: Screenshot, abilities: Agent["abilities"]) {
+  const matching = abilities.find(
+    (ability) =>
+      mapAbilityToGenericType(
+        ability.slot,
+        ability.displayName ?? "",
+        ability.description ?? "",
+      ) === screenshot.abilityType,
+  );
+  return matching?.slot ?? abilities[0]?.slot ?? "";
+}
+
+function EditScreenshotForm({
+  screenshot,
+  agent,
+  onClose,
+  applyOptimistic,
+}: EditScreenshotModalProps & { screenshot: Screenshot }) {
   const { getToken } = useAppSession();
   const [pending, startTransition] = useTransition();
   const abilities = agent.abilities;
-  const [slot, setSlot] = useState(abilities[0]?.slot ?? "");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [isPublic, setIsPublic] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [slot, setSlot] = useState(() => initialSlot(screenshot, abilities));
+  const [title, setTitle] = useState(screenshot.title ?? "");
+  const [description, setDescription] = useState(screenshot.description ?? "");
+  const [isPublic, setIsPublic] = useState(Boolean(screenshot.isPublic));
+  const fileRef = useRef<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(
+    screenshot.tempPreview ?? screenshot.image ?? null,
+  );
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!screenshot) return;
-    setTitle(screenshot.title ?? "");
-    setDescription(screenshot.description ?? "");
-    const matching = abilities.find(
-      (a) =>
-        mapAbilityToGenericType(
-          a.slot,
-          a.displayName ?? "",
-          a.description ?? "",
-        ) === screenshot.abilityType,
-    );
-    setSlot(matching?.slot ?? abilities[0]?.slot ?? "");
-    setFile(null);
-    setError(null);
-    setIsPublic(Boolean(screenshot.isPublic));
-    if (screenshot.tempPreview) {
-      setPreview(screenshot.tempPreview);
-    } else if (screenshot.image) {
-      setPreview(screenshot.image);
-    } else {
-      setPreview(null);
-    }
-  }, [screenshot, abilities]);
-
-  if (!screenshot) return null;
-
   const onFile = (f: File) => {
-    setFile(f);
+    fileRef.current = f;
     const reader = new FileReader();
     reader.onloadend = () => setPreview(reader.result as string);
     reader.readAsDataURL(f);
@@ -79,6 +84,7 @@ export default function EditScreenshotModal({
       ability?.displayName ?? "",
       ability?.description ?? "",
     );
+    const file = fileRef.current;
 
     const next: Screenshot = {
       ...screenshot,
@@ -139,16 +145,16 @@ export default function EditScreenshotModal({
           </p>
         )}
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-white/50">
+        <fieldset className="flex flex-col gap-1.5 border-0 p-0">
+          <legend className="text-xs font-semibold uppercase tracking-wider text-white/50">
             Ability
-          </label>
+          </legend>
           <AbilityPickerGrid
             abilities={abilities}
             selectedSlot={slot}
             onSelect={setSlot}
           />
-        </div>
+        </fieldset>
 
         <div className="flex flex-col gap-1.5">
           <label
@@ -201,10 +207,8 @@ export default function EditScreenshotModal({
             preview={preview}
             onChange={onFile}
             onClear={() => {
-              setFile(null);
-              setPreview(
-                screenshot.image ? screenshot.image : null,
-              );
+              fileRef.current = null;
+              setPreview(screenshot.image ? screenshot.image : null);
             }}
           />
         </div>

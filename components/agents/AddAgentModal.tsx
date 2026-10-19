@@ -82,15 +82,21 @@ export default function AddAgentModal({
       </header>
 
       <section className="p-4 flex flex-col gap-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/40 pointer-events-none" />
-          <input
-            type="text"
-            placeholder="Search agent..."
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="add-agent-search" className="text-xs font-semibold uppercase tracking-wider text-white/50">
+            Search
+          </label>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/40 pointer-events-none" />
+            <input
+              id="add-agent-search"
+              type="text"
+              placeholder="Search agent..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full h-10 pl-9 pr-4 rounded-sm bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-val-red text-white"
           />
+          </div>
         </div>
 
         {error && (

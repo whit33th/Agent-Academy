@@ -4,7 +4,6 @@ import { m } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { normalizeName } from "@/lib/utils/normalize";
-import { useAppSession } from "@/components/auth/SessionProvider";
 
 interface MapCollectionProgressProps {
   /** Agents with at least one lineup on this map. */
@@ -19,8 +18,7 @@ export default function MapCollectionProgress({
   totalAgentsInGame,
   mapName,
 }: MapCollectionProgressProps) {
-  const { ready } = useAppSession();
-  const counts = useQuery(api.lineups.countsByMap, ready ? { mapSlug: normalizeName(mapName) } : "skip");
+  const counts = useQuery(api.lineups.countsByMap, { mapSlug: normalizeName(mapName) });
   const addedAgents = counts ? Object.keys(counts).length : initialAdded;
   if (totalAgentsInGame === 0) return null;
 

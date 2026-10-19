@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { isMobileOnboardingSkip } from "@/lib/onboarding/is-mobile";
+import { useMobileOnboardingSkip } from "@/lib/onboarding/use-mobile";
 import {
   getEffectiveOnboardingStep,
   isLineupPath,
@@ -17,11 +17,12 @@ export function useOnboarding() {
 export function useOnboardingStep1Active(): boolean {
   const pathname = usePathname();
   const state = useOnboarding();
-  if (isMobileOnboardingSkip()) return false;
+  const mobile = useMobileOnboardingSkip();
+  if (mobile) return false;
   return (
     pathname === "/" &&
     shouldShowOnboarding(pathname) &&
-    getEffectiveOnboardingStep(state.step) === 1
+    getEffectiveOnboardingStep(state.step, mobile) === 1
   );
 }
 

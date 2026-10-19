@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useEffectEvent, useRef } from "react";
 import { useBodyScrollLock } from "@/lib/utils/body-scroll-lock";
 
 interface ModalProps {
@@ -14,72 +14,48 @@ interface ModalProps {
 }
 
 /**
- * Lightweight accessible modal: native dialog semantics via role="dialog",
- * focus trap on Tab, ESC to close, click-outside to close, body scroll lock.
+ * Accessible modal on the native dialog top layer: focus trap, Escape,
+ * backdrop dismiss, and body scroll lock.
  */
-export default function Modal({ open, onClose, children, labelledBy, className }: ModalProps) {
+export default function Modal({
+  open,
+  onClose,
+  children,
+  labelledBy,
+  className,
+}: ModalProps) {
   useBodyScrollLock(open);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const previouslyFocused = useRef<HTMLElement | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const close = useEffectEvent(() => onClose());
 
   useEffect(() => {
-    if (!open) return;
-    previouslyFocused.current = document.activeElement as HTMLElement | null;
     const node = dialogRef.current;
-    if (node) {
-      const focusable = node.querySelector<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-      );
-      focusable?.focus();
-    }
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        onClose();
-      }
-      if (e.key === "Tab" && node) {
-        const focusables = Array.from(
-          node.querySelectorAll<HTMLElement>(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-          ),
-        ).filter((el) => !el.hasAttribute("disabled"));
-        if (focusables.length === 0) return;
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
+    if (!open || !node) return;
+    if (!node.open) node.showModal();
+    const onClick = (event: MouseEvent) => {
+      if (event.target === node) close();
     };
-    window.addEventListener("keydown", onKey);
+    node.addEventListener("click", onClick);
     return () => {
-      window.removeEventListener("keydown", onKey);
-      previouslyFocused.current?.focus?.();
+      node.removeEventListener("click", onClick);
+      if (node.open) node.close();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open) return null;
 
   return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm cursor-pointer overflow-y-auto"
+    <dialog
+      ref={dialogRef}
+      aria-labelledby={labelledBy}
       data-lenis-prevent
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      className="fixed inset-0 z-[400] m-0 h-full max-h-none w-full max-w-none overflow-y-auto border-0 bg-transparent p-4 backdrop:bg-black/85 backdrop:backdrop-blur-sm open:flex open:items-center open:justify-center"
     >
-      <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={labelledBy}
-        onClick={(e) => e.stopPropagation()}
-        className={className}
-      >
-        {children}
-      </div>
-    </div>
+      <div className={className}>{children}</div>
+    </dialog>
   );
 }

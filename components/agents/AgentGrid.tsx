@@ -90,15 +90,15 @@ export default function AgentGrid({
         {sorted.map((agent, i) => (
           <m.div
             key={agent.name}
-            initial={{ opacity: 0 }}
+            initial={i < 4 ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: i * 0.02, duration: 0.25 }}
+            transition={{ delay: i < 4 ? 0 : i * 0.02, duration: i < 4 ? 0 : 0.25 }}
           >
             <AgentCard
               agent={agent}
               mapSlug={mapSlug}
               onLongPress={setActionsTarget}
-              priority={i < 6}
+              priority={i < 4}
             />
           </m.div>
         ))}

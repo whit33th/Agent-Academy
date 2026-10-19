@@ -71,15 +71,21 @@ export default function AddMapModal({
       </header>
 
       <section className="p-5 flex flex-col gap-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-2.5 size-4 text-white/40 pointer-events-none" />
-          <input
-            type="text"
-            placeholder="Search maps..."
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="add-map-search" className="text-xs font-semibold uppercase tracking-wider text-white/50">
+            Search
+          </label>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/40 pointer-events-none" />
+            <input
+              id="add-map-search"
+              type="text"
+              placeholder="Search maps..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full h-9 pl-9 pr-4 rounded-sm bg-white/5 text-sm border border-white/10 focus:outline-none focus:border-val-red text-white"
           />
+          </div>
         </div>
 
         {error && (

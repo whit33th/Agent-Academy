@@ -45,8 +45,55 @@ img {
 
 /* ── Scrollbar ────────────────────────────────────────── */
 
-html.desktop-runtime { scrollbar-width: none; }
+html.desktop-runtime {
+  --desktop-titlebar-height: 52px;
+  scrollbar-width: none;
+}
 html.desktop-runtime::-webkit-scrollbar { display: none; }
+html.desktop-runtime body { padding-top: var(--desktop-titlebar-height); }
+html.desktop-runtime main { padding-top: 0.25rem; }
+@media (min-width: 768px) {
+  html.desktop-runtime main { padding-top: 0.75rem; }
+}
+@media (min-width: 1024px) {
+  html.desktop-runtime main { padding-top: 1.25rem; }
+}
+html.desktop-runtime .min-h-screen {
+  min-height: calc(100vh - var(--desktop-titlebar-height));
+  min-height: calc(100dvh - var(--desktop-titlebar-height));
+}
+
+.desktop-titlebar {
+  display: none;
+  position: fixed;
+  z-index: 300;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--desktop-titlebar-height, 52px);
+  align-items: stretch;
+  background: #0a0a0a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  -webkit-app-region: drag;
+  app-region: drag;
+  user-select: none;
+}
+html.desktop-runtime .desktop-titlebar { display: flex; }
+.desktop-titlebar { container-type: inline-size; }
+.desktop-titlebar button,
+.desktop-titlebar-controls,
+.desktop-titlebar a {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+.desktop-titlebar button { cursor: pointer; }
+@container (max-width: 900px) {
+  .titlebar-status,
+  .titlebar-account-name { display: none; }
+}
+@container (max-width: 1100px) {
+  .titlebar-board-label { display: none; }
+}
 
 .scrollbar-hide {
   -ms-overflow-style: none;

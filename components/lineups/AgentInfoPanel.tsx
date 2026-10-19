@@ -86,9 +86,10 @@ export default function AgentInfoPanel({
             alt={agent.name}
             fill
             sizes="336px"
+            quality={95}
+            priority
             className="object-cover object-center"
             style={{ filter: `drop-shadow(0 20px 40px ${accentColor}40)` }}
-            priority
           />
         </figure>
       )}
@@ -140,7 +141,7 @@ export default function AgentInfoPanel({
           {abilities.map((ability, idx) =>
             ability.displayIcon ? (
               <button
-                key={ability.slot || idx}
+                key={ability.slot || ability.displayName}
                 type="button"
                 onClick={() => {
                   sfx.playClick();

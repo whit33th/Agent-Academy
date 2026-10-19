@@ -14,9 +14,8 @@ export default function MapTitle({ map }: MapTitleProps) {
           src={map.imageUrl}
           alt={map.name}
           fill
-          priority
-          loading="eager"
-          fetchPriority="high"
+          sizes="112px"
+          quality={90}
           className="object-cover object-center"
         />
       </div>

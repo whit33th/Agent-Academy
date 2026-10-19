@@ -3,9 +3,9 @@
 import { useEffect, useCallback } from "react";
 import { m, AnimatePresence, LazyMotion, domAnimation } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import { useBodyScrollLock } from "@/lib/utils/body-scroll-lock";
 import type { Screenshot } from "@/lib/types";
+import LineupImage from "./LineupImage";
 
 interface ScreenshotLightboxProps {
   screenshots: Screenshot[];
@@ -101,7 +101,7 @@ export default function ScreenshotLightbox({
               onClick={(e) => e.stopPropagation()}
             >
               <figure className="relative flex-1 w-full min-h-0 bg-black/40 flex items-center justify-center">
-                <Image
+                <LineupImage
                   src={
                     current.tempPreview
                       ? current.tempPreview
@@ -111,7 +111,7 @@ export default function ScreenshotLightbox({
                   fill
                   fetchPriority="high"
                   loading="eager"
-                  sizes="(max-width: 1024px) 100vw, 1600px"
+                  sizes="(max-width: 1280px) 100vw, 1400px"
                   className="object-contain pointer-events-none"
                   priority
                 />

@@ -53,21 +53,27 @@ export default function MapGrid({ maps, unaddedMaps }: MapGridProps) {
   return (
     <LazyMotion features={domAnimation}>
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        {optimisticMaps.map((map, i) => (
-          <m.div
-            key={map.name}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.02, duration: 0.3 }}
-          >
+        {optimisticMaps.map((map, i) => {
+          const card = (
             <MapCard
               map={map}
               onLongPress={setActionsTarget}
-              priority={i < 3}
+              priority={i < 2}
             />
-          </m.div>
-        ))}
+          );
+          if (i < 4) return <div key={map.name}>{card}</div>;
+          return (
+            <m.div
+              key={map.name}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.02, duration: 0.3 }}
+            >
+              {card}
+            </m.div>
+          );
+        })}
         <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

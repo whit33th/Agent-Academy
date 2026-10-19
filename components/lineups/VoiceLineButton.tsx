@@ -69,7 +69,7 @@ export default function VoiceLineButton({
       onClick={handleClick}
       title={isPlaying ? "Stop voice line" : "Play voice line"}
       aria-pressed={isPlaying}
-      className="group/voice mb-4 flex items-center gap-2.5 px-3 py-2 rounded-sm border transition-all duration-200 cursor-pointer select-none"
+      className="group/voice mb-4 flex items-center gap-2.5 px-3 py-2 rounded-sm border transition-[border-color,background-color,color] duration-200 cursor-pointer select-none"
       style={{
         borderColor: isPlaying ? `${accentColor}60` : "rgba(255,255,255,0.1)",
         backgroundColor: isPlaying

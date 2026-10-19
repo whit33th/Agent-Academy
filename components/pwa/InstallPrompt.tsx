@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { Download, Share, X } from "lucide-react";
 import { audio as sfx } from "@/lib/audio";
 
@@ -11,13 +11,13 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
+type InstallMode = "hidden" | "ios" | "prompt";
+
 function isIos(): boolean {
-  if (typeof navigator === "undefined") return false;
   return /iphone|ipad|ipod/i.test(navigator.userAgent);
 }
 
 function isStandalone(): boolean {
-  if (typeof window === "undefined") return false;
   return (
     window.matchMedia("(display-mode: standalone)").matches ||
     // @ts-expect-error — iOS Safari
@@ -25,36 +25,40 @@ function isStandalone(): boolean {
   );
 }
 
+const listeners = new Set<() => void>();
+
+function subscribeInstall(onStoreChange: () => void) {
+  listeners.add(onStoreChange);
+  return () => listeners.delete(onStoreChange);
+}
+
+function readInstallMode(): InstallMode {
+  if (isStandalone()) return "hidden";
+  try {
+    if (localStorage.getItem(DISMISS_KEY) === "1") return "hidden";
+  } catch {
+    /* ignore */
+  }
+  return isIos() ? "ios" : "prompt";
+}
+
+function notifyInstall() {
+  for (const listener of listeners) listener();
+}
+
 export default function InstallPrompt() {
-  const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(
-    null,
-  );
-  const [showIosHint, setShowIosHint] = useState(false);
-  const [hidden, setHidden] = useState(true);
+  const mode = useSyncExternalStore(subscribeInstall, readInstallMode, () => "hidden" as const);
+  const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => {
-    if (isStandalone()) return;
-    try {
-      if (localStorage.getItem(DISMISS_KEY) === "1") return;
-    } catch {
-      /* ignore */
-    }
-
-    if (isIos()) {
-      setShowIosHint(true);
-      setHidden(false);
-      return;
-    }
-
+    if (mode !== "prompt") return;
     const onBip = (e: Event) => {
       e.preventDefault();
       setDeferred(e as BeforeInstallPromptEvent);
-      setHidden(false);
     };
-
     window.addEventListener("beforeinstallprompt", onBip);
     return () => window.removeEventListener("beforeinstallprompt", onBip);
-  }, []);
+  }, [mode]);
 
   const dismiss = () => {
     try {
@@ -62,7 +66,8 @@ export default function InstallPrompt() {
     } catch {
       /* ignore */
     }
-    setHidden(true);
+    setDeferred(null);
+    notifyInstall();
   };
 
   const install = async () => {
@@ -70,11 +75,10 @@ export default function InstallPrompt() {
     sfx.playClick();
     await deferred.prompt();
     await deferred.userChoice;
-    setDeferred(null);
     dismiss();
   };
 
-  if (hidden || isStandalone()) return null;
+  if (mode === "hidden" || (mode === "prompt" && !deferred)) return null;
 
   return (
     <div
@@ -91,7 +95,7 @@ export default function InstallPrompt() {
             <p className="text-sm font-bold uppercase tracking-wide text-white">
               Add to Home Screen
             </p>
-            {showIosHint ? (
+            {mode === "ios" ? (
               <p className="mt-1 text-xs leading-relaxed text-white/50">
                 Tap{" "}
                 <Share
@@ -117,7 +121,7 @@ export default function InstallPrompt() {
             <X size={16} />
           </button>
         </div>
-        {!showIosHint && deferred && (
+        {mode === "prompt" && deferred && (
           <button
             type="button"
             onClick={install}

@@ -3,6 +3,7 @@ export const lineup = v.object({
   _id: v.id("lineups"), _creationTime: v.number(), ownerTokenIdentifier: v.string(),
   mapSlug: v.string(), agentSlug: v.string(), title: v.string(), description: v.optional(v.string()),
   abilityType: v.string(), imageUrl: v.string(), imageStorageKey: v.optional(v.string()),
+  imageAssetId: v.optional(v.string()),
   storageId: v.optional(v.id("_storage")), isPublic: v.boolean(), forkedFromId: v.optional(v.id("lineups")), createdAt: v.number(), updatedAt: v.number(),
   legacyId: v.optional(v.string()),
 });
