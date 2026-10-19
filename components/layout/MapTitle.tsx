@@ -1,4 +1,5 @@
 import Image from "next/image";
+import TacticalBoardButton from "@/components/hud/TacticalBoardButton";
 import type { GameMap } from "@/lib/types";
 
 interface MapTitleProps {
@@ -19,7 +20,7 @@ export default function MapTitle({ map }: MapTitleProps) {
           className="object-cover object-center"
         />
       </div>
-      <div className="flex h-full flex-col gap-1 justify-center min-w-0">
+      <div className="flex h-full min-w-0 flex-1 flex-col justify-center gap-1">
         <h2 className="font-oswald flex items-center gap-1 text-[1.75rem] font-semibold uppercase tracking-wider text-white sm:text-[2.2rem] md:text-[2.35rem] leading-[0.9] truncate">
           <span
             aria-hidden
@@ -30,6 +31,7 @@ export default function MapTitle({ map }: MapTitleProps) {
           <span className="truncate">{map.name}</span>
         </h2>
       </div>
+      <TacticalBoardButton map={map} />
     </div>
   );
 }

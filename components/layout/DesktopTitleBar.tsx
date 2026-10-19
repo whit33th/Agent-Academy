@@ -64,11 +64,10 @@ export default function DesktopTitleBar() {
       <div className="min-w-6 flex-1" onDoubleClick={() => run("toggleMaximize")} />
       <div className="desktop-titlebar-controls flex h-full min-w-0 shrink-0 items-stretch">
         <div id="titlebar-account" className="flex h-full items-stretch" />
-        <div id="titlebar-board" className="flex h-full items-stretch" />
+        <AudioSettingsHUD chrome />
         <Suspense fallback={null}>
           <LiveSyncStatus chrome />
         </Suspense>
-        <AudioSettingsHUD chrome />
         <div className="mx-3 my-auto h-4 w-px shrink-0 bg-white/10" aria-hidden />
         <div className="flex h-full shrink-0" role="group" aria-label="Window controls">
           <button type="button" className={controlClass} aria-label="Minimize" onClick={() => run("minimize")}>

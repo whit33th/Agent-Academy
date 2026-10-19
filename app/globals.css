@@ -88,13 +88,8 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
 }
 .desktop-titlebar button { cursor: pointer; }
 @container (max-width: 900px) {
-  .titlebar-status,
-  .titlebar-account-name { display: none; }
+  .titlebar-status { display: none; }
 }
-@container (max-width: 1100px) {
-  .titlebar-board-label { display: none; }
-}
-
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;

@@ -42,15 +42,15 @@ export default function AgentCard({
       }}
       onMouseEnter={() => audio.playHover()}
       onContextMenu={(e) => e.preventDefault()}
-      className="group relative block w-full h-[340px] overflow-visible transition-[transform,translate] duration-200 hover:-translate-y-1.5 select-none touch-pan-y touch-callout-none"
+      className="group relative block w-full h-[340px] overflow-visible select-none touch-pan-y touch-callout-none"
     >
       <div
-        className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 transition-[border-color,box-shadow] duration-200 group-hover:border-[var(--agent-accent)]/80 group-hover:shadow-[0_12px_30px_var(--agent-accent-shadow)]"
+        className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 shadow-[inset_1px_0_0_var(--agent-accent),inset_0_-1px_0_var(--agent-accent)] transition-[filter,border-color,box-shadow] duration-200 group-hover:brightness-[1.06] group-hover:border-[var(--agent-accent)] group-hover:shadow-[inset_1px_0_0_var(--agent-accent),inset_0_-1px_0_var(--agent-accent),0_12px_30px_var(--agent-accent-glow)]"
         style={
           {
             background: cardBg,
             "--agent-accent": accent,
-            "--agent-accent-shadow": `${accent}26`,
+            "--agent-accent-glow": `${accent}99`,
           } as CSSProperties
         }
       >
@@ -75,7 +75,7 @@ export default function AgentCard({
             style={{ transform: `translate3d(${cfg.x}px, ${cfg.y}px, 0)` }}
           >
             <div
-              className="absolute inset-0 transition-transform duration-200 ease-out [--zoom-multiplier:1] group-hover:[--zoom-multiplier:1.05]"
+              className="absolute inset-0 origin-center transition-transform duration-200 ease-out [--zoom-multiplier:1] group-hover:[--zoom-multiplier:1.05]"
               style={{
                 transform: `scale(calc(${cfg.scale} * var(--zoom-multiplier, 1)))`,
               }}
@@ -106,7 +106,7 @@ export default function AgentCard({
         {agent.roleName && (
           <div className="mt-1 flex items-center justify-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white/70 transition-colors">
             {agent.roleIcon && (
-              <div className="relative size-2.5 opacity-60 group-hover:opacity-100 group-hover:scale-109 transition-[scale,opacity] duration-200">
+              <div className="relative size-2.5 opacity-60 group-hover:opacity-100 transition-opacity duration-200">
                 <Image src={agent.roleIcon} alt="" fill sizes="32px" quality={90} />
               </div>
             )}
@@ -114,15 +114,6 @@ export default function AgentCard({
           </div>
         )}
       </div>
-
-      <div
-        className="absolute left-0 top-5 bottom-0 w-px z-40"
-        style={{ backgroundColor: accent }}
-      />
-      <div
-        className="absolute left-0 bottom-0 right-0 w-full h-px z-40"
-        style={{ backgroundColor: accent }}
-      />
 
       {agent.viability && (
         <div className="absolute right-1/2 translate-x-1/2 bottom-16 z-40 flex size-10 items-center justify-center select-none filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.83)]">
