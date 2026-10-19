@@ -10,6 +10,7 @@ import { buildRootMetadata } from "@/lib/metadata";
 import AppProviders from "@/components/auth/AppProviders";
 import DesktopTitleBar from "@/components/layout/DesktopTitleBar";
 import TitleBarAccount from "@/components/layout/TitleBarAccount";
+import AppBackground from "@/components/background/AppBackground";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,17 +42,20 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full bg-val-bg text-val-cream">
-        <DesktopTitleBar />
-        <AppProviders>
-        <TitleBarAccount />
-        <LenisProvider />
-        <GlobalAmbientInit />
-        <Suspense fallback={null}>{children}</Suspense>
-        <InstallPrompt />
-        <Suspense fallback={null}>
-          <OnboardingRoot />
-        </Suspense>
-        </AppProviders>
+        <AppBackground />
+        <div className="relative z-10">
+          <DesktopTitleBar />
+          <AppProviders>
+            <TitleBarAccount />
+            <LenisProvider />
+            <GlobalAmbientInit />
+            <Suspense fallback={null}>{children}</Suspense>
+            <InstallPrompt />
+            <Suspense fallback={null}>
+              <OnboardingRoot />
+            </Suspense>
+          </AppProviders>
+        </div>
       </body>
     </html>
   );

@@ -7,7 +7,7 @@ interface ErrorProps {
 
 export default function GlobalError({ error, reset }: ErrorProps) {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center text-center p-6 bg-val-bg">
+    <main className="min-h-screen flex flex-col items-center justify-center text-center p-6">
       <div className="mb-6 flex size-20 items-center justify-center clip-diamond bg-val-red/20">
         <span className="text-3xl" aria-hidden>
           ⚠

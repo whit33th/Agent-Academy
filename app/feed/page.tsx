@@ -13,7 +13,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function FeedPage() {
   return (
-    <main className="min-h-screen bg-val-bg p-4 md:p-6 lg:p-8">
+    <main className="min-h-screen p-4 md:p-6 lg:p-8">
       <header className="mb-6 flex items-center justify-between gap-4">
         <div>
           <h1 className="font-oswald text-5xl font-bold uppercase leading-none tracking-tight text-white md:text-7xl">
