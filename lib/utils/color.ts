@@ -1,7 +1,7 @@
 /**
  * Convert a Valorant gradient color string (8-char hex with alpha) to a 6-char hex.
  */
-export function toHex6(c: string): string {
+function toHex6(c: string): string {
   return `#${c.slice(0, 6)}`;
 }
 
@@ -15,7 +15,9 @@ export function accentFromGradient(
 }
 
 /** Two-stop card background for an agent card. */
-export function agentCardBackground(gradientColors: readonly string[] | undefined): string {
+export function agentCardBackground(
+  gradientColors: readonly string[] | undefined,
+): string {
   if (!gradientColors || gradientColors.length < 2) {
     return "linear-gradient(180deg, #1b2733 0%, #0f1923 100%)";
   }

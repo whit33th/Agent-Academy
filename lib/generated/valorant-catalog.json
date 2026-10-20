@@ -1,0 +1,1545 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "13.08.00.5698904",
+  "syncedAt": "2026-10-19T07:37:32.648Z",
+  "agents": {
+    "gekko": {
+      "uuid": "e370fa57-4757-3604-3648-499e1f642d3f",
+      "displayName": "Gekko",
+      "description": "Gekko the Angeleno leads a tight-knit crew of calamitous creatures. His buddies bound forward, scattering enemies out of the way, with Gekko chasing them down to regroup and go again.",
+      "role": {
+        "uuid": "1b47567f-8f7b-444b-aae3-b0c634622d10",
+        "displayName": "Initiator",
+        "description": "Initiators challenge angles by setting up their team to enter contested ground and push defenders away.",
+        "displayIcon": "/catalog/76e258eb6f445a1faece0266.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Breaker_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/7c3180f761232e631714791d.webp",
+      "displayIcon": "/catalog/c19429e6ae51c76b3699772f.webp",
+      "background": "/catalog/47a83eee7a18c43892846a2c.webp",
+      "backgroundGradientColors": [
+        "371c5cff",
+        "0f1923ff",
+        "3a2656ff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/gekko.png",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Wingman",
+          "description": "EQUIP Wingman. FIRE to send Wingman forward seeking enemies. Wingman unleashes a concussive blast toward the first enemy he sees. ALT FIRE when targeting a Spike site or planted Spike to have Wingman defuse or plant the Spike. To plant, Gekko must have the Spike in his inventory. When Wingman expires he reverts into a dormant globule. INTERACT to reclaim the globule and gain another Wingman charge after a short cooldown.",
+          "displayIcon": "/catalog/20649c9c8ac277271d2c983e.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Dizzy",
+          "description": "EQUIP Dizzy. FIRE to send Dizzy soaring forward through the air. Dizzy charges then unleashes plasma blasts at enemies in line of sight. Enemies hit by her plasma are Blinded. When Dizzy expires she reverts into a dormant globule. INTERACT to reclaim the globule and gain another Dizzy charge after a short cooldown.",
+          "displayIcon": "/catalog/c39eeea23f698841ea11f69b.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Mosh Pit",
+          "description": "EQUIP Mosh. FIRE to throw Mosh like a grenade. ALT FIRE to lob. Upon landing Mosh duplicates across a large area that deals a small amount of damage over time then after a short delay explodes. INTERACT to reclaim the globule and gain another Mosh charge after a short cooldown.",
+          "displayIcon": "/catalog/6e6d37186223b5919e2b6f61.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Thrash",
+          "description": "EQUIP Thrash. FIRE to link with Thrash’s mind and steer her through enemy territory. ACTIVATE to lunge forward and explode, Detaining any players in a small radius. When Thrash expires she reverts into a dormant globule. INTERACT to reclaim the globule and gain another Thrash charge after a short cooldown. Thrash can be reclaimed once.",
+          "displayIcon": "/catalog/b56c2a83242d0e1cb8dbbd73.webp"
+        }
+      ]
+    },
+    "fade": {
+      "uuid": "dade69b4-4f5a-8528-247b-219e5a1facd6",
+      "displayName": "Fade",
+      "description": "Turkish bounty hunter Fade unleashes the power of raw nightmare to seize enemy secrets. Attuned with terror itself, she hunts down targets and reveals their deepest fears - before crushing them in the dark.",
+      "role": {
+        "uuid": "1b47567f-8f7b-444b-aae3-b0c634622d10",
+        "displayName": "Initiator",
+        "description": "Initiators challenge angles by setting up their team to enter contested ground and push defenders away.",
+        "displayIcon": "/catalog/76e258eb6f445a1faece0266.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Breaker_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/d6f29af5f5f97259d15ca5dd.webp",
+      "displayIcon": "/catalog/2df9781702b3049b5367f509.webp",
+      "background": "/catalog/9a804a378d89fe703354725e.webp",
+      "backgroundGradientColors": [
+        "1d2846ff",
+        "0f1923ff",
+        "18344cff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Seize",
+          "description": "EQUIP a knot of raw fear. FIRE to throw. The knot drops down after a set time. RE-USE to drop the knot early. The knot ruptures on impact, holding nearby enemies in place. Held enemies are Deafened, and Decayed.",
+          "displayIcon": "/catalog/97f045ce528d7d14e48fc525.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Haunt",
+          "description": "EQUIP a haunting watcher. FIRE to throw. The watcher drops down after a set time. RE-USE to drop the watcher early. The watcher lashes out on impact, Revealing enemies in its line of sight and creating terror trails to them. Enemies can destroy the watcher.",
+          "displayIcon": "/catalog/569dd88d17c4b532ceadc816.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Prowler",
+          "description": "EQUIP a prowler. FIRE to send the prowler forward. HOLD FIRE to steer the prowler towards your crosshair. The prowler will chase down the first enemy or terror trail it sees, and Nearsight the enemy on impact.",
+          "displayIcon": "/catalog/bda2c11812ce900655bd9165.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Nightfall",
+          "description": "EQUIP the power of nightmare itself. FIRE to unleash a wave of unstoppable nightmare energy. Enemies caught in the wave are Marked by terror trails, Deafened, and Decayed.",
+          "displayIcon": "/catalog/5ecea1d3fd203689e96d3fad.webp"
+        }
+      ]
+    },
+    "breach": {
+      "uuid": "5f8d3a7f-467b-97f3-062c-13acf203c006",
+      "displayName": "Breach",
+      "description": "The bionic Swede Breach fires powerful, targeted kinetic blasts to aggressively clear a path through enemy ground. The damage and disruption he inflicts ensures no fight is ever fair.",
+      "role": {
+        "uuid": "1b47567f-8f7b-444b-aae3-b0c634622d10",
+        "displayName": "Initiator",
+        "description": "Initiators challenge angles by setting up their team to enter contested ground and push defenders away.",
+        "displayIcon": "/catalog/76e258eb6f445a1faece0266.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Breaker_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/6552fcd4151cd87684f5e32d.webp",
+      "displayIcon": "/catalog/4d7b2405bcdac34c3e20b34b.webp",
+      "background": "/catalog/59edb82b1102366fc58d05bc.webp",
+      "backgroundGradientColors": [
+        "81331aff",
+        "0f1923ff",
+        "523a23ff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/breach.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Flashpoint",
+          "description": "EQUIP a Blinding charge. FIRE the charge to set a fast-acting burst through the wall. The charge detonates to Blind all players looking at it.",
+          "displayIcon": "/catalog/dc8029750bc3763e41407674.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Fault Line",
+          "description": "EQUIP a Seismic Blast. HOLD FIRE to increase the distance. RELEASE to set off the quake, Concussing all players in its zone and in a line up to the zone.",
+          "displayIcon": "/catalog/b2617ca78299a72ad58ddf5d.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Aftershock",
+          "description": "EQUIP a fusion charge. FIRE the charge to set a slow-acting burst through the wall. The burst does heavy damage to anyone caught in its area.",
+          "displayIcon": "/catalog/cd3719fec5f2bc38c573b70f.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Rolling Thunder",
+          "description": "EQUIP a Seismic Charge. FIRE to send a cascading quake through all terrain in a large zone. The quake Concusses and knocks up anyone caught in it.",
+          "displayIcon": "/catalog/a2edf31bd89d6c24ebf4649d.webp"
+        }
+      ]
+    },
+    "deadlock": {
+      "uuid": "cc8b64c8-4b25-4ff9-6e7f-37b4da43d235",
+      "displayName": "Deadlock",
+      "description": "Norwegian operative Deadlock deploys an array of cutting-edge nanowire to secure the battlefield from even the most lethal assault. No one escapes her vigilant watch, nor survives her unyielding ferocity.",
+      "role": {
+        "uuid": "5fc02f99-4091-4486-a531-98459a3e95e9",
+        "displayName": "Sentinel",
+        "description": "Sentinels are defensive experts who can lock down areas and watch flanks, both on attacker and defender rounds.",
+        "displayIcon": "/catalog/c225f158ef0eba2efc506c2c.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Sentinel_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/a77854f5bef1c574c5e351d6.webp",
+      "displayIcon": "/catalog/3d7fe3d7a138cd6c49dbdabe.webp",
+      "background": "/catalog/5656e16580ba26a153c9802f.webp",
+      "backgroundGradientColors": [
+        "425495ff",
+        "0f1923ff",
+        "221c3dff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/deadlock.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Sonic Sensor",
+          "description": "EQUIP a Sonic Sensor. FIRE to deploy. The sensor monitors an area for enemies making sound. It concusses that area if footsteps, weapons fire, or significant noise are detected. This ability can be picked up to be REDEPLOYED.",
+          "displayIcon": "/catalog/873b9b160d8ae86c3bd773d3.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Barrier Mesh",
+          "description": "EQUIP a Barrier Mesh disc. FIRE to throw forward. Upon landing, the disc generates barriers from the origin point that block character movement.",
+          "displayIcon": "/catalog/54eff903987b5de370c0ac4b.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "GravNet",
+          "description": "EQUIP a GravNet grenade. FIRE to throw. ALT FIRE to lob. The GravNet detonates upon landing, forcing any characters caught within to crouch and move slowly.",
+          "displayIcon": "/catalog/9872ced0ccab5445cc980296.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Annihilation",
+          "description": "EQUIP a Nanowire Accelerator. FIRE to unleash a pulse of nanowires that captures the first enemy contacted. The cocooned enemy is pulled along a nanowire path and will die unless they are freed. The nanowire cocoon is destructible.",
+          "displayIcon": "/catalog/e0269e587f11ec62f27771e8.webp"
+        }
+      ]
+    },
+    "tejo": {
+      "uuid": "b444168c-4e35-8076-db47-ef9bf368f384",
+      "displayName": "Tejo",
+      "description": "A veteran intelligence consultant from Colombia, Tejo’s ballistic guidance system pressures the enemy to relinquish their ground - or their lives. His targeted strikes keep opponents off balance and under his heel.",
+      "role": {
+        "uuid": "1b47567f-8f7b-444b-aae3-b0c634622d10",
+        "displayName": "Initiator",
+        "description": "Initiators challenge angles by setting up their team to enter contested ground and push defenders away.",
+        "displayIcon": "/catalog/76e258eb6f445a1faece0266.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Breaker_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/4b5d7b1892ac46097ea580fe.webp",
+      "displayIcon": "/catalog/a44730072b1d56eef30f94cb.webp",
+      "background": "/catalog/366c4df7653b7b1c2c8b8554.webp",
+      "backgroundGradientColors": [
+        "80451bff",
+        "0f1923ff",
+        "ffffffff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability2",
+          "displayName": "Guided Salvo",
+          "description": "EQUIP an AR targeting system. FIRE to select up to two target locations on the map. ALT FIRE to launch missiles that autonomously navigate to target locations, detonating repeatedly for damage on arrival.",
+          "displayIcon": "/catalog/60ff2ede67d30340f8a1888b.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Special Delivery",
+          "description": "EQUIP a sticky grenade. FIRE to launch. The grenade sticks to the first surface it hits and explodes, Concussing and dealing damage to any targets caught in the blast. ALT FIRE to launch the grenade with a single bounce instead.",
+          "displayIcon": "/catalog/b56ad67f389479ea502fdf10.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Armageddon",
+          "description": "EQUIP a tactical strike targeting map. FIRE to select the origin point of the strike. FIRE again to set the end point and launch the attack, unleashing a wave of lethal damaging explosions along the strike path. ALT FIRE during map targeting to cancel the origin point.",
+          "displayIcon": "/catalog/bd3f8e2ec706c85389298171.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Stealth Drone",
+          "description": "EQUIP a stealth drone. FIRE to throw the drone forward, assuming direct control of its movement. FIRE again to trigger a pulse that Suppresses and Reveals enemies hit.",
+          "displayIcon": "/catalog/49eea0df43046027cdd1c974.webp"
+        }
+      ]
+    },
+    "raze": {
+      "uuid": "f94c3b30-42be-e959-889c-5aa313dba261",
+      "displayName": "Raze",
+      "description": "Raze explodes out of Brazil with her big personality and big guns. With her blunt-force-trauma playstyle, she excels at flushing entrenched enemies and clearing tight spaces with a generous dose of \"boom.\"",
+      "role": {
+        "uuid": "dbe8757e-9e92-4ed4-b39f-9dfc589691d4",
+        "displayName": "Duelist",
+        "description": "Duelists are self-sufficient fraggers who their team expects, through abilities and skills, to get high frags and seek out engagements first.",
+        "displayIcon": "/catalog/ccc0d5aad5b65598046b7c6a.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Assault_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/49915834c2b41fd306cda59a.webp",
+      "displayIcon": "/catalog/26ed725c5a28f33e6e226dfa.webp",
+      "background": "/catalog/20de8d87c20d7435a0462ca6.webp",
+      "backgroundGradientColors": [
+        "742e1eff",
+        "0f1923ff",
+        "2c5942ff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/raze.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Blast Pack",
+          "description": "INSTANTLY throw a Blast Pack that will stick to surfaces. RE-USE the ability after deployment to detonate, moving anything hit and dealing damage if fully armed.",
+          "displayIcon": "/catalog/5bfda644d24a6939feecf28c.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Paint Shells",
+          "description": "EQUIP a cluster grenade. FIRE to throw the grenade, which does damage and creates sub-munitions, each doing damage to anyone in their range. ALT FIRE to lob. Paint Shells charge resets every two kills.",
+          "displayIcon": "/catalog/ce7865eaee59458921cb68bb.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Boom Bot",
+          "description": "EQUIP a Boom Bot. FIRE will deploy the bot, causing it to travel in a straight line on the ground, bouncing off walls. The Boom Bot will lock on to any enemies in its frontal cone and chase them, exploding for heavy damage if it reaches them.",
+          "displayIcon": "/catalog/c1d8d2af983887a9a9bd2a3b.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Showstopper",
+          "description": "EQUIP a rocket launcher. FIRE to shoot a rocket that does massive area damage on contact with anything.",
+          "displayIcon": "/catalog/287710ea15396164e13556e9.webp"
+        }
+      ]
+    },
+    "chamber": {
+      "uuid": "22697a3d-45bf-8dd7-4fec-84a9e28c69d7",
+      "displayName": "Chamber",
+      "description": "Well-dressed and well-armed, French weapons designer Chamber expels aggressors with deadly precision. He leverages his custom arsenal to hold the line and pick off enemies from afar, with a contingency built for every plan.",
+      "role": {
+        "uuid": "5fc02f99-4091-4486-a531-98459a3e95e9",
+        "displayName": "Sentinel",
+        "description": "Sentinels are defensive experts who can lock down areas and watch flanks, both on attacker and defender rounds.",
+        "displayIcon": "/catalog/c225f158ef0eba2efc506c2c.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Sentinel_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/1295e6d47d713067b875be9d.webp",
+      "displayIcon": "/catalog/98c4c506e0f00d3eb7c07932.webp",
+      "background": "/catalog/1f4fb7efc5688629448e2d8d.webp",
+      "backgroundGradientColors": [
+        "20435bff",
+        "0f1923ff",
+        "372d2bff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability2",
+          "displayName": "Rendezvous",
+          "description": "EQUIP a teleport anchor. FIRE to place it on the ground. While on the ground and in range of the anchor, REACTIVATE to quickly teleport to the anchor. The anchor can be picked up to be REDEPLOYED.",
+          "displayIcon": "/catalog/81b872271cf99b6a85753298.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Trademark",
+          "description": "EQUIP a trap that scans for enemies. FIRE to place it on the ground. When a visible enemy comes in range, the trap counts down and then destabilizes the terrain around them, creating a lingering field that Slows players caught inside of it. The trap can be picked up to be REDEPLOYED.",
+          "displayIcon": "/catalog/11a2cb27fbcfc9ba3c1c9c59.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Headhunter",
+          "description": "ACTIVATE to equip a heavy pistol. ALT FIRE with the pistol equipped to aim down sights.",
+          "displayIcon": "/catalog/611704fc7a9aa3cfa3dca039.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Tour De Force",
+          "description": "ACTIVATE to summon a powerful, custom sniper rifle that will kill an enemy with any direct hit to the upper body. ALT FIRE to aim down sights. Killing an enemy creates a lingering field that Slows players caught inside of it.",
+          "displayIcon": "/catalog/3ff3be3654a6da41829893f8.webp"
+        }
+      ]
+    },
+    "kayo": {
+      "uuid": "601dbbe7-43ce-be57-2a40-4abd24953621",
+      "displayName": "KAY/O",
+      "description": "KAY/O is a machine of war built for a single purpose: neutralizing radiants. His power to Suppress enemy abilities dismantles his opponents' capacity to fight back, securing him and his allies the ultimate edge.",
+      "role": {
+        "uuid": "1b47567f-8f7b-444b-aae3-b0c634622d10",
+        "displayName": "Initiator",
+        "description": "Initiators challenge angles by setting up their team to enter contested ground and push defenders away.",
+        "displayIcon": "/catalog/76e258eb6f445a1faece0266.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Breaker_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/6de1b3c6c56f895adde7b3e8.webp",
+      "displayIcon": "/catalog/06310a518a0da6f66667e7f3.webp",
+      "background": "/catalog/58c7d49c779faae19d295c2d.webp",
+      "backgroundGradientColors": [
+        "1c2a69ff",
+        "0f1923ff",
+        "1a1e4bff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Grenade",
+          "displayName": "FRAG/ment",
+          "description": "EQUIP an explosive fragment. FIRE to throw. ALT FIRE to lob. The fragment sticks to the floor and explodes multiple times, dealing near lethal damage at the center with each explosion.",
+          "displayIcon": "/catalog/d322640ff227f8a9d43d4d08.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "FLASH/drive",
+          "description": "EQUIP a flash grenade. FIRE to overhand throw. ALT FIRE to lob a weaker version that explodes quickly. The flash grenade explodes after a short fuse, Blinding anyone in line of sight.",
+          "displayIcon": "/catalog/c001161236413d3a939ea072.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "ZERO/point",
+          "description": "EQUIP a suppression blade. FIRE to throw. The blade sticks to the first surface it hits, winds up, and Suppresses anyone in the radius of the explosion. Enemies can destroy this blade.",
+          "displayIcon": "/catalog/936b0a5225505fd7626b8dec.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "NULL/cmd",
+          "description": "INSTANTLY overload with polarized radianite energy that pulses from KAY/O in a massive radius. Enemies hit with pulses are Suppressed for a short duration. While overloaded, KAY/O gains Combat Stim and can be re-stabilized if downed.",
+          "displayIcon": "/catalog/73e37a7e2563643df047ebb0.webp"
+        }
+      ]
+    },
+    "skye": {
+      "uuid": "6f2a04ca-43e0-be17-7f36-b3908627744d",
+      "displayName": "Skye",
+      "description": "Hailing from Australia, Skye and her band of beasts trailblaze the way through hostile territory. With her creations hampering the enemy, and her power to heal others, the team is strongest and safest by Skye's side.",
+      "role": {
+        "uuid": "1b47567f-8f7b-444b-aae3-b0c634622d10",
+        "displayName": "Initiator",
+        "description": "Initiators challenge angles by setting up their team to enter contested ground and push defenders away.",
+        "displayIcon": "/catalog/76e258eb6f445a1faece0266.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Breaker_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/c7900b34efb5e6e573a3aa92.webp",
+      "displayIcon": "/catalog/9818d73b12bf1c786f250f89.webp",
+      "background": "/catalog/f36775fc31a0243eb725bb38.webp",
+      "backgroundGradientColors": [
+        "436a51ff",
+        "0f1923ff",
+        "4f1413ff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Trailblazer",
+          "description": "EQUIP a Tasmanian tiger trinket. FIRE to send out and take control of the predator. While in control, FIRE to leap forward, exploding in a Concussive blast on impact and damaging directly hit enemies.",
+          "displayIcon": "/catalog/d78998d0c8cb644873c82995.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Guiding Light",
+          "description": "EQUIP a hawk trinket. FIRE to send it forward. HOLD FIRE to guide the hawk in the direction of your crosshair. RE-USE while the hawk is in flight to transform it into a flash. The flash reaches max potency after a short duration during the hawk's flight.",
+          "displayIcon": "/catalog/734cac401c9a2e8592dd9961.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Regrowth",
+          "description": "EQUIP a healing trinket. HOLD FIRE to channel, Healing allies in range and line of sight. Can be reused until her healing pool is depleted. Skye cannot heal herself.",
+          "displayIcon": "/catalog/a1bda6bb595e813e40b159d1.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Seekers",
+          "description": "EQUIP a Seeker trinket. FIRE to send out three Seekers to track down the three closest enemies. If a Seeker reaches its target, it Nearsights and slows them. Enemies can destroy the Seekers.",
+          "displayIcon": "/catalog/d1a3ffe76a39da73f4b6057d.webp"
+        }
+      ]
+    },
+    "cypher": {
+      "uuid": "117ed9e3-49f3-6512-3ccf-0cada7e3823b",
+      "displayName": "Cypher",
+      "description": "The Moroccan information broker, Cypher is a one-man surveillance network who keeps tabs on the enemy's every move. No secret is safe. No maneuver goes unseen. Cypher is always watching.",
+      "role": {
+        "uuid": "5fc02f99-4091-4486-a531-98459a3e95e9",
+        "displayName": "Sentinel",
+        "description": "Sentinels are defensive experts who can lock down areas and watch flanks, both on attacker and defender rounds.",
+        "displayIcon": "/catalog/c225f158ef0eba2efc506c2c.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Sentinel_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/4840452d445dfc9ca42a8d8e.webp",
+      "displayIcon": "/catalog/a1c1ac1aa010c8a369c03f8e.webp",
+      "background": "/catalog/a825751bc088b687acb67acd.webp",
+      "backgroundGradientColors": [
+        "2f5078ff",
+        "0f1923ff",
+        "3f3f6cff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/cypher.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Cyber Cage",
+          "description": "INSTANTLY toss the cyber cage in front of Cypher. ACTIVATE to create a zone that blocks vision and plays an audio cue when enemies pass through it.",
+          "displayIcon": "/catalog/d3bfb16f3bb33d4bb83fac3c.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Spycam",
+          "description": "EQUIP a spycam. FIRE to place the spycam at the targeted location. RE-USE this ability to take control of the camera's view. While in control of the camera, FIRE to shoot a marking dart. This dart will Reveal the location of any player struck by the dart. This ability can be picked up to be REDEPLOYED.",
+          "displayIcon": "/catalog/4dd29363948b8d98bd78fcac.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Trapwire",
+          "description": "EQUIP a trapwire. FIRE to place a destructible and covert trapwire at the targeted location, creating a line that spans between the placed location and the wall opposite. Enemy players who cross a trapwire will be Slowed and Revealed after a short period if they do not destroy the device in time. This ability can be picked up to be REDEPLOYED.",
+          "displayIcon": "/catalog/9e214dc398122e45c79d1941.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Neural Theft",
+          "description": "INSTANTLY use on a targeted dead enemy to download information on their team.  After a brief delay, the location of all living enemy players will be Revealed twice.",
+          "displayIcon": "/catalog/57e9fa6e75349cf7f78f7ca1.webp"
+        }
+      ]
+    },
+    "sova": {
+      "uuid": "320b2a48-4d9b-a075-30f1-1f93a9b638fa",
+      "displayName": "Sova",
+      "description": "Born from the eternal winter of Russia's tundra, Sova tracks, finds, and eliminates enemies with ruthless efficiency and precision. His custom bow and incredible scouting abilities ensure that even if you run, you cannot hide. ",
+      "role": {
+        "uuid": "1b47567f-8f7b-444b-aae3-b0c634622d10",
+        "displayName": "Initiator",
+        "description": "Initiators challenge angles by setting up their team to enter contested ground and push defenders away.",
+        "displayIcon": "/catalog/76e258eb6f445a1faece0266.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Breaker_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/616af608a27eb5c082cc6144.webp",
+      "displayIcon": "/catalog/f23dea4b2075812ed079ee36.webp",
+      "background": "/catalog/a6eda7e6fc86b7093d2e651a.webp",
+      "backgroundGradientColors": [
+        "355285ff",
+        "0f1923ff",
+        "101c47ff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/sova.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Shock Bolt",
+          "description": "EQUIP a bow with a shock bolt. FIRE to send the explosive bolt forward, detonating upon collision and damaging players nearby. HOLD FIRE to extend the range of the projectile. ALT FIRE to add up to two bounces to this arrow.",
+          "displayIcon": "/catalog/3c1cf65aec6bdc208974d93c.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Recon Bolt",
+          "description": "EQUIP a bow with recon bolt. FIRE to send the recon bolt forward, activating upon collision and Revealing the location of nearby enemies caught in the line of sight of the bolt. Enemies can destroy this bolt. HOLD FIRE to extend the range of the projectile. ALT FIRE to add up to two bounces to this arrow. ",
+          "displayIcon": "/catalog/c0f1879da9ae77d692ba8289.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Owl Drone",
+          "description": "EQUIP an owl drone. FIRE to deploy and take control of movement of the drone. While in control of the drone, FIRE to shoot a marking dart. This dart will Reveal the location of any player struck by the dart. Enemies can destroy the Owl Drone.",
+          "displayIcon": "/catalog/594d7bd1fb6632a56589c705.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Hunter's Fury",
+          "description": "EQUIP a bow with three long-range, wall-piercing energy blasts. FIRE to release an energy blast in a line in front of Sova, dealing damage and Revealing the location of enemies caught in the line. This ability can be RE-USED up to two more times while the ability timer is active.",
+          "displayIcon": "/catalog/afcde7aa7817d3a6d4591688.webp"
+        },
+        {
+          "slot": "Passive",
+          "displayName": "Uncanny Marksman",
+          "description": "Sova's custom bow can fire his arrows and bounce them off terrain. Holding fire charges the bow's power, and the bolt is loosed when released. Press alt fire to change the number of bounces.Your arrows can bounce off terrain. Holding left click increases the bow's range trajectory. Right clicking Toggle through the desired number of terrain bounces by right clicking. The arrow is loosed when left click is released.",
+          "displayIcon": null
+        }
+      ]
+    },
+    "miks": {
+      "uuid": "7c8a4701-4de6-9355-b254-e09bc2a34b72",
+      "displayName": "Miks",
+      "description": "Straight from Croatia, Miks takes the stage channeling pure sound energy. With his infectious passion and sonic powers, he rallies his squad to move as one as they set the tempo on the battlefield together.",
+      "role": {
+        "uuid": "4ee40330-ecdd-4f2f-98a8-eb1243428373",
+        "displayName": "Controller",
+        "description": "Controllers are experts in slicing up dangerous territory to set their team up for success.",
+        "displayIcon": "/catalog/7007a1b87accce0a0a6045e0.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Strategist_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/38b799d7f80cf4a85834c291.webp",
+      "displayIcon": "/catalog/4075ab06b9dc0124683b9fde.webp",
+      "background": "/catalog/8296b5c1a689f7220157dcc8.webp",
+      "backgroundGradientColors": [
+        "462b75ff",
+        "0f1923ff",
+        "344673ff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Grenade",
+          "displayName": "M-pulse",
+          "description": "EQUIP M-pulse. ALT-FIRE to toggle between Concuss and Healing outputs. FIRE to throw the device. Upon landing, M-pulse sends out sound waves, either Concussing or Healing players.",
+          "displayIcon": "/catalog/fcfacf4b387360f8232d1815.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Waveform",
+          "description": "EQUIP a Map Targeter. FIRE to set locations. ALT-FIRE to spawn Smokes at selected locations.",
+          "displayIcon": "/catalog/8d832374743a3fc90f07884e.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Harmonize",
+          "description": "EQUIP Harmonize. Target an ally and FIRE to activate a Combat Stim and a speed boost on yourself and the ally that refreshes with each kill. ALT-FIRE to grant Combat Stim and speed boost to yourself.",
+          "displayIcon": "/catalog/1f46a88c3690b77ec7765fd3.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Bassquake",
+          "description": "EQUIP Bassquake. FIRE to build up and unleash Sonic Radiance forward, knocking back, Deafening, and Slowing players.",
+          "displayIcon": "/catalog/6aa0bc8df5d1db3eb2dfe1ea.webp"
+        }
+      ]
+    },
+    "killjoy": {
+      "uuid": "1e58de9c-4950-5125-93e9-a0aee9f98746",
+      "displayName": "Killjoy",
+      "description": "The genius of Germany, Killjoy effortlessly secures key battlefield positions with her arsenal of inventions. If their damage doesn't take her enemies out, the debuff her robots provide will make short work of them.",
+      "role": {
+        "uuid": "5fc02f99-4091-4486-a531-98459a3e95e9",
+        "displayName": "Sentinel",
+        "description": "Sentinels are defensive experts who can lock down areas and watch flanks, both on attacker and defender rounds.",
+        "displayIcon": "/catalog/c225f158ef0eba2efc506c2c.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Sentinel_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/c56ff729c00558ff8a328e1f.webp",
+      "displayIcon": "/catalog/8d51c60718822d3c6078a976.webp",
+      "background": "/catalog/77fe64a475d15f307976fe17.webp",
+      "backgroundGradientColors": [
+        "522162ff",
+        "0f1923ff",
+        "413950ff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Grenade",
+          "displayName": "Nanoswarm",
+          "description": "EQUIP a Nanoswarm grenade. FIRE to throw the grenade. Upon landing, the Nanoswarm goes covert. ALT FIRE to lob. ACTIVATE the Nanoswarm to deploy a damaging swarm of nanobots.  ",
+          "displayIcon": "/catalog/d996d81cc83b253fea3f976e.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "ALARMBOT",
+          "description": "EQUIP a covert Alarmbot. FIRE to deploy a bot that hunts down enemies that get in range.  After reaching its target, the bot explodes and applies Vulnerable to enemies in the area. HOLD EQUIP to recall a deployed bot.",
+          "displayIcon": "/catalog/d08e522ec3c8c960db7e71e4.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "TURRET",
+          "description": "EQUIP a Turret. FIRE to deploy a turret that fires at enemies in a 100 degree cone. While targeting, EQUIP again to swap turret direction, HOLD ALT FIRE to rotate. HOLD EQUIP to recall the deployed turret.",
+          "displayIcon": "/catalog/080123ec8de6cd79035f7bcf.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Lockdown",
+          "description": "EQUIP the Lockdown device. FIRE to deploy the device. After a long windup, the device Detains all enemies caught in the radius. The device can be destroyed by enemies.",
+          "displayIcon": "/catalog/119364349cc77b117588db9a.webp"
+        }
+      ]
+    },
+    "harbor": {
+      "uuid": "95b78ed7-4637-86d9-7e41-71ba8c293152",
+      "displayName": "Harbor",
+      "description": "Hailing from India’s coast, Harbor storms the field wielding ancient technology with dominion over water. He unleashes frothing rapids and crushing waves to shield his allies, or pummel those that oppose him.",
+      "role": {
+        "uuid": "4ee40330-ecdd-4f2f-98a8-eb1243428373",
+        "displayName": "Controller",
+        "description": "Controllers are experts in slicing up dangerous territory to set their team up for success.",
+        "displayIcon": "/catalog/7007a1b87accce0a0a6045e0.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Strategist_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/5f98560c111d24bb02ddfd1d.webp",
+      "displayIcon": "/catalog/4aef654060fda7067b837cf8.webp",
+      "background": "/catalog/4e9426a4dc94f9b75f19b2a9.webp",
+      "backgroundGradientColors": [
+        "275146ff",
+        "0f1923ff",
+        "11434eff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "High Tide",
+          "description": "EQUIP High Tide. FIRE to send water forward along the ground. HOLD FIRE to guide the water towards your crosshair spawning a vision blocking Screen along the path. ALT FIRE to stop the water early. All players crossing High Tide are Slowed.",
+          "displayIcon": "/catalog/28b4604581449b51fc07d3fe.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Storm Surge",
+          "description": "EQUIP Storm Surge. FIRE to throw, creating an explosive whirlpool that Slows and Nearsights players within it after a short duration.",
+          "displayIcon": "/catalog/29a92e8697d4fbc165d3d6e2.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Cove",
+          "description": "EQUIP Cove. ACTIVATE to form a water Smoke in the select location. HOLD FIRE while targeting to move the marker further away and HOLD ALT FIRE to move it closer. RELOAD to toggle targeting view. REACTIVATE to Shield the water Smoke, blocking any bullets that hit it. The Shielded water Smoke can be destroyed.",
+          "displayIcon": "/catalog/285c39b2a896d5f713475295.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Reckoning",
+          "description": "EQUIP Reckoning. FIRE to unleash the full power of your artifact, releasing a surge of water that barrels forward to Nearsight and Slow enemies that are hit.",
+          "displayIcon": "/catalog/e8d89291c7ef5889ca1679d1.webp"
+        }
+      ]
+    },
+    "vyse": {
+      "uuid": "efba5359-4016-a1e5-7626-b1ae76895940",
+      "displayName": "Vyse",
+      "description": "Metallic mastermind Vyse unleashes liquid metal to isolate, trap, and disarm her enemies. Through cunning and manipulation, she forces all who oppose her to fear the battlefield itself.",
+      "role": {
+        "uuid": "5fc02f99-4091-4486-a531-98459a3e95e9",
+        "displayName": "Sentinel",
+        "description": "Sentinels are defensive experts who can lock down areas and watch flanks, both on attacker and defender rounds.",
+        "displayIcon": "/catalog/c225f158ef0eba2efc506c2c.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Sentinel_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/e5c491940c7852a707e0b0fd.webp",
+      "displayIcon": "/catalog/9dd25e76fc316e0e3b4b0421.webp",
+      "background": "/catalog/71b604f9419cdb66f6fc347a.webp",
+      "backgroundGradientColors": [
+        "492280ff",
+        "0f1923ff",
+        "ffffffff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Shear",
+          "description": "EQUIP filaments of liquid metal. FIRE to place a hidden wall trap. When an enemy crosses, an indestructible wall bursts from the ground behind them. The wall lasts for a brief time before dissipating.",
+          "displayIcon": "/catalog/be84a191a4f0b7e0607be3d2.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Arc Rose",
+          "description": "EQUIP an Arc Rose. Target a surface and FIRE to place a stealthed Arc Rose, or ALT FIRE to place the Arc Rose through it. REUSE to blind all players looking at it. This ability can be picked up to be REDEPLOYED.",
+          "displayIcon": "/catalog/35bf0afc75642d806724d16e.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Razorvine",
+          "description": "EQUIP a nest of liquid metal. FIRE to launch. Upon landing, the nest becomes invisible. When ACTIVATED, it sprawls out into a large razorvine nest which slows and damages all players who move through it.",
+          "displayIcon": "/catalog/90890cce398e5f21b2ce4f54.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Steel Garden",
+          "description": "EQUIP a bramble of liquid metal. FIRE to send the metal erupting from you as a torrent of metal thorns, JAMMING enemy primary weapons after a brief windup.",
+          "displayIcon": "/catalog/d2a9a14f0b612e6ca9e82c6a.webp"
+        }
+      ]
+    },
+    "viper": {
+      "uuid": "707eab51-4836-f488-046a-cda6bf494859",
+      "displayName": "Viper",
+      "description": "The American Chemist, Viper deploys an array of poisonous chemical devices to control the battlefield and choke the enemy's vision. If the toxins don't kill her prey, her mindgames surely will.",
+      "role": {
+        "uuid": "4ee40330-ecdd-4f2f-98a8-eb1243428373",
+        "displayName": "Controller",
+        "description": "Controllers are experts in slicing up dangerous territory to set their team up for success.",
+        "displayIcon": "/catalog/7007a1b87accce0a0a6045e0.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Strategist_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/3ee3965042ba55dcecdf4a1f.webp",
+      "displayIcon": "/catalog/f344033d37b794977fb7607b.webp",
+      "background": "/catalog/d3e1a9e1181a15fc47310b4e.webp",
+      "backgroundGradientColors": [
+        "1a5f46ff",
+        "0f1923ff",
+        "2c4f5eff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/viper.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Poison Cloud",
+          "description": "EQUIP a gas emitter. FIRE to throw the emitter that perpetually remains throughout the round. ALT FIRE to lob. RE-USE the ability to create a toxic gas cloud that Decays opponents inside it at the cost of fuel. This ability can be picked up to be REDEPLOYED before the round starts and can be RE-USED more than once throughout the round.",
+          "displayIcon": "/catalog/19ee1fef54dc646943362d4a.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Toxic Screen",
+          "description": "EQUIP a gas emitter launcher that penetrates terrain. FIRE to deploy a long line of gas emitters. RE-USE the ability to create a tall wall of toxic gas that Decays opponents that cross it at the cost of fuel. This ability can be RE-USED more than once.",
+          "displayIcon": "/catalog/acbe1b1af30166d36cb04568.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Snake Bite",
+          "description": "EQUIP a chemical launcher. FIRE to launch a canister that shatters upon hitting the floor, creating a lingering chemical zone that damages and applies Vulnerable.",
+          "displayIcon": "/catalog/ae46dc06cd21683ab1ebd2f8.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Viper's Pit",
+          "description": "EQUIP a chemical sprayer. FIRE to spray a chemical cloud in all directions around Viper, creating a large cloud that Nearsights players and Decays the health of enemies inside of it. HOLD the ability key to disperse the cloud early.",
+          "displayIcon": "/catalog/d501cd50dcfb02faf3998d25.webp"
+        },
+        {
+          "slot": "Passive",
+          "displayName": "Toxic",
+          "description": "You gradually generate and replenish the toxin that fuels your abilities.  Enemies that cross through Viper's Poison Cloud, Toxic Screen, or Viper's Pit are instantly inflicted with at least 30 Decay. Their Decay level increases the longer they remain in contact with it.",
+          "displayIcon": null
+        }
+      ]
+    },
+    "phoenix": {
+      "uuid": "eb93336a-449b-9c1b-0a54-a891f7921d69",
+      "displayName": "Phoenix",
+      "description": "Hailing from the U.K., Phoenix's star power shines through in his fighting style, igniting the battlefield with flash and flare. Whether he's got backup or not, he's rushing in to fight on his own terms.",
+      "role": {
+        "uuid": "dbe8757e-9e92-4ed4-b39f-9dfc589691d4",
+        "displayName": "Duelist",
+        "description": "Duelists are self-sufficient fraggers who their team expects, through abilities and skills, to get high frags and seek out engagements first.",
+        "displayIcon": "/catalog/ccc0d5aad5b65598046b7c6a.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Assault_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/35a3daf17849369fa66cc2ae.webp",
+      "displayIcon": "/catalog/1ef209180d486419af6f6c51.webp",
+      "background": "/catalog/38e330d88aaffeac0ade9683.webp",
+      "backgroundGradientColors": [
+        "74321cff",
+        "0f1923ff",
+        "262423ff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/phoenix.jpg",
+      "abilities": [
+        {
+          "slot": "Grenade",
+          "displayName": "Blaze",
+          "description": "EQUIP a flame wall. FIRE to create a line of flame that moves forward, passing through the world and creating a wall of fire that blocks vision and damages players passing through it. The fire wall heals Phoenix instead of dealing damage. HOLD FIRE to bend the wall in the direction of your crosshair.",
+          "displayIcon": "/catalog/85e410549b07f5b8e85e8433.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Hot Hands",
+          "description": "EQUIP a fireball. FIRE to throw a fireball that explodes after a set amount of time or upon hitting the ground, creating a lingering fire zone that damages enemies. The fire zone heals Phoenix instead of dealing damage. ALT FIRE to lob.",
+          "displayIcon": "/catalog/78a6c25a524a29e6c51144d1.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Curveball",
+          "description": "EQUIP a flare orb that takes a curving path and detonates shortly after throwing. FIRE to curve the flare orb to the left, detonating and Blinding any player who sees the orb. ALT FIRE to curve the flare orb to the right. Curveball resets a charge every two kills.",
+          "displayIcon": "/catalog/d505d028ecd707709dfcf5c5.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Run it Back",
+          "description": "INSTANTLY place a marker at Phoenix's location. While this ability is active, dying or allowing the timer to expire will end this ability and bring Phoenix back to this location with full health and the amount of armor he had when the ability was cast.",
+          "displayIcon": "/catalog/69c1c4e45cc567235038997d.webp"
+        },
+        {
+          "slot": "Passive",
+          "displayName": "Heating Up",
+          "description": "PASSIVELY Heal Phoenix instead of taking damage after standing in Phoenix's own fire",
+          "displayIcon": null
+        }
+      ]
+    },
+    "veto": {
+      "uuid": "92eeef5d-43b5-1d4a-8d03-b3927a09034b",
+      "displayName": "Veto",
+      "description": "Empowered by an unstoppable DNA mutation, Senegalese enforcer Veto defies the rules of engagement by nullifying his opponent's powers and technology. On Veto's battlefield, gunplay is your only guarantee.",
+      "role": {
+        "uuid": "5fc02f99-4091-4486-a531-98459a3e95e9",
+        "displayName": "Sentinel",
+        "description": "Sentinels are defensive experts who can lock down areas and watch flanks, both on attacker and defender rounds.",
+        "displayIcon": "/catalog/c225f158ef0eba2efc506c2c.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Sentinel_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/3e8d6e12646499900e900a77.webp",
+      "displayIcon": "/catalog/30229bd2ce0a736c47182546.webp",
+      "background": "/catalog/c5135f2b93036143e152a2d0.webp",
+      "backgroundGradientColors": [
+        "1a5d65ff",
+        "0f1923ff",
+        "0f1923ff",
+        "1a5d65ff"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability2",
+          "displayName": "Interceptor",
+          "description": "EQUIP the Interceptor. FIRE to place the Interceptor at projected location. Once placed, RE-USE to activate. Once active, it will destroy any utility that would BOUNCE off a player and/or be destroyed naturally by gunfire. Enemies can destroy the Interceptor.",
+          "displayIcon": "/catalog/233bfa8c05c281e5c657bfe1.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Crosscut",
+          "description": "EQUIP a vortex. FIRE to place on the ground. While in range and looking at the vortex, ACTIVATE to teleport to the vortex. During the BUY PHASE, the vortex can be reclaimed to be REDEPLOYED.",
+          "displayIcon": "/catalog/9ae9ddd8649bc59b536c174b.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Evolution",
+          "description": "INSTANTLY begin to fully mutate, gaining a combat stim, regeneration, and becoming IMMUNE to all forms of debuffs.",
+          "displayIcon": "/catalog/b9675ed5de327098008d939e.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Chokehold",
+          "description": "EQUIP a viscous fragment of your mutation. FIRE to throw. The fragment deploys upon hitting the ground, creating a trap to hold enemies in place. Held enemies are Deafened, and Decayed. Enemies can destroy the trap before activation.",
+          "displayIcon": "/catalog/5c7f4783e7ea8b830d70fe8d.webp"
+        }
+      ]
+    },
+    "astra": {
+      "uuid": "41fb69c1-4189-7b37-f117-bcaf1e96f1bf",
+      "displayName": "Astra",
+      "description": "Ghanaian Agent Astra harnesses the energies of the cosmos to reshape battlefields to her whim. With full command of her astral form and a talent for deep strategic foresight, she's always eons ahead of her enemy's next move.",
+      "role": {
+        "uuid": "4ee40330-ecdd-4f2f-98a8-eb1243428373",
+        "displayName": "Controller",
+        "description": "Controllers are experts in slicing up dangerous territory to set their team up for success.",
+        "displayIcon": "/catalog/7007a1b87accce0a0a6045e0.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Strategist_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/056ebb7e405683eeb2a897a0.webp",
+      "displayIcon": "/catalog/ce814200f078cc9cb20af7dc.webp",
+      "background": "/catalog/f9299edb58589aafa0a9d245.webp",
+      "backgroundGradientColors": [
+        "26146cff",
+        "0f1923ff",
+        "5210c6ff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Nova Pulse",
+          "description": "Place Stars in Astral Form (Ultimate Key).\r\n\r\nACTIVATE a Star to detonate a Nova Pulse. The Nova Pulse charges briefly then strikes, Concussing all players in its area.",
+          "displayIcon": "/catalog/1fcfd89c2da08a8e498becee.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Nebula  / Dissipate",
+          "description": "Place Stars in Astral Form (Ultimate Key). \r\n\r\nACTIVATE a Star to transform it into a Nebula (smoke).\r\n\r\nUSE a Star to Dissipate it, returning the Star to be placed in a new location after a delay.\r\n\r\nDissipate briefly forms a fake Nebula at the Star's location before returning.",
+          "displayIcon": "/catalog/d65b7220428173375638e5f9.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Gravity Well",
+          "description": "Place Stars in Astral Form (Ultimate Key).\r\n\r\nACTIVATE a Star to form a Gravity Well. Players in the area are pulled toward the center before it explodes, making all players still trapped inside Vulnerable.",
+          "displayIcon": "/catalog/2eefd5ae25e2df2ad825a199.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Astral Form / Cosmic Divide",
+          "description": "ACTIVATE to enter Astral Form where you can place Stars with FIRE. Stars can be reactivated later, transforming them into a Nova Pulse, Nebula, or Gravity Well.\r\n\r\nWhen Cosmic Divide is charged, use ALT FIRE in Astral Form to begin aiming it, then FIRE to select two locations. An infinite Cosmic Divide connects the two points you select. Cosmic Divide blocks bullets and sound.",
+          "displayIcon": "/catalog/ce4ef9630b17778e37489333.webp"
+        },
+        {
+          "slot": "Passive",
+          "displayName": "Astral Form",
+          "description": "ACTIVATE Ultimate to enter Astral Form and PRIMARY FIRE to place Stars. Target Stars with your Nova Pulse, Nebula, or Gravity Well to use those abilities.",
+          "displayIcon": "/catalog/ab4b6238f4fd2204d92174e2.webp"
+        }
+      ]
+    },
+    "brimstone": {
+      "uuid": "9f0d8ba9-4140-b941-57d3-a7ad57c6b417",
+      "displayName": "Brimstone",
+      "description": "Joining from the U.S.A., Brimstone's orbital arsenal ensures his squad always has the advantage. His ability to deliver utility precisely and safely make him the unmatched boots-on-the-ground commander.",
+      "role": {
+        "uuid": "4ee40330-ecdd-4f2f-98a8-eb1243428373",
+        "displayName": "Controller",
+        "description": "Controllers are experts in slicing up dangerous territory to set their team up for success.",
+        "displayIcon": "/catalog/7007a1b87accce0a0a6045e0.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Strategist_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/e75e0547e01ca4090b506306.webp",
+      "displayIcon": "/catalog/cfe8bf366bc711f4ac30336e.webp",
+      "background": "/catalog/4a4ea022d7c41901ba84c79f.webp",
+      "backgroundGradientColors": [
+        "363c4fff",
+        "0f1923ff",
+        "211d21ff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Grenade",
+          "displayName": "Stim Beacon",
+          "description": "INSTANTLY toss down a stim beacon. Upon landing, it creates a field that grants players a Combat Stim and a Speed Boost.",
+          "displayIcon": "/catalog/3236febfcf24a75e60f99660.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Incendiary",
+          "description": "EQUIP an incendiary grenade launcher. FIRE to launch a grenade that detonates as it comes to a rest on the floor, creating a lingering fire zone that damages players within the zone.",
+          "displayIcon": "/catalog/b255ff30ef0b099f6a10394a.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Sky Smoke",
+          "description": "EQUIP a tactical map. FIRE to set locations where Brimstone's smoke clouds will land. ALT FIRE to confirm, launching long-lasting smoke clouds that block vision in the selected area.",
+          "displayIcon": "/catalog/cc3b50a1d890d460312fe40f.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Orbital Strike",
+          "description": "EQUIP a tactical map. FIRE to launch a lingering orbital strike laser at the selected location, dealing high damage-over-time to players caught in the selected area.",
+          "displayIcon": "/catalog/37f606bd5a90dfa147c76dc7.webp"
+        }
+      ]
+    },
+    "iso": {
+      "uuid": "0e38b510-41a8-5780-5e8f-568b2a4f2d6c",
+      "displayName": "Iso",
+      "description": "Chinese fixer for hire Iso falls into a flow state to dismantle the opposition. Reconfiguring ambient energy into bulletproof protection, he advances with focus towards his next duel to the death.",
+      "role": {
+        "uuid": "dbe8757e-9e92-4ed4-b39f-9dfc589691d4",
+        "displayName": "Duelist",
+        "description": "Duelists are self-sufficient fraggers who their team expects, through abilities and skills, to get high frags and seek out engagements first.",
+        "displayIcon": "/catalog/ccc0d5aad5b65598046b7c6a.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Assault_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/b788f91952131fb0aa2508e8.webp",
+      "displayIcon": "/catalog/c800a11f77fc21a5866fd361.webp",
+      "background": "/catalog/9daa5501b78d954a64f23c7d.webp",
+      "backgroundGradientColors": [
+        "30336eff",
+        "0f1923ff",
+        "20155dff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Undercut",
+          "description": "EQUIP a molecular bolt. FIRE to throw it forward, briefly applying Vulnerable & Suppress to all players it touches. The bolt can pass through solid objects, including walls.",
+          "displayIcon": "/catalog/eb49e1c1a9b7b1f425118343.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Kill Contract",
+          "description": "EQUIP an interdimensional arena. FIRE to hurl a column of energy through the battlefield, pulling and healing both you and the first enemy hit into the arena to duel to the death.",
+          "displayIcon": "/catalog/e1a3304bbe1632dece44712a.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Double Tap",
+          "description": "INSTANTLY start channeling your focus. Once focused: gain a shield which absorbs one instance of damage from any source, reload more quickly, and enter a flow state during which downed enemies you kill or damage spawn an energy orb. Shooting this orb refreshes your flow state and your existing shield, or grants another.",
+          "displayIcon": "/catalog/0a719507c4d5c536a1d02638.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Contingency",
+          "description": "EQUIP to assemble prismatic energy. FIRE to push an indestructible wall of energy forward that blocks bullets. ALT FIRE to push out a slower version of the wall.",
+          "displayIcon": "/catalog/ce48ab9b594df436ebdcf3be.webp"
+        }
+      ]
+    },
+    "clove": {
+      "uuid": "1dbf2edd-4729-0984-3115-daa5eed44993",
+      "displayName": "Clove",
+      "description": "Scottish troublemaker Clove makes mischief for enemies in both the heat of combat and the cold of death. The young immortal keeps foes guessing, even from beyond the grave, their return to the living only ever a moment away.",
+      "role": {
+        "uuid": "4ee40330-ecdd-4f2f-98a8-eb1243428373",
+        "displayName": "Controller",
+        "description": "Controllers are experts in slicing up dangerous territory to set their team up for success.",
+        "displayIcon": "/catalog/7007a1b87accce0a0a6045e0.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Strategist_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/41eca56c533c9a1a15631a7a.webp",
+      "displayIcon": "/catalog/734a1a420bed0f5c21e919c5.webp",
+      "background": "/catalog/2244f4310cd4caa20f5f6924.webp",
+      "backgroundGradientColors": [
+        "4b1d80ff",
+        "0f1923ff",
+        "c347c7ff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Grenade",
+          "displayName": "Pick-me-up",
+          "description": "ACTIVATE to absorb the life force of a fallen enemy that Clove damaged or killed, gaining haste and temporary health.",
+          "displayIcon": "/catalog/8c3f761b4544602877e81c4b.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Ruse",
+          "description": "EQUIP a view of the battlefield. FIRE to set the locations where Clove’s clouds will settle. ALT FIRE to confirm, launching clouds that block vision in the chosen areas. Clove can use this ability after death.",
+          "displayIcon": "/catalog/fc7e9551ab9a4c4dee40ee9e.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Not Dead Yet",
+          "description": "After dying, ACTIVATE to resurrect. Once resurrected, Clove must earn a kill or a damaging assist within a set time or they will die. REACTIVATE to cancel early.",
+          "displayIcon": "/catalog/0d0998e1645fc778f95e8de5.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Meddle",
+          "description": "EQUIP a fragment of immortality essence. FIRE to throw the fragment, which upon landing on the floor, erupts after a short delay and temporarily Decays all targets caught inside.",
+          "displayIcon": "/catalog/0fe11de0f4662d96d2d4d7de.webp"
+        }
+      ]
+    },
+    "neon": {
+      "uuid": "bb2a4828-46eb-8cd1-e765-15848195d751",
+      "displayName": "Neon",
+      "description": "Filipino Agent Neon surges forward at shocking speeds, discharging bursts of bioelectric radiance as fast as her body generates it. She races ahead to catch enemies off guard then strikes them down quicker than lightning.",
+      "role": {
+        "uuid": "dbe8757e-9e92-4ed4-b39f-9dfc589691d4",
+        "displayName": "Duelist",
+        "description": "Duelists are self-sufficient fraggers who their team expects, through abilities and skills, to get high frags and seek out engagements first.",
+        "displayIcon": "/catalog/ccc0d5aad5b65598046b7c6a.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Assault_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/627aef74a8d9e54419f221f4.webp",
+      "displayIcon": "/catalog/aee5f35ee5a411c4aec934f9.webp",
+      "background": "/catalog/183af963891465afceb726f1.webp",
+      "backgroundGradientColors": [
+        "413476ff",
+        "0f1923ff",
+        "38328eff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability2",
+          "displayName": "High Gear",
+          "description": "INSTANTLY channel Neon’s power for Increased Speed. When charged, ALT FIRE to trigger an electric slide dash. Slide charge resets every two kills.",
+          "displayIcon": "/catalog/b13ef747e1134b1f4d11c795.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Relay Bolt",
+          "description": "INSTANTLY throw an energy bolt that bounces once. Upon hitting each surface, the bolt electrifies the ground below with a Concussive blast.",
+          "displayIcon": "/catalog/b4687eca2ad8258a1d13a997.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Fast Lane",
+          "description": "FIRE two energy lines forward on the ground that extend a short distance or until they hit a surface. The lines rise into walls of static electricity that block vision.",
+          "displayIcon": "/catalog/56dc775bd3ebb296f0e0cfbe.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Overdrive",
+          "description": "Unleash Neon’s full power and speed for a short duration, regaining all her fuel and a slide charge. FIRE to channel the power into a deadly lightning beam with high movement accuracy. Kills reset the duration of the effect. ",
+          "displayIcon": "/catalog/cc367af224b46906bdb469e2.webp"
+        }
+      ]
+    },
+    "yoru": {
+      "uuid": "7f94d92c-4234-0a36-9646-3a87eb8b5c89",
+      "displayName": "Yoru",
+      "description": "Japanese native Yoru rips holes straight through reality to infiltrate enemy lines unseen. Using deception and aggression in equal measure, he gets the drop on each target before they know where to look.",
+      "role": {
+        "uuid": "dbe8757e-9e92-4ed4-b39f-9dfc589691d4",
+        "displayName": "Duelist",
+        "description": "Duelists are self-sufficient fraggers who their team expects, through abilities and skills, to get high frags and seek out engagements first.",
+        "displayIcon": "/catalog/ccc0d5aad5b65598046b7c6a.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Assault_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/055e07556787c3c3d57f2d27.webp",
+      "displayIcon": "/catalog/fb81901fd752b2ad1d4a7841.webp",
+      "background": "/catalog/ad6d5d30b037448e36facc51.webp",
+      "backgroundGradientColors": [
+        "222b67ff",
+        "0f1923ff",
+        "261e4fff",
+        "0f192300"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Grenade",
+          "displayName": "FAKEOUT",
+          "description": "EQUIP an echo that transforms into a mirror image of Yoru when activated. FIRE to instantly activate the mirror image and send it forward. ALT FIRE to place an inactive echo. USE to transform an inactive echo into a mirror image and send it forward.  Mirror images explode in a Blinding flash when destroyed by enemies.",
+          "displayIcon": "/catalog/8baddc8eaa777aa935dfaa36.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "BLINDSIDE",
+          "description": "EQUIP to rip an unstable dimensional fragment from reality. FIRE to throw the fragment, activating a flash that winds up once it collides with a hard surface.",
+          "displayIcon": "/catalog/5be3833ca50efbc74d0be334.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "GATECRASH",
+          "description": "EQUIP a rift tether FIRE to send the tether forward. ALT FIRE to place a stationary tether. ACTIVATE to teleport to the tether's location. USE to trigger a fake teleport. GATECRASH resets a charge every two kills.",
+          "displayIcon": "/catalog/9f9924887897f258e28b7428.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "DIMENSIONAL DRIFT",
+          "description": "EQUIP a mask that can see between dimensions. FIRE to drift into Yoru's dimension, unable to be affected or seen by enemies from the outside. REACTIVATE to exit Yoru's dimension early.",
+          "displayIcon": "/catalog/870fa7c66bf5d4bd5079523e.webp"
+        }
+      ]
+    },
+    "waylay": {
+      "uuid": "df1cb487-4902-002e-5c17-d28e83e78588",
+      "displayName": "Waylay",
+      "description": "Thailand's prismatic radiant Waylay transforms into light itself as she darts across the battlefield, striking down her targets through shards of light before flitting back to safety, all in the blink of an eye.",
+      "role": {
+        "uuid": "dbe8757e-9e92-4ed4-b39f-9dfc589691d4",
+        "displayName": "Duelist",
+        "description": "Duelists are self-sufficient fraggers who their team expects, through abilities and skills, to get high frags and seek out engagements first.",
+        "displayIcon": "/catalog/ccc0d5aad5b65598046b7c6a.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Assault_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/8729e2337d2545172ea25550.webp",
+      "displayIcon": "/catalog/2731e9a5efca16324954c192.webp",
+      "background": "/catalog/e5cc42e3930900c09b9ed368.webp",
+      "backgroundGradientColors": [
+        "482e61ff",
+        "0f1923ff",
+        "0f1923ff",
+        "482e61ff"
+      ],
+      "artBackground": null,
+      "abilities": [
+        {
+          "slot": "Ability2",
+          "displayName": "Refract",
+          "description": "INSTANTLY create a beacon of light on the floor. REACTIVATE to speed back to your beacon as a mote of pure light. You are invulnerable as you travel. Refract resets a charge every two kills.",
+          "displayIcon": "/catalog/67c533d972aaa1e07e78bbd1.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Saturate",
+          "description": "EQUIP a cluster of light. FIRE to throw the cluster, which upon contact with the ground explodes, Hindering nearby players with a powerful movement and weapon slow.",
+          "displayIcon": "/catalog/43dae4313f3cc54b1d83fe80.webp"
+        },
+        {
+          "slot": "Ability1",
+          "displayName": "Lightspeed",
+          "description": "EQUIP to prepare for a burst of speed. FIRE to dash forward twice. ALT FIRE to dash once. Only your first dash can send you upward.",
+          "displayIcon": "/catalog/27fc7a9392313a2997265cbe.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Convergent Paths",
+          "description": "EQUIP to focus your prismatic power. FIRE to create an afterimage of yourself that projects a beam of light. After a brief delay, you gain a powerful speed boost and the beam expands, Hindering other players in the area.",
+          "displayIcon": "/catalog/ddb2c84fb617c28a02b79058.webp"
+        }
+      ]
+    },
+    "sage": {
+      "uuid": "569fdd95-4d10-43ab-ca70-79becc718b46",
+      "displayName": "Sage",
+      "description": "The bastion of China, Sage creates safety for herself and her team wherever she goes. Able to revive fallen friends and stave off forceful assaults, she provides a calm center to a hellish battlefield.",
+      "role": {
+        "uuid": "5fc02f99-4091-4486-a531-98459a3e95e9",
+        "displayName": "Sentinel",
+        "description": "Sentinels are defensive experts who can lock down areas and watch flanks, both on attacker and defender rounds.",
+        "displayIcon": "/catalog/c225f158ef0eba2efc506c2c.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Sentinel_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/e15f19f6b9b9c30ac56e28c6.webp",
+      "displayIcon": "/catalog/5a2ac35113ee63029c1b50af.webp",
+      "background": "/catalog/631560c8a7a23c12cd8fd542.webp",
+      "backgroundGradientColors": [
+        "1f5148ff",
+        "0f1923ff",
+        "102d23ff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/sage.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Slow Orb",
+          "description": "EQUIP a slowing orb. FIRE to throw a slowing orb forward that detonates upon landing, creating a lingering field that Slows and reduces the dash speed of players caught inside of it.",
+          "displayIcon": "/catalog/757e6067a971dca9547256d3.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Healing Orb",
+          "description": "EQUIP a healing orb. FIRE with your crosshairs over a damaged ally to activate a Heal-Over-Time on them. ALT FIRE while Sage is damaged to activate a self Heal-Over-Time.",
+          "displayIcon": "/catalog/180e751a8716ed00a08a377d.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Barrier Orb",
+          "description": "EQUIP a barrier orb. FIRE places a wall that fortifies after a few seconds. ALT FIRE rotates the targeter.",
+          "displayIcon": "/catalog/8d752d2f05fdb848b9a38098.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Resurrection",
+          "description": "EQUIP a resurrection ability. FIRE with your crosshairs placed over a dead ally to begin resurrecting them. After a brief channel, the ally will be brought back to life with full health.",
+          "displayIcon": "/catalog/1ee87ffa2cb7c7bae0629075.webp"
+        }
+      ]
+    },
+    "reyna": {
+      "uuid": "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc",
+      "displayName": "Reyna",
+      "description": "Forged in the heart of Mexico, Reyna dominates single combat, popping off with each kill she scores. Her capability is only limited by her raw skill, making her sharply dependent on performance. ",
+      "role": {
+        "uuid": "dbe8757e-9e92-4ed4-b39f-9dfc589691d4",
+        "displayName": "Duelist",
+        "description": "Duelists are self-sufficient fraggers who their team expects, through abilities and skills, to get high frags and seek out engagements first.",
+        "displayIcon": "/catalog/ccc0d5aad5b65598046b7c6a.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Assault_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/b5db495afa90dbbd95b73248.webp",
+      "displayIcon": "/catalog/5d2de8a54d3ae676bda53eb3.webp",
+      "background": "/catalog/f862abde5b6a6d08d1e90cdd.webp",
+      "backgroundGradientColors": [
+        "662d62ff",
+        "0f1923ff",
+        "2f2664ff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/reyna.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Devour",
+          "description": "Soul Harvest: Enemies that die within 3 seconds of taking damage from Reyna leave behind Soul Orbs that last 3 seconds.\r\nDevour: INSTANTLY consume a soul orb, rapidly gaining Temporary Health. If EMPRESS is active then Devour automatically casts, does not consume the Soul Orb, and Healing is permanent.",
+          "displayIcon": "/catalog/d51aa89511af3adfa241e085.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Dismiss",
+          "description": "INSTANTLY consume a nearby Soul Orb, becoming Intangible for a short duration. If EMPRESS is active, also become Invisible.",
+          "displayIcon": "/catalog/3e709b84f89474a1fc7af3ba.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Leer",
+          "description": "EQUIP an ethereal, destructible eye. ACTIVATE to cast the eye a short distance forward. The eye will Nearsight all enemies who look at it.",
+          "displayIcon": "/catalog/9a1f9d7160528b4c9985f481.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Empress",
+          "description": "INSTANTLY enter a frenzy, gaining a Combat Stim that increases firing, equip and reload speed dramatically. Gain infinite charges of Soul Harvest abilities.",
+          "displayIcon": "/catalog/a6cac900d9d50ab5d9117614.webp"
+        }
+      ]
+    },
+    "omen": {
+      "uuid": "8e253930-4c05-31dd-1b6c-968525494517",
+      "displayName": "Omen",
+      "description": "A phantom of a memory, Omen hunts in the shadows. He renders enemies blind, teleports across the field, then lets paranoia take hold as his foe scrambles to uncover where he might strike next.",
+      "role": {
+        "uuid": "4ee40330-ecdd-4f2f-98a8-eb1243428373",
+        "displayName": "Controller",
+        "description": "Controllers are experts in slicing up dangerous territory to set their team up for success.",
+        "displayIcon": "/catalog/7007a1b87accce0a0a6045e0.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Strategist_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/99c38a22654c4ad5987c2467.webp",
+      "displayIcon": "/catalog/9349090ff8a598b0fad25ee9.webp",
+      "background": "/catalog/53bf05589217d8a40eed182d.webp",
+      "backgroundGradientColors": [
+        "433178ff",
+        "0f1923ff",
+        "344673ff",
+        "0f192300"
+      ],
+      "artBackground": "/imgs/agents/omen.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Paranoia",
+          "description": "EQUIP a blinding orb.  FIRE to throw it forward, briefly Nearsighting and Deafening all players it touches. This projectile can pass straight through walls.",
+          "displayIcon": "/catalog/a0650b4879a866ae37fc2436.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Dark Cover",
+          "description": "EQUIP a shadow orb, entering a phased world to place and target the orbs. PRESS the ability key to throw the shadow orb to the marked location, creating a long-lasting shadow sphere that blocks vision. HOLD FIRE while targeting to move the marker further away. HOLD ALT FIRE while targeting to move the marker closer. PRESS RELOAD to toggle normal targeting view.",
+          "displayIcon": "/catalog/7db4ac967e817355ed10599d.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Shrouded Step",
+          "description": "EQUIP a shrouded step ability and see its range indicator. FIRE to begin a brief channel, then teleport to the marked location.",
+          "displayIcon": "/catalog/482097ed40a53ed28468eaed.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "From the Shadows",
+          "description": "EQUIP a tactical map. FIRE to begin teleporting to the selected location. While teleporting, Omen will appear as a Shade that can be destroyed by an enemy to cancel his teleport, or PRESS EQUIP for Omen to cancel his teleport.",
+          "displayIcon": "/catalog/8c434b23fef79cedb0d6ddc8.webp"
+        }
+      ]
+    },
+    "jett": {
+      "uuid": "add6443a-41bd-e414-f6ad-e58d267f4e95",
+      "displayName": "Jett",
+      "description": "Representing her home country of South Korea, Jett's agile and evasive fighting style lets her take risks no one else can. She runs circles around every skirmish, cutting enemies up before they even know what hit them.",
+      "role": {
+        "uuid": "dbe8757e-9e92-4ed4-b39f-9dfc589691d4",
+        "displayName": "Duelist",
+        "description": "Duelists are self-sufficient fraggers who their team expects, through abilities and skills, to get high frags and seek out engagements first.",
+        "displayIcon": "/catalog/ccc0d5aad5b65598046b7c6a.webp",
+        "assetPath": "ShooterGame/Content/Characters/_Core/Roles/Assault_PrimaryDataAsset"
+      },
+      "fullPortrait": "/catalog/4514188f8b41b1b1da8c7bb5.webp",
+      "displayIcon": "/catalog/0bec944b363ceebca5b3b99b.webp",
+      "background": "/catalog/0a64465e15228d607351671e.webp",
+      "backgroundGradientColors": [
+        "25607aff",
+        "0f1923ff",
+        "0f1923ff",
+        "25607aff"
+      ],
+      "artBackground": "/imgs/agents/jett.jpg",
+      "abilities": [
+        {
+          "slot": "Ability1",
+          "displayName": "Updraft",
+          "description": "INSTANTLY propel Jett high into the air.",
+          "displayIcon": "/catalog/c08eed5d1f3fe4ba903fa214.webp"
+        },
+        {
+          "slot": "Ability2",
+          "displayName": "Tailwind",
+          "description": "ACTIVATE to prepare a gust of wind for a limited time. RE-USE the wind to propel Jett in the direction she is moving. If Jett is standing still, she propels forward. Tailwind charge resets every two kills.",
+          "displayIcon": "/catalog/43f2b3d123707b02e8d447dd.webp"
+        },
+        {
+          "slot": "Grenade",
+          "displayName": "Cloudburst",
+          "description": "INSTANTLY throw a projectile that expands into a brief vision-blocking cloud on impact with a surface. HOLD the ability key to curve the smoke in the direction of your crosshair.",
+          "displayIcon": "/catalog/f3e2b7e2b4a063dbcb460d12.webp"
+        },
+        {
+          "slot": "Ultimate",
+          "displayName": "Blade Storm",
+          "description": "EQUIP a set of highly accurate throwing knives. FIRE to throw a single knife and recharge knives on a kill. ALT FIRE to throw all remaining daggers but does not recharge on a kill.",
+          "displayIcon": "/catalog/c9fc5e13cd3c63893b9cebd1.webp"
+        },
+        {
+          "slot": "Passive",
+          "displayName": "Drift",
+          "description": "Holding the jump button while falling allows you to glide through the air.",
+          "displayIcon": "/catalog/afbc4ab411645126c7f8459c.webp"
+        }
+      ]
+    }
+  },
+  "maps": {
+    "gauntlet": {
+      "uuid": "dd3a1cd9-41b1-50ea-3bd6-a7bb3c5978bd",
+      "displayName": "Gauntlet",
+      "splash": "/catalog/594c0665a5b6f8a76dab8df8.webp",
+      "displayIcon": null
+    },
+    "ascent": {
+      "uuid": "7eaecc1b-4337-bbf6-6ab9-04b8f06b3319",
+      "displayName": "Ascent",
+      "splash": "/catalog/cc314e07bf635f6241a70980.webp",
+      "displayIcon": "/catalog/f072bec6d59ec852715bb5c9.webp"
+    },
+    "split": {
+      "uuid": "d960549e-485c-e861-8d71-aa9d1aed12a2",
+      "displayName": "Split",
+      "splash": "/catalog/2d83deaea44e1ea52a8dd4ba.webp",
+      "displayIcon": "/catalog/59006d75bb1d1c5ee5807d6c.webp"
+    },
+    "fracture": {
+      "uuid": "b529448b-4d60-346e-e89e-00a4c527a405",
+      "displayName": "Fracture",
+      "splash": "/catalog/fc7b9de7281bdf2f462f2335.webp",
+      "displayIcon": "/catalog/7e8424f43f681dd79725ec34.webp"
+    },
+    "bind": {
+      "uuid": "2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba",
+      "displayName": "Bind",
+      "splash": "/catalog/83d57cc2221bddc2397396e3.webp",
+      "displayIcon": "/catalog/618dce038460c4f75557fbf6.webp"
+    },
+    "breeze": {
+      "uuid": "2fb9a4fd-47b8-4e7d-a969-74b4046ebd53",
+      "displayName": "Breeze",
+      "splash": "/catalog/f61d3578717b660a92133832.webp",
+      "displayIcon": "/catalog/04c5886d26bec74182ed7230.webp"
+    },
+    "district": {
+      "uuid": "690b3ed2-4dff-945b-8223-6da834e30d24",
+      "displayName": "District",
+      "splash": "/catalog/151b0d6da497776b4c85c5ec.webp",
+      "displayIcon": "/catalog/7baebf3eb29ba5727cf10439.webp"
+    },
+    "kasbah": {
+      "uuid": "12452a9d-48c3-0b02-e7eb-0381c3520404",
+      "displayName": "Kasbah",
+      "splash": "/catalog/bd417057964c15e87909ebaa.webp",
+      "displayIcon": "/catalog/b371b8ae4435f35cc0ac85a2.webp"
+    },
+    "drift": {
+      "uuid": "2c09d728-42d5-30d8-43dc-96a05cc7ee9d",
+      "displayName": "Drift",
+      "splash": "/catalog/7461762f9333c11f129de669.webp",
+      "displayIcon": "/catalog/c33c6ff61acac174608048de.webp"
+    },
+    "glitch": {
+      "uuid": "d6336a5a-428f-c591-98db-c8a291159134",
+      "displayName": "Glitch",
+      "splash": "/catalog/4c6a77d531f55699b357fd83.webp",
+      "displayIcon": "/catalog/10b5ee09bc91fdaba386be93.webp"
+    },
+    "piazza": {
+      "uuid": "de28aa9b-4cbe-1003-320e-6cb3ec309557",
+      "displayName": "Piazza",
+      "splash": "/catalog/6de161bb765f9d11bf955f79.webp",
+      "displayIcon": "/catalog/d27474a29f923985443813c9.webp"
+    },
+    "abyss": {
+      "uuid": "224b0a95-48b9-f703-1bd8-67aca101a61f",
+      "displayName": "Abyss",
+      "splash": "/catalog/89a112e96b9cc46b8971fdc5.webp",
+      "displayIcon": "/catalog/68ff7f2cfc970d1195ae2f86.webp"
+    },
+    "lotus": {
+      "uuid": "2fe4ed3a-450a-948b-6d6b-e89a78e680a9",
+      "displayName": "Lotus",
+      "splash": "/catalog/58d23fafd9daf88fa5a52740.webp",
+      "displayIcon": "/catalog/4ddfbdc1786d348edd3dd639.webp"
+    },
+    "sunset": {
+      "uuid": "92584fbe-486a-b1b2-9faa-39b0f486b498",
+      "displayName": "Sunset",
+      "splash": "/catalog/db94467ffde3160e15e2e47e.webp",
+      "displayIcon": "/catalog/8905d7add2036dff7430c6f4.webp"
+    },
+    "pearl": {
+      "uuid": "fd267378-4d1d-484f-ff52-77821ed10dc2",
+      "displayName": "Pearl",
+      "splash": "/catalog/9040144780b1d39ea65728fc.webp",
+      "displayIcon": "/catalog/4f4bac7799accc403c674a8e.webp"
+    },
+    "summit": {
+      "uuid": "756da597-416b-c0f2-f47b-afbdf28670bc",
+      "displayName": "Summit",
+      "splash": "/catalog/4059cc5690366036b835cb9e.webp",
+      "displayIcon": "/catalog/a8488d97f56a873329288691.webp"
+    },
+    "icebox": {
+      "uuid": "e2ad5c54-4114-a870-9641-8ea21279579a",
+      "displayName": "Icebox",
+      "splash": "/catalog/78033459aa6ec65b77543281.webp",
+      "displayIcon": "/catalog/4d2f1aa8d439210bcb174dd0.webp"
+    },
+    "corrode": {
+      "uuid": "1c18ab1f-420d-0d8b-71d0-77ad3c439115",
+      "displayName": "Corrode",
+      "splash": "/catalog/5ad21b5675d0cdbf548ca841.webp",
+      "displayIcon": "/catalog/a0427b5ecd9625f8c12898c4.webp"
+    },
+    "haven": {
+      "uuid": "2bee0dc9-4ffe-519b-1cbd-7fbe763a6047",
+      "displayName": "Haven",
+      "splash": "/catalog/4b999c2eb21b16e98298524d.webp",
+      "displayIcon": "/catalog/a541c2a0e845c7333518f623.webp"
+    }
+  }
+}

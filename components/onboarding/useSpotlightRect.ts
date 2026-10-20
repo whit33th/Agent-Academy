@@ -32,7 +32,12 @@ function subscribe(onStoreChange: () => void) {
 function sameRect(a: SpotlightRect | null, b: SpotlightRect | null) {
   if (a === b) return true;
   if (!a || !b) return false;
-  return a.top === b.top && a.left === b.left && a.width === b.width && a.height === b.height;
+  return (
+    a.top === b.top &&
+    a.left === b.left &&
+    a.width === b.width &&
+    a.height === b.height
+  );
 }
 
 function readRect(targetId: string): SpotlightRect | null {

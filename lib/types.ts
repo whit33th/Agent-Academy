@@ -1,99 +1,56 @@
+import type { ViabilityTier } from "@/lib/utils/viability";
+import type { Id } from "@/convex/_generated/dataModel";
+import type { AbilitySlot, LineupMetadata } from "@/lib/lineups/metadata";
 /**
  * Single source of truth for domain types.
  */
 
-import type { SanityImageSource } from "@sanity/image-url";
-
 // ─── Valorant API ───
 
 export interface AgentAbility {
-  slot: string;
+  slot: AbilitySlot;
   displayName: string;
   description: string;
   displayIcon: string | null;
 }
-
-export interface AgentRole {
-  uuid: string;
-  displayName: string;
-  description: string;
-  displayIcon: string | null;
-  assetPath: string;
-}
-
-// ─── Sanity raw shapes ───
-
-export interface SanitySlug {
-  current: string;
-}
-
-export interface SanityAgent {
-  _id: string;
-  name?: string;
-  slug?: SanitySlug | null;
-  role?: string | null;
-  image?: SanityImageSource | null;
-  accentColor?: string | null;
-}
-
-export interface SanityMap {
-  _id: string;
-  name?: string;
-  slug?: SanitySlug | null;
-  image?: SanityImageSource | null;
-  accentColor?: string | null;
-}
-
-export interface SanityMapAgentMeta {
-  _id: string;
-  viability?: string | null;
-  notes?: string | null;
-  agent?: { _id: string } | null;
-}
-
-// ─── Sanity + API merged ───
 
 export interface Agent {
   _id: string;
-  slug: SanitySlug | null;
+  slug: { current: string } | null;
   /** Pulled from Valorant API. */
   name: string;
   roleName: string;
   roleIcon: string | null;
   imageUrl: string | null;
-  fullPortraitV2: string | null;
-  bustPortrait: string | null;
   displayIcon: string | null;
   background: string | null;
   artBackground: string | null;
   backgroundGradientColors: string[];
   description: string | null;
   abilities: AgentAbility[];
-  /** Optional Sanity override. */
+  /** Optional accent override. */
   accentColor?: string | null;
   voiceLineUrl: string | null;
   /** Map-specific meta. */
-  viability?: string | null;
+  viability?: ViabilityTier | null;
   notes?: string | null;
 }
 
 export interface GameMap {
   _id: string;
-  slug: SanitySlug | null;
+  slug: { current: string } | null;
   name: string;
-  imageUrl: string | null;
-  listViewIcon: string | null;
+  imageUrl: string;
   displayIcon: string | null;
-  stylizedBackgroundImage: string | null;
   accentColor?: string | null;
 }
 
 export interface Screenshot {
-  _id: string;
+  _id: Id<"lineups">;
   title: string;
-  /** Public image URL (Vercel Blob). */
+  /** Resolved cloud image URL. */
   image: string | null;
-  abilityType: string | null;
+  metadata?: LineupMetadata;
   description: string | null;
   isPublic?: boolean;
   canEdit?: boolean;
@@ -103,15 +60,7 @@ export interface Screenshot {
   tempPreview?: string;
 }
 
-export interface MapAgentMeta {
-  _id: string;
-  viability: string | null;
-  notes: string | null;
-  agent: Agent;
-}
-
-// ─── Server-action result envelope ───
+// ─── Collection operation result ───
 
 export type ActionResult<T = void> =
-  | { ok: true; data: T }
-  | { ok: false; error: string };
+  { ok: true; data: T } | { ok: false; error: string };

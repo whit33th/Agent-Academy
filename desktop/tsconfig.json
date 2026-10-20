@@ -1,6 +1,13 @@
 {
   "extends": "../tsconfig.json",
-  "compilerOptions": { "module": "NodeNext", "moduleResolution": "NodeNext", "noEmit": true, "types": ["node"], "plugins": [], "incremental": false },
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "types": ["node"],
+    "plugins": [],
+    "incremental": false
+  },
   "include": ["src/**/*.ts", "../lib/desktop/protocol.ts"],
   "exclude": ["../node_modules"]
 }

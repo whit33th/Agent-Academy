@@ -92,7 +92,7 @@ async function main() {
   const fileContent =
     banner +
     "\n" +
-    "export interface ValorantMapCallout {\n" +
+    "interface ValorantMapCallout {\n" +
     "  regionName: string;\n" +
     "  superRegion: string | null;\n" +
     "  worldX: number;\n" +
@@ -111,7 +111,7 @@ async function main() {
     "  metersPerMinimap: number;\n" +
     "  callouts: ValorantMapCallout[];\n" +
     "}\n\n" +
-    `export const VALORANT_MAPS: readonly ValorantMapRecord[] = ${JSON.stringify(records, null, 2)};\n\n` +
+    `const VALORANT_MAPS: readonly ValorantMapRecord[] = ${JSON.stringify(records, null, 2)};\n\n` +
     "export function findMapRecord(name: string): ValorantMapRecord | undefined {\n" +
     "  if (!name) return undefined;\n" +
     "  const key = name.toLowerCase();\n" +

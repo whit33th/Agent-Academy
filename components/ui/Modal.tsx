@@ -53,7 +53,7 @@ export default function Modal({
         event.preventDefault();
         onClose();
       }}
-      className="fixed inset-0 z-[400] m-0 h-full max-h-none w-full max-w-none overflow-y-auto border-0 bg-transparent p-4 backdrop:bg-black/85 backdrop:backdrop-blur-sm open:flex open:items-center open:justify-center"
+      className="fixed inset-0 z-[400] m-0 h-full max-h-none w-full max-w-none overflow-y-auto border-0 bg-transparent p-4 backdrop:bg-black/85 backdrop:backdrop-blur-sm open:flex open:[align-items:safe_center] open:justify-center"
     >
       <div className={className}>{children}</div>
     </dialog>

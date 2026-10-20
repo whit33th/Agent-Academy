@@ -1,13 +1,14 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/CatalogImage";
 import type { AgentAbility } from "@/lib/types";
 import { getSlotKey } from "@/lib/utils/ability";
+import type { LineupAbility } from "@/lib/lineups/metadata";
 
 interface AbilityPickerGridProps {
   abilities: AgentAbility[];
-  selectedSlot: string;
-  onSelect: (slot: string) => void;
+  selectedSlot: LineupAbility;
+  onSelect: (slot: LineupAbility) => void;
 }
 
 export default function AbilityPickerGrid({

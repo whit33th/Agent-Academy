@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useAppPreferences } from "@/components/settings/PreferencesProvider";
 
 export default function AppBackground() {
+  const { settings } = useAppPreferences();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
 
@@ -23,24 +25,34 @@ export default function AppBackground() {
     };
 
     document.addEventListener("visibilitychange", onVisibility);
-    return () => document.removeEventListener("visibilitychange", onVisibility);
-  }, []);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+    };
+  }, [settings.backgroundVideo]);
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      <video
-        ref={videoRef}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${ready ? "opacity-10" : "opacity-0"}`}
-        src="/videos/sage-menu.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        onCanPlay={() => setReady(true)}
-      />
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+    >
+      {settings.backgroundVideo && (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${ready ? "opacity-10" : "opacity-0"}`}
+          src="/videos/sage-menu.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          onCanPlay={() => setReady(true)}
+        />
+      )}
       <div
-        className={`absolute inset-0 transition-opacity duration-1000 ease-out ${ready ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 transition-opacity duration-1000 ease-out ${ready && settings.backgroundVideo ? "opacity-100" : "opacity-0"}`}
         style={{
           background: [
             "linear-gradient(180deg, rgba(10,10,10,0.99) 0%, rgba(10,10,10,0.38) 28%, rgba(10,10,10,0.9) 100%)",

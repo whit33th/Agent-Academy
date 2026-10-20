@@ -1,7 +1,13 @@
-import { mkdir } from 'node:fs/promises';
-import { spawnSync } from 'node:child_process';
-await mkdir('desktop/dist', { recursive: true });
-for (const name of ['main', 'preload']) {
-  const result = spawnSync('bun', ['build', `desktop/src/${name}.ts`, '--target=node', '--format=cjs', '--external=electron', `--outfile=desktop/dist/${name}.cjs`], { stdio: 'inherit', shell: false });
-  if (result.status !== 0) process.exit(result.status ?? 1);
+import { build } from "esbuild";
+for (const name of ["main", "preload"]) {
+  await build({
+    entryPoints: ["desktop/src/" + name + ".ts"],
+    outfile: "desktop/dist/" + name + ".cjs",
+    bundle: true,
+    platform: "node",
+    format: "cjs",
+    target: "node24",
+    external: ["electron"],
+    logLevel: "info",
+  });
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import {
   getOnboardingSnapshot,
   getOnboardingServerSnapshot,
@@ -14,12 +14,4 @@ export function useOnboardingState(): OnboardingState {
     getOnboardingSnapshot,
     getOnboardingServerSnapshot,
   );
-}
-
-export function useOnboardingActions() {
-  const bump = useCallback(() => {
-    subscribeOnboarding(() => {})();
-  }, []);
-
-  return { bump };
 }

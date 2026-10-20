@@ -1,0 +1,10 @@
+node_modules
+.next
+outputs
+release
+desktop-build
+desktop/dist
+convex/_generated
+lib/generated
+public
+package-lock.json

@@ -158,34 +158,6 @@ function normalizeNumber(value: string): number {
   return Number(value.replace(",", "."));
 }
 
-function findFirst(text: string, patterns: RegExp[]): number | undefined {
-  for (const pattern of patterns) {
-    const match = text.match(pattern);
-    if (match?.[1]) return normalizeNumber(match[1]);
-  }
-  return undefined;
-}
-
-function maxMeterValueNear(text: string, label: RegExp): number | undefined {
-  const labelMatch = text.match(label);
-  if (!labelMatch?.index) return undefined;
-  const slice = text.slice(labelMatch.index, labelMatch.index + 260);
-  const meters = Array.from(
-    slice.matchAll(/(\d+(?:[.,]\d+)?)\s*(?:m|meters?|metres?)/gi),
-  ).map((match) => normalizeNumber(match[1]));
-  return meters.length ? Math.max(...meters) : undefined;
-}
-
-function secondsNear(text: string, label: RegExp): number | undefined {
-  const labelMatch = text.match(label);
-  if (!labelMatch?.index) return undefined;
-  const slice = text.slice(labelMatch.index, labelMatch.index + 180);
-  const seconds = Array.from(
-    slice.matchAll(/(\d+(?:[.,]\d+)?)\s*(?:s|sec|seconds?)/gi),
-  ).map((match) => normalizeNumber(match[1]));
-  return seconds[0];
-}
-
 function cleanCell(value: string): string {
   return value
     .replace(/<[^>]+>/g, " ")
@@ -291,11 +263,15 @@ async function main() {
     }
   }
 
+  if (results.length !== SEEDS.length)
+    throw new Error(
+      "Incomplete wiki update; the existing snapshot was preserved.",
+    );
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(OUT_JSON, JSON.stringify(results, null, 2) + "\n", "utf8");
   await writeFile(
     OUT_TS,
-    `import type { AbilityStats } from "@/lib/data/ability-stats";\n\nexport interface WikiAbilityDatum {\n  agent: string;\n  ability: string;\n  page: string;\n  url: string;\n  extractedAt: string;\n  durationSec?: number;\n  radiusM?: number;\n  rangeM?: number;\n  widthM?: number;\n  rawMatches: string[];\n  confidence: "low" | "medium" | "high";\n}\n\nexport const VALORANT_WIKI_ABILITIES: readonly WikiAbilityDatum[] = ${JSON.stringify(results, null, 2)};\n\nexport const VALORANT_WIKI_ABILITY_STATS = VALORANT_WIKI_ABILITIES.map((item): AbilityStats => ({\n  key: item.ability.toLowerCase(),\n  shape: item.radiusM != null ? "circle" : item.rangeM != null ? "wall" : "point",\n  radiusM: item.radiusM,\n  lengthM: item.rangeM,\n  durationSec: item.durationSec,\n  label: item.ability,\n}));\n`,
+    `import data from "./valorant-wiki-abilities.json";\nimport type { AbilityStats } from "@/lib/data/ability-stats";\n\ninterface WikiAbilityDatum {\n  agent: string;\n  ability: string;\n  page: string;\n  url: string;\n  extractedAt: string;\n  durationSec?: number;\n  radiusM?: number;\n  rangeM?: number;\n  widthM?: number;\n  rawMatches: string[];\n  confidence: "low" | "medium" | "high";\n}\n\nconst VALORANT_WIKI_ABILITIES: readonly WikiAbilityDatum[] = data as readonly WikiAbilityDatum[];\n\nexport const VALORANT_WIKI_ABILITY_STATS = VALORANT_WIKI_ABILITIES.map((item): AbilityStats => ({\n  key: item.ability.toLowerCase(),\n  shape: item.radiusM != null ? "circle" : item.rangeM != null ? "wall" : "point",\n  radiusM: item.radiusM,\n  lengthM: item.rangeM,\n  durationSec: item.durationSec,\n  label: item.ability,\n}));\n`,
     "utf8",
   );
   console.log(`[wiki-sync] wrote ${results.length} abilities`);

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Volume2 } from "lucide-react";
 import { audio as sfx } from "@/lib/audio";
+import { useAppPreferences } from "@/components/settings/PreferencesProvider";
 
 interface VoiceLineButtonProps {
   voiceUrl: string | null;
@@ -12,16 +13,16 @@ interface VoiceLineButtonProps {
 
 export default function VoiceLineButton({
   voiceUrl,
-  agentId: _agentId,
   accentColor,
 }: VoiceLineButtonProps) {
+  const { settings } = useAppPreferences();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const a = new Audio();
     a.preload = "auto";
-    a.volume = sfx.getVoiceVolume() ?? 0.1;
+    a.volume = 0.1;
     audioRef.current = a;
 
     const onEnded = () => setIsPlaying(false);
@@ -43,6 +44,9 @@ export default function VoiceLineButton({
       a.load();
     };
   }, []);
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = settings.voiceVolume;
+  }, [settings.voiceVolume]);
 
   const handleClick = useCallback(() => {
     const a = audioRef.current;
@@ -57,9 +61,9 @@ export default function VoiceLineButton({
       a.load();
     }
     a.currentTime = 0;
-    a.volume = sfx.getVoiceVolume() ?? 0.1;
+    a.volume = settings.voiceVolume;
     a.play().catch(() => {});
-  }, [voiceUrl, isPlaying]);
+  }, [voiceUrl, isPlaying, settings.voiceVolume]);
 
   if (!voiceUrl) return null;
 

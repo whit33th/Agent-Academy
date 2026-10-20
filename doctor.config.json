@@ -1,5 +1,0 @@
-{
-  "ignore": {
-    "files": ["outputs/**", "release/**", "desktop-build/**", "desktop/dist/**"]
-  }
-}

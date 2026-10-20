@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/CatalogImage";
 import TacticalBoardButton from "@/components/hud/TacticalBoardButton";
 import type { GameMap } from "@/lib/types";
 

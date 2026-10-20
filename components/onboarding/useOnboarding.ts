@@ -1,35 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useMobileOnboardingSkip } from "@/lib/onboarding/use-mobile";
-import {
-  getEffectiveOnboardingStep,
-  isLineupPath,
-  shouldShowOnboarding,
-} from "@/lib/onboarding/state";
+import { isLineupPath, shouldShowOnboarding } from "@/lib/onboarding/state";
 import { useOnboardingState } from "./useOnboardingState";
-
-export function useOnboarding() {
-  return useOnboardingState();
-}
-
-/** Desktop home tour: force Live Sync visible for step 1 spotlight. */
-export function useOnboardingStep1Active(): boolean {
-  const pathname = usePathname();
-  const state = useOnboarding();
-  const mobile = useMobileOnboardingSkip();
-  if (mobile) return false;
-  return (
-    pathname === "/" &&
-    shouldShowOnboarding(pathname) &&
-    getEffectiveOnboardingStep(state.step, mobile) === 1
-  );
-}
 
 /** Lineup page: reveal shortcuts control during step 3. */
 export function useOnboardingStep3Active(): boolean {
   const pathname = usePathname();
-  const state = useOnboarding();
+  const state = useOnboardingState();
   return (
     isLineupPath(pathname) &&
     shouldShowOnboarding(pathname) &&

@@ -1,10 +1,10 @@
 import { isMobileOnboardingSkip } from "./is-mobile";
 
-export const ONBOARDING_STORAGE_KEY = "vp_onboarding_v1";
-export const ONBOARDING_VERSION = 1 as const;
+const ONBOARDING_STORAGE_KEY = "vp_onboarding_v1";
+const ONBOARDING_VERSION = 1 as const;
 
 export type OnboardingStep = 1 | 2 | 3 | "done";
-export type LineupSubStep = 0 | 1 | 2;
+type LineupSubStep = 0 | 1 | 2;
 
 export interface OnboardingState {
   version: typeof ONBOARDING_VERSION;
@@ -16,7 +16,7 @@ export interface OnboardingState {
 }
 
 /** Stable SSR snapshot — must keep referential equality across server renders. */
-export const ONBOARDING_SERVER_SNAPSHOT: OnboardingState = Object.freeze({
+const ONBOARDING_SERVER_SNAPSHOT: OnboardingState = Object.freeze({
   version: ONBOARDING_VERSION,
   step: 1,
   lineupSubStep: 0,
@@ -89,7 +89,7 @@ function notify(next: OnboardingState): void {
   );
 }
 
-export function getOnboardingState(): OnboardingState {
+function getOnboardingState(): OnboardingState {
   if (typeof window === "undefined") {
     return ONBOARDING_SERVER_SNAPSHOT;
   }
@@ -134,7 +134,7 @@ export function skipStep1ForMobileIfNeeded(): OnboardingState {
   return setOnboardingStep(2);
 }
 
-export function setOnboardingState(
+function setOnboardingState(
   partial: Partial<OnboardingState>,
 ): OnboardingState {
   const next = {

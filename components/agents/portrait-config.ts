@@ -9,14 +9,14 @@ export interface PortraitConfig {
   objectPosition: string;
 }
 
-export const defaultPortrait: PortraitConfig = {
+const defaultPortrait: PortraitConfig = {
   scale: 1.25,
   x: 0,
   y: 24,
   objectPosition: "center 8%",
 };
 
-export const portraitByAgent: Record<string, PortraitConfig> = {
+const portraitByAgent: Record<string, PortraitConfig> = {
   jett: { scale: 1.75, x: -26, y: 60, objectPosition: "center 2%" },
   phoenix: { scale: 1.75, x: -1, y: 70, objectPosition: "center 2%" },
   sage: { scale: 1.75, x: 28, y: 67, objectPosition: "center 2%" },

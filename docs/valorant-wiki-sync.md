@@ -1,6 +1,6 @@
 # VALORANT Wiki Ability Sync
 
-`bun run sync:wiki-abilities` fetches selected ability pages from Valorant Wiki through Fandom's MediaWiki API and generates:
+`npm run sync:wiki-abilities` fetches selected ability pages from Valorant Wiki through Fandom's MediaWiki API and generates:
 
 - `lib/generated/valorant-wiki-abilities.json`
 - `lib/generated/valorant-wiki-abilities.ts`
@@ -28,8 +28,8 @@ Examples:
 Run:
 
 ```bash
-bun run sync:wiki-abilities
-bun run build
+npm run sync:wiki-abilities
+npm run build
 ```
 
 The generated JSON includes `rawMatches` so suspicious values can be inspected without opening the Wiki manually.

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/knip/schema.json",
+  "entry": [
+    "desktop/src/{main,preload}.ts",
+    "desktop/builder.config.cjs",
+    "convex/**/*.ts",
+    "scripts/*.{mjs,ts}",
+    "tests/**/*.test.ts"
+  ],
+  "project": [
+    "app/**/*.{ts,tsx,css}",
+    "components/**/*.{ts,tsx}",
+    "lib/**/*.{ts,tsx}",
+    "desktop/src/**/*.ts",
+    "convex/**/*.ts",
+    "scripts/*.{mjs,ts}",
+    "tests/**/*.ts"
+  ]
+}

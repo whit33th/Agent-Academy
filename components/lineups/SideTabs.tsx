@@ -2,17 +2,20 @@
 
 import { audio as sfx } from "@/lib/audio";
 
-export type SideKey = "all" | "atk" | "def";
+import {
+  LINEUP_SIDES,
+  SIDE_LABELS,
+  type SideFilter,
+} from "@/lib/lineups/metadata";
 
-const LABEL: Record<SideKey, string> = {
+const LABEL: Record<SideFilter, string> = {
   all: "All",
-  atk: "Attack",
-  def: "Defense",
+  ...SIDE_LABELS,
 };
 
 interface SideTabsProps {
-  value: SideKey;
-  onChange: (next: SideKey) => void;
+  value: SideFilter;
+  onChange: (next: SideFilter) => void;
 }
 
 export default function SideTabs({ value, onChange }: SideTabsProps) {
@@ -21,9 +24,9 @@ export default function SideTabs({ value, onChange }: SideTabsProps) {
       data-onboarding="side-tabs"
       role="tablist"
       aria-label="Side filter"
-      className="flex items-center gap-2"
+      className="flex flex-wrap items-center gap-2"
     >
-      {(Object.keys(LABEL) as SideKey[]).map((side) => (
+      {(["all", ...LINEUP_SIDES] as const).map((side) => (
         <button
           key={side}
           type="button"

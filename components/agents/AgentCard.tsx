@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/CatalogImage";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Agent } from "@/lib/types";
@@ -30,6 +30,7 @@ export default function AgentCard({
 
   return (
     <Link
+      prefetch={true}
       href={`/${mapSlug}/${slug}`}
       onPointerDown={press.onPointerDown}
       onPointerMove={press.onPointerMove}
@@ -107,7 +108,13 @@ export default function AgentCard({
           <div className="mt-1 flex items-center justify-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white/70 transition-colors">
             {agent.roleIcon && (
               <div className="relative size-2.5 opacity-60 group-hover:opacity-100 transition-opacity duration-200">
-                <Image src={agent.roleIcon} alt="" fill sizes="32px" quality={90} />
+                <Image
+                  src={agent.roleIcon}
+                  alt=""
+                  fill
+                  sizes="32px"
+                  quality={90}
+                />
               </div>
             )}
             <span>{agent.roleName}</span>

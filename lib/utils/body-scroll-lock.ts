@@ -1,15 +1,19 @@
 "use client";
 
 import { useEffect } from "react";
+let locks = 0;
+let originalOverflow = "";
 
 /** Locks `document.body` scroll while `locked` is true. */
 export function useBodyScrollLock(locked: boolean) {
   useEffect(() => {
     if (!locked) return;
-    const original = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    if (locks++ === 0) {
+      originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+    }
     return () => {
-      document.body.style.overflow = original;
+      if (--locks === 0) document.body.style.overflow = originalOverflow;
     };
   }, [locked]);
 }

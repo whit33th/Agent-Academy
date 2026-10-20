@@ -46,14 +46,14 @@ Electron также предоставляет `desktopCapturer.getSources({type
 
 При чтении существующего файла обнаружены следующие записи в сохранённом логе с датой последнего изменения 18 октября, около 24 МБ:
 
-| Переход | Найдено |
-| --- | ---: |
-| MainMenu → TransitionToPregame | 8 |
-| TransitionToPregame → Pregame | 8 |
-| Pregame → TransitionToInGame | 6 |
-| TransitionToInGame → InGame | 10 |
-| InGame → TransitionToMainMenu | 7 |
-| Pregame → TransitionToMainMenu | 2 |
+| Переход                        | Найдено |
+| ------------------------------ | ------: |
+| MainMenu → TransitionToPregame |       8 |
+| TransitionToPregame → Pregame  |       8 |
+| Pregame → TransitionToInGame   |       6 |
+| TransitionToInGame → InGame    |      10 |
+| InGame → TransitionToMainMenu  |       7 |
+| Pregame → TransitionToMainMenu |       2 |
 
 Источник: существующий локальный `ShooterGame.log`, прочитанный в текущем исследовании. Сам файл и сетевые идентификаторы не добавлялись в репозиторий. Также встречаются replay-переходы: нельзя объединять их с собственным активным матчем.
 

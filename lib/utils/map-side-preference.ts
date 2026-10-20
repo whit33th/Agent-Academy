@@ -1,4 +1,4 @@
-import type { SideKey } from "@/components/lineups/SideTabs";
+import { isSideFilter, type SideFilter } from "@/lib/lineups/metadata";
 
 const listeners = new Set<() => void>();
 
@@ -11,14 +11,14 @@ export function subscribeMapSide(onStoreChange: () => void) {
   return () => listeners.delete(onStoreChange);
 }
 
-export function getStoredMapSide(mapId: string): SideKey | null {
+export function getStoredMapSide(mapId: string): SideFilter | null {
   if (typeof window === "undefined") return null;
   const v = sessionStorage.getItem(storageKey(mapId));
-  if (v === "all" || v === "atk" || v === "def") return v;
+  if (isSideFilter(v)) return v;
   return null;
 }
 
-export function setStoredMapSide(mapId: string, side: SideKey): void {
+export function setStoredMapSide(mapId: string, side: SideFilter): void {
   if (typeof window === "undefined") return;
   sessionStorage.setItem(storageKey(mapId), side);
   for (const listener of listeners) listener();

@@ -57,7 +57,11 @@ export function useLongPress<T = void>(
         timeoutRef.current = setTimeout(() => {
           firedRef.current = true;
           onLongPress(payload);
-          if (vibrateMs > 0 && typeof navigator !== "undefined" && navigator.vibrate) {
+          if (
+            vibrateMs > 0 &&
+            typeof navigator !== "undefined" &&
+            navigator.vibrate
+          ) {
             navigator.vibrate(vibrateMs);
           }
         }, threshold);

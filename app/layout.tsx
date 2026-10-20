@@ -2,14 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
-import LenisProvider from "@/components/LenisProvider";
-import GlobalAmbientInit from "@/components/GlobalAmbientInit";
-import InstallPrompt from "@/components/pwa/InstallPrompt";
+import SmoothScrollController from "@/components/SmoothScrollController";
+import AmbientAudioController from "@/components/AmbientAudioController";
 import OnboardingRoot from "@/components/onboarding/OnboardingRoot";
 import { buildRootMetadata } from "@/lib/metadata";
-import AppProviders from "@/components/auth/AppProviders";
+import DesktopAppProviders from "@/components/auth/DesktopAppProviders";
 import DesktopTitleBar from "@/components/layout/DesktopTitleBar";
-import TitleBarAccount from "@/components/layout/TitleBarAccount";
 import AppBackground from "@/components/background/AppBackground";
 
 const inter = Inter({
@@ -38,24 +36,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${oswald.variable} h-full antialiased`}
+      className={`${inter.variable} ${oswald.variable} desktop-runtime h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full bg-val-bg text-val-cream">
-        <AppBackground />
-        <div className="relative z-10">
-          <DesktopTitleBar />
-          <AppProviders>
-            <TitleBarAccount />
-            <LenisProvider />
-            <GlobalAmbientInit />
+        <DesktopAppProviders>
+          <AppBackground />
+          <div className="relative z-10">
+            <DesktopTitleBar />
+            <SmoothScrollController />
+            <AmbientAudioController />
             <Suspense fallback={null}>{children}</Suspense>
-            <InstallPrompt />
             <Suspense fallback={null}>
               <OnboardingRoot />
             </Suspense>
-          </AppProviders>
-        </div>
+          </div>
+        </DesktopAppProviders>
       </body>
     </html>
   );

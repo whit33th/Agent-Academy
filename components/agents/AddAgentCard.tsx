@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/CatalogImage";
 import { Plus } from "lucide-react";
 import { audio } from "@/lib/audio";
 
@@ -23,7 +23,7 @@ export default function AddAgentCard({ onClick }: AddAgentCardProps) {
       <div className="absolute inset-x-0 bottom-0 top-5 overflow-hidden clip-angular border border-white/5 bg-gradient-to-b from-zinc-800/40 to-zinc-950/80 transition-[border-color,box-shadow] duration-200 group-hover:border-val-red/80 group-hover:shadow-[0_12px_30px_rgba(255,70,85,0.15)]">
         <div className="absolute inset-0 opacity-25 group-hover:opacity-40 transition-opacity duration-200">
           <Image
-            src="/new_agent_card.png"
+            src="/agent-restore-card.png"
             alt=""
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"

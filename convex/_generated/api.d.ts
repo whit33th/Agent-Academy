@@ -10,7 +10,8 @@
 
 import type * as http from "../http.js";
 import type * as lib_auth from "../lib/auth.js";
-import type * as lib_types from "../lib/types.js";
+import type * as lib_lineupMetadata from "../lib/lineupMetadata.js";
+import type * as lib_preferences from "../lib/preferences.js";
 import type * as lib_validators from "../lib/validators.js";
 import type * as lineups from "../lineups.js";
 import type * as mapRoster from "../mapRoster.js";
@@ -29,7 +30,8 @@ import type {
 declare const fullApi: ApiFromModules<{
   http: typeof http;
   "lib/auth": typeof lib_auth;
-  "lib/types": typeof lib_types;
+  "lib/lineupMetadata": typeof lib_lineupMetadata;
+  "lib/preferences": typeof lib_preferences;
   "lib/validators": typeof lib_validators;
   lineups: typeof lineups;
   mapRoster: typeof mapRoster;

@@ -1,4 +1,4 @@
-import type { QueryCtx, MutationCtx } from "./types";
+import type { QueryCtx, MutationCtx } from "../_generated/server";
 
 export type AuthTokenIdentifier = string;
 
@@ -20,4 +20,3 @@ export async function requireViewerTokenIdentifier(
   }
   return tokenIdentifier;
 }
-

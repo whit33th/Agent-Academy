@@ -40,7 +40,7 @@ export interface AbilityStats {
  * threads. They are intentionally conservative вЂ” meant to communicate
  * *relative* size accurately on the strat board, not pixel-perfect realism.
  */
-export const ABILITY_STATS: AbilityStats[] = [
+const ABILITY_STATS: AbilityStats[] = [
   // в”Ђв”Ђ SMOKES в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   {
     key: "sky smoke",
@@ -466,7 +466,7 @@ export const ABILITY_STATS: AbilityStats[] = [
   },
 ];
 
-export interface AbilityShapeOverride {
+interface AbilityShapeOverride {
   key: string;
   shape: AbilityShape;
   /** Optional override for cone angle in degrees — Wiki rarely encodes this directly. */
@@ -481,7 +481,7 @@ export interface AbilityShapeOverride {
  * metrics — radius, length, cone range, duration — come from the generated
  * wiki dataset, and `ABILITY_STATS` is used only as a last-resort fallback.
  */
-export const ABILITY_SHAPE_OVERRIDES: AbilityShapeOverride[] = [
+const ABILITY_SHAPE_OVERRIDES: AbilityShapeOverride[] = [
   // Smokes
   { key: "sky smoke", shape: "circle" },
   { key: "dark cover", shape: "circle" },
@@ -547,7 +547,7 @@ export const ABILITY_SHAPE_OVERRIDES: AbilityShapeOverride[] = [
  * Riot's official scale data. Valorant playable areas typically fit into
  * an 80–90 m square on the minimap, so 85 m is a safe neutral default.
  */
-export const DEFAULT_METERS_PER_MAP = 85;
+const DEFAULT_METERS_PER_MAP = 85;
 
 /**
  * Convert in-game meters to a 0–1 fraction of the map radar width.

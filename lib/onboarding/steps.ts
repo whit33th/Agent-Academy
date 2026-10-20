@@ -9,7 +9,7 @@ export const STEP1: OnboardingStepContent = {
   target: "live-sync",
   placement: "bottom",
   title: "Live Sync with VALORANT",
-  body: "The desktop app detects VALORANT automatically and opens confirmed maps and agents. In the browser, choose them manually.",
+  body: "Agent Academy detects VALORANT and opens confirmed maps and agents. You can also choose a map and agent manually.",
 };
 
 export const STEP2_SUBSTEPS: OnboardingStepContent[] = [
@@ -17,13 +17,13 @@ export const STEP2_SUBSTEPS: OnboardingStepContent[] = [
     target: "side-tabs",
     placement: "bottom",
     title: "Attack vs Defense",
-    body: "Name setups with atk or def in the title — use these tabs to filter the side you need between rounds.",
+    body: "Choose a side when saving a setup, then use these tabs to filter Attack, Defense or Both sides.",
   },
   {
     target: "ability-filter",
     placement: "left",
     title: "Filter by ability",
-    body: "Tap an ability icon — matching setups glow on the grid, everything else fades back.",
+    body: "Choose an ability icon to show setups saved for that ability. Use All to clear the ability filter.",
   },
   {
     target: "lineup-card",
@@ -37,5 +37,5 @@ export const STEP3: OnboardingStepContent = {
   target: "lineup-hotkeys",
   placement: "bottom",
   title: "Between rounds",
-  body: "Add Agent Academy to your home screen for a second-monitor view. Press ? anytime for keyboard shortcuts.",
+  body: "Keep Agent Academy on your second monitor between rounds. Press ? anytime for keyboard shortcuts.",
 };

@@ -17,12 +17,8 @@ function readIds(): string[] {
   }
 }
 
-export function getFavoriteSetupIds(): Set<string> {
+function getFavoriteSetupIds(): Set<string> {
   return new Set(readIds());
-}
-
-export function isFavoriteSetup(id: string): boolean {
-  return getFavoriteSetupIds().has(id);
 }
 
 export function subscribeFavoriteSetups(onStoreChange: () => void) {

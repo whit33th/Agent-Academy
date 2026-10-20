@@ -36,12 +36,18 @@ function selectTour(input: {
   mobileSkip: boolean;
   ready: boolean;
 }) {
-  const effectiveStep = getEffectiveOnboardingStep(input.state.step, input.mobileSkip);
+  const effectiveStep = getEffectiveOnboardingStep(
+    input.state.step,
+    input.mobileSkip,
+  );
   const lineupSub = input.state.lineupSubStep ?? 0;
   const onLineupPage = isLineupPath(input.pathname);
   const onHome = input.pathname === "/";
   const step2Content = STEP2_SUBSTEPS[lineupSub];
-  const visible = input.ready && shouldShowOnboarding(input.pathname) && effectiveStep !== "done";
+  const visible =
+    input.ready &&
+    shouldShowOnboarding(input.pathname) &&
+    effectiveStep !== "done";
   return {
     visible,
     mobileSkip: input.mobileSkip,
@@ -51,16 +57,21 @@ function selectTour(input: {
       visible &&
       onHome &&
       (effectiveStep === 2 ||
-        (effectiveStep === 3 && !input.state.step3Immediate && !input.state.step3Eligible)),
+        (effectiveStep === 3 &&
+          !input.state.step3Immediate &&
+          !input.state.step3Eligible)),
     homeBannerStep: effectiveStep === 3 ? 3 : 2,
     step1Active: visible && effectiveStep === 1 && !input.mobileSkip && onHome,
-    step2Active: visible && effectiveStep === 2 && onLineupPage && Boolean(step2Content),
+    step2Active:
+      visible && effectiveStep === 2 && onLineupPage && Boolean(step2Content),
     step3Active:
       visible &&
       effectiveStep === 3 &&
       onLineupPage &&
-      (input.state.step3Immediate === true || input.state.step3Eligible === true),
-    step3Target: input.state.step3Immediate === true ? null : (STEP3.target ?? null),
+      (input.state.step3Immediate === true ||
+        input.state.step3Eligible === true),
+    step3Target:
+      input.state.step3Immediate === true ? null : (STEP3.target ?? null),
   } as const;
 }
 
@@ -71,13 +82,15 @@ export default function OnboardingRoot() {
   const ready = useHydrated();
 
   useEffect(() => {
-    document.body.style.overflow = "";
     if (mobileSkip) skipStep1ForMobileIfNeeded();
   }, [mobileSkip]);
 
   const tour = selectTour({ pathname, state, mobileSkip, ready });
   const step1Rect = useSpotlightRect("live-sync", tour.step1Active);
-  const step2Rect = useSpotlightRect(tour.step2Content?.target ?? null, tour.step2Active);
+  const step2Rect = useSpotlightRect(
+    tour.step2Content?.target ?? null,
+    tour.step2Active,
+  );
   const step3Rect = useSpotlightRect(tour.step3Target, tour.step3Active);
 
   if (!tour.visible) return null;
@@ -134,7 +147,11 @@ function OnboardingSurfaces({
           activeDot={tour.lineupSub}
           onNext={advanceLineupSubStep}
           nextLabel={tour.lineupSub === 2 ? "Continue" : "Next"}
-          onBack={tour.lineupSub > 0 || !tour.mobileSkip ? retreatLineupSubStep : undefined}
+          onBack={
+            tour.lineupSub > 0 || !tour.mobileSkip
+              ? retreatLineupSubStep
+              : undefined
+          }
           onSkip={skipOnboarding}
           showBack={tour.lineupSub > 0 || !tour.mobileSkip}
         />

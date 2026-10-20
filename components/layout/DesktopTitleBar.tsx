@@ -1,9 +1,11 @@
 "use client";
 
 import { Suspense, useSyncExternalStore } from "react";
-import AudioSettingsHUD from "@/components/AudioSettingsHUD";
+import SettingsButton from "@/components/settings/SettingsButton";
 import LiveSyncStatus from "@/components/hud/LiveSyncStatus";
 import BackLink from "@/components/layout/BackLink";
+import AccountButton from "@/components/auth/AccountButton";
+import AppNavigation from "./AppNavigation";
 
 let maximized = false;
 let stopWindowState: (() => void) | undefined;
@@ -23,11 +25,14 @@ function subscribeMaximized(listener: () => void) {
       emitWindow();
     });
     queueMicrotask(() => {
-      void controls.isMaximized().then((value) => {
-        if (maximized === value) return;
-        maximized = value;
-        emitWindow();
-      }).catch(() => {});
+      void controls
+        .isMaximized()
+        .then((value) => {
+          if (maximized === value) return;
+          maximized = value;
+          emitWindow();
+        })
+        .catch(() => {});
     });
   }
   return () => {
@@ -40,7 +45,11 @@ function subscribeMaximized(listener: () => void) {
 }
 
 function useMaximized() {
-  return useSyncExternalStore(subscribeMaximized, () => maximized, () => false);
+  return useSyncExternalStore(
+    subscribeMaximized,
+    () => maximized,
+    () => false,
+  );
 }
 
 function run(action: "minimize" | "toggleMaximize" | "close") {
@@ -49,7 +58,8 @@ function run(action: "minimize" | "toggleMaximize" | "close") {
   void controls[action]();
 }
 
-const controlClass = "flex w-[46px] items-center justify-center text-val-cream/55 transition-colors hover:bg-white/8 hover:text-val-cream focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-val-red";
+const controlClass =
+  "flex w-[46px] items-center justify-center text-val-cream/55 transition-colors hover:bg-white/8 hover:text-val-cream focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-val-red";
 
 export default function DesktopTitleBar() {
   const isMaximized = useMaximized();
@@ -60,24 +70,62 @@ export default function DesktopTitleBar() {
         <Suspense fallback={null}>
           <BackLink chrome />
         </Suspense>
+        <Suspense fallback={null}>
+          <AppNavigation />
+        </Suspense>
       </div>
-      <div className="min-w-6 flex-1" onDoubleClick={() => run("toggleMaximize")} />
+      <div
+        className="min-w-6 flex-1"
+        onDoubleClick={() => run("toggleMaximize")}
+      />
       <div className="desktop-titlebar-controls flex h-full min-w-0 shrink-0 items-stretch">
-        <div id="titlebar-account" className="flex h-full items-stretch" />
-        <AudioSettingsHUD chrome />
+        <AccountButton chrome />
+        <SettingsButton />
         <Suspense fallback={null}>
           <LiveSyncStatus chrome />
         </Suspense>
-        <div className="mx-3 my-auto h-4 w-px shrink-0 bg-white/10" aria-hidden />
-        <div className="flex h-full shrink-0" role="group" aria-label="Window controls">
-          <button type="button" className={controlClass} aria-label="Minimize" onClick={() => run("minimize")}>
-            <WindowGlyph><path d="M2 6.5h8" /></WindowGlyph>
+        <div
+          className="mx-3 my-auto h-4 w-px shrink-0 bg-white/10"
+          aria-hidden
+        />
+        <div
+          className="flex h-full shrink-0"
+          role="group"
+          aria-label="Window controls"
+        >
+          <button
+            type="button"
+            className={controlClass}
+            aria-label="Minimize"
+            onClick={() => run("minimize")}
+          >
+            <WindowGlyph>
+              <path d="M2 6.5h8" />
+            </WindowGlyph>
           </button>
-          <button type="button" className={controlClass} aria-label={isMaximized ? "Restore" : "Maximize"} onClick={() => run("toggleMaximize")}>
-            {isMaximized ? <RestoreGlyph /> : <WindowGlyph><rect x="2.25" y="2.25" width="7.5" height="7.5" /></WindowGlyph>}
+          <button
+            type="button"
+            className={controlClass}
+            aria-label={isMaximized ? "Restore" : "Maximize"}
+            onClick={() => run("toggleMaximize")}
+          >
+            {isMaximized ? (
+              <RestoreGlyph />
+            ) : (
+              <WindowGlyph>
+                <rect x="2.25" y="2.25" width="7.5" height="7.5" />
+              </WindowGlyph>
+            )}
           </button>
-          <button type="button" className="flex w-[46px] items-center justify-center text-val-cream/70 transition-colors hover:bg-val-red hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-white" aria-label="Close" onClick={() => run("close")}>
-            <WindowGlyph><path d="M3 3l6 6M9 3 3 9" /></WindowGlyph>
+          <button
+            type="button"
+            className="flex w-[46px] items-center justify-center text-val-cream/70 transition-colors hover:bg-val-red hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-white"
+            aria-label="Close"
+            onClick={() => run("close")}
+          >
+            <WindowGlyph>
+              <path d="M3 3l6 6M9 3 3 9" />
+            </WindowGlyph>
           </button>
         </div>
       </div>
@@ -87,7 +135,15 @@ export default function DesktopTitleBar() {
 
 function WindowGlyph({ children }: { children: React.ReactNode }) {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.1">
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      aria-hidden
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.1"
+    >
       {children}
     </svg>
   );
@@ -95,7 +151,15 @@ function WindowGlyph({ children }: { children: React.ReactNode }) {
 
 function RestoreGlyph() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.1">
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      aria-hidden
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.1"
+    >
       <path d="M4 2.4h5.6V8" />
       <rect x="2.2" y="4.2" width="5.6" height="5.6" />
     </svg>

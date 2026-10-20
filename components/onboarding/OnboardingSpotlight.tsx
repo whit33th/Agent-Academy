@@ -68,16 +68,17 @@ export default function OnboardingSpotlight({
   const [viewportWidth, viewportHeight] = viewport
     ? viewport.split("x").map(Number)
     : [0, 0];
-  const tooltipStyle: React.CSSProperties = rect && viewport
-    ? {
-        top: Math.min(rect.top + rect.height + 16, viewportHeight - 240),
-        left: Math.max(16, Math.min(rect.left, viewportWidth - 360)),
-      }
-    : {
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      };
+  const tooltipStyle: React.CSSProperties =
+    rect && viewport
+      ? {
+          top: Math.min(rect.top + rect.height + 16, viewportHeight - 240),
+          left: Math.max(16, Math.min(rect.left, viewportWidth - 360)),
+        }
+      : {
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        };
 
   return (
     <AnimatePresence>
@@ -123,7 +124,9 @@ export default function OnboardingSpotlight({
             <h2 className="font-oswald text-lg font-bold uppercase text-white mb-2">
               {title}
             </h2>
-            <div className="text-sm leading-relaxed text-white/55 mb-4">{body}</div>
+            <div className="text-sm leading-relaxed text-white/55 mb-4">
+              {body}
+            </div>
 
             <div className="mb-4 flex gap-1.5">
               {Array.from({ length: totalDots }).map((_, i) => (

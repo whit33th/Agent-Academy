@@ -12,7 +12,7 @@
   --color-val-surface: #111111;
   --color-val-elevated: #1a1a1a;
   --color-val-border: #222222;
-  --color-val-red: #FF4655;
+  --color-val-red: #ff4655;
   --color-val-teal: #17e8b4;
   --color-val-cream: #ece8e1;
   --color-val-gold: #f5a623;
@@ -49,14 +49,24 @@ html.desktop-runtime {
   --desktop-titlebar-height: 52px;
   scrollbar-width: none;
 }
-html.desktop-runtime::-webkit-scrollbar { display: none; }
-html.desktop-runtime body { padding-top: var(--desktop-titlebar-height); }
-html.desktop-runtime main { padding-top: 0.25rem; }
+html.desktop-runtime::-webkit-scrollbar {
+  display: none;
+}
+html.desktop-runtime body {
+  padding-top: var(--desktop-titlebar-height);
+}
+html.desktop-runtime main {
+  padding-top: 0.25rem;
+}
 @media (min-width: 768px) {
-  html.desktop-runtime main { padding-top: 0.75rem; }
+  html.desktop-runtime main {
+    padding-top: 0.75rem;
+  }
 }
 @media (min-width: 1024px) {
-  html.desktop-runtime main { padding-top: 1.25rem; }
+  html.desktop-runtime main {
+    padding-top: 1.25rem;
+  }
 }
 html.desktop-runtime .min-h-screen {
   min-height: calc(100vh - var(--desktop-titlebar-height));
@@ -78,17 +88,25 @@ html.desktop-runtime .min-h-screen {
   app-region: drag;
   user-select: none;
 }
-html.desktop-runtime .desktop-titlebar { display: flex; }
-.desktop-titlebar { container-type: inline-size; }
+html.desktop-runtime .desktop-titlebar {
+  display: flex;
+}
+.desktop-titlebar {
+  container-type: inline-size;
+}
 .desktop-titlebar button,
 .desktop-titlebar-controls,
 .desktop-titlebar a {
   -webkit-app-region: no-drag;
   app-region: no-drag;
 }
-.desktop-titlebar button { cursor: pointer; }
+.desktop-titlebar button {
+  cursor: pointer;
+}
 @container (max-width: 900px) {
-  .titlebar-status { display: none; }
+  .titlebar-status {
+    display: none;
+  }
 }
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -121,17 +139,7 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
 }
 
 .clip-angular-sm-left {
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 100%,
-    8px 100%,
-    0 calc(100% - 8px)
-  );
-}
-
-.clip-angular-top {
-  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px));
 }
 
 .clip-diamond {
@@ -186,7 +194,9 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
   border: var(--stroke) solid var(--frame);
   border-bottom: 0;
   border-radius: 0;
-  transition: border-color 50ms linear, border-width 65ms ease-out;
+  transition:
+    border-color 50ms linear,
+    border-width 65ms ease-out;
 }
 
 .map-select-card:hover .map-select-frame {
@@ -221,8 +231,14 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
     width 360ms cubic-bezier(0.33, 0.7, 0.3, 1);
 }
 
-.map-select-bottom .l { left: 0; width: 24.5989%; }
-.map-select-bottom .r { right: 0; width: 24.5989%; }
+.map-select-bottom .l {
+  left: 0;
+  width: 24.5989%;
+}
+.map-select-bottom .r {
+  right: 0;
+  width: 24.5989%;
+}
 
 .map-select-bottom .m {
   left: 28.3422%;
@@ -239,14 +255,21 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
   height: var(--stroke-hot);
 }
 .map-select-card:hover .map-select-bottom .l,
-.map-select-card:hover .map-select-bottom .r { width: 25.74%; }
-.map-select-card:hover .map-select-bottom .m { left: 25.74%; width: 48.52%; }
+.map-select-card:hover .map-select-bottom .r {
+  width: 25.74%;
+}
+.map-select-card:hover .map-select-bottom .m {
+  left: 25.74%;
+  width: 48.52%;
+}
 
 .map-select-card img {
   transition: scale 65ms ease-out;
 }
 
-.map-select-card:hover img { scale: 1.07; }
+.map-select-card:hover img {
+  scale: 1.07;
+}
 
 .map-select-wash {
   position: absolute;
@@ -256,7 +279,9 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
   transition: opacity 65ms ease-out;
 }
 
-.map-select-card:hover .map-select-wash { opacity: 1; }
+.map-select-card:hover .map-select-wash {
+  opacity: 1;
+}
 
 .map-select-name {
   position: absolute;
@@ -267,7 +292,7 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
   padding: 0 0 10.6cqh 6.42cqw;
 }
 
-.map-select-name p {
+.map-select-name > :is(p, span) {
   font-family: var(--font-oswald), sans-serif;
   font-size: 8.94cqh;
   font-weight: 700;
@@ -276,64 +301,6 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
   text-transform: uppercase;
   color: #fff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
-}
-
-/* ── Agent card with overflow portrait ────────────── */
-
-.agent-card {
-  position: relative;
-  overflow: visible;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.3s ease;
-}
-
-.agent-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
-}
-
-.agent-card .agent-portrait {
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.agent-card:hover .agent-portrait {
-  transform: scale(1.08) translateY(-4px);
-}
-
-/* ── Selection states ────────────────────────────── */
-
-.val-selected {
-  box-shadow:
-    0 0 0 2px var(--color-val-red),
-    0 0 24px rgba(255, 70, 85, 0.25);
-}
-
-.val-selected::before {
-  border-color: var(--color-val-red) !important;
-}
-
-/* ── Diagonal slash decorator ──────────────────── */
-
-.slash-decorator::before {
-  content: "//";
-  margin-right: 0.5em;
-  color: var(--color-val-red);
-  font-weight: 700;
-}
-
-/* ── Glow effects ─────────────────────────────── */
-
-.glow-red {
-  box-shadow:
-    0 0 20px rgba(255, 70, 85, 0.3),
-    0 0 60px rgba(255, 70, 85, 0.1);
-}
-
-.glow-teal {
-  box-shadow:
-    0 0 20px rgba(23, 232, 180, 0.3),
-    0 0 60px rgba(23, 232, 180, 0.1);
 }
 
 /* ── Skeleton shimmer ──────────────────────────── */
@@ -356,37 +323,6 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
   );
   background-size: 200% 100%;
   animation: shimmer 1.8s ease-in-out infinite;
-}
-
-/* ── Subtle float (ease-out-expo, natural deceleration) ── */
-
-@keyframes subtle-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-.animate-subtle-float {
-  animation: subtle-float 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-/* ── Viability badges ──────────────────────────── */
-
-.badge-s {
-  background: var(--color-val-red);
-}
-.badge-a {
-  background: var(--color-val-gold);
-}
-.badge-b {
-  background: var(--color-role-sentinel);
-}
-.badge-c {
-  background: #555;
 }
 
 /* ── Reduced motion ────────────────────────────── */
@@ -422,8 +358,13 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
 /* ── Voice line waveform animation ─────────────── */
 
 @keyframes waveform-bar {
-  0%, 100% { transform: scaleY(0.3); }
-  50% { transform: scaleY(1); }
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }
 
 .voice-waveform {
@@ -445,9 +386,18 @@ html.desktop-runtime .desktop-titlebar { display: flex; }
   animation: waveform-bar 0.8s ease-in-out infinite;
 }
 
-.voice-waveform-bar:nth-child(1) { animation-delay: 0s; }
-.voice-waveform-bar:nth-child(2) { animation-delay: 0.15s; }
-.voice-waveform-bar:nth-child(3) { animation-delay: 0.3s; }
-.voice-waveform-bar:nth-child(4) { animation-delay: 0.1s; }
-.voice-waveform-bar:nth-child(5) { animation-delay: 0.25s; }
-
+.voice-waveform-bar:nth-child(1) {
+  animation-delay: 0s;
+}
+.voice-waveform-bar:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.voice-waveform-bar:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.voice-waveform-bar:nth-child(4) {
+  animation-delay: 0.1s;
+}
+.voice-waveform-bar:nth-child(5) {
+  animation-delay: 0.25s;
+}

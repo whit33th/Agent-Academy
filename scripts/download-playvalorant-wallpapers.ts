@@ -2,7 +2,7 @@
  * Downloads agent wallpapers from playvalorant.com media page,
  * extracts dark versions, and saves them to public/imgs/agents/.
  *
- * Usage: bun run scripts/download-playvalorant-wallpapers.ts
+ * Usage: npm run sync:wallpapers
  */
 import { mkdir, writeFile, readdir, readFile, rm } from "node:fs/promises";
 import path from "node:path";
@@ -101,10 +101,12 @@ async function main() {
   if (!match) throw new Error("__NEXT_DATA__ not found");
   const data = JSON.parse(match[1]);
   const items: MediaItem[] =
-    data.props?.pageProps?.page?.blades?.[2]?.items?.map((item: any) => ({
-      title: item.title || "",
-      url: item.action?.payload?.url || "",
-    })) || [];
+    data.props?.pageProps?.page?.blades?.[2]?.items?.map(
+      (item: { title?: string; action?: { payload?: { url?: string } } }) => ({
+        title: item.title || "",
+        url: item.action?.payload?.url || "",
+      }),
+    ) || [];
 
   await mkdir(OUT_DIR, { recursive: true });
   await mkdir(TEMP_DIR, { recursive: true });
@@ -163,7 +165,9 @@ async function main() {
     await rm(TEMP_DIR, { recursive: true, force: true });
   } catch {}
 
-  console.log(`\nDone — ${processed} agent dark wallpapers saved to ${OUT_DIR}`);
+  console.log(
+    `\nDone — ${processed} agent dark wallpapers saved to ${OUT_DIR}`,
+  );
   console.log("Agents:", [...savedAgents].sort().join(", "));
 }
 
