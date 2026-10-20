@@ -48,6 +48,10 @@ next-env.d.ts
 .vercel
 
 
-/Valorant 
+/.playwright-mcp/
+/NVIDIA Corporation/
+/tmp-images/
+/Valorant/
+.
 
 
