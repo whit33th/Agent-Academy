@@ -1,0 +1,8 @@
+[     605ms] [WARNING] Blade Rendering Warnings:
+ No hreflangs found in response, adding shim using locales. @ https://playvalorant.com/_next/static/chunks/839-6321fedd259ab0fd.js:0
+[     642ms] [WARNING] Invalid or missing PUBHUB_SDK_HOST:  @ https://playvalorant.com/_next/static/chunks/839-6321fedd259ab0fd.js:0
+[     845ms] [WARNING] Blade Rendering Warnings:
+ No hreflangs found in response, adding shim using locales. @ https://playvalorant.com/_next/static/chunks/839-6321fedd259ab0fd.js:0
+[     852ms] [WARNING] Invalid or missing PUBHUB_SDK_HOST:  @ https://playvalorant.com/_next/static/chunks/839-6321fedd259ab0fd.js:0
+[    1633ms] [LOG] Images being preloaded @ https://cdn.rgpub.io/public/live/riotbar/latest/playvalorantfinal.en-us.js:4
+[    1955ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://xsso.playvalorant.com/redirect?iss=https%3A%2F%2Fauth.riotgames.com&state=c2ff1ea0aa8fea3bc8e4c6949e&error=interaction_required&error_description=login_required:0

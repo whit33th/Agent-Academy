@@ -8,7 +8,11 @@
  * @module
  */
 
+import type * as agentStats from "../agentStats.js";
+import type * as agentStatsSync from "../agentStatsSync.js";
+import type * as crons from "../crons.js";
 import type * as http from "../http.js";
+import type * as lib_agentStatsValidators from "../lib/agentStatsValidators.js";
 import type * as lib_auth from "../lib/auth.js";
 import type * as lib_lineupMetadata from "../lib/lineupMetadata.js";
 import type * as lib_preferences from "../lib/preferences.js";
@@ -28,7 +32,11 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  agentStats: typeof agentStats;
+  agentStatsSync: typeof agentStatsSync;
+  crons: typeof crons;
   http: typeof http;
+  "lib/agentStatsValidators": typeof lib_agentStatsValidators;
   "lib/auth": typeof lib_auth;
   "lib/lineupMetadata": typeof lib_lineupMetadata;
   "lib/preferences": typeof lib_preferences;
@@ -68,4 +76,6 @@ export declare const internal: FilterApi<
   FunctionReference<any, "internal">
 >;
 
-export declare const components: {};
+export declare const components: {
+  firecrawlScrape: import("convex-firecrawl-scrape/_generated/component.js").ComponentApi<"firecrawlScrape">;
+};

@@ -1,0 +1,1286 @@
+{
+  "insights-v2": {
+    "insights": {
+      "valorant|agents|division:diamond,map:ascent,playlist:competitive,region:eu": {
+        "insights": [
+          {
+            "attributes": {
+              "agent": "brimstone",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Brimstone",
+              "tier": "A"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "1.9%",
+                "metadata": {},
+                "value": 1.85
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "7.2%",
+                "metadata": {},
+                "value": 7.2
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "51.4%",
+                "metadata": {},
+                "value": 51.42
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "51.5%",
+                "metadata": {},
+                "value": 51.52
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "phoenix",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Phoenix",
+              "tier": "S"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "7.0%",
+                "metadata": {},
+                "value": 7.04
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "25.6%",
+                "metadata": {},
+                "value": 25.57
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "51.8%",
+                "metadata": {},
+                "value": 51.83
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "52.7%",
+                "metadata": {},
+                "value": 52.68
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "cypher",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Cypher",
+              "tier": "A"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "4.5%",
+                "metadata": {},
+                "value": 4.53
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "17.3%",
+                "metadata": {},
+                "value": 17.29
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "51.1%",
+                "metadata": {},
+                "value": 51.06
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "51.3%",
+                "metadata": {},
+                "value": 51.26
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "sova",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Sova",
+              "tier": "S"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "9.6%",
+                "metadata": {},
+                "value": 9.61
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "33.5%",
+                "metadata": {},
+                "value": 33.48
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "51.4%",
+                "metadata": {},
+                "value": 51.4
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "53.0%",
+                "metadata": {},
+                "value": 52.99
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "sage",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Sage",
+              "tier": "S"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "4.1%",
+                "metadata": {},
+                "value": 4.09
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "15.2%",
+                "metadata": {},
+                "value": 15.22
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "53.0%",
+                "metadata": {},
+                "value": 53.03
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "54.1%",
+                "metadata": {},
+                "value": 54.14
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "jett",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Jett",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "14.3%",
+                "metadata": {},
+                "value": 14.34
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "45.6%",
+                "metadata": {},
+                "value": 45.64
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.7%",
+                "metadata": {},
+                "value": 49.71
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.3%",
+                "metadata": {},
+                "value": 49.3
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "viper",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Viper",
+              "tier": "D"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.1%",
+                "metadata": {},
+                "value": 0.14
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.6%",
+                "metadata": {},
+                "value": 0.57
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "46.2%",
+                "metadata": {},
+                "value": 46.16
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "46.2%",
+                "metadata": {},
+                "value": 46.16
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "raze",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Raze",
+              "tier": "B"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "3.5%",
+                "metadata": {},
+                "value": 3.51
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "13.4%",
+                "metadata": {},
+                "value": 13.4
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "50.5%",
+                "metadata": {},
+                "value": 50.45
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "50.3%",
+                "metadata": {},
+                "value": 50.28
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "breach",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Breach",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "1.6%",
+                "metadata": {},
+                "value": 1.59
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "6.1%",
+                "metadata": {},
+                "value": 6.12
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.3%",
+                "metadata": {},
+                "value": 48.34
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.0%",
+                "metadata": {},
+                "value": 48.05
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "reyna",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Reyna",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "7.7%",
+                "metadata": {},
+                "value": 7.7
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "28.0%",
+                "metadata": {},
+                "value": 27.97
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.0%",
+                "metadata": {},
+                "value": 49
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.3%",
+                "metadata": {},
+                "value": 48.32
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "omen",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Omen",
+              "tier": "D"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "4.3%",
+                "metadata": {},
+                "value": 4.31
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "16.0%",
+                "metadata": {},
+                "value": 16.04
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.5%",
+                "metadata": {},
+                "value": 47.45
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "46.7%",
+                "metadata": {},
+                "value": 46.74
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "skye",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Skye",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "2.5%",
+                "metadata": {},
+                "value": 2.55
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "9.8%",
+                "metadata": {},
+                "value": 9.83
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.2%",
+                "metadata": {},
+                "value": 49.16
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.0%",
+                "metadata": {},
+                "value": 48.98
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "yoru",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Yoru",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.9%",
+                "metadata": {},
+                "value": 0.93
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "3.6%",
+                "metadata": {},
+                "value": 3.63
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.0%",
+                "metadata": {},
+                "value": 47.99
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.8%",
+                "metadata": {},
+                "value": 47.82
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "astra",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Astra",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.7%",
+                "metadata": {},
+                "value": 0.65
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "2.6%",
+                "metadata": {},
+                "value": 2.58
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.9%",
+                "metadata": {},
+                "value": 47.85
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.9%",
+                "metadata": {},
+                "value": 47.88
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "killjoy",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Killjoy",
+              "tier": "A"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "4.9%",
+                "metadata": {},
+                "value": 4.93
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "18.2%",
+                "metadata": {},
+                "value": 18.23
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "50.8%",
+                "metadata": {},
+                "value": 50.75
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "51.1%",
+                "metadata": {},
+                "value": 51.06
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "chamber",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Chamber",
+              "tier": "D"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "7.2%",
+                "metadata": {},
+                "value": 7.2
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "26.1%",
+                "metadata": {},
+                "value": 26.05
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.6%",
+                "metadata": {},
+                "value": 48.58
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.7%",
+                "metadata": {},
+                "value": 47.71
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "fade",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Fade",
+              "tier": "B"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "1.9%",
+                "metadata": {},
+                "value": 1.94
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "7.5%",
+                "metadata": {},
+                "value": 7.54
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.7%",
+                "metadata": {},
+                "value": 49.69
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.7%",
+                "metadata": {},
+                "value": 49.67
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "kayo",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "KAY/O",
+              "tier": "D"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "1.4%",
+                "metadata": {},
+                "value": 1.45
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "5.8%",
+                "metadata": {},
+                "value": 5.77
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "46.9%",
+                "metadata": {},
+                "value": 46.87
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "46.5%",
+                "metadata": {},
+                "value": 46.52
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "neon",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Neon",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "1.9%",
+                "metadata": {},
+                "value": 1.92
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "7.7%",
+                "metadata": {},
+                "value": 7.65
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.2%",
+                "metadata": {},
+                "value": 49.25
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.2%",
+                "metadata": {},
+                "value": 49.18
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "harbor",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Harbor",
+              "tier": "D"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.1%",
+                "metadata": {},
+                "value": 0.11
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.5%",
+                "metadata": {},
+                "value": 0.45
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.0%",
+                "metadata": {},
+                "value": 46.95
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.0%",
+                "metadata": {},
+                "value": 47.02
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "gekko",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Gekko",
+              "tier": "D"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.7%",
+                "metadata": {},
+                "value": 0.66
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "2.5%",
+                "metadata": {},
+                "value": 2.53
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.8%",
+                "metadata": {},
+                "value": 47.81
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.6%",
+                "metadata": {},
+                "value": 47.64
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "deadlock",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Deadlock",
+              "tier": "B"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "1.4%",
+                "metadata": {},
+                "value": 1.39
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "5.2%",
+                "metadata": {},
+                "value": 5.25
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "50.2%",
+                "metadata": {},
+                "value": 50.2
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "50.1%",
+                "metadata": {},
+                "value": 50.14
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "iso",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Iso",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.8%",
+                "metadata": {},
+                "value": 0.76
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "3.0%",
+                "metadata": {},
+                "value": 3.03
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.5%",
+                "metadata": {},
+                "value": 48.48
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.5%",
+                "metadata": {},
+                "value": 48.45
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "clove",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Clove",
+              "tier": "S"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "11.0%",
+                "metadata": {},
+                "value": 10.99
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "37.7%",
+                "metadata": {},
+                "value": 37.66
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "51.6%",
+                "metadata": {},
+                "value": 51.65
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "53.7%",
+                "metadata": {},
+                "value": 53.69
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "vyse",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Vyse",
+              "tier": "B"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.7%",
+                "metadata": {},
+                "value": 0.7
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "2.8%",
+                "metadata": {},
+                "value": 2.78
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.9%",
+                "metadata": {},
+                "value": 49.88
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.9%",
+                "metadata": {},
+                "value": 49.87
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "tejo",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Tejo",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.8%",
+                "metadata": {},
+                "value": 0.75
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "3.0%",
+                "metadata": {},
+                "value": 3.02
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.7%",
+                "metadata": {},
+                "value": 48.67
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.6%",
+                "metadata": {},
+                "value": 48.56
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "waylay",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Waylay",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "1.8%",
+                "metadata": {},
+                "value": 1.77
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "6.9%",
+                "metadata": {},
+                "value": 6.94
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.0%",
+                "metadata": {},
+                "value": 48.01
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "47.9%",
+                "metadata": {},
+                "value": 47.91
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "veto",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Veto",
+              "tier": "B"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "0.4%",
+                "metadata": {},
+                "value": 0.39
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "1.6%",
+                "metadata": {},
+                "value": 1.55
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.7%",
+                "metadata": {},
+                "value": 49.7
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "49.7%",
+                "metadata": {},
+                "value": 49.74
+              }
+            },
+            "type": "insights-agent"
+          },
+          {
+            "attributes": {
+              "agent": "miks",
+              "division": "diamond",
+              "map": "ascent",
+              "playlist": "competitive",
+              "region": "eu"
+            },
+            "metadata": {
+              "name": "Miks",
+              "tier": "C"
+            },
+            "stats": {
+              "playedPct": {
+                "displayName": "Played %",
+                "displayType": "NumberPercentage",
+                "displayValue": "2.2%",
+                "metadata": {},
+                "value": 2.21
+              },
+              "pickRate": {
+                "displayName": "Pick Rate",
+                "displayType": "NumberPercentage",
+                "displayValue": "8.6%",
+                "metadata": {},
+                "value": 8.59
+              },
+              "wlPercentage": {
+                "displayName": "Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.1%",
+                "metadata": {},
+                "value": 48.06
+              },
+              "nonMirroredWlPercentage": {
+                "displayName": "Non-Mirror Win %",
+                "displayType": "NumberPercentage",
+                "displayValue": "48.0%",
+                "metadata": {},
+                "value": 47.99
+              }
+            },
+            "type": "insights-agent"
+          }
+        ]
+      }
+    }
+  }
+}

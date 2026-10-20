@@ -1,5 +1,6 @@
 import Image from "@/components/ui/CatalogImage";
 import TacticalBoardButton from "@/components/hud/TacticalBoardButton";
+import MapMetaButton from "@/components/agent-stats/MapMetaButton";
 import type { GameMap } from "@/lib/types";
 
 interface MapTitleProps {
@@ -31,7 +32,10 @@ export default function MapTitle({ map }: MapTitleProps) {
           <span className="truncate">{map.name}</span>
         </h2>
       </div>
-      <TacticalBoardButton map={map} />
+      <div className="ml-auto flex shrink-0 items-center gap-2">
+        <MapMetaButton key={map._id} map={map} />
+        <TacticalBoardButton map={map} />
+      </div>
     </div>
   );
 }

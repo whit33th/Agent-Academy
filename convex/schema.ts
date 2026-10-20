@@ -2,8 +2,52 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 import { lineupMetadata } from "./lib/lineupMetadata";
 import { preferences } from "./lib/preferences";
+import { statsDivision, statsSnapshot } from "./lib/agentStatsValidators";
 
 export default defineSchema({
+  agentStatTargets: defineTable({
+    mapSlug: v.string(),
+    division: statsDivision,
+    requestedDay: v.number(),
+    completedDay: v.optional(v.number()),
+    stage: v.union(
+      v.literal("queued"),
+      v.literal("scraping"),
+      v.literal("reading"),
+      v.literal("idle"),
+      v.literal("failed"),
+    ),
+    nextAttemptAt: v.number(),
+    failures: v.number(),
+    jobId: v.optional(v.string()),
+    jobStartedAt: v.optional(v.number()),
+    readLeaseUntil: v.optional(v.number()),
+    resultState: v.union(
+      v.literal("pending"),
+      v.literal("ready"),
+      v.literal("no_data"),
+    ),
+    lastCheckedAt: v.optional(v.number()),
+    current: v.optional(statsSnapshot),
+    previous: v.optional(statsSnapshot),
+  })
+    .index("by_mapSlug_and_division", ["mapSlug", "division"])
+    .index("by_stage_and_nextAttemptAt", ["stage", "nextAttemptAt"]),
+  agentStatSync: defineTable({
+    key: v.literal("tracker"),
+    consecutiveBlocks: v.number(),
+    pausedUntil: v.number(),
+    disabledReason: v.optional(
+      v.union(v.literal("credentials"), v.literal("credits")),
+    ),
+  }).index("by_key", ["key"]),
+  agentStatErrors: defineTable({
+    mapSlug: v.string(),
+    division: statsDivision,
+    at: v.number(),
+    kind: v.string(),
+    message: v.string(),
+  }).index("by_at", ["at"]),
   users: defineTable({
     tokenIdentifier: v.string(),
     name: v.optional(v.string()),
