@@ -2,12 +2,14 @@
 
 import { useCallback, useState } from "react";
 import * as Select from "@radix-ui/react-select";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
+import Image from "@/components/ui/CatalogImage";
 
 interface SelectOption<T extends string> {
   value: T;
   label: string;
   disabled?: boolean;
+  icon?: string;
 }
 
 interface SelectFieldProps<T extends string> {
@@ -28,6 +30,8 @@ export default function SelectField<T extends string>({
   className = "",
 }: SelectFieldProps<T>) {
   const [container, setContainer] = useState<HTMLElement | undefined>();
+  const selected = options.find((item) => item.value === value);
+  const showIcons = options.some((item) => item.icon);
   const triggerRef = useCallback((node: HTMLButtonElement | null) => {
     // Keep the menu in a native modal's top layer, outside its clipped card.
     if (node) setContainer(node.closest("dialog") ?? undefined);
@@ -46,9 +50,12 @@ export default function SelectField<T extends string>({
       <Select.Trigger
         ref={triggerRef}
         aria-label={label}
-        className={`group flex h-10 min-w-0 items-center justify-between gap-3 rounded-sm border border-white/12 bg-val-elevated px-3 text-left text-sm font-medium text-val-cream outline-none transition-[border-color,background-color,box-shadow] hover:border-white/25 focus-visible:border-val-red focus-visible:ring-2 focus-visible:ring-val-red/20 data-[state=open]:border-val-red/60 disabled:cursor-not-allowed disabled:opacity-40 [&>span:first-child]:truncate ${className}`}
+        className={`group flex h-10 min-w-0 items-center justify-between gap-2 rounded-sm border border-white/12 bg-val-elevated px-3 text-left text-sm font-medium text-val-cream outline-none transition-[border-color,background-color,box-shadow] hover:border-white/25 focus-visible:border-val-red focus-visible:ring-2 focus-visible:ring-val-red/20 data-[state=open]:border-val-red/60 disabled:cursor-not-allowed disabled:opacity-40 ${className}`}
       >
-        <Select.Value />
+        <span className="flex min-w-0 items-center gap-2">
+          {selected?.icon && <RankIcon src={selected.icon} />}
+          <Select.Value className="truncate" />
+        </span>
         <Select.Icon>
           <ChevronDown
             aria-hidden
@@ -65,11 +72,8 @@ export default function SelectField<T extends string>({
           className="z-[500] min-w-[var(--radix-select-trigger-width)] max-w-[calc(100vw-24px)] overflow-hidden rounded-sm border border-white/15 bg-val-elevated p-1 shadow-[0_12px_40px_rgba(0,0,0,0.65)] outline-none"
           onEscapeKeyDown={(event) => event.stopPropagation()}
         >
-          <Select.ScrollUpButton className="flex h-6 items-center justify-center text-white/50">
-            <ChevronUp size={14} />
-          </Select.ScrollUpButton>
           <Select.Viewport
-            className="max-h-[min(280px,var(--radix-select-content-available-height))]"
+            className="select-field-viewport max-h-[min(280px,var(--radix-select-content-available-height))]"
             data-lenis-prevent
           >
             {options.map((option) => (
@@ -77,20 +81,35 @@ export default function SelectField<T extends string>({
                 key={option.value}
                 value={option.value}
                 disabled={option.disabled}
-                className="relative flex min-h-10 cursor-pointer select-none items-center rounded-xs py-2 pl-3 pr-9 text-sm font-medium text-white/65 outline-none data-[highlighted]:bg-white/8 data-[highlighted]:text-white data-[state=checked]:bg-val-red/10 data-[state=checked]:text-val-red data-[disabled]:pointer-events-none data-[disabled]:opacity-30"
+                className="relative flex min-h-10 cursor-pointer select-none items-center gap-2.5 rounded-xs py-2 pl-3 pr-10 text-sm font-medium text-white/65 outline-none data-[highlighted]:bg-white/8 data-[highlighted]:text-white data-[state=checked]:bg-val-red/10 data-[state=checked]:text-val-red data-[disabled]:pointer-events-none data-[disabled]:opacity-30"
               >
+                {showIcons &&
+                  (option.icon ? (
+                    <RankIcon src={option.icon} />
+                  ) : (
+                    <span className="size-5 shrink-0" aria-hidden />
+                  ))}
                 <Select.ItemText>{option.label}</Select.ItemText>
-                <Select.ItemIndicator className="absolute right-3">
+                <Select.ItemIndicator className="absolute right-4">
                   <Check size={14} />
                 </Select.ItemIndicator>
               </Select.Item>
             ))}
           </Select.Viewport>
-          <Select.ScrollDownButton className="flex h-6 items-center justify-center text-white/50">
-            <ChevronDown size={14} />
-          </Select.ScrollDownButton>
         </Select.Content>
       </Select.Portal>
     </Select.Root>
+  );
+}
+
+function RankIcon({ src }: { src: string }) {
+  return (
+    <Image
+      src={src}
+      alt=""
+      width={20}
+      height={20}
+      className="size-5 shrink-0 object-contain"
+    />
   );
 }

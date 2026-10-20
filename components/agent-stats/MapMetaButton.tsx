@@ -3,21 +3,18 @@
 import {
   Component,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   useSyncExternalStore,
   type ReactNode,
 } from "react";
 import { useQuery } from "convex/react";
-import {
-  BarChart3,
-  ChevronRight,
-  Clock3,
-  ExternalLink,
-  TrendingUp,
-  X,
-} from "lucide-react";
+import { MotionConfig, motion } from "framer-motion";
+import { BarChart3, ChevronRight, Clock3, ExternalLink, X } from "lucide-react";
 import Link from "next/link";
+
+const AgentLink = motion.create(Link);
 import { api } from "@/convex/_generated/api";
 import { useAppSession } from "@/components/auth/SessionProvider";
 import Image from "@/components/ui/CatalogImage";
@@ -48,6 +45,20 @@ const agents = new Map(
   getAgents().map((agent) => [agent.slug!.current, agent]),
 );
 const defaultRank = () => "all" as const;
+const panelEase = [0.22, 1, 0.36, 1] as const;
+const panelHidden = { x: "100%", opacity: 0, filter: "blur(8px)" };
+const panelShown = { x: 0, opacity: 1, filter: "blur(0px)" };
+const RANK_ICONS: Partial<Record<StatsDivision, string>> = {
+  iron: "/ranks/iron.webp",
+  bronze: "/ranks/bronze.webp",
+  silver: "/ranks/silver.webp",
+  gold: "/ranks/gold.webp",
+  platinum: "/ranks/platinum.webp",
+  diamond: "/ranks/diamond.webp",
+  ascendant: "/ranks/ascendant.webp",
+  immortal: "/ranks/immortal.webp",
+  radiant: "/ranks/radiant.webp",
+};
 
 class StatsBoundary extends Component<
   { children: ReactNode; fallback: ReactNode },
@@ -72,7 +83,7 @@ export default function MapMetaButton({ map }: { map: GameMap }) {
       <button
         ref={trigger}
         type="button"
-        aria-label="Мета карты"
+        aria-label="Tier list"
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls="map-meta-drawer"
@@ -84,7 +95,7 @@ export default function MapMetaButton({ map }: { map: GameMap }) {
       >
         <BarChart3 size={15} className="text-val-teal" aria-hidden />
         <span className="hidden font-oswald text-xs font-semibold uppercase tracking-[0.12em] sm:inline">
-          Мета карты
+          Tier List
         </span>
       </button>
       {visited && (
@@ -119,43 +130,26 @@ function MetaDrawer({
     () => readStatsRank(scope),
     defaultRank,
   );
+  const onClosedRef = useRef(onClosed);
+  const openRef = useRef(open);
+  onClosedRef.current = onClosed;
+  openRef.current = open;
   useBodyScrollLock(open);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const node = dialog.current;
-    if (!node) return;
-    let frame = 0;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    if (open) {
-      if (!node.open) node.showModal();
-      frame = requestAnimationFrame(() => {
-        node.dataset.state = "open";
-      });
-    } else if (node.open) {
-      node.dataset.state = "closed";
-      const finish = () => {
-        node.close();
-        onClosed();
-      };
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-        finish();
-      else timer = setTimeout(finish, 100);
-    }
-    return () => {
-      cancelAnimationFrame(frame);
-      clearTimeout(timer);
-    };
-  }, [open, onClosed]);
+    if (!node || !open) return;
+    if (!node.open) node.showModal();
+  }, [open]);
   useEffect(() => {
     const node = dialog.current;
     return () => node?.close();
   }, []);
-  const empty = <CachedStats map={map} division={division} />;
+  const empty = <CachedStats map={map} division={division} visible={open} />;
   return (
     <dialog
       ref={dialog}
       id="map-meta-drawer"
       aria-labelledby="map-meta-title"
-      data-state="closed"
       className="map-meta-dialog"
       data-lenis-prevent
       onCancel={(event) => {
@@ -166,67 +160,88 @@ function MetaDrawer({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <section
-        className="map-meta-panel"
-        aria-label="Map agent statistics"
-        onClick={(event) => {
-          if (
-            event.target instanceof Element &&
-            event.target
-              .closest("a")
-              ?.getAttribute("href")
-              ?.startsWith(`/${map._id}/`)
-          )
-            onClose();
-        }}
-      >
-        <header className="map-meta-header">
-          <div className="flex items-center justify-between gap-3">
-            <span className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-val-teal">
-              <TrendingUp size={13} aria-hidden /> Competitive · Europe
-            </span>
-            <button
-              type="button"
-              autoFocus
-              onClick={onClose}
-              aria-label="Close map meta"
-              className="flex size-10 items-center justify-center text-white/45 transition-colors hover:bg-white/6 hover:text-white focus-visible:outline-2 focus-visible:outline-val-teal"
-            >
-              <X size={19} aria-hidden />
-            </button>
-          </div>
-          <div className="mt-1 flex items-end justify-between gap-4">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">
-                Мета карты
-              </p>
-              <h2
-                id="map-meta-title"
-                className="mt-1 font-oswald text-4xl font-semibold uppercase tracking-wide text-val-cream"
-              >
-                {map.name}
-              </h2>
-            </div>
-            <SelectField
-              label="Statistics rank"
-              value={division}
-              options={DIVISION_OPTIONS}
-              onChange={(value) => writeStatsRank(scope, value)}
-              className="w-40 shrink-0"
-            />
-          </div>
-          <p className="mt-4 text-xs text-white/35">
-            Agent performance · Last 14 days
-          </p>
-        </header>
-        <StatsBoundary key={`${map._id}:${division}`} fallback={empty}>
-          {process.env.NEXT_PUBLIC_CONVEX_URL ? (
-            <LiveStats map={map} division={division} active={open} />
-          ) : (
-            empty
-          )}
-        </StatsBoundary>
-      </section>
+      <MotionConfig reducedMotion="user">
+        <motion.div
+          className="map-meta-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: open ? 1 : 0 }}
+          transition={{ duration: 0.45, ease: panelEase }}
+          onClick={onClose}
+        />
+        <div className="map-meta-slot">
+          <motion.section
+            className="map-meta-panel"
+            aria-label="Map agent statistics"
+            initial={panelHidden}
+            animate={open ? panelShown : panelHidden}
+            transition={{ duration: 0.5, ease: panelEase }}
+            onAnimationComplete={() => {
+              if (openRef.current) return;
+              const node = dialog.current;
+              if (!node?.open) return;
+              node.close();
+              onClosedRef.current();
+            }}
+            onClick={(event) => {
+              if (
+                event.target instanceof Element &&
+                event.target
+                  .closest("a")
+                  ?.getAttribute("href")
+                  ?.startsWith(`/${map._id}/`)
+              )
+                onClose();
+            }}
+          >
+            <header className="map-meta-header">
+              <div className="flex items-start justify-between gap-3">
+                <h2
+                  id="map-meta-title"
+                  className="min-w-0 font-oswald text-3xl font-semibold uppercase tracking-wide text-val-cream"
+                >
+                  Tier List
+                </h2>
+                <button
+                  type="button"
+                  autoFocus
+                  onClick={onClose}
+                  aria-label="Close tier list"
+                  className="flex size-10 shrink-0 items-center justify-center text-white/45 transition-colors hover:bg-white/6 hover:text-white focus-visible:outline-2 focus-visible:outline-val-teal"
+                >
+                  <X size={19} aria-hidden />
+                </button>
+              </div>
+              <div className="mt-4 flex items-center justify-between gap-4">
+                <p className="text-xs text-white/35">
+                  Agent performance · Last 14 days
+                </p>
+                <SelectField
+                  label="Statistics rank"
+                  value={division}
+                  options={DIVISION_OPTIONS.map((option) => ({
+                    ...option,
+                    icon: RANK_ICONS[option.value],
+                  }))}
+                  onChange={(value) => writeStatsRank(scope, value)}
+                  className="w-44 shrink-0"
+                />
+              </div>
+            </header>
+            <StatsBoundary key={`${map._id}:${division}`} fallback={empty}>
+              {process.env.NEXT_PUBLIC_CONVEX_URL ? (
+                <LiveStats
+                  map={map}
+                  division={division}
+                  active={open}
+                  visible={open}
+                />
+              ) : (
+                empty
+              )}
+            </StatsBoundary>
+          </motion.section>
+        </div>
+      </MotionConfig>
     </dialog>
   );
 }
@@ -235,10 +250,12 @@ function LiveStats({
   map,
   division,
   active,
+  visible,
 }: {
   map: GameMap;
   division: StatsDivision;
   active: boolean;
+  visible: boolean;
 }) {
   const { unavailable } = useCollectionConnection();
   const live = useQuery(
@@ -258,6 +275,7 @@ function LiveStats({
       result={result}
       loading={active && !result && !unavailable}
       offline={unavailable}
+      visible={visible}
     />
   );
 }
@@ -265,9 +283,11 @@ function LiveStats({
 function CachedStats({
   map,
   division,
+  visible,
 }: {
   map: GameMap;
   division: StatsDivision;
+  visible: boolean;
 }) {
   const result = usePersistedValue<MapAgentStats>(
     `agent-stats:v1:${map._id}:${division}`,
@@ -275,7 +295,14 @@ function CachedStats({
     false,
     isMapAgentStats,
   );
-  return <StatsContent map={map} division={division} result={result} />;
+  return (
+    <StatsContent
+      map={map}
+      division={division}
+      result={result}
+      visible={visible}
+    />
+  );
 }
 
 function StatsContent({
@@ -284,12 +311,14 @@ function StatsContent({
   result,
   loading = false,
   offline = false,
+  visible,
 }: {
   map: GameMap;
   division: StatsDivision;
   result: MapAgentStats | undefined;
   loading?: boolean;
   offline?: boolean;
+  visible: boolean;
 }) {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
@@ -324,10 +353,11 @@ function StatsContent({
               <div className="space-y-2">
                 {snapshot.agents.slice(0, 3).map((stat, index) => (
                   <AgentStatCard
-                    key={stat.agentSlug}
+                    key={`${division}:${stat.agentSlug}`}
                     stat={stat}
                     mapSlug={map._id}
                     index={index}
+                    visible={visible}
                     featured
                   />
                 ))}
@@ -335,15 +365,16 @@ function StatsContent({
             </div>
             <div className="px-5 pb-6 pt-3">
               <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30">
-                All agents
+                Other agents
               </p>
               <div>
                 {snapshot.agents.slice(3).map((stat, index) => (
                   <AgentStatCard
-                    key={stat.agentSlug}
+                    key={`${division}:${stat.agentSlug}`}
                     stat={stat}
                     mapSlug={map._id}
                     index={index + 3}
+                    visible={visible}
                   />
                 ))}
               </div>
@@ -416,11 +447,13 @@ function AgentStatCard({
   stat,
   mapSlug,
   index,
+  visible,
   featured = false,
 }: {
   stat: AgentStat;
   mapSlug: string;
   index: number;
+  visible: boolean;
   featured?: boolean;
 }) {
   const agent = agents.get(stat.agentSlug);
@@ -429,15 +462,19 @@ function AgentStatCard({
   const positive = win >= 50;
   const width = Math.min(Math.abs(win - 50) * 5, 50);
   return (
-    <Link
+    <AgentLink
       href={`/${mapSlug}/${stat.agentSlug}`}
       prefetch={false}
       className={`map-meta-agent group ${featured ? "map-meta-agent-featured" : ""}`}
       aria-label={`${agent.name}, Win rate ${win.toFixed(1)}%, Pick rate ${stat.pickRate.toFixed(1)}%`}
+      initial={{ opacity: 0, x: -18 }}
+      animate={visible ? { opacity: 1, x: 0 } : { opacity: 0, x: -18 }}
+      transition={{
+        duration: 0.22,
+        delay: visible ? Math.min(index, 10) * 0.045 : 0,
+        ease: panelEase,
+      }}
     >
-      <span className="w-4 shrink-0 text-[10px] tabular-nums text-white/25">
-        {String(index + 1).padStart(2, "0")}
-      </span>
       <div
         className={`relative shrink-0 overflow-hidden ${featured ? "size-14" : "size-10"}`}
       >
@@ -476,9 +513,6 @@ function AgentStatCard({
           {win.toFixed(1)}
           <span className="ml-0.5 text-xs opacity-60">%</span>
         </p>
-        <span className="mt-1 block text-[8px] uppercase tracking-[0.1em] text-white/30">
-          Win rate
-        </span>
         <div className="relative mt-2 h-0.5 bg-white/6" aria-hidden>
           <span className="absolute -top-0.5 left-1/2 h-1.5 w-px bg-white/30" />
           <span
@@ -495,6 +529,6 @@ function AgentStatCard({
         className="shrink-0 text-white/15 transition-colors group-hover:text-val-teal"
         aria-hidden
       />
-    </Link>
+    </AgentLink>
   );
 }

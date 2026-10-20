@@ -17,34 +17,31 @@
   overflow: hidden;
 }
 .map-meta-dialog::backdrop {
-  background: rgb(0 0 0 / 45%);
-  opacity: 0;
-  transition: opacity 100ms cubic-bezier(0.2, 0, 0, 1);
+  background: transparent;
 }
-.map-meta-dialog[data-state="open"]::backdrop {
-  opacity: 1;
-}
-.map-meta-panel {
+.map-meta-backdrop {
   position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 45%);
+}
+.map-meta-slot {
+  position: absolute;
+  z-index: 1;
   top: var(--desktop-titlebar-height, 0px);
   right: 0;
   bottom: 0;
   width: min(440px, 100%);
+  overflow: hidden;
+  pointer-events: none;
+}
+.map-meta-panel {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
+  pointer-events: auto;
   background: #101212;
-  box-shadow:
-    -1px 0 0 rgb(255 255 255 / 8%),
-    -24px 0 80px rgb(0 0 0 / 35%);
-  transform: translateX(100%);
-  opacity: 0;
-  transition:
-    transform 100ms cubic-bezier(0.2, 0, 0, 1),
-    opacity 100ms cubic-bezier(0.2, 0, 0, 1);
-}
-.map-meta-dialog[data-state="open"] .map-meta-panel {
-  transform: translateX(0);
-  opacity: 1;
+  border-left: 1px solid rgb(255 255 255 / 8%);
 }
 .map-meta-header {
   flex-shrink: 0;
@@ -56,6 +53,12 @@
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.map-meta-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 .map-meta-footer {
   display: flex;
@@ -70,13 +73,19 @@
   align-items: center;
   gap: 10px;
   min-height: 72px;
-  padding: 10px 0;
+  padding: 10px 16px;
   color: var(--color-val-cream);
-  border-radius: 3px;
   transition: background-color 100ms;
 }
 .map-meta-agent:hover {
   background: rgb(255 255 255 / 4%);
+}
+.map-meta-agent-featured:hover {
+  background: linear-gradient(
+    110deg,
+    rgb(23 232 180 / 13%),
+    rgb(23 232 180 / 5%)
+  );
 }
 .map-meta-agent:focus-visible {
   outline: 2px solid var(--color-val-teal);
@@ -84,7 +93,7 @@
 }
 .map-meta-agent-featured {
   min-height: 90px;
-  padding: 12px 10px;
+  padding: 12px 16px;
   background: linear-gradient(
     110deg,
     rgb(23 232 180 / 7%),
@@ -116,8 +125,6 @@
   background: rgb(156 181 195 / 10%);
 }
 @media (prefers-reduced-motion: reduce) {
-  .map-meta-panel,
-  .map-meta-dialog::backdrop,
   .map-meta-agent {
     transition: none !important;
   }

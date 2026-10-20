@@ -401,3 +401,17 @@ html.desktop-runtime .desktop-titlebar {
 .voice-waveform-bar:nth-child(5) {
   animation-delay: 0.25s;
 }
+
+/* Radix hides this scrollbar so its arrow buttons can scroll the list. */
+.select-field-viewport[data-radix-select-viewport] {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgb(255 255 255 / 32%) transparent;
+}
+.select-field-viewport[data-radix-select-viewport]::-webkit-scrollbar {
+  display: block !important;
+  width: 8px;
+}
+.select-field-viewport[data-radix-select-viewport]::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 32%);
+  border-radius: 999px;
+}
