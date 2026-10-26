@@ -63,6 +63,12 @@ function PersonalLineupWorkspace({ agent, map }: LineupWorkspaceProps) {
     description: row.description ?? null,
     metadata: row.metadata ?? EMPTY_METADATA,
     image: row.imageUrl,
+    images: row.images,
+    coverIndex: row.coverIndex,
+    videoUrl: row.videoUrl,
+    source: row.source,
+    map: { name: map.name },
+    agent: { name: agent.name },
     isPublic: row.isPublic,
     canEdit: Boolean(signedIn && row.canEdit),
   }));
@@ -148,12 +154,20 @@ function PersonalLineupWorkspace({ agent, map }: LineupWorkspaceProps) {
     if (
       e.target instanceof HTMLElement &&
       e.target.closest(
-        '[contenteditable=true], dialog, [role="combobox"], [role="listbox"]',
+        '[contenteditable=true], [role="combobox"], [role="listbox"]',
       )
     )
       return;
 
+    const activeDialog =
+      e.target instanceof HTMLElement ? e.target.closest("dialog") : null;
+    if (
+      activeDialog &&
+      activeDialog.getAttribute("aria-labelledby") !== "lineup-detail-title"
+    )
+      return;
     if (e.key === "?" || (e.key === "/" && e.shiftKey)) {
+      if (activeDialog) return;
       e.preventDefault();
       openHotkeys();
       return;

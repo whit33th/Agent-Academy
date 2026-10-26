@@ -1,0 +1,1438 @@
+[
+  {
+    "agentId": "41fb69c1-4189-7b37-f117-bcaf1e96f1bf",
+    "agentSlug": "astra",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Rift/S0/Ability_Q/Ability_Rift_Q_FlashBurst.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_Q/GameObject_Rift_Q_FlashBurst.uasset"
+    ]
+  },
+  {
+    "agentId": "41fb69c1-4189-7b37-f117-bcaf1e96f1bf",
+    "agentSlug": "astra",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Rift/S0/Ability_E/Ability_Rift_E_TransformRift_Smoke.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_E/GameObject_Rift_E_SmokeZone.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_E/GameObject_Rift_E_SmokeZone_Fake.uasset"
+    ]
+  },
+  {
+    "agentId": "41fb69c1-4189-7b37-f117-bcaf1e96f1bf",
+    "agentSlug": "astra",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Rift/S0/Ability_4/BlackHole/Ability_Rift_4_BlackHole.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_4/BlackHole/ForceModule_Rift_BlackHole_Persistent_V3.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_4/BlackHole/GameObject_Rift_4_BlackHole.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_4/BlackHole/Buff_Rift_4_Blackhole_Fragile.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_4/BlackHole/Debuff_Rift_4_Blackhole_JumpReduction.uasset"
+    ]
+  },
+  {
+    "agentId": "41fb69c1-4189-7b37-f117-bcaf1e96f1bf",
+    "agentSlug": "astra",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Rift/S0/Ability_X/Ability_Rift_X_WorldTargetingStart.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_X/GameObject_Rift_X_Markers.uasset",
+      "ShooterGame/Content/Characters/Rift/S0/Ability_X/Buff_Rift_X_WorldTargeting_BlockJumpAndCrouch.uasset"
+    ]
+  },
+  {
+    "agentId": "5f8d3a7f-467b-97f3-062c-13acf203c006",
+    "agentSlug": "breach",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Breach/S0/Ability_Q/Ability_Breach_Q_Flash.uasset",
+      "ShooterGame/Content/Characters/Breach/S0/Ability_Q/Projectile_Breach_Q_ThroughWalls_Flash.uasset"
+    ]
+  },
+  {
+    "agentId": "5f8d3a7f-467b-97f3-062c-13acf203c006",
+    "agentSlug": "breach",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Breach/S0/Ability_E/Ability_Breach_E_Fissure.uasset",
+      "ShooterGame/Content/Characters/Breach/S0/Ability_E/GameObject_Breach_E_SweetSpotFissure.uasset",
+      "ShooterGame/Content/Characters/Breach/S0/Ability_E/Buff_Breach_E_Fissure_Charging.uasset"
+    ]
+  },
+  {
+    "agentId": "5f8d3a7f-467b-97f3-062c-13acf203c006",
+    "agentSlug": "breach",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Breach/S0/Ability_4/Ability_Breach_4_FusionBlast.uasset",
+      "ShooterGame/Content/Characters/Breach/S0/Ability_4/DmgType_Breach_4_FusionBlast.uasset",
+      "ShooterGame/Content/Characters/Breach/S0/Ability_4/GameObject_Breach_4_FusionBlast.uasset",
+      "ShooterGame/Content/Characters/Breach/S0/Ability_4/Projectile_Breach_4_FusionBlast.uasset"
+    ]
+  },
+  {
+    "agentId": "5f8d3a7f-467b-97f3-062c-13acf203c006",
+    "agentSlug": "breach",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Breach/S0/Ability_X/Ability_Breach_X_Shockwave.uasset",
+      "ShooterGame/Content/Characters/Breach/S0/Ability_X/GameObject_Breach_X_Shockwave.uasset",
+      "ShooterGame/Content/Characters/Breach/S0/Ability_X/Buff_Breach_X_Knockup.uasset"
+    ]
+  },
+  {
+    "agentId": "9f0d8ba9-4140-b941-57d3-a7ad57c6b417",
+    "agentSlug": "brimstone",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_Molotov/Ability_Sarge_Q_Molotov_Production.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_Molotov/DmgType_Sarge_Fire.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_Molotov/Patch_Sarge_Q_Molotov_Production.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_Molotov/Projectile_Sarge_Q_Molotov_Production.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_Molotov/Buff_Sarge_Q_MolotovDamage_Production.uasset"
+    ]
+  },
+  {
+    "agentId": "9f0d8ba9-4140-b941-57d3-a7ad57c6b417",
+    "agentSlug": "brimstone",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_MapTargetSmoke/Ability_Sarge_4_MapTargetSmoke_Production.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_MapTargetSmoke/GameObject_Sarge_4_Smoke_ProductionNEW.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_MapTargetSmoke/GameObject_Sarge_4_SmokeManager_Production.uasset"
+    ]
+  },
+  {
+    "agentId": "9f0d8ba9-4140-b941-57d3-a7ad57c6b417",
+    "agentSlug": "brimstone",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_SpeedStim/Ability_Sarge_E_SpeedStim.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_SpeedStim/GameObject_Sarge_E_SpeedStim.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_SpeedStim/Projectile_Sarge_E_SpeedStim.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_SpeedStim/Buff_Sarge_E_SpeedStim.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_SpeedStim/Buff_Sarge_E_SpeedStim_Child_Tail.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_SpeedStim/AbilityTuning_Sarge_E_SpeedStim.uasset"
+    ]
+  },
+  {
+    "agentId": "9f0d8ba9-4140-b941-57d3-a7ad57c6b417",
+    "agentSlug": "brimstone",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_OrbitalStrike/Ability_Sarge_X_OrbitalStrike.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_OrbitalStrike/DmgType_OrbitalLaser.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_OrbitalStrike/DmgType_Sarge_X_Orbital.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_OrbitalStrike/GameObject_Sarge_X_OrbitalStrike_Production.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_OrbitalStrike/Buff_Sarge_X_OrbitalStrikeDamage_Production.uasset",
+      "ShooterGame/Content/Characters/Sarge/S0/Ability_OrbitalStrike/AbilityTuning_Sarge_X_OrbitalStrike.uasset"
+    ]
+  },
+  {
+    "agentId": "22697a3d-45bf-8dd7-4fec-84a9e28c69d7",
+    "agentSlug": "chamber",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_Q/Ability_Deadeye_Q_Pistol.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_Q/AbilityTuning_Deadeye_Q_Pistol.uasset"
+    ]
+  },
+  {
+    "agentId": "22697a3d-45bf-8dd7-4fec-84a9e28c69d7",
+    "agentSlug": "chamber",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_E/Ability_Deadeye_E_Teleporter_Tethers.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_E/GameObject_Deadeye_E_Teleporter_Tether.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_E/AbilityTuning_Deadeye_E_Teleport_Tether.uasset"
+    ]
+  },
+  {
+    "agentId": "22697a3d-45bf-8dd7-4fec-84a9e28c69d7",
+    "agentSlug": "chamber",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_4/Ability_Deadeye_4_Trap.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_4/GameObject_Deadeye_E_Trap.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_4/Patch_Deadeye_E_Slow_Large.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_4/Projectile_Deadeye_4_Trap_Dart.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_4/Debuff_Deadeye_Darted.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_4/Debuff_Deadeye_SuppressionSlow.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_4/AbilityTuning_Deadeye_4_Trap.uasset"
+    ]
+  },
+  {
+    "agentId": "22697a3d-45bf-8dd7-4fec-84a9e28c69d7",
+    "agentSlug": "chamber",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_X/Ability_Deadeye_X_Giantslayer_Prototype_DanPrototype.uasset",
+      "ShooterGame/Content/Characters/Deadeye/S0/Ability_X/AbilityTuning_Deadeye_X.uasset"
+    ]
+  },
+  {
+    "agentId": "1dbf2edd-4729-0984-3115-daa5eed44993",
+    "agentSlug": "clove",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_Q/DebuffKnife/DecayLauncher/Ability_Q_Smonk_DebuffKnife.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_Q/DebuffKnife/DecayLauncher/GameObject_Smonk_Q_DecayExplosion.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_Q/DebuffKnife/DecayLauncher/Projectile_Smonk_DecayNade.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_Q/DebuffKnife/DecayLauncher/Buff_Smonk_Q_Decay.uasset"
+    ]
+  },
+  {
+    "agentId": "1dbf2edd-4729-0984-3115-daa5eed44993",
+    "agentSlug": "clove",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_E/MapTargetSmoke/Ability_Smonk_E_MapTargetSmokeV2.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_E/MapTargetSmoke/Ability_Smonk_E_PostDeath.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_E/MapTargetSmoke/GameObject_Smonk_NewSmoke.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_E/MapTargetSmoke/GameObject_Smonk_NewSmoke_PDS.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_E/MapTargetSmoke/Buff_AssistTail_Smoke_Smonk.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_E/MapTargetSmoke/Buff_Assist_Smoke_Smonk.uasset"
+    ]
+  },
+  {
+    "agentId": "1dbf2edd-4729-0984-3115-daa5eed44993",
+    "agentSlug": "clove",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_4/ReactiveArmor/Ability_Smonk_BFArmor_Reactive.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_4/ReactiveArmor/Buff_Smonk_C_Haste.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_4/ReactiveArmor/Buff_Smonk_C_SpeedStim_NoVisuals.uasset"
+    ]
+  },
+  {
+    "agentId": "1dbf2edd-4729-0984-3115-daa5eed44993",
+    "agentSlug": "clove",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Ability_Smonk_X_ReactiveRes_Engineering.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Ability_Smonk_X_PostDeath_ReactiveResStart.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Buff_DelayDeathUltPointReward.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Buff_PreventKillUltPointReward.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Buff_Smonk_X_FightingStateTracker.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Buff_Smonk_X_ReactiveRes_GhostForm.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Buff_Smonk_X_ReactiveRes_InDeathCastWindow.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Buff_Smonk_X_ReactiveRes_PreventTeamWipe.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Buff_Smonk_X_ReactiveRes_Start.uasset",
+      "ShooterGame/Content/Characters/Smonk/S0/Ability_X/ReactiveRes/Buff_Smonk_X_SuccessStateTracker.uasset"
+    ]
+  },
+  {
+    "agentId": "117ed9e3-49f3-6512-3ccf-0cada7e3823b",
+    "agentSlug": "cypher",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_Q/Ability_Gumshoe_Q_CageTrap.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_Q/GameObject_Gumshoe_Q_CageTrap.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_Q/Projectile_Gumshoe_Q_CageTrap.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_Q/Zone_Gumshoe_Q_Cage.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_Q/AbilityTuning_Gumshoe_Q_CageTrap.uasset"
+    ]
+  },
+  {
+    "agentId": "117ed9e3-49f3-6512-3ccf-0cada7e3823b",
+    "agentSlug": "cypher",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_E/Ability_Gumshoe_E_Camera.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_E/Ability_Gumshoe_E_Camera_Dart.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_E/GameObject_RemovableObject_GumshoeTrackingDart.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_E/LineTargetingState_VerticleDistanceClamp.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_E/Pawn_Gumshoe_E_PossessableCamera.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_E/Projectile_Gumshoe_E_CameraTrackingDart.uasset"
+    ]
+  },
+  {
+    "agentId": "117ed9e3-49f3-6512-3ccf-0cada7e3823b",
+    "agentSlug": "cypher",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/Ability_Gumshoe_4_TripWire.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/DamageType_Gumshoe_4_Tripwire.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/ForceModule_Gumshoe_4_TripWire_Persistent.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/ForceModule_Gumshoe_4_TripWire_Slow.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/ForceModule_Tag_Chain.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/ForceModule_Tag_Zapped.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/GameObject_Gumshoe_4_TripWire.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/StateComponent_Gumshoe_4_TripWirePlace.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/GameObject_Gumshoe_4_TripWire_SecondWire.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/Buff_GumShoe_4_Chained.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/Buff_Gumshoe_TripWire_Zapped.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_4/AbilityTuning_Gumshoe_4_TripWire.uasset"
+    ]
+  },
+  {
+    "agentId": "117ed9e3-49f3-6512-3ccf-0cada7e3823b",
+    "agentSlug": "cypher",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_X/Ability_Gumshoe_X_InterrogateV2.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_X/Ability_Gumshoe_X_Interrogate.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_X/GameObject_Gumshoe_X_InterrogateHat.uasset",
+      "ShooterGame/Content/Characters/Gumshoe/S0/Ability_X/Buff_Gumshoe_RecentlyRevealed.uasset"
+    ]
+  },
+  {
+    "agentId": "cc8b64c8-4b25-4ff9-6e7f-37b4da43d235",
+    "agentSlug": "deadlock",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Cable/S0/Ability_Q/Ability_Cable_Q_SoundSensor.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_Q/GameObject_SoundSensor_SweetSpotFissure.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_Q/GameObject_StealthingTrap_SoundSensor.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_Q/LineTargetingState_VerticalDistanceClamp.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_Q/Buff_Cable_Q_Concuss_VO_Trigger.uasset"
+    ]
+  },
+  {
+    "agentId": "cc8b64c8-4b25-4ff9-6e7f-37b4da43d235",
+    "agentSlug": "deadlock",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Cable/S0/Ability_4/Ability_Cable_4_NetToss.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_4/GameObject_Cable_4_RemovableNet.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_4/Patch_Cable_4_NetToss.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_4/Projectile_Cable_4_NetToss.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_4/Buff_Cable_4_Netted.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_4/Buff_Cable_4_Netted_NoCrouch.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_4/AbilityTuning_Cable_4_NetToss.uasset"
+    ]
+  },
+  {
+    "agentId": "cc8b64c8-4b25-4ff9-6e7f-37b4da43d235",
+    "agentSlug": "deadlock",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Cable/S0/Ability_E/Ability_Cable_E_CableJam.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_E/GameObject_CableJamRoot.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_E/GameObject_CableJam_CableDeployer_Precomputed.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_E/Projectile_CableJam_InAir.uasset"
+    ]
+  },
+  {
+    "agentId": "cc8b64c8-4b25-4ff9-6e7f-37b4da43d235",
+    "agentSlug": "deadlock",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/Ability_Cable_X_FishingHook.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/Actor_FishingHook.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/CameraShake_FishingHook_Fire.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/ForceModule_FollowSpline.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/GameObject_FishingHook_BouncingTrajectoryWarning.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/GameObject_FishingHook_CageSphere.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/GameObject_FishingHook_EndOfTrajectoryWarning.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/GameObject_MotherNode.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/GameObject_Spline.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/Buff_InCageGhost.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/Buff_InCageGhost_Blinded.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/Buff_InCageGhost_Hide1P.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/Buff_InCageGhost_Invis.uasset",
+      "ShooterGame/Content/Characters/Cable/S0/Ability_X/Buff_InCageGhost_PreventEquippableDrops.uasset"
+    ]
+  },
+  {
+    "agentId": "dade69b4-4f5a-8528-247b-219e5a1facd6",
+    "agentSlug": "fade",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_Q/Ability_Q_BountyHunter_TetherDivebomb.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_Q/ForceModule_BountyHunter_Q_TetherChain_Unbreakable.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_Q/GameObject_Q_BountyHunter_Tether_SphereExpansion.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_Q/Projectile_Q_BountyHunter_TetherGrenade_SphereExpansion.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_Q/Buff_BountyHunter_Q_Decay.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_Q/Buff_BountyHunter_Q_Paranoia_TetherGrenade.uasset"
+    ]
+  },
+  {
+    "agentId": "dade69b4-4f5a-8528-247b-219e5a1facd6",
+    "agentSlug": "fade",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_E/Ability_E_BountyHunter_ReconDivebomb.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_E/GameObject_BountyHunter_E_LoSReveal_Source_Reactivate.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_E/Projectile_E_BountyHunter_Divebomb.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_E/Buff_BountyHunter_E_LeaveTrail.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_E/Buff_BountyHunter_E_LoSReveal.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_E/AbilityTuning_BountyHunter_E_ReconDiveBomb.uasset"
+    ]
+  },
+  {
+    "agentId": "dade69b4-4f5a-8528-247b-219e5a1facd6",
+    "agentSlug": "fade",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_4/Ability_BountyHunter_4_WolfHoundBendable.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_4/Pawn_BountyHunter_4_WolfHound.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_4/Buff_BountyHunter_4_IncreasedTagging.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_4/Buff_BountyHunter_4_NearSight.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_4/Buff_BountyHunter_4_Wolf_SpeedBoost.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_4/Buff_BountyHunter_4_Wolf_SpeedBoostUntrailed.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_4/AbilityTuning_BountyHunter_4_Prowlers.uasset"
+    ]
+  },
+  {
+    "agentId": "dade69b4-4f5a-8528-247b-219e5a1facd6",
+    "agentSlug": "fade",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_X/Ability_BountyHunter_X_WaveForm.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_X/GameObject_BountyHunter_X_WaveForm.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_X/Buff_BountyHunter_X_Decay.uasset",
+      "ShooterGame/Content/Characters/BountyHunter/S0/Ability_X/Buff_BountyHunter_X_LeaveTrail.uasset"
+    ]
+  },
+  {
+    "agentId": "e370fa57-4757-3604-3648-499e1f642d3f",
+    "agentSlug": "gekko",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_Q/Ability_Q_Aggrobot_SeekerNade.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_Q/Comp_BombDefuseTargeting_StateComponent.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_Q/Pawn_Aggrobot_SeekerNade.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_Q/PlacementTargetingState_Bombsite.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_Q/Buff_Aggrobot_SeekerActive.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_Q/AbilityTuning_Aggrobot_Q_SeekerNade.uasset"
+    ]
+  },
+  {
+    "agentId": "e370fa57-4757-3604-3648-499e1f642d3f",
+    "agentSlug": "gekko",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_E/Ability_E_Aggrobot_DiscTurret.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_E/Projectile_Aggrobot_Zamboni_Rocket.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_E/Projectile_E_Aggrobot_DiscTurret_PowerWave.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_E/Projectile_E_Aggrobot_OrbSpawner.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_E/Buff_Aggrobot_GoopFlash.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_E/Debuff_Aggrobot_MissileSlow.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_E/AbilityTuning_Aggrobot_E.uasset"
+    ]
+  },
+  {
+    "agentId": "e370fa57-4757-3604-3648-499e1f642d3f",
+    "agentSlug": "gekko",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_4/Ability_Aggrobot_C_ExplodeyPatch.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_4/Patch_Aggrobot_C_ExplodeyPatch.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_4/Projectile_Aggrobot_C_ExplodeyPatch.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_4/Buff_Aggrobot_Patch_Damage.uasset"
+    ]
+  },
+  {
+    "agentId": "e370fa57-4757-3604-3648-499e1f642d3f",
+    "agentSlug": "gekko",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_X/Ability_Aggrobot_X_RollyExplosion.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_X/Ability_Pawn_Aggrobot_RollyExplodey.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_X/ForceModule_Aggrobot_Boost.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_X/Pawn_Aggrobot_RollyPolly.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_X/Buff_Aggrobot_X_RollyDetain.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_X/Buff_Aggrobot_X_Shark_Deploy.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_X/Buff_RollyPolly.uasset",
+      "ShooterGame/Content/Characters/AggroBot/S0/Ability_X/Buff_RollyPolly_SharkDive.uasset"
+    ]
+  },
+  {
+    "agentId": "95b78ed7-4637-86d9-7e41-71ba8c293152",
+    "agentSlug": "harbor",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Mage/S0/Ability_Q/Ability_Mage_Q_Wall.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_Q/GameObject_Mage_Q_WallManager.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_Q/Projectile_Mage_Q_Wall.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_Q/Debuff_Mage_Q_Slow.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_Q/Debuff_Mage_Slow.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_Q/Debuff_Mage_Slow_Child_Infinite.uasset"
+    ]
+  },
+  {
+    "agentId": "95b78ed7-4637-86d9-7e41-71ba8c293152",
+    "agentSlug": "harbor",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Mage/S0/Ability_E/Ability_Mage_E_WorldSmoke.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_E/Comp_Mage_E_WorldSmoke_FindSmokeFallLocation.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_E/GameObject_Mage_E_WorldSmoke.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_E/Projectile_Mage_E_WorldSmoke.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_E/AbilityTuning_Mage_E_WorldSmoke.uasset"
+    ]
+  },
+  {
+    "agentId": "95b78ed7-4637-86d9-7e41-71ba8c293152",
+    "agentSlug": "harbor",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Mage/S0/Ability_4/Ability_Mage_4_SplashGrenade.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_4/GameObject_Mage_4_SplashGrenade.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_4/Projectile_Mage_4_SplashGrenade.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_4/Buff_Mage_4_SplashGrenade_Nearsight.uasset"
+    ]
+  },
+  {
+    "agentId": "95b78ed7-4637-86d9-7e41-71ba8c293152",
+    "agentSlug": "harbor",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Mage/S0/Ability_X/Ability_Mage_X_Wave.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_X/GameObject_Mage_X_TidalWave.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_X/GameObject_Mage_X_TidalWave_Chunk.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_X/Buff_Mage_X_NearsightStrike.uasset",
+      "ShooterGame/Content/Characters/Mage/S0/Ability_X/AbilityTuning_Mage_X_Wave.uasset"
+    ]
+  },
+  {
+    "agentId": "0e38b510-41a8-5780-5e8f-568b2a4f2d6c",
+    "agentSlug": "iso",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_Q/Ability_Sequoia_Q_FragileMissilePrototypeEquipped.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_Q/GameObject_Sequoia_Q_FragileMissile_TrajectoryWarning.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_Q/Projectile_Sequoia_Q_FragileMissile.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_Q/Buff_Sequoia_Q_Fragile.uasset"
+    ]
+  },
+  {
+    "agentId": "0e38b510-41a8-5780-5e8f-568b2a4f2d6c",
+    "agentSlug": "iso",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_E/WreckingBall/Ability_Sequoia_E_WreckingBall.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_E/WreckingBall/GameObject_Sequoia_E_Orb.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_E/WreckingBall/GameObject_Sequoia_E_Shield.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_E/WreckingBall/Buff_Sequoia_E_Invulnerability.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_E/WreckingBall/Buff_Sequoia_E_WreckingBall.uasset"
+    ]
+  },
+  {
+    "agentId": "0e38b510-41a8-5780-5e8f-568b2a4f2d6c",
+    "agentSlug": "iso",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_4/Ability_Sequoia_4_Wave.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_4/GameObject_Sequoia_4_MovingCover.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_4/GameObject_Sequoia_4_MovingCover_Slower.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_4/StateComponent_Sequoia_C_Targeting.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_4/AbilityTuning_Sequoia_4_Wave.uasset"
+    ]
+  },
+  {
+    "agentId": "0e38b510-41a8-5780-5e8f-568b2a4f2d6c",
+    "agentSlug": "iso",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_X/Ability_X_Sequoia_ArenaLineCapture.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_X/Actor_Sequoia_X_StandardArena.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_X/Equippable_Sequoia_X_ArenaTeleport.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_X/GameObject_Sequoia_X_ArenaCover.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_X/GameObject_Sequoia_X_LineCapture.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_X/Buff_Sequoia_X_PersistentArenaBuff.uasset",
+      "ShooterGame/Content/Characters/Sequoia/S0/Ability_X/Buff_Sequoia_X_TeleportToArena.uasset"
+    ]
+  },
+  {
+    "agentId": "add6443a-41bd-e414-f6ad-e58d267f4e95",
+    "agentSlug": "jett",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_Q/Ability_Wushu_Q_CycloneBoost.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_Q/ForceModule_Wushu_Q_SelfBoost.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_Q/AbilityTuning_Wushu_Q_CycloneBoost.uasset"
+    ]
+  },
+  {
+    "agentId": "add6443a-41bd-e414-f6ad-e58d267f4e95",
+    "agentSlug": "jett",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_E/Ability_Wushu_E_Dash.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_E/ForceModule_Wushu_E_Dash.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_E/AbilityTuning_Wushu_E_Dash.uasset"
+    ]
+  },
+  {
+    "agentId": "add6443a-41bd-e414-f6ad-e58d267f4e95",
+    "agentSlug": "jett",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_4/Ability_Wushu_4_Smoke.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_4/GameObject_Wushu_4_SmokeZone.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_4/Projectile_Wushu_4_Smoke.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_4/AbilityTuning_Wushu_4_Smoke.uasset"
+    ]
+  },
+  {
+    "agentId": "add6443a-41bd-e414-f6ad-e58d267f4e95",
+    "agentSlug": "jett",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Ability_Wushu_X_Dagger_Production.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Comp_Tracer_Wushu_X_Dagger.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Comp_Tracer_Wushu_X_Dagger_AfterImage.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Projectile_Wushu_X_DaggerParent.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Tracer_Wushu_X_DaggerBurst_Production.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Tracer_Wushu_X_Dagger_Production.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Projectile_Wushu_X_Dagger.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Projectile_Wushu_X_Dagger1.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Projectile_Wushu_X_Dagger2.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Projectile_Wushu_X_Dagger3.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Projectile_Wushu_X_Dagger4.uasset",
+      "ShooterGame/Content/Characters/Wushu/S0/Ability_X/Projectile_Wushu_X_Dagger5.uasset"
+    ]
+  },
+  {
+    "agentId": "601dbbe7-43ce-be57-2a40-4abd24953621",
+    "agentSlug": "kayo",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_4/Ability_Grenadier_C_Flash.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_4/Projectile_C_Grenadier_Flash.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_4/Projectile_C_Grenadier_Flash_Underhand.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_4/AbilityTuning_Grenadier_C_Flash.uasset"
+    ]
+  },
+  {
+    "agentId": "601dbbe7-43ce-be57-2a40-4abd24953621",
+    "agentSlug": "kayo",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_E/Ability_E_Grenadier_EMPKnife.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_E/Comp_Grenadier_Knife_Tracking.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_E/Gameobject_Grenadier_E_SuppressionPulse.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_E/Projectile_Grenadier_E_SuppressionBlade.uasset"
+    ]
+  },
+  {
+    "agentId": "601dbbe7-43ce-be57-2a40-4abd24953621",
+    "agentSlug": "kayo",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_Q/Ability_Grenadier_Q_BasicSemtex.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_Q/Projectile_Grenadier_Q_SemtexBasic.uasset"
+    ]
+  },
+  {
+    "agentId": "601dbbe7-43ce-be57-2a40-4abd24953621",
+    "agentSlug": "kayo",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Ability_Grenadier_X_OverloadPulse.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/DamageSection_Grenadier_X_OverloadPulse_Shell.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Gameobject_Grenadier_X_RechargeUsable.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Gameobject_Grenadier_X_UltPulse.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Gameobject_Grenadier_X_UltPulseManager.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Buff_GrenadierEmpowered.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Buff_Grenadier_AllyRechargingUsable.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Buff_Grenadier_PoweredDown.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Buff_Grenadier_Reviving.uasset",
+      "ShooterGame/Content/Characters/Grenadier/S0/Ability_X/Buff_Grenadier_X_Recharging.uasset"
+    ]
+  },
+  {
+    "agentId": "1e58de9c-4950-5125-93e9-a0aee9f98746",
+    "agentSlug": "killjoy",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_Q/Ability_Killjoy_Q_Alarmbot.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_Q/Behavior_Killjoy_Q_Alarmbot.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_Q/Behavior_Killjoy_Q_Alarmbot_BeforeAcquisitionImprovements.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_Q/Pawn_Killjoy_Q_StealthAlarmbot.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_Q/Buff_Killjoy_Q_Alarmbot_Fragile.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_Q/Buff_Killjoy_Q_Alarmbot_Stealth.uasset"
+    ]
+  },
+  {
+    "agentId": "1e58de9c-4950-5125-93e9-a0aee9f98746",
+    "agentSlug": "killjoy",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_E/Ability_Killjoy_E_Turret.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_E/Ability_Killjoy_E_TurretAttack.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_E/Ai_Service_SetBlindFireLocation.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_E/Pawn_Killjoy_E_Turret.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_E/Projectile_Killjoy_E_Turret.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_E/Tracer_Killjoy_E_Turret.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_E/Buff_Killjoy_E_Turret_TookDamageRecently.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_E/AbilityTuning_Killjoy_E_Turret.uasset"
+    ]
+  },
+  {
+    "agentId": "1e58de9c-4950-5125-93e9-a0aee9f98746",
+    "agentSlug": "killjoy",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_4/Ability_Killjoy_4_RemoteBees_MultiDetonate.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_4/DmgType_Killjoy_4_Bees.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_4/GameObject_Killjoy_4_BeeSwarm_Damage.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_4/Projectile_Killjoy_4_RemoteBees_MultiDetonate.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_4/Buff_Killjoy_4_BeeDamage.uasset"
+    ]
+  },
+  {
+    "agentId": "1e58de9c-4950-5125-93e9-a0aee9f98746",
+    "agentSlug": "killjoy",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_X/Ability_Killjoy_X_Bomb.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_X/ForceModule_Killjoy_X_Cast_TurnReduction.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_X/GameObject_Killjoy_X_Bomb.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_X/GameObject_Killjoy_X_Shockwave.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_X/Buff_Killjoy_X_Cast.uasset",
+      "ShooterGame/Content/Characters/Killjoy/S0/Ability_X/Buff_Killjoy_X_ShockwaveFinal.uasset"
+    ]
+  },
+  {
+    "agentId": "7c8a4701-4de6-9355-b254-e09bc2a34b72",
+    "agentSlug": "miks",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Iris/S0/Ability_Q/Ability_Iris_Harmonize.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_Q/Buff_Iris_Harmonize_Empower.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_Q/AbilityTuning_Iris_Harmonize.uasset"
+    ]
+  },
+  {
+    "agentId": "7c8a4701-4de6-9355-b254-e09bc2a34b72",
+    "agentSlug": "miks",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Iris/S0/Ability_E/Ability_Iris_E_MT_Smoke_Production.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_E/GameObject_Iris_E_Smoke.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_E/Buff_Iris_E_Assist_Smoke.uasset"
+    ]
+  },
+  {
+    "agentId": "7c8a4701-4de6-9355-b254-e09bc2a34b72",
+    "agentSlug": "miks",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/Ability_Iris_Thumper.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/GameObject_Thumper_Base.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/GameObject_Thumper_Concuss.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/GameObject_Thumper_ConcussPulse.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/GameObject_Thumper_Heal.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/Projectile_Thumper_Base.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/Projectile_Thumper_Concuss.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/Projectile_Thumper_Heal.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/Buff_Thumper_HealOverTime.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/Buff_Thumper_HealPulse.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/AbilityTuning_Iris_Thumper.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_4/AbilityTuning_Iris_Thumper_Console.uasset"
+    ]
+  },
+  {
+    "agentId": "7c8a4701-4de6-9355-b254-e09bc2a34b72",
+    "agentSlug": "miks",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Iris/S0/Ability_X/Ability_Iris_X_SonicWave.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_X/GameObject_Iris_X_SonicWave.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_X/Buff_Iris_X_SonicWave_Cast.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_X/Buff_Iris_X_SonicWave_Deafen.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_X/Buff_Iris_X_SonicWave_Deafen_AssistTail.uasset",
+      "ShooterGame/Content/Characters/Iris/S0/Ability_X/Buff_Iris_X_SonicWave_Slow.uasset"
+    ]
+  },
+  {
+    "agentId": "bb2a4828-46eb-8cd1-e765-15848195d751",
+    "agentSlug": "neon",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_Q/Ability_Sprinter_Q_GroundStrike_Production.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_Q/GameObject_Sprinter_Q_ElectricSphere.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_Q/Projectile_Sprinter_4_GroundStrike.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_Q/Debuff_Sprinter_SphereShock.uasset"
+    ]
+  },
+  {
+    "agentId": "bb2a4828-46eb-8cd1-e765-15848195d751",
+    "agentSlug": "neon",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_E/Ability_Sprinter_E_Sprint_Production.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_E/Comp_Sprinter_E_SprintTimeTracker.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_E/FM_Sprinter_SlideDash.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_E/Sprinter_AmmoHUDElement_CharacterHUD.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_E/Buff_Sprinter_CrouchSlide.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_E/Buff_Sprinter_E_Sprint_SpeedBoost.uasset"
+    ]
+  },
+  {
+    "agentId": "bb2a4828-46eb-8cd1-e765-15848195d751",
+    "agentSlug": "neon",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_4/Ability_Sprinter_4_Tunnel_Production.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_4/GameObject_Sprinter_4_Tunnel.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_4/Projectile_Neon_C_Tunnel.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_4/Projectile_Neon_C_Tunnel_Cosmetic.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_4/Buff_Sprinter_4_Shocked.uasset"
+    ]
+  },
+  {
+    "agentId": "bb2a4828-46eb-8cd1-e765-15848195d751",
+    "agentSlug": "neon",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Ability_Sprinter_X_LightningGun_Production.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Comp_Sprinter_X_Beam_DelayBeforeBulletRefresh.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Gun_Sprinter_X_HeavyLightningGun_Production.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Sprinter_X_Tracer_1P_Solo.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Sprinter_X_Tracer_3P.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Projectile_Sprinter_HeavyLightningGun.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Projectile_Sprinter_HeavyLightningGun_NoFeedback.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Buff_Sprinter_X_BlockFuelRegen_Production.uasset",
+      "ShooterGame/Content/Characters/Sprinter/S0/Ability_X/Buff_Sprinter_X_UltimateActive.uasset"
+    ]
+  },
+  {
+    "agentId": "8e253930-4c05-31dd-1b6c-968525494517",
+    "agentSlug": "omen",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_Q/Ability_Wraith_Q_NearsightMissile.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_Q/GameObject_Wraith_Q_NearsightMissile_TrajectoryWarning.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_Q/Projectile_Wraith_Q_NearsightMissile.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_Q/Buff_Wraith_Q_NearsightMissile_Nearsight.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_Q/AbilityTuning_Wraith_Q_NearsightMissile.uasset"
+    ]
+  },
+  {
+    "agentId": "8e253930-4c05-31dd-1b6c-968525494517",
+    "agentSlug": "omen",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_4/Ability_Wraith_4_Smoke.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_4/Projectile_Wraith_4_Smoke.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_4/Wraith_Smoke_ShadowWorldScreenCoverTemp.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/CharSelect/VFX/Wraith_Smoke_ShadowWorldScreenCoverTemp.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_4/Zone_Wraith_4_Smoke.uasset"
+    ]
+  },
+  {
+    "agentId": "8e253930-4c05-31dd-1b6c-968525494517",
+    "agentSlug": "omen",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_E/Ability_Wraith_E_ShortTeleport.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_E/AbilityTuning_Wraith_E_ShortTeleport.uasset"
+    ]
+  },
+  {
+    "agentId": "8e253930-4c05-31dd-1b6c-968525494517",
+    "agentSlug": "omen",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_X/Ability_Wraith_X_GlobalTeleport.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_X/DamageSection_Wraith_X_GlobalTeleport_EtherealForm.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_X/Intention_Wraith_X_GlobalTeleport.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_X/Buff_Wraith_X_GlobalTeleport_ArrivingOrDeparting.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_X/Buff_Wraith_X_GlobalTeleport_CancelForm.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_X/Buff_Wraith_X_GlobalTeleport_Skydome_Ally.uasset",
+      "ShooterGame/Content/Characters/Wraith/S0/Ability_X/Buff_Wraith_X_GlobalTeleport_Skydome_Enemy.uasset"
+    ]
+  },
+  {
+    "agentId": "eb93336a-449b-9c1b-0a54-a891f7921d69",
+    "agentSlug": "phoenix",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_4/Production/Ability_Phoenix_4_Molotov_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_4/Production/DmgType_Phoenix_4_Fire_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_4/Production/Projectile_Phoenix_4_Molotov_Production.uasset"
+    ]
+  },
+  {
+    "agentId": "eb93336a-449b-9c1b-0a54-a891f7921d69",
+    "agentSlug": "phoenix",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_E/Production/Ability_Phoenix_E_FlareCurve_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_E/Production/Projectile_Phoenix_E_FlareCurve_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_E/Production/Projectile_Phoenix_E_FlareCurve_Synced.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_E/Production/Projectile_Phoenix_E_FlareCurve_Synced_Right.uasset"
+    ]
+  },
+  {
+    "agentId": "eb93336a-449b-9c1b-0a54-a891f7921d69",
+    "agentSlug": "phoenix",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_Q/Production/Ability_Phoenix_Q_FireballWall_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_Q/Production/DmgType_Phoenix_Q_Fire_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_Q/Production/ForceModule_Phoenix_Q_FireballWall.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_Q/Production/GameObject_Phoenix_Q_FlameWallManager_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_Q/Production/Projectile_Phoenix_Q_FlameWall_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_Q/Production/Projectile_Phoenix_Q_FlameWall_ThroughWall.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_Q/Production/Buff_Phoenix_Q_FireDamage_NewMolotov.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_Q/Production/AbilityTuning_Phoenix_Q_FlameWall.uasset"
+    ]
+  },
+  {
+    "agentId": "eb93336a-449b-9c1b-0a54-a891f7921d69",
+    "agentSlug": "phoenix",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_X/Production/Ability_Phoenix_X_SelfRes_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_X/Production/GameObject_Phoenix_X_ResTarget_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_X/Production/Buff_Phoenix_X_Death_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_X/Production/Buff_Phoenix_X_SelfRes_Production.uasset",
+      "ShooterGame/Content/Characters/Phoenix/S0/Ability_X/Production/AbilityTuning_Phoenix_X_SelfRes.uasset"
+    ]
+  },
+  {
+    "agentId": "f94c3b30-42be-e959-889c-5aa313dba261",
+    "agentSlug": "raze",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Clay/S0/Ability_Q/Ability_Clay_Q_Satchel.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_Q/DmgType_Clay_Q_Satchel.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_Q/GameObject_Clay_Q_Explosion.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_Q/Projectile_Clay_Q_Satchel_Arming.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_Q/ps_small_destroy_Clay.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_Q/AbilityTuning_Clay_Q_Satchel.uasset"
+    ]
+  },
+  {
+    "agentId": "f94c3b30-42be-e959-889c-5aa313dba261",
+    "agentSlug": "raze",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Clay/S0/Ability_4/Ability_Clay_4_ClusterGrenade.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_4/Projectile_Clay_4_Projectile_Primary.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_4/Projectile_Clay_4_Projectile_Secondary.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_4/Projectile_Clay_4_Projectile_SecondarySpawner.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_4/AbilityTuning_Clay_4_ClusterGrenade.uasset"
+    ]
+  },
+  {
+    "agentId": "f94c3b30-42be-e959-889c-5aa313dba261",
+    "agentSlug": "raze",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Clay/S0/Ability_E/Ability_Clay_E_Boomba.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_E/DmgType_Clay_E_Boomba.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_E/ForceModule_Clay_E_Bounce.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_E/ForceModule_Clay_E_Spawned.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_E/Pawn_Clay_E_Boomba.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_E/Buff_Clay_E_Expired.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_E/Buff_Clay_E_IncreasedTagging.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_E/AbilityTuning_Clay_E_Boomba.uasset"
+    ]
+  },
+  {
+    "agentId": "f94c3b30-42be-e959-889c-5aa313dba261",
+    "agentSlug": "raze",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Clay/S0/Ability_X/Ability_Clay_X_RocketLauncher.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_X/CameraShake_Clay_X_Fire.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_X/DmgType_Clay_X_Rocket.uasset",
+      "ShooterGame/Content/Characters/Clay/S0/Ability_X/Projectile_Clay_X_Rocket.uasset"
+    ]
+  },
+  {
+    "agentId": "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc",
+    "agentSlug": "reyna",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_Q/Ability_Vampire_Q_Heal.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_Q/DamageSection_Vampire_Q_Heal_BloodArmor.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_Q/GameObject_Vampire_Q_Heal_HealPool_AutoActivate.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_Q/GameObject_Vampire_Q_Heal_HealPool_High.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_Q/GameObject_Vampire_Q_Heal_HealPool_Parent.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_Q/GameObject_Vampire_Q_Heal_HealPool_AutoActivate_Parent.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_Q/AbilityTuning_Vampire_Q_Heal.uasset"
+    ]
+  },
+  {
+    "agentId": "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc",
+    "agentSlug": "reyna",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_E/Ability_Vampire_E_Escape.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_E/Buff_Vampire_E_Escaped_InvisAndInvuln.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_E/Buff_Vampire_E_Escaped_InvulnOnly.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_E/AbilityTuning_Vampire_E_Escape.uasset"
+    ]
+  },
+  {
+    "agentId": "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc",
+    "agentSlug": "reyna",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_4/Ability_Vampire_4_NearsightAoE.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_4/GameObject_Vampire_4_NearsightAOE_Source.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_4/Projectile_Vampire_4_NearsightAoE.uasset",
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_4/Buff_Vampire_4_NearsightAOE_NearSight_Infinite.uasset"
+    ]
+  },
+  {
+    "agentId": "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc",
+    "agentSlug": "reyna",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Vampire/S0/Ability_X/Ability_Vampire_X_Frenzy.uasset"
+    ]
+  },
+  {
+    "agentId": "569fdd95-4d10-43ab-ca70-79becc718b46",
+    "agentSlug": "sage",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_4/Ability_Thorne_4_SlowField_Production.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_4/CameraShake_Clay_Q_Fire.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_4/Patch_Thorne_4_SlowField_Production.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_4/Projectile_Thorne_4_SlowFIeld_Production.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_4/Debuff_Thorne_SlowField.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_4/AbilityTuning_Thorne_4_SlowField.uasset"
+    ]
+  },
+  {
+    "agentId": "569fdd95-4d10-43ab-ca70-79becc718b46",
+    "agentSlug": "sage",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_Q/Ability_Thorne_Q_Heal_Production_New.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_Q/Buff_Thorne_Q_AllyHeal_v2.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_Q/Buff_Thorne_Q_SelfHeal_v2.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_Q/AbilityTuning_Thorne_Q_Heal.uasset"
+    ]
+  },
+  {
+    "agentId": "569fdd95-4d10-43ab-ca70-79becc718b46",
+    "agentSlug": "sage",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_E/Ability_Thorne_E_Wall_Fortifying.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_E/GameObject_Thorne_E_Wall_Fortifying.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_E/GameObject_Thorne_E_Wall_Segment_Fortifying.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_E/StateComponent_PlacementTargeting_ThorneWall.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_E/AbilityTuning_Thorne_4_Wall.uasset"
+    ]
+  },
+  {
+    "agentId": "569fdd95-4d10-43ab-ca70-79becc718b46",
+    "agentSlug": "sage",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_X/Ability_Thorne_X_Resurrect_Production.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_X/Buff_Thorne_X_ResurrectingPlayer_Invulnerability_Production.uasset",
+      "ShooterGame/Content/Characters/Thorne/S0/Ability_X/Buff_Thorne_X_ResurrectingPlayer_Production.uasset"
+    ]
+  },
+  {
+    "agentId": "6f2a04ca-43e0-be17-7f36-b3908627744d",
+    "agentSlug": "skye",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Ability_Guide_Q_PossessableScout.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Ability_Guide_Q_PossessableScout_ScoutAbilities.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/ForceModule_Guide_Q_PossessableScout_DashAttack.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Pawn_Guide_Q_PossessableScout.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Buff_Guide_Q_PossessableScout_BlockJump.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Buff_Guide_Q_PossessableScout_MovementDelay.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Buff_Guide_Q_PossessableScout_ScoutConstantNearsight.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Buff_Guide_Q_PossessableScout_SpeedBoost.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Buff_Guide_Q_PossessableScout_TurnRate.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/Buff_Guide_Q_PostHit.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_Q/AbilityTuning_Guide_Q_PossessableScout.uasset"
+    ]
+  },
+  {
+    "agentId": "6f2a04ca-43e0-be17-7f36-b3908627744d",
+    "agentSlug": "skye",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Guide/S0/Ability_E/Ability_Guide_E_HawkFlash.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_E/ForceModule_Guide_E_HawkFlash_ProjectileFlight.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_E/GameObject_Guide_E_HawkFlash_FlashSource.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_E/Projectile_Guide_E_HawkFlash.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_E/AbilityTuning_Guide_E_HawkFlash.uasset"
+    ]
+  },
+  {
+    "agentId": "6f2a04ca-43e0-be17-7f36-b3908627744d",
+    "agentSlug": "skye",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Guide/S0/Ability_4/Ability_Guide_4_Heal.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_4/GameObject_Guide_4_Heal_AOE.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_4/Buff_Guide_4_Heal.uasset"
+    ]
+  },
+  {
+    "agentId": "6f2a04ca-43e0-be17-7f36-b3908627744d",
+    "agentSlug": "skye",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Guide/S0/Ability_X/Ability_Guide_X_Pack.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_X/Pawn_Guide_X_Pack.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_X/Buff_Guide_X_DashSlow.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_X/Buff_Guide_X_MovementSlow.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_X/Buff_Guide_X_Pack_Invisible.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_X/Buff_Guide_X_Pack_Nearsight.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_X/Buff_Guide_X_Pack_SpeedBoost.uasset",
+      "ShooterGame/Content/Characters/Guide/S0/Ability_X/AbilityTuning_Guide_X_Pack.uasset"
+    ]
+  },
+  {
+    "agentId": "320b2a48-4d9b-a075-30f1-1f93a9b638fa",
+    "agentSlug": "sova",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_4/Ability_Hunter_4_BoltExplosive.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_4/GameObject_Hunter_4_ExplosiveBolt_Explosion.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_4/Projectile_Hunter_4_ExplosiveBolt.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_4/AbilityTuning_Hunter_4_BoltExplosive.uasset"
+    ]
+  },
+  {
+    "agentId": "320b2a48-4d9b-a075-30f1-1f93a9b638fa",
+    "agentSlug": "sova",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_Q/Ability_Hunter_Q_RevealBolt_Signature.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_Q/Ability_Hunter_Q_RevealBolt.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_Q/GameObject_Hunter_Q_SonarBolt.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_Q/GameObject_Hunter_Q_SonarPing.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_Q/Projectile_Hunter_Q_RevealBolt.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_Q/AbilityTuning_Hunter_Q_RevealBolt.uasset"
+    ]
+  },
+  {
+    "agentId": "320b2a48-4d9b-a075-30f1-1f93a9b638fa",
+    "agentSlug": "sova",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/Ability_Hunter_E_DeployDrone.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/Ability_Hunter_E_Drone_Abilities.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/ForceModule_Hunter_DroneFlightRestrictions.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/GameObject_Hunter_E_Drone_RevealDart.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/Other/GameObject_Hunter_E_Drone_RevealDart.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/Pawn_Hunter_E_Drone.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/StateComp_Hunter_E_LineTraceToCursor.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/Buff_Hunter_E_Darted.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/Buff_Hunter_E_Drone_MinimapBlind.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_E/Drone/Buff_Hunter_E_LockedOn.uasset"
+    ]
+  },
+  {
+    "agentId": "320b2a48-4d9b-a075-30f1-1f93a9b638fa",
+    "agentSlug": "sova",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_X/Ability_Hunter_X_LaserMulti.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_X/ForceModule_Hunter_X_Ability_TurnReduction.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_X/StateComponent_Hunter_X_UltDamage.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_X/Buff_Hunter_Ult_Revealed.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_X/Buff_Hunter_X_Ability_LaserCharge.uasset",
+      "ShooterGame/Content/Characters/Hunter/S0/Ability_X/Buff_Hunter_X_Ability_LaserMultiCharge_Equipped.uasset"
+    ]
+  },
+  {
+    "agentId": "b444168c-4e35-8076-db47-ef9bf368f384",
+    "agentSlug": "tejo",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_Q/Ability_Cashew_Q_ShellShockGrenade.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_Q/GameObject_Cashew_Q_ShellShockGrenade.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_Q/Projectile_Cashew_Q_ShellShockGrenade.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_Q/Projectile_Cashew_Q_ShellShockGrenade_Bounce.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_Q/AbilityTuning_Cashew_Semtex.uasset"
+    ]
+  },
+  {
+    "agentId": "b444168c-4e35-8076-db47-ef9bf368f384",
+    "agentSlug": "tejo",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_E/Ability_Cashew_E_Airstrike.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_E/AIPawn_Cashew_E_SeekingTargetMissile.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_E/DmgType_Cashew_E_Missile.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_E/GameObject_Cashew_E_Explosion.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_E/GameObject_Cashew_E_MapMissileMarker.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_E/GameObject_Cashew_E_AirStrikeMortar.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_E/GameObject_Cashew_E_MapMissileMarker_SecondRocket.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_E/AbilityTuning_Cashew_E_Airstrike.uasset"
+    ]
+  },
+  {
+    "agentId": "b444168c-4e35-8076-db47-ef9bf368f384",
+    "agentSlug": "tejo",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Ability_Cashew_4_Spider_LockOn.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Ability_Cashew_4_Spider_Abilities_SelfDestruct.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/GameObject_Cashew_4_SonarPing.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/MultiRevealActorComponent.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Pawn_Cashew_4_Spider_LockOn.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/WBP_CashewDrone_ChargeBar.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Buff_Cashew_4_SpiderBot_SpeedBoost.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Buff_Cashew_4_Spider_Deploy.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Buff_Cashew_4_Spider_Forming.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Buff_Cashew_4_Spider_Stealth.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Buff_Cashew_Q_Spider_MovementDelay.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/Buff_Spider_DroneLock.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_4/AbilityTuning_Cashew_C_Spider_LockOn.uasset"
+    ]
+  },
+  {
+    "agentId": "b444168c-4e35-8076-db47-ef9bf368f384",
+    "agentSlug": "tejo",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_X/Ability_Cashew_X_Airstrike.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_X/GameObject_Cashew_X_Segment.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_X/GameObject_Cashew_X_SegmentManager.uasset",
+      "ShooterGame/Content/Characters/Cashew/S0/Ability_X/AbilityTuning_Cashew_X_Airstrike.uasset"
+    ]
+  },
+  {
+    "agentId": "92eeef5d-43b5-1d4a-8d03-b3927a09034b",
+    "agentSlug": "veto",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Pine/S0/Ability_Q/Ability_Pine_Q_SeizeTrap.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_Q/ForceModule_Pine_Q_TetherChain_Unbreakable.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_Q/GameObject_Pine_Q_SeizeTrap.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_Q/GameObject_Pine_Q_Tether_SphereExpansion.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_Q/Projectile_Pine_Q_TrapGrenade.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_Q/Projectile_Pine_Q_TrapGrenadeUnderhand.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_Q/Buff_Pine_Q_Deafen.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_Q/Buff_Pine_Q_Decay.uasset"
+    ]
+  },
+  {
+    "agentId": "92eeef5d-43b5-1d4a-8d03-b3927a09034b",
+    "agentSlug": "veto",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Pine/S0/Ability_E/Ability_Pine_E_RadEater.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_E/Pawn_Pine_E_RadEater.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_E/Projectile_Pine_E_RadEaterSpawner.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_E/Buff_Pine_Radeater_HadUtilDestroyed.uasset"
+    ]
+  },
+  {
+    "agentId": "92eeef5d-43b5-1d4a-8d03-b3927a09034b",
+    "agentSlug": "veto",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Pine/S0/Ability_4/Ability_Pine_4_UsableTP.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_4/GameObject_Pine_4_UsableTeleport.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_4/Buff_Pine_4_Immobile.uasset"
+    ]
+  },
+  {
+    "agentId": "92eeef5d-43b5-1d4a-8d03-b3927a09034b",
+    "agentSlug": "veto",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Pine/S0/Ability_X/Ability_Pine_X_SelfBuffVers_Engineering.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_X/Buff_Pine_X_SelfBuffHoTVers.uasset",
+      "ShooterGame/Content/Characters/Pine/S0/Ability_X/Buff_Pine_X_SelfBuff_Immunity.uasset"
+    ]
+  },
+  {
+    "agentId": "707eab51-4836-f488-046a-cda6bf494859",
+    "agentSlug": "viper",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_4/Ability_Pandemic_4_SmokeGrenade.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_4/GameObject_Pandemic_4_SmokeZone.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_4/Projectile_Pandemic_4_SmokeGrenade.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_4/GameObject_Pandemic_4_AimingObject.uasset"
+    ]
+  },
+  {
+    "agentId": "707eab51-4836-f488-046a-cda6bf494859",
+    "agentSlug": "viper",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_E/Ability_Pandemic_E_SmokeScreen.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_E/GameObject_Pandemic_E_SmokeScreenManager.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_E/Projectile_Pandemic_E_SmokeScreen_NoCollision.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_E/Projectile_Pandemic_E_SmokeScreen_CollisionTest.uasset"
+    ]
+  },
+  {
+    "agentId": "707eab51-4836-f488-046a-cda6bf494859",
+    "agentSlug": "viper",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_Q/Ability_Pandemic_Q_AcidGrenade.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_Q/DmgType_Pandemic_Q_Acid.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_Q/Patch_Pandemic_AcidMolotov_NewMolotov.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_Q/Projectile_Pandemic_Q_AcidGrenade.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_Q/Buff_Pandemic_Acid_Fragile.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_Q/Buff_Pandemic_Acid_Fragile_Tail.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_Q/Buff_Pandemic_Q_AcidDamage.uasset"
+    ]
+  },
+  {
+    "agentId": "707eab51-4836-f488-046a-cda6bf494859",
+    "agentSlug": "viper",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_X/Ability_Pandemic_X_SmokeSite_New.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_X/CameraShake_Pandemic_X_Casting.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_X/Patch_Pandemic_X_Circular.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_X/PlacementTargetingState_Pandemic_X.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_X/Buff_Pandemic_Decay.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_X/Buff_Pandemic_X_Casting_Fast.uasset",
+      "ShooterGame/Content/Characters/Pandemic/S0/Ability_X/Buff_Pandemic_X_Smokesite_MinimapVisionDisable.uasset"
+    ]
+  },
+  {
+    "agentId": "efba5359-4016-a1e5-7626-b1ae76895940",
+    "agentSlug": "vyse",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Nox/S0/Ability_Q/Ability_Nox_Wall.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_Q/ForceModule_Nox_WallKnockbackContinuous.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_Q/GameObject_Nox_Wall.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_Q/GameObject_Nox_WallTrap.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_Q/LineTargetingState_NoxWallFirstAnchor.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_Q/Buff_Nox_Wall_TriggeringPlayerAssistTail.uasset"
+    ]
+  },
+  {
+    "agentId": "efba5359-4016-a1e5-7626-b1ae76895940",
+    "agentSlug": "vyse",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Nox/S0/Ability_E/Ability_Nox_FlashTrap.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_E/GameObject_Nox_StealthingTrap_Flash_2.uasset"
+    ]
+  },
+  {
+    "agentId": "efba5359-4016-a1e5-7626-b1ae76895940",
+    "agentSlug": "vyse",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Nox/S0/Ability_4/Ability_Nox_BarbedWire.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_4/BarabedWire_DamageManagerComponent.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_4/DmgType_Nox_BarbedWire.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_4/GameObject_Nox_BarbedWire.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_4/Patch_Nox_BarbedWire.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_4/Projectile_Nox_BarbedWire.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_4/Debuff_Nox_BarbedWire.uasset"
+    ]
+  },
+  {
+    "agentId": "efba5359-4016-a1e5-7626-b1ae76895940",
+    "agentSlug": "vyse",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Nox/S0/Ability_X/Ability_Nox_DisarmPulse.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_X/Gameobject_Nox_DisarmPulse.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_X/Buff_Nox_PreventFire.uasset",
+      "ShooterGame/Content/Characters/Nox/S0/Ability_X/Buff_Nox_X_Jammed.uasset"
+    ]
+  },
+  {
+    "agentId": "df1cb487-4902-002e-5c17-d28e83e78588",
+    "agentSlug": "waylay",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Terra/S0/Ability_Q/Ability_Terra_Q_DoubleDash.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_Q/ForceModule_Terra_Q_DoubleDash_Dash_Base.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_Q/ForceModule_Terra_Q_DoubleDash_Double_Second.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_Q/ForceModule_Terra_Q_DoubleDash_Single.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_Q/AbilityTuning_Terra_Q_DoubleDash.uasset"
+    ]
+  },
+  {
+    "agentId": "df1cb487-4902-002e-5c17-d28e83e78588",
+    "agentSlug": "waylay",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Terra/S0/Ability_E/Ability_Terra_E_RewindTime.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_E/GameObject_Terra_E_RewindTime_RewindTarget.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_E/Projectile_Terra_E_RewindTime_ForObservers.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_E/Buff_Terra_E_RewindTime_Rewinding.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_E/AbilityTuning_Terra_E_RewindTime.uasset"
+    ]
+  },
+  {
+    "agentId": "df1cb487-4902-002e-5c17-d28e83e78588",
+    "agentSlug": "waylay",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Terra/S0/Ability_4/Ability_Terra_C_TimeSlowGrenade.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_4/CameraShake_Terra_C_TimeSlowGrenade_Fire.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_4/GameObject_Terra_C_TimeSlowGrenade_Explosion.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_4/Projectile_Terra_C_TimeSlowGrenade.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_4/Buff_Terra_C_TimeSlowGrenade_Slow.uasset"
+    ]
+  },
+  {
+    "agentId": "df1cb487-4902-002e-5c17-d28e83e78588",
+    "agentSlug": "waylay",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Terra/S0/Ability_X/Ability_Terra_X_DelayedBeam.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_X/ForceModule_Terra_X_Cast_TurnReduction.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_X/GameObject_Terra_X_DelayedBeam_Beam.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_X/Buff_Terra_X_DelayedBeam_Cast.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_X/Buff_Terra_X_DelayedBeam_SelfStim.uasset",
+      "ShooterGame/Content/Characters/Terra/S0/Ability_X/Buff_Terra_X_DelayedBeam_Slow.uasset"
+    ]
+  },
+  {
+    "agentId": "7f94d92c-4234-0a36-9646-3a87eb8b5c89",
+    "agentSlug": "yoru",
+    "slot": "Ability1",
+    "packages": [
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_Q/Ability_Stealth_Q_BounceFlash.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_Q/Projectile_Stealth_Q_BounceFlash.uasset"
+    ]
+  },
+  {
+    "agentId": "7f94d92c-4234-0a36-9646-3a87eb8b5c89",
+    "agentSlug": "yoru",
+    "slot": "Ability2",
+    "packages": [
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_E/Ability_Stealth_E_Teleport.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_E/Pawn_Stealth_E_TeleporterMoving.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_E/Pawn_Stealth_E_TeleporterMoving_FakeTP.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_E/Pawn_Stealth_E_TeleporterStationary_FakeTP.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_E/Buff_Stealth_Beacon.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_E/Buff_Stealth_BeaconCloak.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_E/Buff_Stealth_E_Expired.uasset"
+    ]
+  },
+  {
+    "agentId": "7f94d92c-4234-0a36-9646-3a87eb8b5c89",
+    "agentSlug": "yoru",
+    "slot": "Grenade",
+    "packages": [
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_4/Ability_Stealth_4_Decoy.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_4/GameObject_Stealth_DecoySpawner.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_4/Pawn_Stealth_4_Decoy_V2.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_4/Pawn_Stealth_4_Decoy_V2_Activatable.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_4/Buff_Stealth_4_DecoyBuffs.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_4/Buff_Stealth_4_PuddleBuffs.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_4/Buff_Stealth_Invulnerable.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_4/AbilityTuning_Stealth_4_Decoy.uasset"
+    ]
+  },
+  {
+    "agentId": "7f94d92c-4234-0a36-9646-3a87eb8b5c89",
+    "agentSlug": "yoru",
+    "slot": "Ultimate",
+    "packages": [
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_X/Ability_Stealth_X_Cloak_Equip.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_X/ForceModule_Stealth_X_RepelFromEnemies.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_X/Buff_Stealth_Cloaked.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_X/Buff_Stealth_FullCloak.uasset",
+      "ShooterGame/Content/Characters/Stealth/S0/Ability_X/Buff_Stealth_X_BlockEquip.uasset"
+    ]
+  }
+]

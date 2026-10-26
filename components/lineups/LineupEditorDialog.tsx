@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { X } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import SelectField from "@/components/ui/SelectField";
@@ -21,7 +21,9 @@ import {
 import type { LineupDraft } from "@/lib/lineups/commands";
 import type { Agent, GameMap, Screenshot } from "@/lib/types";
 import AbilityPickerGrid from "./AbilityPickerGrid";
-import LineupImageInput from "./LineupImageInput";
+import LineupGalleryInput from "./LineupGalleryInput";
+import { getYouTubeEmbedUrl, validateVideoUrl } from "@/lib/lineups/media";
+import type { LineupDraftImage } from "@/lib/lineups/commands";
 interface Props {
   agent: Agent;
   map: GameMap;
@@ -47,35 +49,28 @@ function LineupForm({ agent, map, screenshot, onClose }: Props) {
   const [title, setTitle] = useState(screenshot?.title ?? "");
   const [description, setDescription] = useState(screenshot?.description ?? "");
   const [isPublic, setIsPublic] = useState(Boolean(screenshot?.isPublic));
-  const [preview, setPreview] = useState<string | null>(
-    screenshot?.image ?? null,
+  const [images, setImages] = useState<LineupDraftImage[]>(() =>
+    screenshot?.images?.length
+      ? screenshot.images.map((image) => ({ ...image }))
+      : screenshot?.image
+        ? [{ imageUrl: screenshot.image, caption: "" }]
+        : [],
   );
+  const [coverIndex, setCoverIndex] = useState(screenshot?.coverIndex ?? 0);
+  const [videoUrl, setVideoUrl] = useState(screenshot?.videoUrl ?? "");
   const [error, setError] = useState<string | null>(null);
-  const fileRef = useRef<File | null>(null);
-  useEffect(
-    () => () => {
-      if (preview?.startsWith("blob:")) URL.revokeObjectURL(preview);
-    },
-    [preview],
-  );
-  const onFile = (file: File) => {
-    if (
-      !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
-      !file.size ||
-      file.size > 10 * 1024 * 1024
-    ) {
-      setError("Use a PNG, JPEG or WebP up to 10 MB.");
-      return;
-    }
-    fileRef.current = file;
-    setPreview(URL.createObjectURL(file));
-    setError(null);
-  };
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (pending) return;
-    const file = fileRef.current;
-    if (!file && !screenshot) return setError("Please upload a screenshot.");
+    try {
+      validateVideoUrl(videoUrl);
+      if (!images.length && !getYouTubeEmbedUrl(videoUrl))
+        return setError("Add a screenshot or a YouTube video.");
+    } catch (error) {
+      return setError(
+        error instanceof Error ? error.message : "Check the video URL.",
+      );
+    }
     if (!title.trim()) return setError("Title is required.");
     if (
       !screenshot &&
@@ -90,6 +85,9 @@ function LineupForm({ agent, map, screenshot, onClose }: Props) {
     if (!isMapSlug(map._id) || !agentSlug || !isAgentSlug(agentSlug))
       return setError("Choose a known map and agent.");
     const draft: LineupDraft = {
+      images,
+      coverIndex,
+      videoUrl,
       mapSlug: map._id,
       agentSlug,
       title: title.trim(),
@@ -100,10 +98,8 @@ function LineupForm({ agent, map, screenshot, onClose }: Props) {
     setError(null);
     startTransition(async () => {
       const result = screenshot
-        ? await editScreenshot(screenshot._id, draft, file ?? undefined)
-        : file
-          ? await uploadScreenshot(draft, file)
-          : { ok: false as const, error: "Choose an image." };
+        ? await editScreenshot(screenshot._id, draft)
+        : await uploadScreenshot(draft);
       if (!result.ok) setError(result.error);
       else onClose();
     });
@@ -258,16 +254,25 @@ function LineupForm({ agent, map, screenshot, onClose }: Props) {
 
         <div className="flex flex-col gap-1.5">
           <span className="text-xs font-semibold uppercase tracking-wider text-white/50">
-            Screenshot
+            Screenshots (up to 10)
           </span>
-          <LineupImageInput
-            preview={preview}
-            required={!screenshot}
-            onChange={onFile}
-            onClear={() => {
-              fileRef.current = null;
-              setPreview(screenshot?.image ?? null);
-            }}
+          <LineupGalleryInput
+            images={images}
+            onChange={setImages}
+            coverIndex={coverIndex}
+            onCoverChange={setCoverIndex}
+            onError={setError}
+          />
+          <label htmlFor="lineup-video" className="mt-3 text-xs text-white/60">
+            External video URL (optional)
+          </label>
+          <input
+            id="lineup-video"
+            type="url"
+            value={videoUrl}
+            onChange={(event) => setVideoUrl(event.target.value)}
+            placeholder="https://www.youtube.com/watch?v=�"
+            className="w-full h-10 px-3 bg-white/5 border border-white/10 text-sm text-white"
           />
         </div>
 

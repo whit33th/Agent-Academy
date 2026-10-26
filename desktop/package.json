@@ -1,9 +1,8 @@
 {
   "name": "agent-academy-desktop",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "private": true,
   "description": "Agent Academy for Windows",
   "author": "Agent Academy",
-  "main": "dist/main.cjs",
-  "dependencies": {}
+  "main": "dist/main.cjs"
 }

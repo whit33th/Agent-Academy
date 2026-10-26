@@ -1,0 +1,55 @@
+{
+  "batchId": "public-lineups-vyse-other-maps-13-08-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "youtube:GPaGm-6I0Mw:34",
+      "mapSlug": "sunset",
+      "agentSlug": "vyse",
+      "title": "B Main isolation with Market flash",
+      "description": "Place Shear across the B Main exit so an attacker must leave the entrance smoke to trigger it. Put a Razorvine beside the stairs to cover the plant cubby. Place Arc Rose on the ledge beside the orange Market sign. Hold from back site; activate the vine when the wall separates the entry, then flash before peeking.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=GPaGm-6I0Mw&t=34s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=GPaGm-6I0Mw&t=34s",
+        "author": "Purple Valorant",
+        "publishedAt": "2026-09-19",
+        "checkedAt": 1792973373439,
+        "patch": "13.08",
+        "evidence": "Primary YouTube watch page and expanded publication date inspected. Actual B Main frame at 0:38 and stairs/plant cubby frame at 1:35 reviewed with creator transcript at 0:46-2:30; Arc Rose location described at 2:03-2:10. Source postdates Sunset's B rework; the current official map history lists no later change to these local surfaces. Current-patch applicability is inferred from unchanged relevant geometry and surface placements, not an independent gameplay test. No old duration or damage values copied.",
+        "rightsBasis": "External YouTube embed only. Creator's Share > Embed panel provided an actual iframe for this video on 2026-10-26. No media files or thumbnails copied.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:GPaGm-6I0Mw:457",
+      "mapSlug": "sunset",
+      "agentSlug": "vyse",
+      "title": "A Main corner isolation and choke trap",
+      "description": "Set Shear across the A Main exit with its end tucked into the corner beside the green crate. Place Razorvine in the choke behind it. Keep Arc Rose below the overhead beam so the beam does not block it. Once the wall isolates the entry, activate the vine and flash before fighting from cover.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=GPaGm-6I0Mw&t=457s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=GPaGm-6I0Mw&t=457s",
+        "author": "Purple Valorant",
+        "publishedAt": "2026-09-19",
+        "checkedAt": 1792973373439,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page, expanded publication date and transcript inspected. Actual A Main stance and corner/crate frames at 7:37 and 7:45 reviewed; creator explains Shear placement at 7:37-7:54, Razorvine at 8:01-8:20 and the beam-blocked flash caveat at 9:00-9:15. No subsequent relevant A Main surface change identified in current official Sunset history. Compatibility is a source/geometry inference; not an independent gameplay test. No exact older timings or damage values assumed.",
+        "rightsBasis": "External YouTube embed only. Creator's Share > Embed panel provided an actual iframe for this video on 2026-10-26. No media files or thumbnails copied.",
+        "testedInGame": false
+      }
+    }
+  ]
+}

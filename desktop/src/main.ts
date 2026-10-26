@@ -12,6 +12,7 @@ import { createClerkBridge } from "@clerk/electron";
 import { autoUpdater } from "electron-updater";
 import { createNativePreferences } from "./native-preferences";
 import { createUpdateController } from "./update-controller";
+import { createUpdateLog } from "./update-log";
 import { storage } from "@clerk/electron/storage";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -31,6 +32,7 @@ import {
   boardDestination,
   createBoardLink,
 } from "../../lib/desktop/board-links";
+import { readValorantAimSettings } from "./aim-settings";
 
 const profileDirectory =
   app.commandLine.getSwitchValue("user-data-dir") ||
@@ -168,13 +170,24 @@ async function start() {
   autoUpdater.allowDowngrade = false;
   autoUpdater.disableDifferentialDownload = false;
   autoUpdater.disableWebInstaller = true;
+  const updateLog = createUpdateLog(path.join(app.getPath("userData"), "logs"));
+  updateLog.write("startup", {
+    currentVersion: app.getVersion(),
+    packaged: app.isPackaged,
+  });
+  let previousUpdateStatus = "";
   const updates = createUpdateController(
     autoUpdater,
     app.getVersion(),
     (state) => {
+      if (state.status !== previousUpdateStatus) {
+        previousUpdateStatus = state.status;
+        updateLog.write("state", { ...state });
+      }
       if (mainWindow && !mainWindow.isDestroyed())
         mainWindow.webContents.send(DESKTOP_CHANNELS.updateState, state);
     },
+    (error, state) => updateLog.write("error", { ...state }, error),
   );
   await retireLegacyHelper(app.getPath("userData"));
   const devUrl = !app.isPackaged
@@ -291,6 +304,26 @@ async function start() {
       clipboard.writeText(createBoardLink(mapSlug, payload));
     },
   );
+  const suspendAim = () => {
+    if (mainWindow && !mainWindow.isDestroyed())
+      mainWindow.webContents.send(DESKTOP_CHANNELS.aimSuspended);
+  };
+  ipcMain.handle(DESKTOP_CHANNELS.aim, async (event, action: unknown) => {
+    if (!trustedMainFrame(event) || !mainWindow)
+      throw new Error("Unauthorized aim request.");
+    if (action === "settings") return readValorantAimSettings();
+    throw new Error("Unknown aim action.");
+  });
+  mainWindow.on("blur", suspendAim);
+  mainWindow.on("hide", suspendAim);
+  mainWindow.on("minimize", suspendAim);
+  mainWindow.on("leave-full-screen", suspendAim);
+  mainWindow.webContents.on("did-navigate", suspendAim);
+  mainWindow.webContents.on("did-navigate-in-page", (_event, url) => {
+    if (new URL(url).pathname !== "/aim") {
+      suspendAim();
+    }
+  });
   ipcMain.handle(DESKTOP_CHANNELS.window, (event, action: unknown) => {
     if (!trustedMainFrame(event) || !mainWindow)
       throw new Error("Unauthorized window request.");
@@ -318,9 +351,13 @@ async function start() {
     return { action: "deny" };
   });
   mainWindow.webContents.session.setPermissionRequestHandler(
-    (_webContents, _permission, callback) => callback(false),
+    (_webContents, permission, callback) => {
+      callback(permission === "pointerLock");
+    },
   );
-  mainWindow.webContents.session.setPermissionCheckHandler(() => false);
+  mainWindow.webContents.session.setPermissionCheckHandler(
+    (_webContents, permission) => permission === "pointerLock",
+  );
   const authOrigin = publicConfig.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
     ? clerkIssuer(publicConfig.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY)
     : "";
@@ -336,7 +373,7 @@ async function start() {
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self' data: blob: https://cdn.sanity.io https://*.convex.cloud https://img.clerk.com",
         `connect-src 'self' ${devUrl ? "ws://127.0.0.1:3000" : ""} ${authOrigin} ${publicConfig.NEXT_PUBLIC_CONVEX_URL ?? ""} ${publicConfig.NEXT_PUBLIC_CONVEX_URL?.replace("https://", "wss://") ?? ""} ${publicConfig.NEXT_PUBLIC_CONVEX_SITE_URL ?? publicConfig.NEXT_PUBLIC_CONVEX_URL?.replace(".cloud", ".site") ?? ""} https://*.protect.clerk.com:* https://clerk-telemetry.com https://*.clerk-telemetry.com`,
-        "frame-src https://challenges.cloudflare.com https://*.protect.clerk.com",
+        "frame-src https://challenges.cloudflare.com https://*.protect.clerk.com https://www.youtube-nocookie.com",
         "font-src 'self' data:",
         "media-src 'self' data: blob:",
         "worker-src 'self' blob:",
@@ -366,16 +403,16 @@ async function start() {
   const updateTray = () =>
     tray?.setContextMenu(
       Menu.buildFromTemplate([
-        { label: "Открыть", click: showWindow },
+        { label: "Open", click: showWindow },
         {
-          label: "Настройки",
+          label: "Settings",
           click: () => {
             showWindow();
             mainWindow?.webContents.send(DESKTOP_CHANNELS.openSettings);
           },
         },
         { type: "separator" },
-        { label: "Выйти", click: () => app.quit() },
+        { label: "Quit", click: () => app.quit() },
       ]),
     );
   updateTray();

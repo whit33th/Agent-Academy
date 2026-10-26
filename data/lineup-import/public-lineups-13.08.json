@@ -1,0 +1,1155 @@
+{
+  "batchId": "public-lineups-13-08-2026-10-24",
+  "records": [
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:7",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: early information at A Main",
+      "description": "Haunt: early information at A Main. Open the linked demonstration at 0:07; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=7s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=7s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:29",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Seize: pressure A Main",
+      "description": "Seize: pressure A Main. Open the linked demonstration at 0:29; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=29s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=29s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:45",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: reveal A Yard",
+      "description": "Haunt: reveal A Yard. Open the linked demonstration at 0:45; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=45s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=45s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:72",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Seize: clear A Pocket",
+      "description": "Seize: clear A Pocket. Open the linked demonstration at 1:12; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=72s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=72s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:87",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: locate defenders toward spawn",
+      "description": "Haunt: locate defenders toward spawn. Open the linked demonstration at 1:27; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=87s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=87s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:106",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: reveal B Site and Main",
+      "description": "Haunt: reveal B Site and Main. Open the linked demonstration at 1:46; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=106s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=106s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:128",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: reveal B Site from lobby",
+      "description": "Haunt: reveal B Site from lobby. Open the linked demonstration at 2:08; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=128s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=128s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:147",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Seize: disrupt the B Main choke",
+      "description": "Seize: disrupt the B Main choke. Open the linked demonstration at 2:27; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=147s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=147s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:164",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: contact entry onto B",
+      "description": "Haunt: contact entry onto B. Open the linked demonstration at 2:44; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=164s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=164s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:190",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: information after planting B",
+      "description": "Haunt: information after planting B. Open the linked demonstration at 3:10; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=190s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=190s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:207",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: scout Mid from B Main",
+      "description": "Haunt: scout Mid from B Main. Open the linked demonstration at 3:27; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "none",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=207s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=207s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:234",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: scout Mid from A Lobby",
+      "description": "Haunt: scout Mid from A Lobby. Open the linked demonstration at 3:54; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "none",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=234s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=234s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:256",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: scout from Mid Bottom",
+      "description": "Haunt: scout from Mid Bottom. Open the linked demonstration at 4:16; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "none",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=256s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=256s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:281",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: reveal A Yard from Mid",
+      "description": "Haunt: reveal A Yard from Mid. Open the linked demonstration at 4:41; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=281s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=281s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:306",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: early A Main defense information",
+      "description": "Haunt: early A Main defense information. Open the linked demonstration at 5:06; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=306s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=306s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:329",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: watch A Main from site",
+      "description": "Haunt: watch A Main from site. Open the linked demonstration at 5:29; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=329s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=329s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:349",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: watch A Main and Mid",
+      "description": "Haunt: watch A Main and Mid. Open the linked demonstration at 5:49; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=349s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=349s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:371",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Seize: contest A Elbow from spawn",
+      "description": "Seize: contest A Elbow from spawn. Open the linked demonstration at 6:11; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=371s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=371s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:390",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: early B Main defense information",
+      "description": "Haunt: early B Main defense information. Open the linked demonstration at 6:30; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=390s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=390s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:410",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: prepare a B Main push",
+      "description": "Haunt: prepare a B Main push. Open the linked demonstration at 6:50; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=410s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=410s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:431",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: watch B Main from site",
+      "description": "Haunt: watch B Main from site. Open the linked demonstration at 7:11; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=431s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=431s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:450",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: reveal B for a retake",
+      "description": "Haunt: reveal B for a retake. Open the linked demonstration at 7:30; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=450s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=450s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:470",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Seize: disrupt a B Site retake target",
+      "description": "Seize: disrupt a B Site retake target. Open the linked demonstration at 7:50; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=470s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=470s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:487",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: watch B Main from Mid",
+      "description": "Haunt: watch B Main from Mid. Open the linked demonstration at 8:07; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=487s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=487s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:506",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: reveal Mid Top from Window",
+      "description": "Haunt: reveal Mid Top from Window. Open the linked demonstration at 8:26; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "none",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=506s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=506s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:LxlHaE1ClBE:526",
+      "mapSlug": "corrode",
+      "agentSlug": "fade",
+      "title": "Haunt: retake B from Mid Top",
+      "description": "Haunt: retake B from Mid Top. Open the linked demonstration at 8:46; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=526s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=LxlHaE1ClBE&t=526s",
+        "author": "Yolzy",
+        "publishedAt": "2026-10-17T09:00:38+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description explicitly identifies lineups after the new map changes. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual video inspected at 4:17/4:26 and about4:35: visible metal Mid half-wall matches Riot AFTER image composition; HUD client version13.08.00.5627607 is visible in the overhead frame. Source footage version corroborated; this does not independently test every cast.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:6",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: A default from Main",
+      "description": "Incendiary: A default from Main. Open the linked demonstration at 0:06; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=6s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=6s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:40",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: A default from Lobby",
+      "description": "Incendiary: A default from Lobby. Open the linked demonstration at 0:40; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=40s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=40s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:68",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: A default from Link",
+      "description": "Incendiary: A default from Link. Open the linked demonstration at 1:08; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=68s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=68s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:96",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: A default from Mid Top",
+      "description": "Incendiary: A default from Mid Top. Open the linked demonstration at 1:36; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=96s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=96s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:118",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: A default from defender spawn",
+      "description": "Incendiary: A default from defender spawn. Open the linked demonstration at 1:58; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=118s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=118s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:147",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: alternative A plant from Lobby",
+      "description": "Incendiary: alternative A plant from Lobby. Open the linked demonstration at 2:27; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=147s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=147s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:184",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: alternative A plant from Link",
+      "description": "Incendiary: alternative A plant from Link. Open the linked demonstration at 3:04; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=184s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=184s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:221",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: B default from Main",
+      "description": "Incendiary: B default from Main. Open the linked demonstration at 3:41; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=221s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=221s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:251",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: B default from Lobby",
+      "description": "Incendiary: B default from Lobby. Open the linked demonstration at 4:11; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=251s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=251s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:278",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: B default from Mid Window",
+      "description": "Incendiary: B default from Mid Window. Open the linked demonstration at 4:38; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=278s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=278s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:307",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: B default from defender spawn",
+      "description": "Incendiary: B default from defender spawn. Open the linked demonstration at 5:07; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=307s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=307s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:338",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: B Hut from Lobby",
+      "description": "Incendiary: B Hut from Lobby. Open the linked demonstration at 5:38; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=338s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=338s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:374",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: B Hut from Mid Window",
+      "description": "Incendiary: B Hut from Mid Window. Open the linked demonstration at 6:14; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=374s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=374s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:399",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: B Hut from defender spawn",
+      "description": "Incendiary: B Hut from defender spawn. Open the linked demonstration at 6:39; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=399s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=399s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:429",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: defend B Main from A",
+      "description": "Incendiary: defend B Main from A. Open the linked demonstration at 7:09; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=429s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=429s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:455",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: defend A Main from Window",
+      "description": "Incendiary: defend A Main from Window. Open the linked demonstration at 7:35; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=455s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=455s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:rW-m1lFBwj0:482",
+      "mapSlug": "corrode",
+      "agentSlug": "brimstone",
+      "title": "Incendiary: defend B Main from Window",
+      "description": "Incendiary: defend B Main from Window. Open the linked demonstration at 8:02; pause to match the standing position and aim reference, then reproduce the demonstrated cast. Watch the landing before using it in a round.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=482s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=rW-m1lFBwj0&t=482s",
+        "author": "HEHE XD",
+        "publishedAt": "2026-10-15T11:13:15+02:00",
+        "checkedAt": 1792818428636,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page inspected. Player metadata confirms title, author, publication date and playableInEmbed=true. Creator description identifies the new Corrode; title explicitly says Updated 2026. Published after Riot patch 13.08 on 2026-10-13. A source review is not gameplay verification. Chapter timestamp identifies the demonstration; no pixel-perfect aim instructions invented. Actual playback inspected at 1:09/1:22/1:37: position, aim reference and landing/Spike shown. HUD at1:22 visibly reads Client Version13.08.00.5627607. This corroborates footage patch rather than relying on publication date.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:gZ60FW3BxkI:0",
+      "mapSlug": "corrode",
+      "agentSlug": "killjoy",
+      "title": "Nanoswarm: B shelter default from Lobby",
+      "description": "Stand in the B Lobby wall corner shown at the start. Use the HUD-edge reference on the upper white marking of the purple rooftop structure, then reproduce the demonstrated throw. The source shows the Nanoswarm landing and activating beside the default plant under the central B shelter.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=gZ60FW3BxkI&t=0s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=gZ60FW3BxkI&t=0s",
+        "author": "AlexDotC",
+        "publishedAt": "2026-10-14T20:46:36+02:00",
+        "checkedAt": 1792818784963,
+        "patch": "13.08",
+        "evidence": "Primary creator player metadata verifies publication and playableInEmbed=true. Actual stance/aim/landing frames inspected at 4/10/18,25/29/35,44/49/57 seconds. Three B Lobby rooftop throws land at B shelter or plant enclosure; relevant origins, high facade references and landing surfaces are outside Riot 13.08 changed defender routes, Lower Mid and A plant zone. Riot AFTER route images inspected. Compatibility is an inference from relevant unchanged geometry plus visible source demonstrations, not a claim the entire video was recorded on 13.08 or an independent gameplay test.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:gZ60FW3BxkI:22",
+      "mapSlug": "corrode",
+      "agentSlug": "killjoy",
+      "title": "Nanoswarm: B plant corner from Lobby",
+      "description": "Return to the shown B Lobby corner. Match the roof-and-gutter framing and the marked HUD reference in this chapter, then cast toward the plant-zone corner beside the stacked boxes. The linked sequence shows the landing; do not substitute the default-plant alignment.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=gZ60FW3BxkI&t=22s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=gZ60FW3BxkI&t=22s",
+        "author": "AlexDotC",
+        "publishedAt": "2026-10-14T20:46:36+02:00",
+        "checkedAt": 1792818784963,
+        "patch": "13.08",
+        "evidence": "Primary creator player metadata verifies publication and playableInEmbed=true. Actual stance/aim/landing frames inspected at 4/10/18,25/29/35,44/49/57 seconds. Three B Lobby rooftop throws land at B shelter or plant enclosure; relevant origins, high facade references and landing surfaces are outside Riot 13.08 changed defender routes, Lower Mid and A plant zone. Riot AFTER route images inspected. Compatibility is an inference from relevant unchanged geometry plus visible source demonstrations, not a claim the entire video was recorded on 13.08 or an independent gameplay test.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:gZ60FW3BxkI:39",
+      "mapSlug": "corrode",
+      "agentSlug": "killjoy",
+      "title": "Nanoswarm: B entrance-side boxes from Lobby",
+      "description": "Tuck into the demonstrated B Lobby corner by the boarded doorway. Match the upper roof framing and HUD aim reference in the linked chapter, then throw. The landing sits beside the entrance-side stacked boxes inside the B plant enclosure.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=gZ60FW3BxkI&t=39s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=gZ60FW3BxkI&t=39s",
+        "author": "AlexDotC",
+        "publishedAt": "2026-10-14T20:46:36+02:00",
+        "checkedAt": 1792818784963,
+        "patch": "13.08",
+        "evidence": "Primary creator player metadata verifies publication and playableInEmbed=true. Actual stance/aim/landing frames inspected at 4/10/18,25/29/35,44/49/57 seconds. Three B Lobby rooftop throws land at B shelter or plant enclosure; relevant origins, high facade references and landing surfaces are outside Riot 13.08 changed defender routes, Lower Mid and A plant zone. Riot AFTER route images inspected. Compatibility is an inference from relevant unchanged geometry plus visible source demonstrations, not a claim the entire video was recorded on 13.08 or an independent gameplay test.",
+        "rightsBasis": "External YouTube iframe only. Primary watch-page player metadata returned status OK and playableInEmbed true on 2026-10-24. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    }
+  ]
+}

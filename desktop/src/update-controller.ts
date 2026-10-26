@@ -32,9 +32,31 @@ function errorMessage(error: unknown) {
       unpublished: true,
       text: "No Windows release has been published yet.",
     };
+  const messages: Record<string, string> = {
+    ERR_UPDATER_CHANNEL_FILE_NOT_FOUND:
+      "The Windows release is incomplete. Its update information is missing. Try again after the release is published completely.",
+    ERR_UPDATER_INVALID_RELEASE_FEED:
+      "The release service returned invalid update information. Try again later.",
+    ERR_UPDATER_INVALID_UPDATE_INFO:
+      "The Windows release contains invalid update information. Try again after the release is corrected.",
+    ERR_UPDATER_NO_FILES_PROVIDED:
+      "The Windows release is incomplete. Its installer is missing. Try again later.",
+    ERR_UPDATER_INVALID_SIGNATURE:
+      "The update's publisher signature could not be verified. Installation was blocked. Try again after the release is corrected.",
+    ERR_CHECKSUM_MISMATCH:
+      "The downloaded update failed file verification. Check for updates and download it again.",
+    ENOSPC:
+      "There is not enough free disk space to download the update. Free some space and try again.",
+    EACCES:
+      "Windows denied permission to save or run the update. Check folder permissions and security software, then try again.",
+    EPERM:
+      "Windows denied permission to save or run the update. Check folder permissions and security software, then try again.",
+  };
   return {
     unpublished: false,
-    text: "Could not update the app. Check your connection and try again.",
+    text:
+      (typeof code === "string" && messages[code]) ||
+      "Could not reach the update service or download the update. Check your connection, VPN or proxy and try again. Details are saved in the update log.",
   };
 }
 
@@ -42,6 +64,7 @@ export function createUpdateController(
   driver: UpdateDriver,
   version: string,
   publish: (state: UpdateState) => void,
+  diagnose: (error: unknown, state: UpdateState) => void = () => {},
 ) {
   let state: UpdateState = {
     status: "idle",
@@ -56,6 +79,7 @@ export function createUpdateController(
     publish(state);
   };
   const failed = (error: unknown) => {
+    diagnose(error, state);
     const message = errorMessage(error);
     set({
       status: message.unpublished ? "unpublished" : "error",

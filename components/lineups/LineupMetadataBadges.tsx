@@ -8,8 +8,10 @@ import { getSlotKey } from "@/lib/utils/ability";
 
 export default function LineupMetadataBadges({
   metadata = EMPTY_METADATA,
+  inline = false,
 }: {
   metadata?: LineupMetadata;
+  inline?: boolean;
 }) {
   const unclassified = Object.values(metadata).every(
     (value) => value === "unspecified",
@@ -28,7 +30,9 @@ export default function LineupMetadataBadges({
           : getSlotKey(metadata.abilitySlot),
       ];
   return (
-    <div className="pointer-events-none absolute left-2 top-2 z-10 flex max-w-[calc(100%-3.5rem)] flex-wrap gap-1 text-[9px] font-bold uppercase tracking-wider">
+    <div
+      className={`${inline ? "relative" : "pointer-events-none absolute left-2 top-2 z-10 max-w-[calc(100%-3.5rem)]"} flex flex-wrap gap-1 text-[9px] font-bold uppercase tracking-wider`}
+    >
       {labels.map((label, index) => (
         <span
           key={index}

@@ -13,8 +13,21 @@ import {
 } from "./lib/auth";
 import { lineup } from "./lib/validators";
 import { lineupMetadata } from "./lib/lineupMetadata";
-import { EMPTY_METADATA } from "../lib/lineups/metadata";
-import { validateLineupSelection } from "../lib/catalog/lineup-options";
+import { EMPTY_METADATA, isAbilitySlot } from "../lib/lineups/metadata";
+import {
+  isMapSlug,
+  isAgentSlug,
+  validateLineupSelection,
+} from "../lib/catalog/lineup-options";
+import {
+  lineupImageInput,
+  readImages,
+  replaceImages,
+  cleanupImage,
+  releaseAsset,
+  type LineupImageInput,
+} from "./lib/lineupMedia";
+import { normalizeVideoUrl, isYouTubeVideoUrl } from "../lib/lineups/media";
 const SANITY_ASSET = /^image-([A-Za-z0-9]+)-(\d+x\d+)-(png|jpe?g|webp)$/;
 
 function assertSanityImage(imageUrl: string, imageAssetId: string) {
@@ -42,12 +55,24 @@ async function resolve(
   row: Doc<"lineups">,
   viewer?: string | null,
 ) {
+  const images = await Promise.all(
+    (await readImages(ctx, row)).map(async (image) => ({
+      ...image,
+      imageUrl: image.storageId
+        ? ((await ctx.storage.getUrl(image.storageId)) ?? "")
+        : (image.imageUrl ?? ""),
+    })),
+  );
+  const coverIndex = Math.min(
+    row.coverIndex ?? 0,
+    Math.max(images.length - 1, 0),
+  );
   return {
     ...row,
+    images,
+    coverIndex,
     canEdit: Boolean(viewer && row.ownerTokenIdentifier === viewer),
-    imageUrl: row.storageId
-      ? ((await ctx.storage.getUrl(row.storageId)) ?? "")
-      : row.imageUrl,
+    imageUrl: images[coverIndex]?.imageUrl ?? "",
   };
 }
 
@@ -109,15 +134,78 @@ export const listOwnedByMapAgentPage = query({
 });
 
 export const listPublicFeedPage = query({
-  args: { paginationOpts: paginationOptsValidator },
+  args: {
+    paginationOpts: paginationOptsValidator,
+    mapSlug: v.optional(v.string()),
+    agentSlug: v.optional(v.string()),
+    abilitySlot: v.optional(v.string()),
+  },
   returns: paginationResultValidator(lineup),
   handler: async (ctx, args) => {
+    const { mapSlug, agentSlug, abilitySlot } = args;
+    if (mapSlug !== undefined && !isMapSlug(mapSlug))
+      throw new Error("Choose a known map.");
+    if (agentSlug !== undefined && !isAgentSlug(agentSlug))
+      throw new Error("Choose a known agent.");
+    if (abilitySlot !== undefined) {
+      if (!agentSlug)
+        throw new Error("Choose an agent before filtering abilities.");
+      if (
+        !isAbilitySlot(abilitySlot) ||
+        !isAgentSlug(agentSlug) ||
+        !catalog.agents[agentSlug].abilities.some(
+          (ability) => ability.slot === abilitySlot,
+        )
+      ) {
+        throw new Error("This ability does not belong to the selected agent.");
+      }
+    }
     const viewer = await getViewerTokenIdentifier(ctx);
-    const result = await ctx.db
-      .query("lineups")
-      .withIndex("by_public_createdAt", (q) => q.eq("isPublic", true))
-      .order("desc")
-      .paginate(args.paginationOpts);
+    const rows = ctx.db.query("lineups");
+    const filtered = (() => {
+      if (
+        mapSlug !== undefined &&
+        agentSlug !== undefined &&
+        abilitySlot !== undefined
+      )
+        return rows.withIndex(
+          "by_isPublic_mapSlug_agentSlug_abilitySlot_createdAt",
+          (q) =>
+            q
+              .eq("isPublic", true)
+              .eq("mapSlug", mapSlug)
+              .eq("agentSlug", agentSlug)
+              .eq("metadata.abilitySlot", abilitySlot),
+        );
+      if (agentSlug !== undefined && abilitySlot !== undefined)
+        return rows.withIndex(
+          "by_isPublic_agentSlug_abilitySlot_createdAt",
+          (q) =>
+            q
+              .eq("isPublic", true)
+              .eq("agentSlug", agentSlug)
+              .eq("metadata.abilitySlot", abilitySlot),
+        );
+      if (mapSlug !== undefined && agentSlug !== undefined)
+        return rows.withIndex("by_isPublic_mapSlug_agentSlug_createdAt", (q) =>
+          q
+            .eq("isPublic", true)
+            .eq("mapSlug", mapSlug)
+            .eq("agentSlug", agentSlug),
+        );
+      if (mapSlug !== undefined)
+        return rows.withIndex("by_isPublic_mapSlug_createdAt", (q) =>
+          q.eq("isPublic", true).eq("mapSlug", mapSlug),
+        );
+      if (agentSlug !== undefined)
+        return rows.withIndex("by_isPublic_agentSlug_createdAt", (q) =>
+          q.eq("isPublic", true).eq("agentSlug", agentSlug),
+        );
+      return rows.withIndex("by_public_createdAt", (q) =>
+        q.eq("isPublic", true),
+      );
+    })();
+    const result = await filtered.order("desc").paginate(args.paginationOpts);
     return {
       ...result,
       page: await Promise.all(
@@ -175,28 +263,75 @@ async function requireImage(
   if (!(await ctx.db.system.get(storageId)))
     throw new Error("Image no longer exists");
 }
-async function cleanupImage(ctx: MutationCtx, storageId?: Id<"_storage">) {
-  if (!storageId) return;
-  const used = await ctx.db
-    .query("lineups")
-    .withIndex("by_storageId", (q) => q.eq("storageId", storageId))
-    .first();
-  if (!used) {
-    await ctx.storage.delete(storageId);
-    const upload = await ctx.db
-      .query("uploads")
-      .withIndex("by_storageId", (q) => q.eq("storageId", storageId))
-      .unique();
-    if (upload) await ctx.db.delete(upload._id);
+async function validateImages(
+  ctx: MutationCtx,
+  images: LineupImageInput[],
+  owner: string,
+  row?: Doc<"lineups">,
+) {
+  if (images.length > 10) throw new Error("Choose at most 10 images.");
+  const existing = row ? await readImages(ctx, row) : [];
+  for (const image of images) {
+    if (image.caption.length > 2000)
+      throw new Error("Image caption is too long");
+    if (image.storageId) {
+      // Owners may retain a shared photograph from a copied lineup, but cannot attach arbitrary storage IDs.
+      if (!existing.some((item) => item.storageId === image.storageId))
+        await requireImage(ctx, image.storageId, owner);
+      else if (!(await ctx.db.system.get(image.storageId)))
+        throw new Error("Image no longer exists");
+    } else {
+      if (!image.imageUrl || !image.imageAssetId)
+        throw new Error("Choose an image.");
+      assertSanityImage(image.imageUrl, image.imageAssetId);
+    }
   }
 }
-async function releaseAsset(ctx: MutationCtx, imageAssetId?: string) {
-  if (!imageAssetId) return undefined;
-  const used = await ctx.db
-    .query("lineups")
-    .withIndex("by_imageAssetId", (q) => q.eq("imageAssetId", imageAssetId))
-    .first();
-  return used ? undefined : imageAssetId;
+function coverFields(images: LineupImageInput[], coverIndex: number) {
+  if (
+    !Number.isInteger(coverIndex) ||
+    coverIndex < 0 ||
+    (images.length ? coverIndex >= images.length : coverIndex !== 0)
+  )
+    throw new Error("Invalid cover image");
+  const cover = images[coverIndex];
+  return {
+    storageId: cover?.storageId,
+    imageUrl: cover?.storageId ? "" : (cover?.imageUrl ?? ""),
+    imageAssetId: cover?.storageId ? undefined : cover?.imageAssetId,
+    coverIndex,
+    imageStorageKey: undefined,
+  };
+}
+function legacyImage(args: {
+  storageId?: Id<"_storage">;
+  imageUrl?: string;
+  imageAssetId?: string;
+}): LineupImageInput[] {
+  return args.storageId || args.imageUrl
+    ? [
+        {
+          storageId: args.storageId,
+          imageUrl: args.storageId ? undefined : args.imageUrl,
+          imageAssetId: args.storageId ? undefined : args.imageAssetId,
+          caption: "",
+        },
+      ]
+    : [];
+}
+async function cleanupRemoved(ctx: MutationCtx, images: LineupImageInput[]) {
+  for (const storageId of new Set(
+    images.flatMap((image) => (image.storageId ? [image.storageId] : [])),
+  ))
+    await cleanupImage(ctx, storageId);
+  const released: string[] = [];
+  for (const asset of new Set(
+    images.flatMap((image) => (image.imageAssetId ? [image.imageAssetId] : [])),
+  )) {
+    const value = await releaseAsset(ctx, asset);
+    if (value) released.push(value);
+  }
+  return released;
 }
 function validateText(title: string, description = "") {
   if (!title.trim() || title.length > 160 || description.length > 5000)
@@ -234,7 +369,7 @@ export const listByMapAgent = query({
         ...new Map(
           [...published, ...owned].map((row) => [row._id, row]),
         ).values(),
-      ].map((row) => resolve(ctx, row)),
+      ].map((row) => resolve(ctx, row, viewer)),
     );
   },
 });
@@ -242,13 +377,14 @@ export const listPublicFeed = query({
   args: { limit: v.optional(v.number()) },
   returns: v.array(lineup),
   handler: async (ctx, args) => {
+    const viewer = await getViewerTokenIdentifier(ctx);
     const limit = Math.min(Math.max(Math.floor(args.limit ?? 50), 1), 200);
     const rows = await ctx.db
       .query("lineups")
       .withIndex("by_public_createdAt", (q) => q.eq("isPublic", true))
       .order("desc")
       .take(limit);
-    return Promise.all(rows.map((row) => resolve(ctx, row)));
+    return Promise.all(rows.map((row) => resolve(ctx, row, viewer)));
   },
 });
 export const countsByMap = query({
@@ -288,6 +424,9 @@ export const create = mutation({
     description: v.optional(v.string()),
     abilityType: v.string(),
     metadata: v.optional(lineupMetadata),
+    images: v.optional(v.array(lineupImageInput)),
+    coverIndex: v.optional(v.number()),
+    videoUrl: v.optional(v.string()),
     storageId: v.optional(v.id("_storage")),
     imageUrl: v.optional(v.string()),
     imageAssetId: v.optional(v.string()),
@@ -317,31 +456,26 @@ export const create = mutation({
       createdAt: now,
       updatedAt: now,
     };
-    if (args.storageId) {
-      await requireImage(ctx, args.storageId, ownerTokenIdentifier);
-      return {
-        id: await ctx.db.insert("lineups", {
-          ...base,
-          storageId: args.storageId,
-          imageUrl: "",
-        }),
-      };
-    }
-    if (!args.imageUrl || !args.imageAssetId)
-      throw new Error("Choose an image.");
-    assertSanityImage(args.imageUrl, args.imageAssetId);
-    return {
-      id: await ctx.db.insert("lineups", {
-        ...base,
-        imageUrl: args.imageUrl,
-        imageAssetId: args.imageAssetId,
-      }),
-    };
+    const images = args.images ?? legacyImage(args);
+    const videoUrl = args.videoUrl
+      ? normalizeVideoUrl(args.videoUrl)
+      : undefined;
+    if (!images.length && (!videoUrl || !isYouTubeVideoUrl(videoUrl)))
+      throw new Error("Choose an image or a YouTube video.");
+    await validateImages(ctx, images, ownerTokenIdentifier);
+    const id = await ctx.db.insert("lineups", {
+      ...base,
+      ...coverFields(images, args.coverIndex ?? 0),
+      videoUrl,
+    });
+    await replaceImages(ctx, id, images);
+    return { id };
   },
 });
 const released = v.object({
   ok: v.literal(true),
   releasedAssetId: v.optional(v.string()),
+  releasedAssetIds: v.optional(v.array(v.string())),
   mapSlug: v.optional(v.string()),
   agentSlug: v.optional(v.string()),
 });
@@ -352,6 +486,9 @@ export const update = mutation({
     description: v.optional(v.string()),
     abilityType: v.optional(v.string()),
     metadata: v.optional(lineupMetadata),
+    images: v.optional(v.array(lineupImageInput)),
+    coverIndex: v.optional(v.number()),
+    videoUrl: v.optional(v.string()),
     storageId: v.optional(v.id("_storage")),
     imageUrl: v.optional(v.string()),
     imageAssetId: v.optional(v.string()),
@@ -366,37 +503,42 @@ export const update = mutation({
     validateText(args.title ?? row.title, args.description ?? row.description);
     if (args.metadata)
       validateLineupSelection(row.mapSlug, row.agentSlug, args.metadata);
-    if (args.storageId) await requireImage(ctx, args.storageId, owner);
-    if (args.imageAssetId || args.imageUrl) {
-      if (!args.imageAssetId || !args.imageUrl)
-        throw new Error("Invalid image");
-      assertSanityImage(args.imageUrl, args.imageAssetId);
-    }
+    const oldImages = await readImages(ctx, row);
+    const replacingLegacy =
+      args.storageId !== undefined ||
+      args.imageUrl !== undefined ||
+      args.imageAssetId !== undefined;
+    const images =
+      args.images ?? (replacingLegacy ? legacyImage(args) : oldImages);
+    const coverIndex =
+      args.coverIndex ??
+      (replacingLegacy || args.images ? 0 : (row.coverIndex ?? 0));
+    const videoUrl =
+      args.videoUrl === undefined
+        ? row.videoUrl
+        : args.videoUrl.trim()
+          ? normalizeVideoUrl(args.videoUrl)
+          : undefined;
+    if (!images.length && (!videoUrl || !isYouTubeVideoUrl(videoUrl)))
+      throw new Error("Choose an image or a YouTube video.");
+    await validateImages(ctx, images, owner, row);
     await ctx.db.patch(args.id, {
       title: args.title ?? row.title,
       description: args.description ?? row.description,
       abilityType: args.abilityType ?? row.abilityType,
       metadata: args.metadata ?? row.metadata,
-      storageId: args.storageId ?? row.storageId,
-      imageUrl: args.imageUrl ?? row.imageUrl,
-      imageAssetId: args.imageAssetId ?? row.imageAssetId,
+      ...coverFields(images, coverIndex),
+      videoUrl,
       isPublic: args.isPublic ?? row.isPublic,
-      ...(args.imageAssetId ? { storageId: undefined } : {}),
-      ...(args.storageId ? { imageAssetId: undefined, imageUrl: "" } : {}),
       updatedAt: Date.now(),
     });
-    if (args.imageAssetId && row.storageId)
-      await cleanupImage(ctx, row.storageId);
-    else if (args.storageId && args.storageId !== row.storageId)
-      await cleanupImage(ctx, row.storageId);
-    const releasedAssetId =
-      (args.storageId || args.imageAssetId) &&
-      args.imageAssetId !== row.imageAssetId
-        ? await releaseAsset(ctx, row.imageAssetId)
-        : undefined;
+    if (args.images !== undefined || replacingLegacy)
+      await replaceImages(ctx, row._id, images);
+    const releasedAssetIds = await cleanupRemoved(ctx, oldImages);
     return {
       ok: true as const,
-      releasedAssetId,
+      releasedAssetId: releasedAssetIds[0],
+      releasedAssetIds,
       mapSlug: row.mapSlug,
       agentSlug: row.agentSlug,
     };
@@ -410,11 +552,14 @@ export const remove = mutation({
     const row = await ctx.db.get(args.id);
     if (!row) return { ok: true as const };
     if (row.ownerTokenIdentifier !== owner) throw new Error("Forbidden");
+    const images = await readImages(ctx, row);
+    await replaceImages(ctx, row._id, []);
     await ctx.db.delete(row._id);
-    await cleanupImage(ctx, row.storageId);
+    const releasedAssetIds = await cleanupRemoved(ctx, images);
     return {
       ok: true as const,
-      releasedAssetId: await releaseAsset(ctx, row.imageAssetId),
+      releasedAssetId: releasedAssetIds[0],
+      releasedAssetIds,
       mapSlug: row.mapSlug,
       agentSlug: row.agentSlug,
     };
@@ -445,19 +590,30 @@ export const forkPublic = mutation({
       )
       .first();
     if (existing) return { id: existing._id };
-    const { _id, _creationTime, legacyId, ...data } = source;
+    const {
+      _id,
+      _creationTime,
+      legacyId,
+      importBatchId,
+      sourceKey,
+      contentHash,
+      ...data
+    } = source;
+    void importBatchId;
+    void sourceKey;
+    void contentHash;
     void _creationTime;
     void legacyId;
     const now = Date.now();
-    return {
-      id: await ctx.db.insert("lineups", {
-        ...data,
-        ownerTokenIdentifier,
-        isPublic: false,
-        forkedFromId: _id,
-        createdAt: now,
-        updatedAt: now,
-      }),
-    };
+    const id = await ctx.db.insert("lineups", {
+      ...data,
+      ownerTokenIdentifier,
+      isPublic: false,
+      forkedFromId: _id,
+      createdAt: now,
+      updatedAt: now,
+    });
+    await replaceImages(ctx, id, await readImages(ctx, source));
+    return { id };
   },
 });

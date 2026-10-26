@@ -38,6 +38,7 @@ describe("explicit lineup classification", () => {
     >().toEqualTypeOf<LineupMetadata>();
     expect(getPlantSites("ascent")).toEqual(["A", "B"]);
     expect(getPlantSites("haven")).toEqual(["A", "B", "C"]);
+    expect(getPlantSites("summit")).toEqual(["A", "B"]);
     expect(getPlantSites("unknown")).toEqual([]);
     expect(isLineupMetadata(selection)).toBe(true);
     expect(isLineupMetadata({ ...selection, site: "D" })).toBe(false);

@@ -15,6 +15,9 @@ export function isAgentSlug(value: string): value is AgentSlug {
   return Object.hasOwn(catalog.agents, value);
 }
 export function getPlantSites(mapSlug: string): PlantSite[] {
+  // Summit is present in the current game catalog but is not yet represented
+  // in the legacy generated callout dataset used by the board.
+  if (mapSlug === "summit") return ["A", "B"];
   return [
     ...new Set(
       findMapRecord(mapSlug)

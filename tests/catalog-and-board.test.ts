@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { access } from "node:fs/promises";
 import path from "node:path";
 import { findAgent, findMap, getAgents, getMaps } from "../lib/catalog/catalog";
-import { loadSharedBoard } from "../components/tactical-board/serialization";
+import { loadBoardDocument } from "../lib/board/serialization";
 import { boardDestination, createBoardLink } from "../lib/desktop/board-links";
 
 describe("bundled catalog", () => {
@@ -51,10 +51,12 @@ describe("board and lineup input", () => {
   });
   it("rejects malformed, oversized and invalid shared board geometry", () => {
     const empty = { strokes: [], placedAgents: [], placedAbilities: [] };
-    expect(loadSharedBoard("not-json")).toEqual(empty);
-    expect(loadSharedBoard("x".repeat(256 * 1024 + 1))).toEqual(empty);
-    expect(
-      loadSharedBoard(
+    expect(() => loadBoardDocument("not-json", "ascent")).toThrow();
+    expect(() =>
+      loadBoardDocument("x".repeat(256 * 1024 + 1), "ascent"),
+    ).toThrow();
+    expect(() =>
+      loadBoardDocument(
         btoa(
           JSON.stringify({
             ...empty,
@@ -69,8 +71,9 @@ describe("board and lineup input", () => {
             ],
           }),
         ),
+        "ascent",
       ),
-    ).toEqual(empty);
+    ).toThrow();
     const valid = {
       ...empty,
       strokes: [
@@ -83,6 +86,12 @@ describe("board and lineup input", () => {
         },
       ],
     };
-    expect(loadSharedBoard(btoa(JSON.stringify(valid)))).toEqual(valid);
+    expect(
+      loadBoardDocument(btoa(JSON.stringify(valid)), "ascent").objects[0],
+    ).toMatchObject({
+      kind: "stroke",
+      id: "a",
+      points: [{ x: 71.68, y: 71.68 }],
+    });
   });
 });

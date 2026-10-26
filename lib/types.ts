@@ -45,7 +45,29 @@ export interface GameMap {
   accentColor?: string | null;
 }
 
+export interface LineupImageMedia {
+  storageId?: Id<"_storage">;
+  imageUrl: string;
+  imageAssetId?: string;
+  caption: string;
+}
+
+export interface LineupSource {
+  url: string;
+  author: string;
+  publishedAt?: string;
+  checkedAt: number;
+  patch: string;
+  evidence: string;
+  rightsBasis: string;
+  testedInGame: boolean;
+}
+
 export interface Screenshot {
+  images?: LineupImageMedia[];
+  coverIndex?: number;
+  videoUrl?: string;
+  source?: LineupSource;
   _id: Id<"lineups">;
   title: string;
   /** Resolved cloud image URL. */

@@ -58,6 +58,13 @@ html.desktop-runtime body {
 html.desktop-runtime main {
   padding-top: 0.25rem;
 }
+.aim-screen {
+  height: 100dvh;
+}
+html.desktop-runtime .aim-screen {
+  height: calc(100dvh - var(--desktop-titlebar-height));
+  padding-top: 0;
+}
 @media (min-width: 768px) {
   html.desktop-runtime main {
     padding-top: 0.75rem;

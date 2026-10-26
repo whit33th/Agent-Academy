@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // The desktop shell loads development from 127.0.0.1, not localhost.
+  allowedDevOrigins: ["127.0.0.1"],
   output: "standalone",
   reactCompiler: true,
   cacheComponents: true,

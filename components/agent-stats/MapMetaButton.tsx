@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { useQuery } from "convex/react";
-import { MotionConfig, motion } from "framer-motion";
+import { MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { BarChart3, ChevronRight, Clock3, ExternalLink, X } from "lucide-react";
 import Link from "next/link";
 
@@ -132,8 +132,11 @@ function MetaDrawer({
   );
   const onClosedRef = useRef(onClosed);
   const openRef = useRef(open);
-  onClosedRef.current = onClosed;
-  openRef.current = open;
+  const reducedMotion = useReducedMotion();
+  useLayoutEffect(() => {
+    onClosedRef.current = onClosed;
+    openRef.current = open;
+  }, [onClosed, open]);
   useBodyScrollLock(open);
   useLayoutEffect(() => {
     const node = dialog.current;
@@ -165,7 +168,7 @@ function MetaDrawer({
           className="map-meta-backdrop"
           initial={{ opacity: 0 }}
           animate={{ opacity: open ? 1 : 0 }}
-          transition={{ duration: 0.45, ease: panelEase }}
+          transition={{ duration: reducedMotion ? 0 : 0.45, ease: panelEase }}
           onClick={onClose}
         />
         <div className="map-meta-slot">
@@ -174,7 +177,7 @@ function MetaDrawer({
             aria-label="Map agent statistics"
             initial={panelHidden}
             animate={open ? panelShown : panelHidden}
-            transition={{ duration: 0.5, ease: panelEase }}
+            transition={{ duration: reducedMotion ? 0 : 0.5, ease: panelEase }}
             onAnimationComplete={() => {
               if (openRef.current) return;
               const node = dialog.current;
@@ -456,6 +459,7 @@ function AgentStatCard({
   visible: boolean;
   featured?: boolean;
 }) {
+  const reducedMotion = useReducedMotion();
   const agent = agents.get(stat.agentSlug);
   if (!agent) return null;
   const win = stat.nonMirroredWlPercentage;
@@ -470,8 +474,8 @@ function AgentStatCard({
       initial={{ opacity: 0, x: -18 }}
       animate={visible ? { opacity: 1, x: 0 } : { opacity: 0, x: -18 }}
       transition={{
-        duration: 0.22,
-        delay: visible ? Math.min(index, 10) * 0.045 : 0,
+        duration: reducedMotion ? 0 : 0.22,
+        delay: visible && !reducedMotion ? Math.min(index, 10) * 0.045 : 0,
         ease: panelEase,
       }}
     >

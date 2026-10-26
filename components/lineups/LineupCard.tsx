@@ -6,6 +6,7 @@ import type { Screenshot } from "@/lib/types";
 import { audio as sfx } from "@/lib/audio";
 import { useLongPress } from "@/lib/utils/long-press";
 import LineupImage from "./LineupImage";
+import LineupVideoCover from "./LineupVideoCover";
 import LineupMetadataBadges from "./LineupMetadataBadges";
 
 interface LineupCardProps {
@@ -92,6 +93,17 @@ export default function LineupCard({
           }
         >
           <LineupMetadataBadges metadata={screenshot.metadata} />
+          {(screenshot.images?.length ?? 0) > 1 ? (
+            <span className="absolute bottom-2 right-2 z-10 bg-black/80 px-2 py-1 text-xs text-white/80">
+              {screenshot.images!.length} images
+            </span>
+          ) : null}
+          {!src && screenshot.videoUrl ? (
+            <LineupVideoCover
+              map={screenshot.map?.name ?? ""}
+              priority={priority}
+            />
+          ) : null}
           {src && (
             <LineupImage
               src={src}

@@ -27,7 +27,7 @@ const executablePath = path.resolve(
   process.argv.slice(2).find((arg) => arg.endsWith(".exe")) ??
     "release/win-unpacked/Agent Academy.exe",
 );
-const origin = "http://127.0.0.1:37491";
+const origin = `http://127.0.0.1:${process.env.AGENT_ACADEMY_DESKTOP_QA_PORT ?? "37491"}`;
 const evidence = {
   catalogVersion: catalog.gameVersion,
   fixtureBackend: true,

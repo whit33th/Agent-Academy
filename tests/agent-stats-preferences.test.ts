@@ -25,6 +25,28 @@ it("recovers when local storage is disabled", () => {
       throw new Error("disabled");
     },
   });
-  expect(() => writeStatsRank("guest", "diamond")).not.toThrow();
-  expect(readStatsRank("guest")).toBe("all");
+  expect(() => writeStatsRank("disabled-guest", "diamond")).not.toThrow();
+  expect(readStatsRank("disabled-guest")).toBe("diamond");
+  writeStatsRank("disabled-account", "gold");
+  expect(readStatsRank("disabled-account")).toBe("gold");
+  expect(readStatsRank("disabled-guest")).toBe("diamond");
+  expect(readStatsRank("disabled-other")).toBe("all");
+});
+it("uses the selected rank when reads work but writes fail, then recovers persistence", () => {
+  const values = new Map<string, string>();
+  let full = true;
+  vi.stubGlobal("localStorage", {
+    getItem: (key: string) => values.get(key) ?? "iron",
+    setItem: (key: string, value: string) => {
+      if (full) throw new Error("quota exceeded");
+      values.set(key, value);
+    },
+  });
+  writeStatsRank("quota-account", "radiant");
+  expect(readStatsRank("quota-account")).toBe("radiant");
+  full = false;
+  writeStatsRank("quota-account", "silver");
+  expect(readStatsRank("quota-account")).toBe("silver");
+  values.set("agent-academy:stats-rank:v1:quota-account", "gold");
+  expect(readStatsRank("quota-account")).toBe("gold");
 });

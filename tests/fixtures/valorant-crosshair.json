@@ -1,0 +1,43 @@
+{
+  "currentProfile": 0,
+  "profiles": [
+    {
+      "bScaleToResolution": false,
+      "primary": {
+        "color": { "r": 0, "g": 255, "b": 0, "a": 255 },
+        "colorCustom": { "r": 255, "g": 255, "b": 255, "a": 255 },
+        "bUseCustomColor": false,
+        "bHideCrosshair": false,
+        "bHasOutline": false,
+        "outlineThickness": 1,
+        "outlineColor": { "r": 0, "g": 0, "b": 0, "a": 255 },
+        "outlineOpacity": 0.5000081062316895,
+        "bDisplayCenterDot": false,
+        "centerDotSize": 2,
+        "centerDotOpacity": 1,
+        "innerLines": {
+          "bShowLines": true,
+          "lineThickness": 2,
+          "lineLength": 6,
+          "lineLengthVertical": 6,
+          "bAllowVertScaling": false,
+          "lineOffset": 3,
+          "opacity": 0.8000081181526184,
+          "bShowMovementError": false,
+          "bShowShootingError": false
+        },
+        "outerLines": {
+          "bShowLines": false,
+          "lineThickness": 2,
+          "lineLength": 3,
+          "lineLengthVertical": 3,
+          "bAllowVertScaling": false,
+          "lineOffset": 10,
+          "opacity": 0.350008100271225,
+          "bShowMovementError": true,
+          "bShowShootingError": true
+        }
+      }
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import { v } from "convex/values";
 import { lineupMetadata } from "./lib/lineupMetadata";
 import { preferences } from "./lib/preferences";
 import { statsDivision, statsSnapshot } from "./lib/agentStatsValidators";
+import { lineupSource } from "./lib/lineupMedia";
 
 export default defineSchema({
   agentStatTargets: defineTable({
@@ -99,6 +100,12 @@ export default defineSchema({
     description: v.optional(v.string()),
     abilityType: v.string(),
     metadata: v.optional(lineupMetadata),
+    coverIndex: v.optional(v.number()),
+    videoUrl: v.optional(v.string()),
+    source: v.optional(lineupSource),
+    importBatchId: v.optional(v.string()),
+    sourceKey: v.optional(v.string()),
+    contentHash: v.optional(v.string()),
     imageUrl: v.string(),
     imageStorageKey: v.optional(v.string()),
     imageAssetId: v.optional(v.string()),
@@ -121,5 +128,48 @@ export default defineSchema({
       "mapSlug",
       "agentSlug",
     ])
-    .index("by_public_createdAt", ["isPublic", "createdAt"]),
+    .index("by_public_createdAt", ["isPublic", "createdAt"])
+    .index("by_isPublic_mapSlug_createdAt", [
+      "isPublic",
+      "mapSlug",
+      "createdAt",
+    ])
+    .index("by_isPublic_agentSlug_createdAt", [
+      "isPublic",
+      "agentSlug",
+      "createdAt",
+    ])
+    .index("by_isPublic_mapSlug_agentSlug_createdAt", [
+      "isPublic",
+      "mapSlug",
+      "agentSlug",
+      "createdAt",
+    ])
+    .index("by_isPublic_agentSlug_abilitySlot_createdAt", [
+      "isPublic",
+      "agentSlug",
+      "metadata.abilitySlot",
+      "createdAt",
+    ])
+    .index("by_isPublic_mapSlug_agentSlug_abilitySlot_createdAt", [
+      "isPublic",
+      "mapSlug",
+      "agentSlug",
+      "metadata.abilitySlot",
+      "createdAt",
+    ])
+    .index("by_sourceKey", ["sourceKey"])
+    .index("by_contentHash", ["contentHash"])
+    .index("by_importBatchId", ["importBatchId"]),
+  lineupImages: defineTable({
+    lineupId: v.id("lineups"),
+    order: v.number(),
+    storageId: v.optional(v.id("_storage")),
+    imageUrl: v.optional(v.string()),
+    imageAssetId: v.optional(v.string()),
+    caption: v.string(),
+  })
+    .index("by_lineupId_and_order", ["lineupId", "order"])
+    .index("by_storageId", ["storageId"])
+    .index("by_imageAssetId", ["imageAssetId"]),
 });

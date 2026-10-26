@@ -1,0 +1,55 @@
+{
+  "batchId": "public-lineups-vyse-summit-13-08-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "youtube:1bZaw2Pj4I4:4",
+      "mapSlug": "summit",
+      "agentSlug": "vyse",
+      "title": "A Main choke isolation with Shear and Razorvine",
+      "description": "Place Shear across the A Main approach into A Garden, beyond the choke so it triggers after an attacker commits. Set Razorvine on the open site-side floor behind the wall to cover the follow-up path. Hold from A Site cover and activate the nest as the wall isolates the entry. Keep both devices clear of moving wall tracks and match the open approach shown in the guide.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=1bZaw2Pj4I4&t=4s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=1bZaw2Pj4I4&t=4s",
+        "author": "Chef",
+        "publishedAt": "2026-08-09",
+        "checkedAt": 1792974325993,
+        "patch": "13.08",
+        "evidence": "Primary YouTube page identifies Chef; the creator Share > Embed panel supplied the external iframe. Actual Summit footage at0:04-0:20 shows Shear across the A Main/A Garden passage and Razorvine placed on the site-side floor. Source transcript and frames reviewed. Summit released in13.00 and has no relevant local geometry update identified through13.08; later utility changes concerning moving doors mean the setup is limited to the demonstrated open approach and placements clear of moving tracks. Compatibility is inferred from source footage and patch/map history, not independently tested in a live match.",
+        "rightsBasis": "External YouTube iframe only. Share > Embed supplied iframe for this source on2026-10-26. No screenshot, thumbnail, audio or video files copied.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:1bZaw2Pj4I4:216",
+      "mapSlug": "summit",
+      "agentSlug": "vyse",
+      "title": "B Main choke isolation with Shear and Razorvine",
+      "description": "Place Shear across the B Main entry to site, then set Razorvine on the open B Site floor behind the choke. Hold from site cover and activate the nest when the wall catches an attacker entering. The guide also demonstrates a higher crate placement; keep utility off the moving doorway tracks and use the open wall state shown in the source.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=1bZaw2Pj4I4&t=216s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=1bZaw2Pj4I4&t=216s",
+        "author": "Chef",
+        "publishedAt": "2026-08-09",
+        "checkedAt": 1792974325993,
+        "patch": "13.08",
+        "evidence": "Primary YouTube page identifies Chef; the creator Share > Embed panel supplied the external iframe. Actual B Main footage at3:36-4:10 shows Shear across the B Main choke, Razorvine on site floor and the alternate raised crate placement with the door-handle aim landmark. Link starts at3:36 for the choke setup; no exact pixel coordinates are invented. Summit released in13.00 and has no relevant local geometry update identified through13.08; later utility changes concerning moving doors mean the setup is limited to the demonstrated open approach and placements clear of moving tracks. Compatibility is inferred from source footage and patch/map history, not independently tested in a live match.",
+        "rightsBasis": "External YouTube iframe only. Share > Embed supplied iframe for this source on2026-10-26. No screenshot, thumbnail, audio or video files copied.",
+        "testedInGame": false
+      }
+    }
+  ]
+}

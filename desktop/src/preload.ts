@@ -68,6 +68,15 @@ const bridge: DesktopBridge = {
     ipcRenderer.on(DESKTOP_CHANNELS.changed, handler);
     return () => ipcRenderer.removeListener(DESKTOP_CHANNELS.changed, handler);
   },
+  aim: {
+    settings: () => ipcRenderer.invoke(DESKTOP_CHANNELS.aim, "settings"),
+    onSuspend(listener) {
+      const handler = () => listener();
+      ipcRenderer.on(DESKTOP_CHANNELS.aimSuspended, handler);
+      return () =>
+        ipcRenderer.removeListener(DESKTOP_CHANNELS.aimSuspended, handler);
+    },
+  },
   window: {
     minimize: () => ipcRenderer.invoke(DESKTOP_CHANNELS.window, "minimize"),
     toggleMaximize: () =>

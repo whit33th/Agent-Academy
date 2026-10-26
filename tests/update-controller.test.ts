@@ -80,3 +80,70 @@ it("distinguishes no published release from network failure and permits retry", 
   await controller.download();
   expect(driver.downloadUpdate).not.toHaveBeenCalled();
 });
+
+it.each([
+  ["ERR_UPDATER_CHANNEL_FILE_NOT_FOUND", "release is incomplete"],
+  ["ERR_UPDATER_INVALID_SIGNATURE", "signature"],
+  ["ERR_CHECKSUM_MISMATCH", "verification"],
+  ["ENOSPC", "disk space"],
+  ["EACCES", "permission"],
+])(
+  "reports an actionable %s failure and records its cause",
+  async (code, message) => {
+    const events = new EventEmitter();
+    const cause = Object.assign(new Error("diagnostic detail"), { code });
+    const diagnose = vi.fn();
+    const driver = {
+      on: events.on.bind(events),
+      checkForUpdates: vi.fn(async () => {
+        throw cause;
+      }),
+      downloadUpdate: vi.fn(async () => {}),
+      quitAndInstall: vi.fn(),
+    };
+    const controller = createUpdateController(
+      driver,
+      "0.7.1",
+      () => {},
+      diagnose,
+    );
+    await controller.check();
+    expect(controller.get()).toMatchObject({
+      status: "error",
+      message: expect.stringContaining(message),
+    });
+    expect(diagnose).toHaveBeenCalledWith(
+      cause,
+      expect.objectContaining({ status: "checking", currentVersion: "0.7.1" }),
+    );
+  },
+);
+
+it("recovers from a failed download and completes a repeated check, download and install", async () => {
+  const events = new EventEmitter();
+  const driver = {
+    on: events.on.bind(events),
+    checkForUpdates: vi.fn(async () => {
+      events.emit("update-available", { version: "0.7.3" });
+    }),
+    downloadUpdate: vi
+      .fn()
+      .mockRejectedValueOnce(new Error("net::ERR_INTERNET_DISCONNECTED"))
+      .mockImplementationOnce(async () => {
+        events.emit("update-downloaded", { version: "0.7.3" });
+      }),
+    quitAndInstall: vi.fn(),
+  };
+  const controller = createUpdateController(driver, "0.7.1", () => {});
+  await controller.check();
+  await controller.download();
+  expect(controller.get().status).toBe("error");
+  await controller.check();
+  expect(controller.get()).toMatchObject({
+    status: "available",
+    message: null,
+  });
+  await controller.download();
+  controller.install();
+  expect(driver.quitAndInstall).toHaveBeenCalledExactlyOnceWith(true, true);
+});

@@ -1,0 +1,150 @@
+{
+  "checkedAt": 1792818428636,
+  "targetPatch": "13.08",
+  "records": [
+    {
+      "url": "https://www.youtube.com/watch?v=gZ60FW3BxkI",
+      "author": "AlexDotC",
+      "agentSlug": "killjoy",
+      "mapSlug": "corrode",
+      "publishedAt": "2026-10-14T11:46:36-07:00",
+      "playableInEmbed": true,
+      "reason": "Three B Lobby throws promoted after actual stance/aim/landing review against relevant unchanged geometry. A chapters remain pending because13.08 changed A plant zone; visible landing does not establish current legal Spike placement.",
+      "chapters": [
+        {
+          "seconds": 63,
+          "type": "A default"
+        },
+        {
+          "seconds": 77,
+          "type": "A corner"
+        },
+        {
+          "seconds": 92,
+          "type": "A box"
+        }
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=jxejX5_VGFc",
+      "author": "Briiest",
+      "agentSlug": "killjoy",
+      "mapSlug": "bind",
+      "publishedAt": "2026-02-26T09:01:21-08:00",
+      "playableInEmbed": true,
+      "reason": "Primary chapters and embedding verified. No explicit current-patch compatibility confirmation; do not promote merely because Bind is currently in the pool.",
+      "chapters": [
+        {
+          "seconds": 16,
+          "type": "A turret"
+        },
+        {
+          "seconds": 62,
+          "type": "B turret"
+        },
+        {
+          "seconds": 115,
+          "type": "A setups"
+        },
+        {
+          "seconds": 241,
+          "type": "B setups"
+        },
+        {
+          "seconds": 371,
+          "type": "A postplant"
+        },
+        {
+          "seconds": 481,
+          "type": "B postplant"
+        },
+        {
+          "seconds": 594,
+          "type": "A corner clear"
+        },
+        {
+          "seconds": 684,
+          "type": "B corner clear"
+        }
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=liSWxxXao-I",
+      "author": "Briiest",
+      "agentSlug": "killjoy",
+      "mapSlug": "lotus",
+      "publishedAt": "2026-04-30T09:01:22-07:00",
+      "playableInEmbed": true,
+      "reason": "Primary creator metadata verified; newer than Lotus 12.05 rework but no explicit 13.08 compatibility attestation. Needs review of actual placements, later patches and gameplay.",
+      "chapters": [
+        {
+          "seconds": 123,
+          "type": "A setups"
+        },
+        {
+          "seconds": 242,
+          "type": "B setups"
+        },
+        {
+          "seconds": 304,
+          "type": "C setups"
+        },
+        {
+          "seconds": 391,
+          "type": "A postplant"
+        },
+        {
+          "seconds": 450,
+          "type": "B postplant"
+        },
+        {
+          "seconds": 510,
+          "type": "C postplant"
+        }
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Qoq6I433E-c",
+      "author": "Briiest",
+      "agentSlug": "killjoy",
+      "mapSlug": "summit",
+      "publishedAt": "2026-07-02T09:00:10-07:00",
+      "playableInEmbed": true,
+      "reason": "Primary metadata and chapters verified, but reactive wall state and current compatibility not established.",
+      "chapters": [
+        {
+          "seconds": 167,
+          "type": "A setups"
+        },
+        {
+          "seconds": 242,
+          "type": "B setups"
+        },
+        {
+          "seconds": 374,
+          "type": "A postplant"
+        },
+        {
+          "seconds": 481,
+          "type": "B postplant"
+        }
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=VlFY_NcO4B0",
+      "author": "Xive",
+      "agentSlug": "neon",
+      "mapSlug": "bind",
+      "publishedAt": "2026-04-06T10:08:24-07:00",
+      "playableInEmbed": true,
+      "reason": "Actual primary page confirms Shower stun clip but description is empty; cannot infer side, exact technique, creator rights over third-party footage or current patch compatibility from its title."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=V0K6kacM-Fk",
+      "author": "CoachCow",
+      "agentSlug": "vyse",
+      "mapSlug": "corrode",
+      "reason": "Predates 13.08 map geometry changes. Secondary summary itself warns placements require checking. Not approved."
+    }
+  ]
+}

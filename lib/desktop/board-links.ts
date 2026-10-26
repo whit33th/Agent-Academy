@@ -1,5 +1,6 @@
 import { findMap } from "../catalog/catalog";
 import { AUTH_SCHEME } from "./protocol";
+import { supportsBoard } from "../board/supported-maps";
 
 export function boardDestination(link: string): string | null {
   try {
@@ -10,6 +11,7 @@ export function boardDestination(link: string): string | null {
       url.protocol !== `${AUTH_SCHEME}:` ||
       url.hostname !== "board" ||
       !map ||
+      !supportsBoard(map._id) ||
       !payload ||
       payload.length > 24000 ||
       !/^[A-Za-z0-9+/=]+$/.test(payload)

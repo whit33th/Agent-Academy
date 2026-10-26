@@ -10,7 +10,7 @@ describe("collection contracts", () => {
     const t = convexTest(schema, modules);
     const owner = "https://test|alice";
     await t.run(async (ctx) => {
-      for (let index = 0; index < 205; index++) {
+      for (let index = 0; index < 505; index++) {
         await ctx.db.insert("lineups", {
           ownerTokenIdentifier: owner,
           mapSlug: "ascent",
@@ -41,7 +41,7 @@ describe("collection contracts", () => {
       cursor = page.continueCursor;
       done = page.isDone;
     }
-    expect(total).toBe(205);
+    expect(total).toBe(505);
     const guestPage = await t.query(api.lineups.listPublicByMapAgentPage, {
       mapSlug: "ascent",
       agentSlug: "sova",

@@ -1,8 +1,6 @@
 "use client";
-import { Fragment, useRef, useSyncExternalStore } from "react";
-import { useDialogFocus } from "@/lib/utils/useDialogFocus";
+import { useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
-import Image from "@/components/ui/CatalogImage";
 import {
   X,
   Undo2,
@@ -14,74 +12,52 @@ import {
   Trash,
   Users,
 } from "lucide-react";
+import Image from "@/components/ui/CatalogImage";
+import { useDialogFocus } from "@/lib/utils/useDialogFocus";
 import { audio } from "@/lib/audio";
-import { findAbilityStats } from "@/lib/data/ability-stats";
-import { findMapRecord, worldToMinimap } from "@/lib/generated/valorant-maps";
-import type {
-  TacticalBoardProps,
-  Tool,
-  PlacedAbility,
-  PlacedAgent,
-} from "./model";
-import { COLORS, WIDTHS } from "./model";
-import { formatAbilityMeta, getAbilityEndpoints } from "./geometry";
-import { useTacticalBoardSession } from "./useTacticalBoardSession";
-function subscribeBoardPortal() {
-  return () => {};
-}
-
-function boardPortalTarget() {
-  return typeof document === "undefined" ? null : document.body;
-}
+import {
+  ACTIVE_SLOTS,
+  BOARD_LIMITS,
+  COLORS,
+  WIDTHS,
+  type Tool,
+} from "@/lib/board/types";
+import { findAbilityDefinition, getAbilityDefinition } from "@/lib/board/data";
+import { modeGeometry } from "@/lib/board/geometry";
+import type { BoardController } from "@/lib/board/controller";
+import { BoardObjects, InkLayer } from "./BoardScene";
+import {
+  useTacticalBoardSession,
+  type TacticalBoardProps,
+} from "./useTacticalBoardSession";
 
 export default function TacticalBoard(props: TacticalBoardProps) {
+  // The entry is dynamically loaded with ssr:false. Mount effects after the portal exists.
+  return createPortal(<BoardSession {...props} />, document.body);
+}
+function BoardSession(props: TacticalBoardProps) {
+  const { map: catalogMap, allAgents, onClose } = props;
   const {
+    controller,
     map,
-    allAgents,
-    onClose,
-    tool,
-    color,
-    width,
-    setTool,
-    setColor,
-    setWidth,
-    setArmedAbility,
-    setArmedAgentDrop,
-    handleUndo,
-    handleShare,
-    handleReset,
+    ui,
     overlayRef,
-    bgCanvasRef,
-    fgCanvasRef,
     agentStripRef,
-    handlePointerDown,
-    handlePointerMove,
-    handlePointerUp,
-    placedAbilities,
-    placedAgents,
-    setPlacedAbilities,
-    setPlacedAgents,
-    rotatingAbilityId,
-    startRotateAbility,
-    startTokenDrag,
-    startAbilityStartDrag,
     selectedAgent,
     setSelectedAgent,
-    armedAbility,
-    armedAgentDrop,
-    bgImage,
-    cursorMode,
-    shareError,
+    handleShare,
   } = useTacticalBoardSession(props);
-  const portalTarget = useSyncExternalStore(
-    subscribeBoardPortal,
-    boardPortalTarget,
-    () => null,
-  );
   const dialogRef = useRef<HTMLDivElement>(null);
-  useDialogFocus(dialogRef, Boolean(portalTarget));
-  if (!portalTarget) return null;
-  return createPortal(
+  useDialogFocus(dialogRef, true);
+  const cursor =
+    ui.armedAbility ||
+    ui.armedAgent ||
+    ui.sourceTarget ||
+    ui.extraTarget ||
+    ui.tool !== "select"
+      ? "crosshair"
+      : "default";
+  return (
     <div
       ref={dialogRef}
       data-tactical-board
@@ -90,39 +66,34 @@ export default function TacticalBoard(props: TacticalBoardProps) {
       aria-label="Tactical board"
       className="fixed inset-x-0 bottom-0 top-[var(--desktop-titlebar-height,0px)] z-[250] bg-black/95 backdrop-blur-sm flex flex-col"
     >
-      {shareError && (
+      {ui.error && (
         <p
           role="alert"
-          className="bg-val-surface px-4 py-2 text-sm text-val-red"
+          className="absolute left-1/2 top-14 z-30 max-w-[90%] -translate-x-1/2 rounded-sm border border-white/10 bg-val-surface px-4 py-2 text-sm text-val-red shadow-lg pointer-events-none"
         >
-          {shareError}
+          {ui.error}
         </p>
       )}
-      {/* Top toolbar */}
       <header className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 bg-val-surface/95 border-b border-white/10">
         <h2 className="font-oswald text-base font-bold uppercase tracking-wider text-white">
-          Strat Board — <span className="text-val-red">{map.name}</span>
+          Strat Board — <span className="text-val-red">{catalogMap.name}</span>
         </h2>
         <div className="flex items-center gap-1.5">
           <Toolbar
-            tool={tool}
-            color={color}
-            width={width}
-            onToolChange={(t) => {
-              setTool(t);
-              setArmedAbility(null);
-              setArmedAgentDrop(false);
-            }}
-            onColorChange={setColor}
-            onWidthChange={setWidth}
+            tool={ui.tool}
+            color={ui.color}
+            width={ui.width}
+            onToolChange={controller.setTool}
+            onColorChange={controller.setColor}
+            onWidthChange={controller.setWidth}
           />
-          <ToolIconButton onClick={handleUndo} label="Undo">
+          <ToolIconButton onClick={controller.undo} label="Undo">
             <Undo2 size={14} />
           </ToolIconButton>
           <ToolIconButton onClick={handleShare} label="Copy share link">
             <Share2 size={14} />
           </ToolIconButton>
-          <ToolIconButton onClick={handleReset} label="Reset board">
+          <ToolIconButton onClick={controller.reset} label="Reset board">
             <Trash size={14} />
           </ToolIconButton>
           <ToolIconButton onClick={onClose} label="Close">
@@ -130,22 +101,21 @@ export default function TacticalBoard(props: TacticalBoardProps) {
           </ToolIconButton>
         </div>
       </header>
-
-      {/* Workspace */}
       <div className="flex-1 flex flex-col min-h-0">
-        <div className="flex-1 flex justify-center items-center p-3 min-h-0">
+        <div className="relative flex-1 flex justify-center items-center p-3 min-h-0 overflow-hidden">
           <div
             ref={overlayRef}
-            className="relative aspect-square h-full max-w-full touch-none select-none"
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            style={{ cursor: cursorMode }}
+            data-board-map={map.mapId}
+            data-board-phase={ui.phase}
+            className="relative aspect-square h-full max-w-full touch-none select-none overflow-hidden"
+            style={{
+              cursor,
+              aspectRatio: `${map.radarWidth} / ${map.radarHeight}`,
+            }}
           >
             <Image
-              src={bgImage}
-              alt={map.name}
+              src={map.radar}
+              alt={catalogMap.name}
               fill
               draggable={false}
               priority
@@ -153,134 +123,105 @@ export default function TacticalBoard(props: TacticalBoardProps) {
               quality={95}
               className="object-contain pointer-events-none"
             />
-            <canvas
-              ref={bgCanvasRef}
-              className="absolute inset-0 pointer-events-none"
-            />
-            <canvas
-              ref={fgCanvasRef}
-              className="absolute inset-0 pointer-events-none"
-            />
-
-            <MapCalloutLayer mapName={map.name} />
-
-            {/* SVG layer: ability shapes (smokes, walls, cones) */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
-              aria-hidden
-            >
-              {placedAbilities.map((a) => (
-                <AbilityShapeSvg key={a.id} ability={a} />
-              ))}
-            </svg>
-
-            {/* Ability icon tokens (drag to move, dbl-click to delete) */}
-            {placedAbilities.map((a) => (
-              <Fragment key={`${a.id}-frag`}>
-                <AbilityToken
-                  ability={a}
-                  onPointerDown={(e) =>
-                    e.shiftKey
-                      ? startRotateAbility(e, a.id)
-                      : startTokenDrag(e, "ability", a.id)
-                  }
-                  onRotatePointerDown={(e) => startRotateAbility(e, a.id)}
-                  onDelete={() =>
-                    setPlacedAbilities((prev) =>
-                      prev.filter((p) => p.id !== a.id),
-                    )
-                  }
-                  isRotating={rotatingAbilityId === a.id}
-                />
-                {(a.shape === "wall" || a.shape === "cone") &&
-                  (a.length != null || a.coneRange != null) && (
-                    <StartHandle
-                      ability={a}
-                      onPointerDown={(e) => startAbilityStartDrag(e, a.id)}
-                    />
-                  )}
-              </Fragment>
-            ))}
-
-            {/* Agent tokens */}
-            {placedAgents.map((a) => (
-              <AgentToken
-                key={a.id}
-                placed={a}
-                onPointerDown={(e) => startTokenDrag(e, "agent", a.id)}
-                onDelete={() =>
-                  setPlacedAgents((prev) => prev.filter((p) => p.id !== a.id))
-                }
-              />
-            ))}
+            <InkLayer controller={controller} />
+            <div className="absolute inset-0 pointer-events-none" aria-hidden>
+              {map.callouts.map((callout, index) => {
+                const site =
+                  callout.regionName.toLowerCase() === "site" &&
+                  callout.superRegion;
+                return (
+                  <div
+                    key={`${callout.regionName}-${index}`}
+                    className="absolute -translate-x-1/2 -translate-y-1/2"
+                    style={{
+                      left: `${callout.x * 100}%`,
+                      top: `${callout.y * 100}%`,
+                    }}
+                  >
+                    {site ? (
+                      <span className="grid size-7 place-items-center rounded-sm border border-val-teal/60 bg-black/55 font-oswald text-base font-bold text-white shadow-[0_0_16px_rgba(0,243,255,0.2)]">
+                        {callout.superRegion}
+                      </span>
+                    ) : (
+                      <span className="whitespace-nowrap rounded-sm bg-black/45 px-1 py-px font-oswald text-[10px] uppercase tracking-wide text-white/70">
+                        {callout.regionName}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <BoardObjects controller={controller} />
           </div>
+          <ObjectControls controller={controller} />
         </div>
-
-        {/* Ability picker row (visible when an agent is selected) */}
         {selectedAgent && (
           <div className="flex items-center gap-1.5 px-4 py-2 justify-center bg-val-surface/90 border-t border-white/10 overflow-x-auto custom-scrollbar">
             <div className="flex items-center gap-1.5">
-              {selectedAgent.abilities
-                .filter((ab) => ab.displayIcon)
-                .map((ab) => {
-                  const isArmed = armedAbility?.displayName === ab.displayName;
-                  const stats = findAbilityStats(ab.displayName);
-                  const meta = formatAbilityMeta(ab.displayName);
-                  return (
-                    <button
-                      key={ab.displayName}
-                      type="button"
-                      onClick={() => {
-                        audio.playClick();
-                        setArmedAbility(isArmed ? null : ab);
-                        setArmedAgentDrop(false);
-                      }}
-                      title={`${ab.displayName}${meta ? ` — ${meta}` : ""}`}
-                      className={`relative size-10 xl:size-14 rounded-sm border transition-colors cursor-pointer ${
-                        isArmed
-                          ? "border-val-red bg-val-red/20"
-                          : "border-white/10 bg-white/5 hover:border-white/40"
-                      }`}
-                    >
+              {ACTIVE_SLOTS.map((slot) => {
+                const definition = findAbilityDefinition(
+                  selectedAgent._id,
+                  slot,
+                )!;
+                const isArmed = ui.armedAbility === definition.id;
+                const badge = {
+                  circle: "AOE",
+                  sector: "CONE",
+                  strip: "AOE",
+                  wall: "WALL",
+                  path: "PATH",
+                  segment: "LINE",
+                  cross: "X",
+                  teleport: "",
+                  marker: "",
+                  "global-line": "WALL",
+                  "ground-volume": "AOE",
+                  facing: "",
+                  "compound-wall": "WALL",
+                }[definition.modes[0].geometry.kind];
+                return (
+                  <button
+                    key={slot}
+                    type="button"
+                    aria-label={definition.name}
+                    aria-pressed={isArmed}
+                    data-board-ability={definition.id}
+                    onClick={() => {
+                      audio.playClick();
+                      controller.armAbility(isArmed ? null : definition.id);
+                    }}
+                    title={definition.name}
+                    className={`relative size-10 xl:size-14 rounded-sm border transition-colors cursor-pointer ${isArmed ? "border-val-red bg-val-red/20" : "border-white/10 bg-white/5 hover:border-white/40"}`}
+                  >
+                    {definition.icon && (
                       <Image
-                        src={ab.displayIcon!}
-                        alt={ab.displayName}
+                        src={definition.icon}
+                        alt={definition.name}
                         fill
                         sizes="96px"
                         quality={90}
                         className="object-contain p-1"
                       />
-                      {stats && stats.shape !== "point" && (
-                        <span className="absolute -bottom-1 -right-1 rounded-xs bg-black/90 px-1 py-0.5 text-[7px] font-black uppercase leading-none text-val-teal ring-1 ring-val-teal/40">
-                          {stats.shape === "circle"
-                            ? "AOE"
-                            : stats.shape === "wall"
-                              ? "WALL"
-                              : stats.shape === "cone"
-                                ? "CONE"
-                                : "X"}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
+                    )}
+                    {badge && (
+                      <span className="absolute -bottom-1 -right-1 rounded-xs bg-black/90 px-1 py-0.5 text-[7px] font-black uppercase leading-none text-val-teal ring-1 ring-val-teal/40">
+                        {badge}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
-
             <button
               type="button"
+              aria-label="Place agent token"
+              aria-pressed={ui.armedAgent === selectedAgent._id}
               onClick={() => {
                 audio.playClick();
-                setArmedAgentDrop((v) => !v);
-                setArmedAbility(null);
+                controller.armAgent(ui.armedAgent ? null : selectedAgent._id);
               }}
               title="Place agent token on map"
-              className={`flex relative items-center gap-1.5 w-auto aspect-square justify-center h-full rounded-full border-2 border-white text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0 cursor-pointer ${
-                armedAgentDrop
-                  ? "border-val-teal bg-val-teal/20 text-val-teal"
-                  : " bg-white/5 text-white/70  hover:text-white"
-              }`}
+              className={`flex relative items-center gap-1.5 w-auto aspect-square justify-center self-stretch min-w-10 rounded-full border-2 border-white text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0 cursor-pointer ${ui.armedAgent ? "border-val-teal bg-val-teal/20 text-val-teal" : "bg-white/5 text-white/70 hover:text-white"}`}
             >
               {selectedAgent.displayIcon && (
                 <Image
@@ -295,8 +236,6 @@ export default function TacticalBoard(props: TacticalBoardProps) {
             </button>
           </div>
         )}
-
-        {/* Bottom agent strip */}
         <div
           ref={agentStripRef}
           className="flex items-center gap-2 px-4 py-3 bg-val-surface/95 border-t border-white/10 overflow-x-auto custom-scrollbar"
@@ -305,25 +244,22 @@ export default function TacticalBoard(props: TacticalBoardProps) {
             <Users size={12} /> Agents
           </span>
           {allAgents.map((agent) => {
-            const isSelected = selectedAgent?._id === agent._id;
-            const icon = agent.displayIcon || agent.imageUrl || "";
+            const isSelected = selectedAgent?._id === agent._id,
+              icon = agent.displayIcon || agent.imageUrl;
             return (
               <button
                 key={agent._id}
                 type="button"
+                title={agent.name}
+                aria-label={agent.name}
+                aria-pressed={isSelected}
                 onClick={() => {
                   audio.playClick();
                   setSelectedAgent(isSelected ? null : agent);
-                  setArmedAbility(null);
-                  setArmedAgentDrop(false);
+                  controller.armAbility(null);
                 }}
                 onMouseEnter={() => audio.playHover()}
-                title={agent.name}
-                className={`relative shrink-0 size-12 xl:size-16 rounded-sm border overflow-hidden transition-[border-color,transform,box-shadow] cursor-pointer ${
-                  isSelected
-                    ? "border-val-red scale-110 ring-2 ring-val-red/40"
-                    : "border-white/10 bg-white/5 hover:border-white/40"
-                }`}
+                className={`relative shrink-0 size-12 xl:size-16 rounded-sm border overflow-hidden transition-[border-color,transform,box-shadow] cursor-pointer ${isSelected ? "border-val-red scale-110 ring-2 ring-val-red/40" : "border-white/10 bg-white/5 hover:border-white/40"}`}
               >
                 {icon ? (
                   <Image
@@ -344,299 +280,159 @@ export default function TacticalBoard(props: TacticalBoardProps) {
           })}
         </div>
       </div>
-    </div>,
-    portalTarget,
+    </div>
   );
 }
-
-// ───────────────────────────────────────────────────────────────────────────
-// Helpers / sub-components
-
-function AbilityShapeSvg({ ability }: { ability: PlacedAbility }) {
-  const { x, y, shape, color } = ability;
-  const cx = x * 100;
-  const cy = y * 100;
-
-  if (shape === "circle" && ability.radius != null) {
-    const r = ability.radius * 100;
-    return (
-      <circle
-        cx={cx}
-        cy={cy}
-        r={r}
-        fill={color}
-        fillOpacity={0.18}
-        stroke={color}
-        strokeOpacity={0.8}
-        strokeWidth={0.3}
-        strokeDasharray="0.8,0.5"
-      />
-    );
-  }
-
-  if (shape === "wall" && ability.length != null) {
-    const halfLen = (ability.length * 100) / 2;
-    return (
-      <g transform={`rotate(${ability.rotation} ${cx} ${cy})`}>
-        <line
-          x1={cx - halfLen}
-          y1={cy}
-          x2={cx + halfLen}
-          y2={cy}
-          stroke={color}
-          strokeOpacity={0.25}
-          strokeWidth={3}
-          strokeLinecap="round"
-        />
-        <line
-          x1={cx - halfLen}
-          y1={cy}
-          x2={cx + halfLen}
-          y2={cy}
-          stroke={color}
-          strokeOpacity={0.9}
-          strokeWidth={0.9}
-          strokeLinecap="round"
-        />
-      </g>
-    );
-  }
-
-  if (shape === "cross" && ability.length != null) {
-    const halfLen = (ability.length * 100) / 2;
-    const nodeR = Math.max((ability.radius ?? 0.025) * 100, 1.6);
-    const nodes: [number, number][] = [
-      [-halfLen, 0],
-      [halfLen, 0],
-      [0, -halfLen],
-      [0, halfLen],
-      [0, 0],
-    ];
-
-    return (
-      <g transform={`rotate(${ability.rotation} ${cx} ${cy})`}>
-        <line
-          x1={cx - halfLen}
-          y1={cy}
-          x2={cx + halfLen}
-          y2={cy}
-          stroke={color}
-          strokeOpacity={0.9}
-          strokeWidth={0.8}
-          strokeLinecap="round"
-        />
-        <line
-          x1={cx}
-          y1={cy - halfLen}
-          x2={cx}
-          y2={cy + halfLen}
-          stroke={color}
-          strokeOpacity={0.9}
-          strokeWidth={0.8}
-          strokeLinecap="round"
-        />
-        {nodes.map(([dx, dy]) => (
-          <circle
-            key={`${dx}-${dy}`}
-            cx={cx + dx}
-            cy={cy + dy}
-            r={nodeR}
-            fill={color}
-            fillOpacity={0.22}
-            stroke={color}
-            strokeOpacity={0.9}
-            strokeWidth={0.35}
-          />
-        ))}
-      </g>
-    );
-  }
-
-  if (
-    shape === "cone" &&
-    ability.coneRange != null &&
-    ability.coneAngle != null
-  ) {
-    const range = ability.coneRange * 100;
-    const half = (ability.coneAngle * Math.PI) / 360; // half angle in radians
-    const x1 = cx + range * Math.cos(-half);
-    const y1 = cy + range * Math.sin(-half);
-    const x2 = cx + range * Math.cos(half);
-    const y2 = cy + range * Math.sin(half);
-    const largeArc = ability.coneAngle > 180 ? 1 : 0;
-    return (
-      <g transform={`rotate(${ability.rotation} ${cx} ${cy})`}>
-        <path
-          d={`M ${cx} ${cy} L ${x1} ${y1} A ${range} ${range} 0 ${largeArc} 1 ${x2} ${y2} Z`}
-          fill={color}
-          fillOpacity={0.14}
-          stroke={color}
-          strokeOpacity={0.7}
-          strokeWidth={0.3}
-        />
-      </g>
-    );
-  }
-
-  return null;
-}
-
-function AbilityToken({
-  ability,
-  onPointerDown,
-  onRotatePointerDown,
-  onDelete,
-  isRotating,
-}: {
-  ability: PlacedAbility;
-  onPointerDown: (e: React.PointerEvent) => void;
-  onRotatePointerDown: (e: React.PointerEvent) => void;
-  onDelete: () => void;
-  isRotating: boolean;
-}) {
-  const canRotate =
-    ability.shape === "wall" ||
-    ability.shape === "cone" ||
-    ability.shape === "cross";
-
+function ObjectControls({ controller }: { controller: BoardController }) {
+  const ui = useSyncExternalStore(
+    controller.subscribeUi,
+    controller.getUi,
+    controller.getUi,
+  );
+  const object = useSyncExternalStore(
+    controller.store.subscribe,
+    () =>
+      ui.selected ? controller.store.getObject(ui.selected.id) : undefined,
+    () => undefined,
+  );
+  if (!object) return null;
+  const definition =
+    object.kind === "ability"
+      ? getAbilityDefinition(object.definitionId)
+      : null;
+  const geometry =
+    object.kind === "ability" ? modeGeometry(definition!, object) : null;
   return (
     <div
-      className="absolute -translate-x-1/2 -translate-y-1/2"
-      style={{ left: `${ability.x * 100}%`, top: `${ability.y * 100}%` }}
+      data-board-object-controls
+      className="absolute left-3 top-3 z-20 flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-1.5 rounded-sm border border-white/10 bg-val-surface/95 px-2 py-1.5 text-[11px] text-white/70 shadow-lg"
     >
-      <button
-        type="button"
-        onPointerDown={onPointerDown}
-        onDoubleClick={onDelete}
-        className="relative w-8 h-8 rounded-full bg-black/70 border-2 backdrop-blur-sm flex items-center justify-center cursor-grab active:cursor-grabbing hover:scale-110 transition-transform"
-        style={{ borderColor: ability.color }}
-        title={`${ability.agentName} — ${ability.abilityName}  (drag to move, drag handle to rotate, double-click to delete)`}
-      >
-        {ability.abilityIcon ? (
-          <Image
-            src={ability.abilityIcon}
-            alt={ability.abilityName}
-            width={20}
-            height={20}
-            quality={90}
-            draggable={false}
-          />
-        ) : (
-          <span className="text-[8px] font-bold text-white">
-            {ability.abilityName.slice(0, 2).toUpperCase()}
-          </span>
-        )}
-      </button>
-      {canRotate && (
+      {definition && (
+        <span className="px-1 font-bold text-white">{definition.name}</span>
+      )}
+      {object.kind === "ability" &&
+        definition!.modes.length > 1 &&
+        definition!.modes.map((mode) => (
+          <button
+            key={mode.id}
+            type="button"
+            aria-pressed={object.mode === mode.id}
+            onClick={() => controller.setMode(object.id, mode.id)}
+            className={`rounded-sm px-2 py-1 transition-colors ${object.mode === mode.id ? "bg-val-red/20 text-white" : "hover:bg-white/10"}`}
+          >
+            {mode.label}
+          </button>
+        ))}
+      {object.kind === "ability" && geometry!.kind === "teleport" && (
         <button
           type="button"
-          tabIndex={-1}
-          onPointerDown={onRotatePointerDown}
-          className={`absolute left-1/2 -top-9 h-3.5 w-3.5 -translate-x-1/2 rounded-full border border-white/80 bg-black/80 cursor-ew-resize before:absolute before:left-1/2 before:top-full before:h-5 before:w-px before:-translate-x-1/2 before:bg-white/40 ${
-            isRotating ? "ring-2 ring-val-red" : ""
-          }`}
-          aria-label="Rotate ability"
-        />
+          aria-pressed={Boolean(object.source) || ui.sourceTarget === object.id}
+          onClick={() => controller.toggleSource(object.id)}
+          className="rounded-sm px-2 py-1 hover:bg-white/10"
+        >
+          {object.source
+            ? "Remove source"
+            : ui.sourceTarget === object.id
+              ? "Click source on map"
+              : "Add source"}
+        </button>
       )}
-    </div>
-  );
-}
-
-function StartHandle({
-  ability,
-  onPointerDown,
-}: {
-  ability: PlacedAbility;
-  onPointerDown: (e: React.PointerEvent) => void;
-}) {
-  const start = getAbilityEndpoints(ability).start;
-
-  return (
-    <button
-      type="button"
-      tabIndex={-1}
-      onPointerDown={onPointerDown}
-      className="absolute -translate-x-1/2 -translate-y-1/2 h-3.5 w-3.5 rounded-full border border-white/80 bg-black/80 cursor-grab z-10"
-      style={{
-        left: `${start.x * 100}%`,
-        top: `${start.y * 100}%`,
-      }}
-      aria-label="Drag ability start"
-    />
-  );
-}
-
-/**
- * Renders Riot's official callout names (A Site, Lobby, Heaven, ...) using the
- * exact world-to-minimap transform from valorant-api.com. Site labels (A/B/C)
- * are emphasised, every other callout is shown as a subtle text marker.
- */
-function MapCalloutLayer({ mapName }: { mapName: string }) {
-  const record = findMapRecord(mapName);
-  if (!record) return null;
-
-  return (
-    <div className="absolute inset-0 pointer-events-none" aria-hidden>
-      {record.callouts.map((c, idx) => {
-        const { x, y } = worldToMinimap(c.worldX, c.worldY, record);
-        if (x < 0 || x > 1 || y < 0 || y > 1) return null;
-        const isSite = c.regionName.toLowerCase() === "site" && c.superRegion;
-        const label = isSite ? c.superRegion! : c.regionName;
-        return (
-          <div
-            key={`${c.regionName}-${c.superRegion}-${idx}`}
-            className="absolute -translate-x-1/2 -translate-y-1/2"
-            style={{ left: `${x * 100}%`, top: `${y * 100}%` }}
+      {object.kind === "ability" && geometry!.kind === "path" && (
+        <>
+          <button
+            type="button"
+            onClick={() => controller.addPathPoint(object.id)}
+            disabled={object.points.length >= BOARD_LIMITS.routePoints}
+            className="rounded-sm px-2 py-1 hover:bg-white/10 disabled:opacity-30"
           >
-            {isSite ? (
-              <span className="grid size-7 place-items-center rounded-sm border border-val-teal/60 bg-black/55 font-oswald text-base font-bold text-white shadow-[0_0_16px_rgba(0,243,255,0.2)]">
-                {label}
-              </span>
-            ) : (
-              <span className="whitespace-nowrap rounded-sm bg-black/45 px-1 py-px font-oswald text-[10px] uppercase tracking-wide text-white/70">
-                {label}
-              </span>
-            )}
-          </div>
-        );
-      })}
+            Add point
+          </button>
+          <button
+            type="button"
+            onClick={() => controller.removePathPoint(object.id)}
+            disabled={object.points.length < 2}
+            className="rounded-sm px-2 py-1 hover:bg-white/10 disabled:opacity-30"
+          >
+            Remove point
+          </button>
+        </>
+      )}
+      {object.kind === "ability" &&
+        geometry?.kind === "path" &&
+        (geometry.maxRoutes ?? 1) > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => controller.addRoute(object.id)}
+              disabled={
+                (object.routes?.length ?? 0) >= (geometry.maxRoutes ?? 1) - 1
+              }
+              className="rounded-sm px-2 py-1 hover:bg-white/10 disabled:opacity-30"
+            >
+              Add route
+            </button>
+            <button
+              type="button"
+              onClick={() => controller.removeRoute(object.id)}
+              disabled={!object.routes?.length}
+              className="rounded-sm px-2 py-1 hover:bg-white/10 disabled:opacity-30"
+            >
+              Remove route
+            </button>
+          </>
+        )}
+      {object.kind === "ability" &&
+        (definition!.modes.find((mode) => mode.id === object.mode)?.targets ??
+          1) > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => controller.addTarget(object.id)}
+              disabled={
+                object.points.length >=
+                definition!.modes.find((mode) => mode.id === object.mode)!
+                  .targets! -
+                  1
+              }
+              className="rounded-sm px-2 py-1 hover:bg-white/10 disabled:opacity-30"
+            >
+              {ui.extraTarget === object.id
+                ? "Click target on map"
+                : "Add target"}
+            </button>
+            <button
+              type="button"
+              onClick={() => controller.removeTarget(object.id)}
+              disabled={!object.points.length}
+              className="rounded-sm px-2 py-1 hover:bg-white/10 disabled:opacity-30"
+            >
+              Remove target
+            </button>
+          </>
+        )}
+      {object.kind === "ability" &&
+        definition!.ownerActivationRadius !== undefined && (
+          <button
+            type="button"
+            aria-pressed={Boolean(object.showOwnerRange)}
+            onClick={() => controller.toggleOwnerRange(object.id)}
+            className="rounded-sm px-2 py-1 hover:bg-white/10"
+          >
+            Owner activation range
+          </button>
+        )}
+      <button
+        type="button"
+        onClick={() => controller.remove(object.id)}
+        aria-label="Delete selected object"
+        title="Delete selected object"
+        className="rounded-sm p-1.5 hover:bg-white/10 hover:text-white"
+      >
+        <Trash size={13} />
+      </button>
     </div>
   );
 }
-
-function AgentToken({
-  placed,
-  onPointerDown,
-  onDelete,
-}: {
-  placed: PlacedAgent;
-  onPointerDown: (e: React.PointerEvent) => void;
-  onDelete: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onPointerDown={onPointerDown}
-      onDoubleClick={onDelete}
-      className="absolute -translate-x-1/2 -translate-y-1/2 size-8 xl:size-10 rounded-full border-2 border-white/85 overflow-hidden bg-black cursor-grab active:cursor-grabbing hover:scale-110 transition-transform shadow-lg"
-      style={{ left: `${placed.x * 100}%`, top: `${placed.y * 100}%` }}
-      title={`${placed.agentName}  (drag to move, double-click to delete)`}
-    >
-      {placed.iconUrl && (
-        <Image
-          src={placed.iconUrl}
-          alt={placed.agentName}
-          fill
-          sizes="80px"
-          quality={90}
-          className="object-cover"
-          draggable={false}
-        />
-      )}
-    </button>
-  );
-}
-
 function ToolIconButton({
   onClick,
   label,
@@ -658,7 +454,6 @@ function ToolIconButton({
     </button>
   );
 }
-
 function Toolbar({
   tool,
   color,
@@ -670,67 +465,62 @@ function Toolbar({
   tool: Tool;
   color: string;
   width: number;
-  onToolChange: (t: Tool) => void;
-  onColorChange: (c: string) => void;
-  onWidthChange: (w: number) => void;
+  onToolChange: (tool: Tool) => void;
+  onColorChange: (color: string) => void;
+  onWidthChange: (width: number) => void;
 }) {
-  const tools: { key: Tool; icon: React.ReactNode; label: string }[] = [
+  const tools = [
     { key: "select", icon: <MoveUpRight size={14} />, label: "Select" },
     { key: "pen", icon: <Pencil size={14} />, label: "Pen" },
     { key: "line", icon: <Minus size={14} />, label: "Line" },
     { key: "arrow", icon: <MoveUpRight size={14} />, label: "Arrow" },
     { key: "eraser", icon: <Eraser size={14} />, label: "Eraser" },
-  ];
+  ] as const;
   return (
     <div className="flex items-center gap-2 mr-1 pr-2 border-r border-white/10">
       <div className="flex items-center gap-0.5">
-        {tools.map((t) => (
+        {tools.map((item) => (
           <button
-            key={t.key}
+            key={item.key}
             type="button"
-            onClick={() => onToolChange(t.key)}
-            title={t.label}
-            aria-label={t.label}
-            className={`p-2 rounded-sm transition-colors cursor-pointer ${
-              tool === t.key
-                ? "bg-val-red text-white"
-                : "text-white/70 hover:text-white hover:bg-white/10"
-            }`}
+            onClick={() => onToolChange(item.key)}
+            title={item.label}
+            aria-label={item.label}
+            aria-pressed={tool === item.key}
+            className={`p-2 rounded-sm transition-colors cursor-pointer ${tool === item.key ? "bg-val-red text-white" : "text-white/70 hover:text-white hover:bg-white/10"}`}
           >
-            {t.icon}
+            {item.icon}
           </button>
         ))}
       </div>
       <div className="flex items-center gap-1">
-        {COLORS.map((c) => (
+        {COLORS.map((value) => (
           <button
-            key={c}
+            key={value}
             type="button"
-            onClick={() => onColorChange(c)}
-            title={c}
-            aria-label={`Color ${c}`}
-            className={`size-4 xl:size-5 rounded-full border transition-transform cursor-pointer ${
-              color === c ? "scale-125 border-white" : "border-white/20"
-            }`}
-            style={{ backgroundColor: c }}
+            onClick={() => onColorChange(value)}
+            title={value}
+            aria-label={`Color ${value}`}
+            aria-pressed={color === value}
+            className={`size-4 xl:size-5 rounded-full border transition-transform cursor-pointer ${color === value ? "scale-125 border-white" : "border-white/20"}`}
+            style={{ backgroundColor: value }}
           />
         ))}
       </div>
       <div className="flex items-center gap-1">
-        {WIDTHS.map((w) => (
+        {WIDTHS.map((value) => (
           <button
-            key={w}
+            key={value}
             type="button"
-            onClick={() => onWidthChange(w)}
-            title={`Width ${w}px`}
-            aria-label={`Width ${w}`}
-            className={`p-2 rounded-sm transition-colors cursor-pointer ${
-              width === w ? "bg-white/20" : "hover:bg-white/10"
-            }`}
+            onClick={() => onWidthChange(value)}
+            title={`Width ${value}px`}
+            aria-label={`Width ${value}`}
+            aria-pressed={width === value}
+            className={`p-2 rounded-sm transition-colors cursor-pointer ${width === value ? "bg-white/20" : "hover:bg-white/10"}`}
           >
             <span
               className="block bg-white rounded-full"
-              style={{ width: w + 2, height: w + 2 }}
+              style={{ width: value + 2, height: value + 2 }}
             />
           </button>
         ))}

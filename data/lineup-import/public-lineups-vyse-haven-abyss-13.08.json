@@ -1,0 +1,80 @@
+{
+  "batchId": "public-lineups-vyse-haven-abyss-13-08-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "youtube:6A9QGeWSZmk:28",
+      "mapSlug": "abyss",
+      "agentSlug": "vyse",
+      "title": "A Main entry isolation from back site",
+      "description": "Set Shear inside A Site, behind the A Main choke, so attackers must commit to trigger it. Put Razorvine on the site floor behind the wall. Attach Arc Rose high on the back wall facing the entry. Hold from cover and flash when the wall separates the first attacker.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=6A9QGeWSZmk&t=28s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=6A9QGeWSZmk&t=28s",
+        "author": "Chef",
+        "publishedAt": "2025-01-15",
+        "checkedAt": 1792973647359,
+        "patch": "13.08",
+        "evidence": "Primary creator watch page and expanded publication date inspected. Actual A Main entrance/frame at 0:34 and high back-wall Arc Rose at 0:50 reviewed; creator explains avoiding the directly exposed choke placement. Abyss 11.08 changed B Site and Mid, which are excluded here. Later map history fixes concern other agents/locations; no relevant A floor or back-wall change identified. Compatibility is inferred from relevant unchanged geometry; the old video is not asserted to be recorded on 13.08 and no independent gameplay test was performed. Current damage, duration and range values are not copied from the old guide.",
+        "rightsBasis": "External YouTube embed only. Creator Share > Embed panel inspected on 2026-10-26 and provided an iframe for this video. No media files or thumbnails copied.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:6A9QGeWSZmk:427",
+      "mapSlug": "haven",
+      "agentSlug": "vyse",
+      "title": "A Long entry wall and Heaven flash",
+      "description": "Place Shear across the A Long exit into A Site. From A Heaven, attach Arc Rose high on the back wall so it faces the entry and site. Hold a covered angle; activate the flash after the wall isolates an attacker, then peek. This setup leaves A Short to a teammate.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=6A9QGeWSZmk&t=427s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=6A9QGeWSZmk&t=427s",
+        "author": "Chef",
+        "publishedAt": "2025-01-15",
+        "checkedAt": 1792973647359,
+        "patch": "13.08",
+        "evidence": "Primary watch page identifies Chef and the Haven chapter at 7:03. Actual A Site frame at 7:07 and A Long/Heaven corridor at 7:30 reviewed. Current Haven history lists a 12.00 Mid Window breakable panel and wall-penetration fixes, plus a Viper visual fix in 13.00; these do not establish a change to the demonstrated floor trap or exposed flash surface. No wallbang-dependent technique is included. Compatibility inferred from unchanged relevant positions; old source footage and no independent gameplay test are explicitly retained in provenance.",
+        "rightsBasis": "External YouTube embed only. Creator Share > Embed panel inspected on 2026-10-26 and provided an iframe for this video. No media files or thumbnails copied.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:6A9QGeWSZmk:535",
+      "mapSlug": "haven",
+      "agentSlug": "vyse",
+      "title": "C Long isolation and corridor slow",
+      "description": "Place Shear across the C Long entrance to C Site. Put Razorvine farther forward in the corridor to slow the approach. Set Arc Rose high on the back-site wall facing Long. Stay behind cover; when the wall triggers, flash before taking the isolated fight.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "C",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=6A9QGeWSZmk&t=535s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=6A9QGeWSZmk&t=535s",
+        "author": "Chef",
+        "publishedAt": "2025-01-15",
+        "checkedAt": 1792973647359,
+        "patch": "13.08",
+        "evidence": "Primary creator C Site demonstration inspected at 8:55 and 9:09: the trap spans the C Long entrance beside the green crate and floor approach. Current Haven history changes Mid Window and unintended bullet penetration involving Garage, not this C Long floor placement. The setup does not rely on an old wallbang, damage statistic or exact ability timer. Applicability is inferred from relevant unchanged geometry, with no claim the footage is on 13.08 or independently replay-tested.",
+        "rightsBasis": "External YouTube embed only. Creator Share > Embed panel inspected on 2026-10-26 and provided an iframe for this video. No media files or thumbnails copied.",
+        "testedInGame": false
+      }
+    }
+  ]
+}

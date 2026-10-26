@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { lineupMetadata } from "./lineupMetadata";
+import { lineupImageInput, lineupSource } from "./lineupMedia";
 export const lineup = v.object({
   _id: v.id("lineups"),
   _creationTime: v.number(),
@@ -11,6 +12,13 @@ export const lineup = v.object({
   description: v.optional(v.string()),
   abilityType: v.string(),
   metadata: v.optional(lineupMetadata),
+  images: v.optional(v.array(lineupImageInput)),
+  coverIndex: v.optional(v.number()),
+  videoUrl: v.optional(v.string()),
+  source: v.optional(lineupSource),
+  importBatchId: v.optional(v.string()),
+  sourceKey: v.optional(v.string()),
+  contentHash: v.optional(v.string()),
   imageUrl: v.string(),
   imageStorageKey: v.optional(v.string()),
   imageAssetId: v.optional(v.string()),

@@ -6,6 +6,7 @@ import { Map } from "lucide-react";
 import { audio } from "@/lib/audio";
 import { getAgents } from "@/lib/catalog/catalog";
 import type { GameMap } from "@/lib/types";
+import { supportsBoard } from "@/lib/board/supported-maps";
 
 const TacticalBoard = dynamic(
   () => import("@/components/tactical-board/TacticalBoard"),
@@ -41,6 +42,8 @@ export default function TacticalBoardButton({ map }: TacticalBoardButtonProps) {
     window.history.replaceState({}, "", url.toString());
     window.dispatchEvent(new PopStateEvent("popstate"));
   };
+
+  if (!supportsBoard(map._id)) return null;
 
   return (
     <>

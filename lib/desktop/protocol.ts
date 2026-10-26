@@ -13,6 +13,8 @@ export const DESKTOP_CHANNELS = {
   updates: "agent-academy:updates",
   updateState: "agent-academy:update-state",
   openSettings: "agent-academy:open-settings",
+  aim: "agent-academy:aim",
+  aimSuspended: "agent-academy:aim-suspended",
 } as const;
 
 export interface NativePreferences {
@@ -66,6 +68,10 @@ export interface DesktopBridge {
   subscribe(listener: (snapshot: GameSnapshot) => void): () => void;
   copyBoardLink(mapSlug: string, payload: string): Promise<void>;
   window: DesktopWindowControls;
+  aim: {
+    settings(): Promise<import("../aim/game-settings").ValorantAimSettings>;
+    onSuspend(listener: () => void): () => void;
+  };
   preferences: {
     get(): Promise<NativePreferences>;
     apply(value: NativePreferences): Promise<NativePreferences>;

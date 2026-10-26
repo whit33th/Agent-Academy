@@ -18,7 +18,7 @@ const SHORTCUTS = [
   { key: "F", desc: "Toggle favorite on open setup, or favorites-only filter" },
   { key: "R", desc: "Open a random setup from the current filter" },
   { key: "?", desc: "Show this shortcuts panel" },
-  { key: "← →", desc: "Previous / next setup in lightbox" },
+  { key: "← →", desc: "Previous / next image in the open setup" },
   { key: "Esc", desc: "Close lightbox or this panel" },
 ] as const;
 

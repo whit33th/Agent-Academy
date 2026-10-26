@@ -1,0 +1,136 @@
+{
+  "gameBuild": "13.08.00.5715960",
+  "manifestId": "7A64CDDDEC7CDB4C",
+  "maps": [
+    {
+      "mapId": "ascent",
+      "radar": "/catalog/f072bec6d59ec852715bb5c9.webp",
+      "radarSha256": "17e3d37fbb10e96b316621579ebf5bb18d048510826291c46f8be364d1efb432",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Ascent/TX_Map_Ascent_FogOfWar_Update.uasset",
+      "cookedSha256": "b52a3b6a51f4ce766828632c6e1a0066087f1a846fc58032cac2f6db776b31af",
+      "rgbaSha256": "eef3b5ad543bad9194e9c8641036a91e2d1fbf7d3c6f2cc13eb7b8db2cdab531",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "split",
+      "radar": "/catalog/59006d75bb1d1c5ee5807d6c.webp",
+      "radarSha256": "fba46c42238c85097203e6f9a5cd7f35c5cce749442605bbe9592f6143943552",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Bonsai/TX_Map_Bonsai_FogOfWar.uasset",
+      "cookedSha256": "9a0a57eaa2a9607a2b32e29cd6564cb817a3a42ef00a1383e75aa3efb311665d",
+      "rgbaSha256": "79d113afdc267b4b9dbbc87480da0c455836e8aeed81c3eb009f6d76f2c82534",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "fracture",
+      "radar": "/catalog/7e8424f43f681dd79725ec34.webp",
+      "radarSha256": "23252b185937785007c0feb491035721b3aa3e3ac0aaa5c19e8432bdb4a1ab57",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Canyon/TX_Minimap_Canyon.uasset",
+      "cookedSha256": "19c8fc8bb11ee27488d09207b0f2a32f4b08905d34bc9aa41b782182b059c52f",
+      "rgbaSha256": "a7a92f5220d1652af6af81ba3539f1686e95133cb72cecd62d52b1ef65f56dc1",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "bind",
+      "radar": "/catalog/618dce038460c4f75557fbf6.webp",
+      "radarSha256": "fa1ff9adf01f7a7fa27d69ecdc1a4b07e3f86ace32b653482f30cf7b12fc33e1",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Duality/TX_Map_Duality_FogOfWar.uasset",
+      "cookedSha256": "4b6aaf6cf15fa4f211e780f804cf998baadb2dbccdc770a71c5a12fca59fd8ae",
+      "rgbaSha256": "be0c17fa61b15d44055e311c3cd51afb79fd1111e7243e15cbcc283849dd9814",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "breeze",
+      "radar": "/catalog/04c5886d26bec74182ed7230.webp",
+      "radarSha256": "9ac055e2686284c0e8ed55c8af255ad8264ebdac00b05604c041488a52c0e4d0",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Foxtrot/TX_Map_Foxtrot_FogOfWar.uasset",
+      "cookedSha256": "7552af1cb0ccf342178a07bc7f534d8df82296fa9eb8b208ffdc6d23a41da332",
+      "rgbaSha256": "c1f57dd45a3baafb2fecbdd2f4bf19640ad624172d28695ae9cd4a2b5932be90",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "abyss",
+      "radar": "/catalog/68ff7f2cfc970d1195ae2f86.webp",
+      "radarSha256": "ead3d796542241ebe2c9881baa9fdec3dc66c5eb89eb40272a67d7988bbd08ea",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Infinity/TX_Map_Infinity_FogOfWar.uasset",
+      "cookedSha256": "0b9a938748dac75d9dec8a55afe1c9e808e42609e70d7eac5b7bc7cd22a47050",
+      "rgbaSha256": "5899699e1b20f29870da8ecacc7ff3554bbdc4e111f2e91e9cdbea46df16752f",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "lotus",
+      "radar": "/catalog/4ddfbdc1786d348edd3dd639.webp",
+      "radarSha256": "bca36c9b14afe520fd9c7381389f17aad5abdb183a4e387ee86b0ab43a985859",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Jam/TX_Map_Jam_FogOfWar.uasset",
+      "cookedSha256": "fe80009fd2d1fd6fe9c549349e31ac3da1fc311ae41581764bded561d21bcc46",
+      "rgbaSha256": "f6bfc50533d58bbd89684f77fa46ee31704020b28b9b4aec09dc962797d25f44",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "sunset",
+      "radar": "/catalog/8905d7add2036dff7430c6f4.webp",
+      "radarSha256": "02e7c521c597589078aaeeb30218fd119f1cefc6fdecb3d7b29a1fd36a31d32c",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Juliett/TX_Map_Juliett_FogOfWar.uasset",
+      "cookedSha256": "74069ed8fddc94430d617a493f7b95b3501a2c2448a16eb708c354bdb174a819",
+      "rgbaSha256": "6ecdf3fe044de1cb27c8e05623465ebab46a8a8690b6e7f74cedd8d6ed524f05",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "pearl",
+      "radar": "/catalog/4f4bac7799accc403c674a8e.webp",
+      "radarSha256": "f8b5dd132d415613e7e76b508f8bd3190287bde30519ce9d761e1e30cebc1c50",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Pitt/TX_Map_Pitt_FogOfWar.uasset",
+      "cookedSha256": "eecd20754603a11f62a8fd17e09e7aded874ad25ec4ea3f6987048eba4777d79",
+      "rgbaSha256": "807cc0e377aad63e0eeb78661445ac16b26387a4b10115925a7bec755c22f600",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "summit",
+      "radar": "/catalog/a8488d97f56a873329288691.webp",
+      "radarSha256": "975ab651430e879cba328cc86220cacd69a694f56b90b43a995811198055e7b5",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Plummet/TX_Map_Plummet_FogOfWar.uasset",
+      "cookedSha256": "573321d851510295d00feb6d91aeb4306a4806364e87a8d081d895356ba2fe61",
+      "rgbaSha256": "d6183a216ee1b4db1eab48bd53154bcdaa5e57c00203523191fc4342ad079c93",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "icebox",
+      "radar": "/catalog/4d2f1aa8d439210bcb174dd0.webp",
+      "radarSha256": "e6fe90f94d03e12d47bd780d217111783bb22a0b3be4977457564acef2233942",
+      "gameTexture": "ShooterGame/Content/UI/InGame/HUD/Minimap/Port/TX_Map_Port_FogOfWar.uasset",
+      "cookedSha256": "84c7c1577799fba4e41e7f253262858e926872f6d6bbc3b6b693214e6ad200b0",
+      "rgbaSha256": "87929a40aa14c39b81b875a0e21393d0114d6a262625fee055397330221c8f8d",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "corrode",
+      "radar": "/board/13.08.00.5715960/corrode.webp",
+      "radarSha256": "1d412bfa7d20e7292f2f62fa36eac71d7e6d9de59bcd3078bb63736dae3cc3d4",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Rook/RookUpdate_2026/TX_Map_Rook_FogOfWar.uasset",
+      "cookedSha256": "c414ebd3b8d647fde2c5523e37082e46e509b0f7604c3f3d41ea4884cadc5fc0",
+      "rgbaSha256": "3bbaf203752bd7bf2784cbede48abd1d0abb0b40f98edbf7b604e7f85641b252",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "mapId": "haven",
+      "radar": "/catalog/a541c2a0e845c7333518f623.webp",
+      "radarSha256": "85984fdb9b8b6aa81e93b5c2280231b360b82131f7a5ebf3bd130a99567e8309",
+      "gameTexture": "ShooterGame/Content/UI/InGame/Minimap/Maps/Triad/TX_Map_Triad_FogOfWar.uasset",
+      "cookedSha256": "4427e3d10b17c2839fb6e28ce42279fd39fc73f524520794118394c5e3493c02",
+      "rgbaSha256": "77b95fb2ab5a103bb4b72650185fe301ec1e524f00c8047b5420a84bec4186bb",
+      "width": 1024,
+      "height": 1024
+    }
+  ]
+}

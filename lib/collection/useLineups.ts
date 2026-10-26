@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { useAppSession } from "@/components/auth/SessionProvider";
 import { usePersistedValue } from "./usePersistedValue";
 import { useCollectionConnection } from "./useCollectionConnection";
+import { isSafeSourceUrl, MAX_LINEUP_IMAGES } from "@/lib/lineups/media";
 import { isLineupMetadata } from "@/lib/lineups/metadata";
 
 export type LineupRow = FunctionReturnType<
@@ -14,6 +15,38 @@ export type LineupRow = FunctionReturnType<
 >["page"][number];
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+function isImages(value: unknown): boolean {
+  return (
+    Array.isArray(value) &&
+    value.length <= MAX_LINEUP_IMAGES &&
+    value.every(
+      (image) =>
+        isRecord(image) &&
+        typeof image.imageUrl === "string" &&
+        (image.imageUrl === "" || isSafeSourceUrl(image.imageUrl)) &&
+        typeof image.caption === "string" &&
+        image.caption.length <= 2000 &&
+        ["storageId", "imageAssetId"].every(
+          (key) => image[key] === undefined || typeof image[key] === "string",
+        ),
+    )
+  );
+}
+function isSource(value: unknown): boolean {
+  return (
+    isRecord(value) &&
+    typeof value.url === "string" &&
+    isSafeSourceUrl(value.url) &&
+    ["author", "patch", "evidence", "rightsBasis"].every(
+      (key) => typeof value[key] === "string",
+    ) &&
+    (value.publishedAt === undefined ||
+      typeof value.publishedAt === "string") &&
+    typeof value.checkedAt === "number" &&
+    Number.isFinite(value.checkedAt) &&
+    typeof value.testedInGame === "boolean"
+  );
 }
 export function isLineupRows(value: unknown): value is LineupRow[] {
   return (
@@ -45,7 +78,19 @@ export function isLineupRows(value: unknown): value is LineupRow[] {
         ) &&
         typeof row.isPublic === "boolean" &&
         (row.canEdit === undefined || typeof row.canEdit === "boolean") &&
-        (row.metadata === undefined || isLineupMetadata(row.metadata))
+        (row.metadata === undefined || isLineupMetadata(row.metadata)) &&
+        (row.images === undefined || isImages(row.images)) &&
+        (row.videoUrl === undefined ||
+          row.videoUrl === "" ||
+          (typeof row.videoUrl === "string" &&
+            isSafeSourceUrl(row.videoUrl))) &&
+        (row.source === undefined || isSource(row.source)) &&
+        (row.coverIndex === undefined ||
+          (typeof row.coverIndex === "number" &&
+            Number.isInteger(row.coverIndex) &&
+            row.coverIndex >= 0 &&
+            Array.isArray(row.images) &&
+            row.coverIndex < Math.max(1, row.images.length)))
       );
     })
   );

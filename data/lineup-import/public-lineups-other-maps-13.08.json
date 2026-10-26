@@ -1,0 +1,180 @@
+{
+  "batchId": "public-lineups-other-maps-13-08-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "youtube:liSWxxXao-I:123",
+      "mapSlug": "lotus",
+      "agentSlug": "killjoy",
+      "title": "A Tree doorway Nanoswarm trap",
+      "description": "Place two Nanoswarms across the A Tree approach to the rotating door, one on each side of the passage. Keep the Alarmbot between their damage zones and hold from cover. When it detects an attacker committing through Tree, activate the Nanoswarms to cover the corridor; keep an escape route clear of your own damage. The linked demonstration shows the placement and overlapping coverage.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=liSWxxXao-I&t=123s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=liSWxxXao-I&t=123s",
+        "author": "Briiest",
+        "publishedAt": "2026-04-30T09:01:22-07:00",
+        "checkedAt": 1792819817446,
+        "patch": "13.08",
+        "evidence": "Primary watch-page player metadata status OK/playableInEmbed=true. Actual frames at2:08 and2:23 show placement in A Tree and two activated Nanoswarms covering the rotating-door corridor; HUD sourceversion12.06.00.4440219. Source is after Lotus12.05 rework. Relevant local Tree corridor/floor placements do not rely on changed A Lobby/Vines/stairs/plant zone. Reviewed later Riot12.09,12.10,12.11,13.00,13.01,13.05,13.06,13.08 notes; no relevant Nanoswarm trajectory/localgeometry change identified.13.00 buffs Nanoswarm duration4to5seconds, so no old duration is copied. Compatibility inferred from unchanged relevant geometry and demonstrated floor placement; no independent gameplay test.",
+        "rightsBasis": "External YouTube iframe only; primary player metadata verified embedding enabled. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:jxejX5_VGFc:115",
+      "mapSlug": "bind",
+      "agentSlug": "killjoy",
+      "title": "A Short teleporter approach Nanoswarm trap",
+      "description": "Place one Nanoswarm beside the small wooden box at the foot of the A Short steps, then place the second farther up the passage beside the wall. Add an Alarmbot between the two damage zones. Hold from site cover and activate on attackers committing past the teleporter; use the linked overhead view to match the spacing.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=jxejX5_VGFc&t=115s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=jxejX5_VGFc&t=115s",
+        "author": "Briiest",
+        "publishedAt": "2026-02-26T09:01:21-08:00",
+        "checkedAt": 1792973393362,
+        "patch": "13.08",
+        "evidence": "Actual source frames inspected around2:06,2:21,2:31 and2:36: A Short teleporter, wooden box, two Nanoswarm markers and Alarmbot radius. Source HUD12.02. Patch12.04 mentions nonspecific gap adjustments on multiple maps; this setup uses exposed floor surfaces, not a gap/through-wall exploit. This remains an explicit compatibility uncertainty. Reviewed official Riot patch notes from the source release through 13.08. Compatibility is an inference from the demonstrated ordinary floor placements and absence of an identified change to their relevant local geometry, not an independent gameplay test. Patch13.00 increases Nanoswarm duration and Alarmbot speed; no old duration or guaranteed trigger timing is copied.",
+        "rightsBasis": "External YouTube iframe only; original creator watch page and prior player metadata confirm embedding enabled. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:jxejX5_VGFc:241",
+      "mapSlug": "bind",
+      "agentSlug": "killjoy",
+      "title": "B Hookah doorway Nanoswarm trap",
+      "description": "Set two Nanoswarms inside Hookah on opposite sides of the arched entrance, near the bench and the wall beside the small floor rug. Place the Alarmbot just inside the doorway. Activate when attackers enter the room so both damage zones cover the entrance; stay on the site side of the window with a route to fall back.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=jxejX5_VGFc&t=241s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=jxejX5_VGFc&t=241s",
+        "author": "Briiest",
+        "publishedAt": "2026-02-26T09:01:21-08:00",
+        "checkedAt": 1792973393362,
+        "patch": "13.08",
+        "evidence": "Actual source frames at4:15,4:25 and4:30 show B Window/Hookah, Alarmbot just inside the arch, Nanoswarm markers at the bench/wall and overlapping activated damage at the entrance. Source HUD12.02. Patch12.04 nonspecific geometry-gap adjustments noted; these exposed room-floor placements do not depend on a gap or through-cover detection. Reviewed official Riot patch notes from the source release through 13.08. Compatibility is an inference from the demonstrated ordinary floor placements and absence of an identified change to their relevant local geometry, not an independent gameplay test. Patch13.00 increases Nanoswarm duration and Alarmbot speed; no old duration or guaranteed trigger timing is copied.",
+        "rightsBasis": "External YouTube iframe only; original creator watch page and prior player metadata confirm embedding enabled. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:liSWxxXao-I:242",
+      "mapSlug": "lotus",
+      "agentSlug": "killjoy",
+      "title": "B Main stairs Nanoswarm trap",
+      "description": "Place two Nanoswarms on the B Site floor at the foot of the B Main stairs, spread across the path below the narrow glowing windows. Put the Alarmbot between them, then fall back into site cover. Trigger the Nanoswarms when attackers commit down the steps; match the floor spacing in the overhead demonstration.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=liSWxxXao-I&t=242s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=liSWxxXao-I&t=242s",
+        "author": "Briiest",
+        "publishedAt": "2026-04-30T09:01:22-07:00",
+        "checkedAt": 1792973393362,
+        "patch": "13.08",
+        "evidence": "Actual frames at4:13 and4:23 show two Nanoswarm markers, an Alarmbot and the B Main stair approach on B Site below the narrow blue windows. Source HUD12.06. Published after Lotus12.05 A rework; B local floor/stairs do not use the modified A geometry. Reviewed official Riot patch notes from the source release through 13.08. Compatibility is an inference from the demonstrated ordinary floor placements and absence of an identified change to their relevant local geometry, not an independent gameplay test. Patch13.00 increases Nanoswarm duration and Alarmbot speed; no old duration or guaranteed trigger timing is copied.",
+        "rightsBasis": "External YouTube iframe only; original creator watch page and prior player metadata confirm embedding enabled. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:liSWxxXao-I:304",
+      "mapSlug": "lotus",
+      "agentSlug": "killjoy",
+      "title": "C Main water-floor Nanoswarm trap",
+      "description": "Place two Nanoswarms along the shallow-water floor of C Main, one closer to the stacked boxes beside the raised site entrance and one farther toward the attacker approach. Place the Alarmbot between them. Play from site cover and activate after attackers commit into the water passage, using the linked overhead view for spacing.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "C",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=liSWxxXao-I&t=304s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=liSWxxXao-I&t=304s",
+        "author": "Briiest",
+        "publishedAt": "2026-04-30T09:01:22-07:00",
+        "checkedAt": 1792973393362,
+        "patch": "13.08",
+        "evidence": "Actual source frames at5:22 and5:27 show two Nanoswarm markers and central Alarmbot on C Main shallow-water floor beside stacked boxes and the raised entrance ramp. Caption identifies the C Main push. Source HUD12.06. Local C corridor is separate from Lotus12.05 A rework. Reviewed official Riot patch notes from the source release through 13.08. Compatibility is an inference from the demonstrated ordinary floor placements and absence of an identified change to their relevant local geometry, not an independent gameplay test. Patch13.00 increases Nanoswarm duration and Alarmbot speed; no old duration or guaranteed trigger timing is copied.",
+        "rightsBasis": "External YouTube iframe only; original creator watch page and prior player metadata confirm embedding enabled. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:Qoq6I433E-c:167",
+      "mapSlug": "summit",
+      "agentSlug": "killjoy",
+      "title": "A Garden Main-exit Nanoswarm trap",
+      "description": "Place two Nanoswarms across the A Garden path in front of Main, between the square rock and the curved pavilion wall, with the Alarmbot between them. Match the open approach shown in the overhead view. Keep devices clear of moving wall or door tracks, and activate as attackers commit into Garden; a changed doorway state can change which route they take.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=Qoq6I433E-c&t=167s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=Qoq6I433E-c&t=167s",
+        "author": "Briiest",
+        "publishedAt": "2026-07-02T09:00:10-07:00",
+        "checkedAt": 1792973393362,
+        "patch": "13.08",
+        "evidence": "Actual source frames at3:01 and3:11 show A Garden floor placement and overhead layout: two Nanoswarms and central Alarmbot on the open path between tall square rock and curved pavilion wall. Source caption identifies area in front of Main. Uses open approach state, not a throw through a droppable wall. Riot13.01 fixes Iso/Waylay wall exploits;13.02 fixes utility crushed by already-closed Summit door;13.08 adjusts Alarmbot destruction feedback at moving doorways. Placements accepted only with explicit clearance from moving tracks and matching open approach; no claim of safety while a wall moves. Reviewed official Riot patch notes from the source release through 13.08. Compatibility is an inference from the demonstrated ordinary floor placements and absence of an identified change to their relevant local geometry, not an independent gameplay test. Patch13.00 increases Nanoswarm duration and Alarmbot speed; no old duration or guaranteed trigger timing is copied.",
+        "rightsBasis": "External YouTube iframe only; original creator watch page and prior player metadata confirm embedding enabled. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "youtube:Qoq6I433E-c:278",
+      "mapSlug": "summit",
+      "agentSlug": "killjoy",
+      "title": "B Site central-box Nanoswarm trap",
+      "description": "Place two Nanoswarms on the B Site floor around the central teal-and-gray boxes: one toward the roofed B entrance and the other on the opposite side of the boxes. Add an Alarmbot in the path between the entrance and the first swarm. Activate as attackers commit onto site. Match the open doorway shown in the overhead view and keep every device outside moving door tracks.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://www.youtube.com/watch?v=Qoq6I433E-c&t=278s",
+      "images": [],
+      "source": {
+        "url": "https://www.youtube.com/watch?v=Qoq6I433E-c&t=278s",
+        "author": "Briiest",
+        "publishedAt": "2026-07-02T09:00:10-07:00",
+        "checkedAt": 1792973452270,
+        "patch": "13.08",
+        "evidence": "Actual source frames at4:40,4:50,5:00 and5:05 show B Site floor placements, a Nanoswarm marker and then two overlapping activated damage areas around the central teal/gray boxes next to the roofed B doorway. The chapter242 label includes a preceding A variant, so link starts at278 inside the actual B segment. Source is post-Summit release13.00. Later Riot13.01 changes Iso/Waylay exploits,13.02 fixes utility crushed by already-closed Summit doors, and13.08 adds Alarmbot destruction feedback at moving doorways. Accepted only for the shown open approach with placements clear of moving tracks. Relevant site floor geometry has no identified subsequent change. Compatibility inferred, not independently gameplay tested.",
+        "rightsBasis": "External YouTube iframe only; original creator watch page and prior player metadata confirm embedding enabled. No screenshot, thumbnail, audio or video files copied; no media republication license asserted.",
+        "testedInGame": false
+      }
+    }
+  ]
+}

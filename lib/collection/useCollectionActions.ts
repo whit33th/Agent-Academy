@@ -11,6 +11,11 @@ import { useAppSession } from "@/components/auth/SessionProvider";
 import { normalizeName } from "@/lib/utils/normalize";
 import type { ActionResult } from "@/lib/types";
 import type { ViabilityTier } from "@/lib/utils/viability";
+import {
+  MAX_LINEUP_IMAGES,
+  validateVideoUrl,
+  getYouTubeEmbedUrl,
+} from "@/lib/lineups/media";
 import type { LineupDraft } from "@/lib/lineups/commands";
 import { validateLineupSelection } from "@/lib/catalog/lineup-options";
 import { setGuestMap, setGuestAgent } from "./guest-selection";
@@ -131,6 +136,47 @@ export function useCollectionActions() {
     return result.storageId as Id<"_storage">;
   }
 
+  async function prepareMedia(
+    draft: LineupDraft,
+    file: File | undefined,
+    uploaded: Id<"_storage">[],
+  ) {
+    validateLineupSelection(draft.mapSlug, draft.agentSlug, draft.metadata);
+    const videoUrl = validateVideoUrl(draft.videoUrl ?? "");
+    const inputs = draft.images ?? (file ? [{ file, caption: "" }] : undefined);
+    if (inputs && inputs.length > MAX_LINEUP_IMAGES)
+      throw new Error("Use up to 10 images.");
+    if (inputs?.length === 0 && !getYouTubeEmbedUrl(videoUrl))
+      throw new Error("Add a screenshot or a YouTube video.");
+    const images:
+      | Array<{
+          storageId?: Id<"_storage">;
+          imageUrl?: string;
+          imageAssetId?: string;
+          caption: string;
+        }>
+      | undefined = inputs ? [] : undefined;
+    for (const input of inputs ?? []) {
+      let storageId = input.storageId;
+      if (input.file) {
+        storageId = await uploadImage(input.file);
+        uploaded.push(storageId);
+      }
+      if (!storageId && !input.imageUrl && !input.imageAssetId)
+        throw new Error("An image is missing.");
+      images!.push({
+        ...(storageId ? { storageId } : {}),
+        ...(input.imageUrl ? { imageUrl: input.imageUrl } : {}),
+        ...(input.imageAssetId ? { imageAssetId: input.imageAssetId } : {}),
+        caption: input.caption,
+      });
+    }
+    return {
+      ...(images ? { images, coverIndex: draft.coverIndex ?? 0 } : {}),
+      videoUrl,
+    };
+  }
+
   return {
     addMap: (name: string) =>
       selectionChange(
@@ -190,40 +236,47 @@ export function useCollectionActions() {
       mapSlug: string,
       agentSlug: string,
     ) => run(() => fork({ sourceId, mapSlug, agentSlug })),
-    uploadScreenshot: (draft: LineupDraft, file: File) =>
+    uploadScreenshot: (draft: LineupDraft, file?: File) =>
       run(async () => {
-        validateLineupSelection(draft.mapSlug, draft.agentSlug, draft.metadata);
-        const storageId = await uploadImage(file);
+        const uploaded: Id<"_storage">[] = [];
         try {
+          const media = await prepareMedia(draft, file, uploaded);
+          const { images: _draftImages, ...fields } = draft;
+          void _draftImages;
           const result = await create({
-            ...draft,
+            ...fields,
+            ...media,
             abilityType: "other",
-            storageId,
           });
           return { screenshotId: result.id };
         } catch (error) {
-          await discard({ storageId }).catch(() => undefined);
+          await Promise.all(
+            uploaded.map((storageId) =>
+              discard({ storageId }).catch(() => undefined),
+            ),
+          );
           throw error;
         }
       }),
     editScreenshot: (id: Id<"lineups">, draft: LineupDraft, file?: File) =>
       run(async () => {
-        validateLineupSelection(draft.mapSlug, draft.agentSlug, draft.metadata);
-        const storageId =
-          file instanceof File && file.size
-            ? await uploadImage(file)
-            : undefined;
+        const uploaded: Id<"_storage">[] = [];
         try {
+          const media = await prepareMedia(draft, file, uploaded);
           await update({
             id,
             title: draft.title,
             description: draft.description,
             isPublic: draft.isPublic,
             metadata: draft.metadata,
-            ...(storageId ? { storageId } : {}),
+            ...media,
           });
         } catch (error) {
-          if (storageId) await discard({ storageId }).catch(() => undefined);
+          await Promise.all(
+            uploaded.map((storageId) =>
+              discard({ storageId }).catch(() => undefined),
+            ),
+          );
           throw error;
         }
       }),

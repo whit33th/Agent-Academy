@@ -1,6 +1,7 @@
 import { internalMutation, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { requireViewerTokenIdentifier } from "./lib/auth";
+import { cleanupImage } from "./lib/lineupMedia";
 export const record = internalMutation({
   args: { ownerTokenIdentifier: v.string(), storageId: v.id("_storage") },
   returns: v.null(),
@@ -21,14 +22,7 @@ export const discard = mutation({
       .unique();
     if (!upload || upload.ownerTokenIdentifier !== owner)
       throw new Error("Forbidden image");
-    const reference = await ctx.db
-      .query("lineups")
-      .withIndex("by_storageId", (q) => q.eq("storageId", storageId))
-      .first();
-    if (!reference) {
-      await ctx.storage.delete(storageId);
-      await ctx.db.delete(upload._id);
-    }
+    await cleanupImage(ctx, storageId);
     return null;
   },
 });

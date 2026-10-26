@@ -40,18 +40,16 @@ yarn-error.log*
 
 # vercel
 .vercel
+/.playwright-mcp/
+/NVIDIA Corporation/
+/tmp-images/
+/Valorant/
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
-
-
-/.playwright-mcp/
-/NVIDIA Corporation/
-/tmp-images/
-/Valorant/
-.
-
+# Local game-data authoring tools
+/tools/board-data-extractor/bin/
+/tools/board-data-extractor/obj/
 

@@ -19,6 +19,7 @@ module.exports = {
   ],
   protocols: [{ name: "Agent Academy sign-in", schemes: ["agent-academy"] }],
   asar: true,
+  asarUnpack: ["dist/vendor/**/*.node"],
   publish: [
     {
       provider: "github",
