@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-killjoy-abyss-b-postplant-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:setup-molly-for-new-abyss-by-mary247hard-de2899ba",
+      "mapSlug": "abyss",
+      "agentSlug": "killjoy",
+      "title": "B Site Spike-Corner Nanoswarm Post-Plant",
+      "description": "Use the Spike-corner Nanoswarm placement shown in the source clip on B Site. Set the swarm on the demonstrated floor corner before the plant, then trigger it when the Spike is planted there and an enemy begins the defuse. The clip shows the target position and activation effect; follow its visual reference for the exact corner.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/setup-molly-for-new-abyss-by-mary247hard-de2899ba",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/setup-molly-for-new-abyss-by-mary247hard-de2899ba",
+        "author": "Mary247hard",
+        "checkedAt": 1792984903721,
+        "patch": "13.08",
+        "evidence": "Tracker identifies this as a Killjoy Abyss attack post-plant molly for a Spike corner. The original 16-second Tracker-hosted clip was viewed at the B Site planting and post-plant frames: the minimap places the play on B, and the Nanoswarm effect covers the Spike corner shown. Riot patch 13.04 returned Abyss to Competitive without changing map geometry; later notes through 13.08 list no Abyss changes to this B Site floor target. Patch 13.00 adjusted Nanoswarm duration, not its placement/detonation mechanic. Compatibility is inferred from the unchanged local geometry and current ability mechanic; not tested in a live match.",
+        "rightsBasis": "The community clip is embedded via the player on its original Tracker guide page. No frame, image, thumbnail or video was copied or rehosted.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/c4e1f53cc3212d465c47581022d39b09",
+        "publishedAt": "2025-10-15T17:31:46.449387+02:00"
+      }
+    }
+  ]
+}

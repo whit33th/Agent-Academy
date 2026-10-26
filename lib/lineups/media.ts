@@ -83,5 +83,44 @@ export const validateVideoUrl = normalizeVideoUrl;
 export function getYouTubeEmbedUrl(value: string): string | null {
   const video = youtubeVideo(value);
   if (!video) return null;
-  return `https://www.youtube-nocookie.com/embed/${video.id}?rel=0${video.start ? `&start=${video.start}` : ""}`;
+  return `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&mute=1&playsinline=1&rel=0${video.start ? `&start=${video.start}` : ""}`;
+}
+
+export function trackerClipKey(value: string): string | null {
+  if (!isSafeSourceUrl(value)) return null;
+  const url = new URL(value);
+  if (!["tracker.gg", "www.tracker.gg"].includes(url.hostname)) return null;
+  return /^\/valorant\/guides\/clips\/[a-z0-9-]+-[a-f0-9]{8}\/?$/.test(
+    url.pathname,
+  )
+    ? url.pathname.replace(/\/$/, "")
+    : null;
+}
+
+/** Only a player URL observed on the original Tracker clip may be persisted. */
+export function getTrackerEmbedUrl(
+  sourceUrl: string,
+  embedUrl?: string,
+): string | null {
+  if (!trackerClipKey(sourceUrl) || !embedUrl || !isSafeSourceUrl(embedUrl))
+    return null;
+  const url = new URL(embedUrl);
+  if (
+    url.hostname !== "iframe.videodelivery.net" ||
+    !/^\/[a-f0-9]{32}\/?$/.test(url.pathname)
+  )
+    return null;
+  // Rebuild options rather than forwarding arbitrary player parameters.
+  return `https://iframe.videodelivery.net/${url.pathname.split("/")[1]}?autoplay=true&muted=true&controls=true&preload=auto`;
+}
+
+export function getLineupVideoEmbedUrl(
+  videoUrl: string,
+  source?: { url: string; embedUrl?: string },
+): string | null {
+  const youtube = getYouTubeEmbedUrl(videoUrl);
+  if (youtube) return youtube;
+  const clip = trackerClipKey(videoUrl);
+  if (!clip || !source || clip !== trackerClipKey(source.url)) return null;
+  return getTrackerEmbedUrl(source.url, source.embedUrl);
 }

@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-killjoy-summit-b-main-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:op-summit-lineup-on-b-sitefor-kj-by-ktmcivil-4e2352d2",
+      "mapSlug": "summit",
+      "agentSlug": "killjoy",
+      "title": "B Main Nanoswarm Lineup beside the Green Crate",
+      "description": "From the B Main position shown in the clip, face the entrance and use the upper roof and hanging-lantern reference shown for the throw. The Nanoswarm lands on the B Site floor beside the central green crate. Match the exact standing point and aim height to the original clip; trigger it when the Spike is planted in the covered corner.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/op-summit-lineup-on-b-sitefor-kj-by-ktmcivil-4e2352d2",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/op-summit-lineup-on-b-sitefor-kj-by-ktmcivil-4e2352d2",
+        "author": "KtM_civil",
+        "checkedAt": 1792985055647,
+        "patch": "13.08",
+        "evidence": "Tracker identifies the creator clip as Killjoy attack, titled OP Summit lineup on B site; its description says B Site. The full original 21.6-second embedded clip was reviewed at the B Main setup, Nanoswarm release, and B Site landing. The minimap and visible floor plan confirm Summit and the swarm lands beside the central green crate. Summit was introduced in patch 13.00; Riot notes through 13.08 list no Summit geometry change to the B Main-to-B Site throw path or landing floor. Compatibility is inferred from those unchanged local landmarks; not tested in a live match.",
+        "rightsBasis": "The guide and its original Tracker-hosted video remain linked and embedded on Tracker. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/0cc2cccc206fbae52dcccdc5cdd2cb6b",
+        "publishedAt": "2026-07-10T02:33:49.838542+02:00"
+      }
+    }
+  ]
+}

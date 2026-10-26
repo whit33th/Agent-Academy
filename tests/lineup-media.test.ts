@@ -1,13 +1,54 @@
 import { describe, expect, it } from "vitest";
 import {
   getYouTubeEmbedUrl,
+  getLineupVideoEmbedUrl,
+  getTrackerEmbedUrl,
   normalizeVideoUrl,
   isSafeSourceUrl,
 } from "../lib/lineups/media";
-import { validateImportCandidate } from "../lib/lineups/import-policy";
+import {
+  hasVideoSource,
+  validateImportCandidate,
+} from "../lib/lineups/import-policy";
 import { isLineupRows } from "../lib/collection/useLineups";
 
 describe("lineup external media", () => {
+  it("embeds verified Tracker players, preserves mute/autoplay, and refuses mismatched or unsafe frames", () => {
+    const videoUrl =
+      "https://tracker.gg/valorant/guides/clips/a-set-up-by-airtightriver41-3c3ef7b8";
+    const source = {
+      url: videoUrl,
+      embedUrl:
+        "https://iframe.videodelivery.net/68da8eba36d06f26503c9c3279a16893?muted=false&ad-url=https://example.com",
+    };
+    const embed = getLineupVideoEmbedUrl(videoUrl, source);
+    expect(embed).toBe(
+      "https://iframe.videodelivery.net/68da8eba36d06f26503c9c3279a16893?autoplay=true&muted=true&controls=true&preload=auto",
+    );
+    expect(
+      getLineupVideoEmbedUrl(videoUrl, {
+        ...source,
+        url: videoUrl.replace("3c3ef7b8", "4cd0997e"),
+      }),
+    ).toBeNull();
+    expect(getLineupVideoEmbedUrl(videoUrl)).toBeNull();
+    for (const embedUrl of [
+      "https://iframe.videodelivery.net.evil.com/68da8eba36d06f26503c9c3279a16893",
+      "https://iframe.videodelivery.net/video",
+      "https://user:password@iframe.videodelivery.net/68da8eba36d06f26503c9c3279a16893",
+      "https://example.com/video",
+    ])
+      expect(getTrackerEmbedUrl(videoUrl, embedUrl)).toBeNull();
+    expect(
+      getTrackerEmbedUrl(
+        videoUrl.replace("tracker.gg", "tracker.gg.evil.com"),
+        source.embedUrl,
+      ),
+    ).toBeNull();
+    expect(
+      getLineupVideoEmbedUrl("https://youtu.be/jxejX5_VGFc?t=30", source),
+    ).toContain("start=30");
+  });
   it("restores legacy and gallery caches while refusing malformed media and provenance", () => {
     const row = {
       _id: "lineup",
@@ -56,8 +97,24 @@ describe("lineup external media", () => {
       "https://www.youtube.com/watch?v=jxejX5_VGFc&t=80",
     );
     expect(
+      normalizeVideoUrl(
+        "https://mobalytics.gg/valorant/map/bind?advice=neon-bind-relay-b-cubby",
+      ),
+    ).toBe(
+      "https://mobalytics.gg/valorant/map/bind?advice=neon-bind-relay-b-cubby",
+    );
+    expect(
+      hasVideoSource({
+        videoUrl:
+          "https://mobalytics.gg/valorant/map/bind?advice=neon-bind-relay-b-cubby",
+      }),
+    ).toBe(true);
+    expect(hasVideoSource({ videoUrl: "http://localhost/video" })).toBe(false);
+    expect(
       getYouTubeEmbedUrl("https://www.youtube.com/watch?v=jxejX5_VGFc&t=80"),
-    ).toBe("https://www.youtube-nocookie.com/embed/jxejX5_VGFc?rel=0&start=80");
+    ).toBe(
+      "https://www.youtube-nocookie.com/embed/jxejX5_VGFc?autoplay=1&mute=1&playsinline=1&rel=0&start=80",
+    );
     expect(getYouTubeEmbedUrl("https://example.com/watch")).toBeNull();
     expect(() => normalizeVideoUrl("https://youtube.com/@creator")).toThrow();
     expect(isSafeSourceUrl("javascript:alert(1)")).toBe(false);

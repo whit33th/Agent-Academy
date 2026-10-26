@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-killjoy-haven-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:killjoy-haven-a-postplant-airtightriver41-0a8bf29d",
+      "mapSlug": "haven",
+      "agentSlug": "killjoy",
+      "title": "A Site Post-Plant Nanoswarm from A Long",
+      "description": "From the A Long position shown in the source clip, line up and throw a Nanoswarm onto the A Site plant for a post-plant denial. Reproduce the exact crosshair reference and release shown in the original clip. Be ready for defenders to swing from A Main, as the creator notes.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/post-plant-line-up-for-a-by-airtightriver41-0a8bf29d",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/post-plant-line-up-for-a-by-airtightriver41-0a8bf29d",
+        "author": "AirtightRiver41",
+        "checkedAt": 1792983679432,
+        "patch": "13.08",
+        "evidence": "Tracker identifies the material as Killjoy Haven attack, titled 'Post-plant line up for A', and the creator warns about defenders swinging from Main. The embedded clip was visually reviewed: the minimap and A Long start position are visible, followed by a Nanoswarm throw toward the A Site plant area. The feed entry keeps the exact aiming reference in the creator's original clip; source reviewed, not tested in a live match. Haven is in the current Competitive map pool, and Riot's 13.08 notes list Corrode as the map with geometry updates.",
+        "rightsBasis": "The short creator guide is linked and embedded from the original Tracker page. No image, thumbnail, screenshot or video file was copied or rehosted.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/3a6dd39e49010e2e7698156800182c99",
+        "publishedAt": "2026-10-03T17:27:09.798147+02:00"
+      }
+    }
+  ]
+}

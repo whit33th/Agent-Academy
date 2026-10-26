@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-vyse-sunset-tracker-13-08-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:vyse-sunset-a-anchor-airtightriver41-1959c1d4",
+      "mapSlug": "sunset",
+      "agentSlug": "vyse",
+      "title": "A Site Anchor Covering Main and Elbow",
+      "description": "On defense, play on A Site while covering A Main and Elbow. Use the Shear, Razorvine and Arc Rose positions shown in the clip to make both approaches contestable, then hold behind site cover and use the utility as an entry commits. The source describes this as an on-site anchor setup for A Main and Elbow. Match the exact placement and timing to the original clip.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/anchor-a-site-set-up-by-airtightriver41-1959c1d4",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/anchor-a-site-set-up-by-airtightriver41-1959c1d4",
+        "author": "AirtightRiver41",
+        "checkedAt": 1792983442000,
+        "patch": "13.08",
+        "evidence": "Tracker identifies this as Vyse Sunset defense, title 'Anchor A site set up', by AirtightRiver41. The creator says the setup lets Vyse play on site while holding A Main and Elbow. The embedded 39-second clip was watched through its utility placements and final setup view. Sunset is in the current Competitive pool; Riot patch 13.08 lists Corrode as the map receiving geometry updates and does not list Sunset. Source reviewed; not tested in a live match.",
+        "rightsBasis": "No video, image, thumbnail or screenshot copied or rehosted. The creator's Tracker clip remains the linked original.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/15a2bcaebf6fcd2a3444080d267e97ff",
+        "publishedAt": "2026-10-03T19:26:50.742037+02:00"
+      }
+    }
+  ]
+}

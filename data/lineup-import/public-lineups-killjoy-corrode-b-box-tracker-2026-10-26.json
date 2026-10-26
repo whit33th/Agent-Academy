@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-killjoy-corrode-b-box-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:killjoy-corrode-b-box-swarm-kingmonkeyi-3641ab76",
+      "mapSlug": "corrode",
+      "agentSlug": "killjoy",
+      "title": "B Box Nanoswarm from B Main",
+      "description": "From the B Main position shown in the original clip, aim at the left window and jump-throw a Nanoswarm toward the B Box plant area. The creator describes it as a forgiving lineup that covers the plant and surrounding ground. Follow the clip's visual standing and release references; no more precise callout is supplied.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/kj-swarm-to-b-box-on-corrode-by-kingmonkeyi-3641ab76",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/kj-swarm-to-b-box-on-corrode-by-kingmonkeyi-3641ab76",
+        "author": "kingmonkeyI",
+        "checkedAt": 1792984391000,
+        "patch": "13.08",
+        "evidence": "Tracker labels this as a Killjoy Corrode attack Nanoswarm lineup for B Box and gives the instruction to aim at the left window and jump-throw. The original 35-second clip and its location map were visually reviewed; its opening view is at B Main and the throw targets the B Box plant area. Riot patch 13.08 lists changes to defender paths into the back of B, Mid geometry, and the A plant zone, not the B Main-to-B Box throw area. Compatibility is inferred from the unchanged local throw and target geometry; not tested in a live match.",
+        "rightsBasis": "The lineup remains linked to its original Tracker page; no video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/4fea93d62b9648faa423941382ac9e41",
+        "publishedAt": "2025-08-04T11:11:20.427868+02:00"
+      }
+    }
+  ]
+}

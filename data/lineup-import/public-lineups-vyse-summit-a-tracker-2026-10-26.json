@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-vyse-summit-a-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:vyse-summit-a-main-setup-airtightriver41-3c3ef7b8",
+      "mapSlug": "summit",
+      "agentSlug": "vyse",
+      "title": "A Main Push Hold with Arc Rose and Shear",
+      "description": "On defense, prepare the A Main push using the Arc Rose and Shear setup shown in the clip. The creator demonstrates three hold positions: behind the boxes, back site by the door, or on site. Use the original clip for the exact utility placement and flash timing; those details are not specified in the text description.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "A",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/a-set-up-by-airtightriver41-3c3ef7b8",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/a-set-up-by-airtightriver41-3c3ef7b8",
+        "author": "AirtightRiver41",
+        "checkedAt": 1792983704644,
+        "patch": "13.08",
+        "evidence": "Tracker identifies this as a Vyse Summit defense clip titled 'A set up'. The creator says it is a basic setup for an A Main push and lists the three hold positions (behind boxes, backsite by the door, or on site). The embedded 32-second clip was played and visually reviewed through the Arc Rose and wall utility views. Summit is in the current Competitive pool; Riot patch 13.08 lists Corrode as the map receiving geometry updates, not Summit. Source reviewed; not tested in a live match.",
+        "rightsBasis": "No video, image, thumbnail or screenshot copied or rehosted. The creator's Tracker clip remains the linked original.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/68da8eba36d06f26503c9c3279a16893",
+        "publishedAt": "2026-10-03T19:12:56.414136+02:00"
+      }
+    }
+  ]
+}

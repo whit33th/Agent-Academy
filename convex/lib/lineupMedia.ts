@@ -11,6 +11,7 @@ export const lineupImageInput = v.object({
 });
 export const lineupSource = v.object({
   url: v.string(),
+  embedUrl: v.optional(v.string()),
   author: v.string(),
   publishedAt: v.optional(v.string()),
   checkedAt: v.number(),

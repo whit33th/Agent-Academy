@@ -67,8 +67,12 @@ function PersonalLineupWorkspace({ agent, map }: LineupWorkspaceProps) {
     coverIndex: row.coverIndex,
     videoUrl: row.videoUrl,
     source: row.source,
-    map: { name: map.name },
-    agent: { name: agent.name },
+    map: {
+      name: map.name,
+      displayIcon: map.displayIcon,
+      imageUrl: map.imageUrl,
+    },
+    agent: { name: agent.name, displayIcon: agent.displayIcon },
     isPublic: row.isPublic,
     canEdit: Boolean(signedIn && row.canEdit),
   }));

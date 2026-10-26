@@ -8,12 +8,16 @@ import {
   replaceImages,
 } from "./lib/lineupMedia";
 import {
-  hasPlayableVideo,
+  hasVideoSource,
   IMPORT_OWNER,
   LINEUP_BASELINE,
   validateImportCandidate,
 } from "../lib/lineups/import-policy";
-import { normalizeVideoUrl } from "../lib/lineups/media";
+import {
+  getTrackerEmbedUrl,
+  normalizeVideoUrl,
+  trackerClipKey,
+} from "../lib/lineups/media";
 
 const candidate = v.object({
   sourceKey: v.string(),
@@ -43,8 +47,8 @@ async function inspect(ctx: QueryCtx | MutationCtx, record: Candidate) {
   try {
     validateImportCandidate(record);
     const images = record.images ?? [];
-    if (images.length > 10 || (!images.length && !hasPlayableVideo(record)))
-      throw new Error("Provide photos or an embeddable YouTube video");
+    if (images.length > 10 || (!images.length && !hasVideoSource(record)))
+      throw new Error("Provide photos or a safe external video source");
     if (
       record.coverIndex !== undefined &&
       (!Number.isInteger(record.coverIndex) ||
@@ -225,6 +229,63 @@ export const refreshReviews = internalMutation({
               contentHash: record.contentHash,
             }
           : {}),
+      });
+      updated++;
+    }
+    return { updated };
+  },
+});
+
+// Repair playback metadata without rewriting content hashes, feed order or copies.
+export const repairVideoEmbeds = internalMutation({
+  args: {
+    records: v.array(
+      v.object({
+        sourceKey: v.string(),
+        videoUrl: v.string(),
+        embedUrl: v.string(),
+        publishedAt: v.optional(v.string()),
+      }),
+    ),
+  },
+  returns: v.object({ updated: v.number() }),
+  handler: async (ctx, args) => {
+    if (args.records.length > 20)
+      throw new Error("Repair at most 20 records per batch");
+    let updated = 0;
+    for (const record of args.records) {
+      const row = await ctx.db
+        .query("lineups")
+        .withIndex("by_sourceKey", (q) => q.eq("sourceKey", record.sourceKey))
+        .first();
+      if (
+        !row ||
+        row.ownerTokenIdentifier !== IMPORT_OWNER ||
+        !row.source ||
+        row.videoUrl !== record.videoUrl
+      )
+        throw new Error(
+          "Playback repair requires the unchanged managed original",
+        );
+      if (
+        trackerClipKey(row.source.url) !== trackerClipKey(record.videoUrl) ||
+        !getTrackerEmbedUrl(row.source.url, record.embedUrl)
+      )
+        throw new Error(
+          "Only a verified Tracker player for this source may be embedded",
+        );
+      if (
+        record.publishedAt &&
+        (!Number.isFinite(Date.parse(record.publishedAt)) ||
+          Date.parse(record.publishedAt) > Date.now())
+      )
+        throw new Error("Invalid source publication date");
+      await ctx.db.patch(row._id, {
+        source: {
+          ...row.source,
+          embedUrl: record.embedUrl,
+          ...(record.publishedAt ? { publishedAt: record.publishedAt } : {}),
+        },
       });
       updated++;
     }

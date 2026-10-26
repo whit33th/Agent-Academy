@@ -1,0 +1,57 @@
+{
+  "batchId": "public-lineups-killjoy-abyss-a-bridge-mollys-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0:a-backside",
+      "mapSlug": "abyss",
+      "agentSlug": "killjoy",
+      "title": "A Backside Post-Plant Nanoswarm from A",
+      "description": "From the corner shown on A, line your crosshair up with the horizontal wall seam. Use the first throw, aimed perpendicular to the large A marking, to place a Nanoswarm in the demonstrated A Backside plant area. Match the stance and release from the original clip, then activate the swarm after a plant there.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0",
+        "author": "Mary247hard",
+        "checkedAt": 1792985269678,
+        "patch": "13.08",
+        "evidence": "Tracker identifies this as a Killjoy Abyss attack guide for A Backside and Bridge. The clip description says to start from a corner, align to the horizontal wall line, and use two throws: first perpendicular to the A marking, then to its right. The original 27.3-second Tracker-hosted clip was viewed at the A-side stance and both landing areas. Riot patch notes through 13.08 show no Abyss geometry update to the demonstrated A locations; compatibility is inferred from these unchanged landmarks. Source reviewed; not tested in a live match.",
+        "rightsBasis": "The community clip remains linked to its original Tracker guide page. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/ac1b479815388deebf6626631e27c99b",
+        "publishedAt": "2026-01-12T20:29:18.798417+01:00"
+      }
+    },
+    {
+      "sourceKey": "tracker:mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0:bridge",
+      "mapSlug": "abyss",
+      "agentSlug": "killjoy",
+      "title": "A Bridge Post-Plant Nanoswarm from A",
+      "description": "From the same A-side corner, use the horizontal wall seam as your alignment and shift the second throw to the right of the A marking, as shown in the clip. The Nanoswarm lands on the demonstrated Bridge plant area. Reproduce the release reference shown and activate it after the Spike is planted there.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0",
+        "author": "Mary247hard",
+        "checkedAt": 1792985269678,
+        "patch": "13.08",
+        "evidence": "Tracker identifies this as a Killjoy Abyss attack guide for A Backside and Bridge. The clip description says to start from a corner, align to the horizontal wall line, and use two throws: first perpendicular to the A marking, then to its right. The original 27.3-second Tracker-hosted clip was viewed at the A-side stance and both landing areas. Riot patch notes through 13.08 show no Abyss geometry update to the demonstrated A locations; compatibility is inferred from these unchanged landmarks. Source reviewed; not tested in a live match.",
+        "rightsBasis": "The community clip remains linked to its original Tracker guide page. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/ac1b479815388deebf6626631e27c99b",
+        "publishedAt": "2026-01-12T20:29:18.798417+01:00"
+      }
+    }
+  ]
+}

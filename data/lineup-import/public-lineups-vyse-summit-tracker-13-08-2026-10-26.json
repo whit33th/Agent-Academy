@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-vyse-summit-tracker-13-08-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:vyse-summit-b-main-setup-4cd0997e",
+      "mapSlug": "summit",
+      "agentSlug": "vyse",
+      "title": "B Main Shear, Razorvine and Arc Rose hold",
+      "description": "On B defense, set up for a B Main entry: place Shear across the choke and arrange the two Razorvines on the B Site floor just beyond the entrance as shown in the clip. Place Arc Rose to cover the entry and trigger its flash when the wall isolates the first attacker, then take the duel from site cover. Match the exact surfaces and spacing to the original clip; this hold is focused on B Main.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/set-up-for-b-main-by-airtightriver41-4cd0997e",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/set-up-for-b-main-by-airtightriver41-4cd0997e",
+        "author": "AirtightRiver41",
+        "checkedAt": 1792983260000,
+        "patch": "13.08",
+        "evidence": "Tracker identifies this as Vyse Summit defense, title 'Set up for B main', by AirtightRiver41. The author describes a B Site setup centered on the flash. The embedded 38-second clip was opened and visually reviewed: the buy-phase view shows the B approach and Arc Rose placement; later footage shows two Razorvine nests on the site floor at the entry. Summit is in the current pool. Riot patch 13.08 names Corrode as the only map receiving map geometry updates and does not list Summit. Source reviewed; not tested in a live match.",
+        "rightsBasis": "No video, image, thumbnail or screenshot copied or rehosted. The creator's Tracker clip remains the linked original.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/3c5a98f391d4edc7563513173dd12c7b",
+        "publishedAt": "2026-10-03T19:18:01.940687+02:00"
+      }
+    }
+  ]
+}

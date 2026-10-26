@@ -80,7 +80,7 @@ function Fixture(){const [mode,setMode]=useState(''); const screenshot={...windo
         const mocks = {
           session: `export const useAppSession=()=>({signedIn:true,ready:true,subject:'qa-fixture',cacheReady:true});`,
           actions: `export const useCollectionActions=()=>({forkPublicLineup:async(...args)=>{window.qaEvents.push({kind:'copy',args});return {ok:true}},uploadScreenshot:async(draft)=>{window.qaEvents.push({kind:'create',draft});return {ok:true,data:{screenshotId:'qa'}}},editScreenshot:async(id,draft)=>{window.qaEvents.push({kind:'edit',draft});return window.qaReject?{ok:false,error:'QA simulated partial upload failure'}:{ok:true}},deleteScreenshot:async(id)=>{window.qaEvents.push({kind:'delete',id});return {ok:true}}});`,
-          convex: `export const useConvexAuth=()=>({isAuthenticated:true});export const usePaginatedQuery=()=>({status:'Exhausted',results:window.qaRows,loadMore(){}});`,
+          convex: `export const useConvexAuth=()=>({isAuthenticated:true});export const useQuery=()=>null;export const usePaginatedQuery=()=>({status:'Exhausted',results:window.qaRows,loadMore(){}});`,
           persist: `export const usePersistedValue=(_key,live)=>live;`,
           connection: `export const useCollectionConnection=()=>({online:true,isWebSocketConnected:true,unavailable:false});`,
           image: `import React,{forwardRef} from 'react'; export default forwardRef(function Image({fill,priority,fetchPriority,loader,quality,unoptimized,...props},ref){return <img ref={ref} {...props} style={fill?{position:'absolute',inset:0,width:'100%',height:'100%'}:undefined}/>});`,

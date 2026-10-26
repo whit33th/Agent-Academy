@@ -7,7 +7,11 @@ import { api } from "@/convex/_generated/api";
 import { useAppSession } from "@/components/auth/SessionProvider";
 import { usePersistedValue } from "./usePersistedValue";
 import { useCollectionConnection } from "./useCollectionConnection";
-import { isSafeSourceUrl, MAX_LINEUP_IMAGES } from "@/lib/lineups/media";
+import {
+  getTrackerEmbedUrl,
+  isSafeSourceUrl,
+  MAX_LINEUP_IMAGES,
+} from "@/lib/lineups/media";
 import { isLineupMetadata } from "@/lib/lineups/metadata";
 
 export type LineupRow = FunctionReturnType<
@@ -38,6 +42,9 @@ function isSource(value: unknown): boolean {
     isRecord(value) &&
     typeof value.url === "string" &&
     isSafeSourceUrl(value.url) &&
+    (value.embedUrl === undefined ||
+      (typeof value.embedUrl === "string" &&
+        Boolean(getTrackerEmbedUrl(value.url, value.embedUrl)))) &&
     ["author", "patch", "evidence", "rightsBasis"].every(
       (key) => typeof value[key] === "string",
     ) &&

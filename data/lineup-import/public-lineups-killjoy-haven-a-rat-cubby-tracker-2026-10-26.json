@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-killjoy-haven-a-rat-cubby-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:lineup-for-rats-cubby-by-mary247hard-43aae321",
+      "mapSlug": "haven",
+      "agentSlug": "killjoy",
+      "title": "A Site Rat Cubby Nanoswarm from A Long",
+      "description": "Stand beside the sandbags at A Long as shown in the clip. Raise your crosshair until it sits between the diamond mark and the nearby light, then throw the Nanoswarm normally without jumping. The original clip shows it landing in the A Site cubby; activate it when the Spike is planted in that corner.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Grenade"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/lineup-for-rats-cubby-by-mary247hard-43aae321",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/lineup-for-rats-cubby-by-mary247hard-43aae321",
+        "author": "Mary247hard",
+        "checkedAt": 1792985386278,
+        "patch": "13.08",
+        "evidence": "Tracker identifies this as a Killjoy Haven attack lineup for rat cubby and gives the sack, diamond/light crosshair reference, and no-jump throw instruction. The original 19-second Tracker-hosted clip was viewed at the A Long stance, Nanoswarm flight, and A Site landing. Riot notes through patch 13.08 list no Haven geometry update to the A Long throw path or A Site cubby. Current utility compatibility is inferred from the unchanged landing geometry; not tested in a live match.",
+        "rightsBasis": "The community clip remains linked to its original Tracker guide page. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/ee0b6f6d20972d1a1793f14e738e28b3",
+        "publishedAt": "2026-01-12T19:45:57.948934+01:00"
+      }
+    }
+  ]
+}

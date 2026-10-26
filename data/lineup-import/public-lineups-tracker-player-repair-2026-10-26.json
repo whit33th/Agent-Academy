@@ -1,0 +1,499 @@
+{
+  "batchId": "public-lineups-tracker-player-repair-2026-10-26",
+  "records": [
+    {
+      "description": "Stand beside the sandbags at A Long as shown in the clip. Raise your crosshair until it sits between the diamond mark and the nearby light, then throw the Nanoswarm normally without jumping. The original clip shows it landing in the A Site cubby; activate it when the Spike is planted in that corner.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "A"
+      },
+      "sourceKey": "tracker:lineup-for-rats-cubby-by-mary247hard-43aae321",
+      "source": {
+        "author": "Mary247hard",
+        "checkedAt": 1792985386278,
+        "evidence": "Tracker identifies this as a Killjoy Haven attack lineup for rat cubby and gives the sack, diamond/light crosshair reference, and no-jump throw instruction. The original 19-second Tracker-hosted clip was viewed at the A Long stance, Nanoswarm flight, and A Site landing. Riot notes through patch 13.08 list no Haven geometry update to the A Long throw path or A Site cubby. Current utility compatibility is inferred from the unchanged landing geometry; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "The community clip remains linked to its original Tracker guide page. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/lineup-for-rats-cubby-by-mary247hard-43aae321",
+        "embedUrl": "https://iframe.videodelivery.net/ee0b6f6d20972d1a1793f14e738e28b3",
+        "publishedAt": "2026-01-12T19:45:57.948934+01:00"
+      },
+      "agentSlug": "killjoy",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/lineup-for-rats-cubby-by-mary247hard-43aae321",
+      "title": "A Site Rat Cubby Nanoswarm from A Long",
+      "mapSlug": "haven",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "From the same A-side corner, use the horizontal wall seam as your alignment and shift the second throw to the right of the A marking, as shown in the clip. The Nanoswarm lands on the demonstrated Bridge plant area. Reproduce the release reference shown and activate it after the Spike is planted there.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "A"
+      },
+      "sourceKey": "tracker:mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0:bridge",
+      "source": {
+        "author": "Mary247hard",
+        "checkedAt": 1792985269678,
+        "evidence": "Tracker identifies this as a Killjoy Abyss attack guide for A Backside and Bridge. The clip description says to start from a corner, align to the horizontal wall line, and use two throws: first perpendicular to the A marking, then to its right. The original 27.3-second Tracker-hosted clip was viewed at the A-side stance and both landing areas. Riot patch notes through 13.08 show no Abyss geometry update to the demonstrated A locations; compatibility is inferred from these unchanged landmarks. Source reviewed; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "The community clip remains linked to its original Tracker guide page. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0",
+        "embedUrl": "https://iframe.videodelivery.net/ac1b479815388deebf6626631e27c99b",
+        "publishedAt": "2026-01-12T20:29:18.798417+01:00"
+      },
+      "agentSlug": "killjoy",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0",
+      "title": "A Bridge Post-Plant Nanoswarm from A",
+      "mapSlug": "abyss",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "From the corner shown on A, line your crosshair up with the horizontal wall seam. Use the first throw, aimed perpendicular to the large A marking, to place a Nanoswarm in the demonstrated A Backside plant area. Match the stance and release from the original clip, then activate the swarm after a plant there.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "A"
+      },
+      "sourceKey": "tracker:mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0:a-backside",
+      "source": {
+        "author": "Mary247hard",
+        "checkedAt": 1792985269678,
+        "evidence": "Tracker identifies this as a Killjoy Abyss attack guide for A Backside and Bridge. The clip description says to start from a corner, align to the horizontal wall line, and use two throws: first perpendicular to the A marking, then to its right. The original 27.3-second Tracker-hosted clip was viewed at the A-side stance and both landing areas. Riot patch notes through 13.08 show no Abyss geometry update to the demonstrated A locations; compatibility is inferred from these unchanged landmarks. Source reviewed; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "The community clip remains linked to its original Tracker guide page. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0",
+        "embedUrl": "https://iframe.videodelivery.net/ac1b479815388deebf6626631e27c99b",
+        "publishedAt": "2026-01-12T20:29:18.798417+01:00"
+      },
+      "agentSlug": "killjoy",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/mollys-for-a-backside-and-bridge-by-mary247ha-c3994da0",
+      "title": "A Backside Post-Plant Nanoswarm from A",
+      "mapSlug": "abyss",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "From the B Main position shown in the clip, face the entrance and use the upper roof and hanging-lantern reference shown for the throw. The Nanoswarm lands on the B Site floor beside the central green crate. Match the exact standing point and aim height to the original clip; trigger it when the Spike is planted in the covered corner.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "B"
+      },
+      "sourceKey": "tracker:op-summit-lineup-on-b-sitefor-kj-by-ktmcivil-4e2352d2",
+      "source": {
+        "author": "KtM_civil",
+        "checkedAt": 1792985055647,
+        "evidence": "Tracker identifies the creator clip as Killjoy attack, titled OP Summit lineup on B site; its description says B Site. The full original 21.6-second embedded clip was reviewed at the B Main setup, Nanoswarm release, and B Site landing. The minimap and visible floor plan confirm Summit and the swarm lands beside the central green crate. Summit was introduced in patch 13.00; Riot notes through 13.08 list no Summit geometry change to the B Main-to-B Site throw path or landing floor. Compatibility is inferred from those unchanged local landmarks; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "The guide and its original Tracker-hosted video remain linked and embedded on Tracker. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/op-summit-lineup-on-b-sitefor-kj-by-ktmcivil-4e2352d2",
+        "embedUrl": "https://iframe.videodelivery.net/0cc2cccc206fbae52dcccdc5cdd2cb6b",
+        "publishedAt": "2026-07-10T02:33:49.838542+02:00"
+      },
+      "agentSlug": "killjoy",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/op-summit-lineup-on-b-sitefor-kj-by-ktmcivil-4e2352d2",
+      "title": "B Main Nanoswarm Lineup beside the Green Crate",
+      "mapSlug": "summit",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "Use the Spike-corner Nanoswarm placement shown in the source clip on B Site. Set the swarm on the demonstrated floor corner before the plant, then trigger it when the Spike is planted there and an enemy begins the defuse. The clip shows the target position and activation effect; follow its visual reference for the exact corner.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "B"
+      },
+      "sourceKey": "tracker:setup-molly-for-new-abyss-by-mary247hard-de2899ba",
+      "source": {
+        "author": "Mary247hard",
+        "checkedAt": 1792984903721,
+        "evidence": "Tracker identifies this as a Killjoy Abyss attack post-plant molly for a Spike corner. The original 16-second Tracker-hosted clip was viewed at the B Site planting and post-plant frames: the minimap places the play on B, and the Nanoswarm effect covers the Spike corner shown. Riot patch 13.04 returned Abyss to Competitive without changing map geometry; later notes through 13.08 list no Abyss changes to this B Site floor target. Patch 13.00 adjusted Nanoswarm duration, not its placement/detonation mechanic. Compatibility is inferred from the unchanged local geometry and current ability mechanic; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "The community clip is embedded via the player on its original Tracker guide page. No frame, image, thumbnail or video was copied or rehosted.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/setup-molly-for-new-abyss-by-mary247hard-de2899ba",
+        "embedUrl": "https://iframe.videodelivery.net/c4e1f53cc3212d465c47581022d39b09",
+        "publishedAt": "2025-10-15T17:31:46.449387+02:00"
+      },
+      "agentSlug": "killjoy",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/setup-molly-for-new-abyss-by-mary247hard-de2899ba",
+      "title": "B Site Spike-Corner Nanoswarm Post-Plant",
+      "mapSlug": "abyss",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "From the B Main position shown in the original clip, aim at the left window and jump-throw a Nanoswarm toward the B Box plant area. The creator describes it as a forgiving lineup that covers the plant and surrounding ground. Follow the clip's visual standing and release references; no more precise callout is supplied.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "B"
+      },
+      "sourceKey": "tracker:killjoy-corrode-b-box-swarm-kingmonkeyi-3641ab76",
+      "source": {
+        "author": "kingmonkeyI",
+        "checkedAt": 1792984391000,
+        "evidence": "Tracker labels this as a Killjoy Corrode attack Nanoswarm lineup for B Box and gives the instruction to aim at the left window and jump-throw. The original 35-second clip and its location map were visually reviewed; its opening view is at B Main and the throw targets the B Box plant area. Riot patch 13.08 lists changes to defender paths into the back of B, Mid geometry, and the A plant zone, not the B Main-to-B Box throw area. Compatibility is inferred from the unchanged local throw and target geometry; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "The lineup remains linked to its original Tracker page; no video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/kj-swarm-to-b-box-on-corrode-by-kingmonkeyi-3641ab76",
+        "embedUrl": "https://iframe.videodelivery.net/4fea93d62b9648faa423941382ac9e41",
+        "publishedAt": "2025-08-04T11:11:20.427868+02:00"
+      },
+      "agentSlug": "killjoy",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/kj-swarm-to-b-box-on-corrode-by-kingmonkeyi-3641ab76",
+      "title": "B Box Nanoswarm from B Main",
+      "mapSlug": "corrode",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "During the buy phase, use the Razorvine throw shown to prepare the B-side approach while your team sets up to defend A. The clip shows the launch and its B-side landing; follow its exact standing and release references. The creator does not name a more specific landing callout, so use the visual in the source rather than assuming one.",
+      "metadata": {
+        "abilitySlot": "Ability1",
+        "side": "def",
+        "site": "B"
+      },
+      "sourceKey": "tracker:vyse-abyss-b-pregame-lineup-majimagaming-da79aa15",
+      "source": {
+        "author": "majimagaming",
+        "checkedAt": 1792983951296,
+        "evidence": "Tracker labels the clip Vyse Abyss defense and titles it 'B site pregame lineup'; the creator says it is a lineup to use while defending A. The embedded clip was played and visually reviewed: it shows a pre-round setup and a Razorvine landing on the B-side floor. Abyss remains in the current Competitive pool; Riot patch 13.08 lists Corrode as the map with geometry updates. Source reviewed; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "The clip remains embedded from its original Tracker page. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/b-site-pregame-lineup-by-majimagaming-da79aa15",
+        "embedUrl": "https://iframe.videodelivery.net/08a3f85d55a1c3720c0dc7054dc42e0a",
+        "publishedAt": "2026-09-04T16:50:26.26834+02:00"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/b-site-pregame-lineup-by-majimagaming-da79aa15",
+      "title": "B Site Pre-round Razorvine While the Team Anchors A",
+      "mapSlug": "abyss",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On defense, prepare the A Main push using the Arc Rose and Shear setup shown in the clip. The creator demonstrates three hold positions: behind the boxes, back site by the door, or on site. Use the original clip for the exact utility placement and flash timing; those details are not specified in the text description.",
+      "metadata": {
+        "abilitySlot": "Ability1",
+        "side": "def",
+        "site": "A"
+      },
+      "sourceKey": "tracker:vyse-summit-a-main-setup-airtightriver41-3c3ef7b8",
+      "source": {
+        "author": "AirtightRiver41",
+        "checkedAt": 1792983704644,
+        "evidence": "Tracker identifies this as a Vyse Summit defense clip titled 'A set up'. The creator says it is a basic setup for an A Main push and lists the three hold positions (behind boxes, backsite by the door, or on site). The embedded 32-second clip was played and visually reviewed through the Arc Rose and wall utility views. Summit is in the current Competitive pool; Riot patch 13.08 lists Corrode as the map receiving geometry updates, not Summit. Source reviewed; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "No video, image, thumbnail or screenshot copied or rehosted. The creator's Tracker clip remains the linked original.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/a-set-up-by-airtightriver41-3c3ef7b8",
+        "embedUrl": "https://iframe.videodelivery.net/68da8eba36d06f26503c9c3279a16893",
+        "publishedAt": "2026-10-03T19:12:56.414136+02:00"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/a-set-up-by-airtightriver41-3c3ef7b8",
+      "title": "A Main Push Hold with Arc Rose and Shear",
+      "mapSlug": "summit",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "From the A Long position shown in the source clip, line up and throw a Nanoswarm onto the A Site plant for a post-plant denial. Reproduce the exact crosshair reference and release shown in the original clip. Be ready for defenders to swing from A Main, as the creator notes.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "A"
+      },
+      "sourceKey": "tracker:killjoy-haven-a-postplant-airtightriver41-0a8bf29d",
+      "source": {
+        "author": "AirtightRiver41",
+        "checkedAt": 1792983679432,
+        "evidence": "Tracker identifies the material as Killjoy Haven attack, titled 'Post-plant line up for A', and the creator warns about defenders swinging from Main. The embedded clip was visually reviewed: the minimap and A Long start position are visible, followed by a Nanoswarm throw toward the A Site plant area. The feed entry keeps the exact aiming reference in the creator's original clip; source reviewed, not tested in a live match. Haven is in the current Competitive map pool, and Riot's 13.08 notes list Corrode as the map with geometry updates.",
+        "patch": "13.08",
+        "rightsBasis": "The short creator guide is linked and embedded from the original Tracker page. No image, thumbnail, screenshot or video file was copied or rehosted.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/post-plant-line-up-for-a-by-airtightriver41-0a8bf29d",
+        "embedUrl": "https://iframe.videodelivery.net/3a6dd39e49010e2e7698156800182c99",
+        "publishedAt": "2026-10-03T17:27:09.798147+02:00"
+      },
+      "agentSlug": "killjoy",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/post-plant-line-up-for-a-by-airtightriver41-0a8bf29d",
+      "title": "A Site Post-Plant Nanoswarm from A Long",
+      "mapSlug": "haven",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On defense, play on A Site while covering A Main and Elbow. Use the Shear, Razorvine and Arc Rose positions shown in the clip to make both approaches contestable, then hold behind site cover and use the utility as an entry commits. The source describes this as an on-site anchor setup for A Main and Elbow. Match the exact placement and timing to the original clip.",
+      "metadata": {
+        "abilitySlot": "Ability1",
+        "side": "def",
+        "site": "A"
+      },
+      "sourceKey": "tracker:vyse-sunset-a-anchor-airtightriver41-1959c1d4",
+      "source": {
+        "author": "AirtightRiver41",
+        "checkedAt": 1792983442000,
+        "evidence": "Tracker identifies this as Vyse Sunset defense, title 'Anchor A site set up', by AirtightRiver41. The creator says the setup lets Vyse play on site while holding A Main and Elbow. The embedded 39-second clip was watched through its utility placements and final setup view. Sunset is in the current Competitive pool; Riot patch 13.08 lists Corrode as the map receiving geometry updates and does not list Sunset. Source reviewed; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "No video, image, thumbnail or screenshot copied or rehosted. The creator's Tracker clip remains the linked original.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/anchor-a-site-set-up-by-airtightriver41-1959c1d4",
+        "embedUrl": "https://iframe.videodelivery.net/15a2bcaebf6fcd2a3444080d267e97ff",
+        "publishedAt": "2026-10-03T19:26:50.742037+02:00"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/anchor-a-site-set-up-by-airtightriver41-1959c1d4",
+      "title": "A Site Anchor Covering Main and Elbow",
+      "mapSlug": "sunset",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On B defense, set up for a B Main entry: place Shear across the choke and arrange the two Razorvines on the B Site floor just beyond the entrance as shown in the clip. Place Arc Rose to cover the entry and trigger its flash when the wall isolates the first attacker, then take the duel from site cover. Match the exact surfaces and spacing to the original clip; this hold is focused on B Main.",
+      "metadata": {
+        "abilitySlot": "Ability1",
+        "side": "def",
+        "site": "B"
+      },
+      "sourceKey": "tracker:vyse-summit-b-main-setup-4cd0997e",
+      "source": {
+        "author": "AirtightRiver41",
+        "checkedAt": 1792983260000,
+        "evidence": "Tracker identifies this as Vyse Summit defense, title 'Set up for B main', by AirtightRiver41. The author describes a B Site setup centered on the flash. The embedded 38-second clip was opened and visually reviewed: the buy-phase view shows the B approach and Arc Rose placement; later footage shows two Razorvine nests on the site floor at the entry. Summit is in the current pool. Riot patch 13.08 names Corrode as the only map receiving map geometry updates and does not list Summit. Source reviewed; not tested in a live match.",
+        "patch": "13.08",
+        "rightsBasis": "No video, image, thumbnail or screenshot copied or rehosted. The creator's Tracker clip remains the linked original.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/set-up-for-b-main-by-airtightriver41-4cd0997e",
+        "embedUrl": "https://iframe.videodelivery.net/3c5a98f391d4edc7563513173dd12c7b",
+        "publishedAt": "2026-10-03T19:18:01.940687+02:00"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/set-up-for-b-main-by-airtightriver41-4cd0997e",
+      "title": "B Main Shear, Razorvine and Arc Rose hold",
+      "mapSlug": "summit",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On attack, throw Vyse's Razorvine toward Backside C using the exact visual reference in the linked clip. The source describes it as a direct Backside C Razorvine setup.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "C"
+      },
+      "sourceKey": "tracker:vyse-haven-backside-c-krtninja-3b0cdef6",
+      "source": {
+        "author": "KrtNinja",
+        "checkedAt": 1792982308896,
+        "evidence": "Tracker identifies this as a Vyse Haven attack clip and Razorvine; the author describes a Razorvine on Backside C. It was posted four days before review. Haven is in the current Competitive pool and Riot's 13.08 map update is limited to Corrode. The source clip supplies the exact visual cast reference. Source-reviewed; not independently gameplay-tested.",
+        "patch": "13.08",
+        "publishedAt": "2026-04-26T11:31:37.562053+02:00",
+        "rightsBasis": "No source video, thumbnails, or images copied or rehosted; the original Tracker guide remains linked.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/backside-c-by-krtninja-3b0cdef6",
+        "embedUrl": "https://iframe.videodelivery.net/9892dd544e12ead3d3b170b8b8e7c1c1"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/backside-c-by-krtninja-3b0cdef6",
+      "title": "Razorvine to Backside C",
+      "mapSlug": "haven",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On attack, use the linked Vyse Razorvine lineup to pressure a defender holding C Iron. The clip provides the exact target and throw visual; follow it for the release reference.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "C"
+      },
+      "sourceKey": "tracker:vyse-haven-iron-c-krtninja-e5898e35",
+      "source": {
+        "author": "KrtNinja",
+        "checkedAt": 1792982308896,
+        "evidence": "Tracker identifies this as a Vyse Haven attack clip and Razorvine; its description says it disables a player holding C Iron. Haven is in the current Competitive pool and Riot's 13.08 map update is limited to Corrode. The source clip provides the visual target and cast. Source-reviewed; not independently gameplay-tested.",
+        "patch": "13.08",
+        "publishedAt": "2026-04-26T11:56:20.48529+02:00",
+        "rightsBasis": "No source video, thumbnails, or images copied or rehosted; the original Tracker guide remains linked.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/iron-c-by-krtninja-e5898e35",
+        "embedUrl": "https://iframe.videodelivery.net/cab78add58fbeb2b3e58037227ec2ee2"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/iron-c-by-krtninja-e5898e35",
+      "title": "Razorvine to pressure C Iron",
+      "mapSlug": "haven",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On attack, use the linked Vyse Razorvine lineup targeting C to disrupt a fast defender rotation. The source supplies the exact visual throw reference; no stand position or aim point is inferred here.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "C"
+      },
+      "sourceKey": "tracker:vyse-haven-rotate-spawn-on-c-krtninja-1990e59e",
+      "source": {
+        "author": "KrtNinja",
+        "checkedAt": 1792982308896,
+        "evidence": "Tracker identifies this as a Vyse Haven attack clip and Razorvine; the author describes it as disabling a fast rotation on C. The clip includes a Haven location marker. Haven is in the current Competitive pool and Riot's 13.08 map update is limited to Corrode. Source-reviewed; not independently gameplay-tested.",
+        "patch": "13.08",
+        "publishedAt": "2026-04-26T11:37:22.617528+02:00",
+        "rightsBasis": "No source video, thumbnails, or images copied or rehosted; the original Tracker guide remains linked.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/rotate-spawn-on-c-by-krtninja-1990e59e",
+        "embedUrl": "https://iframe.videodelivery.net/0744ecb4e132f590484d4bfed1692bb5"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/rotate-spawn-on-c-by-krtninja-1990e59e",
+      "title": "Razorvine to disrupt a fast C rotation",
+      "mapSlug": "haven",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On attack, follow the linked Razorvine lineup titled 'Rotate city to A'. The source confirms Haven, Vyse, and the A rotation target; use its clip to match the exact throw rather than relying on inferred coordinates.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "A"
+      },
+      "sourceKey": "tracker:vyse-haven-rotate-city-to-a-krtninja-c61075f1",
+      "source": {
+        "author": "KrtNinja",
+        "checkedAt": 1792982308896,
+        "evidence": "Tracker identifies this as a Vyse Haven attack clip and labels the ability Razorvine; its title and description identify a rotation from Mid Courtyard toward A. Haven is in the current Competitive pool and Riot's 13.08 map update is limited to Corrode. The exact stance and release are available only in the linked clip. Source-reviewed; not independently gameplay-tested.",
+        "patch": "13.08",
+        "publishedAt": "2026-04-26T12:41:37.891095+02:00",
+        "rightsBasis": "No source video, thumbnails, or images copied or rehosted; the original Tracker guide remains linked.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/rotate-city-to-a-by-krtninja-c61075f1",
+        "embedUrl": "https://iframe.videodelivery.net/df43b426a8d60375a28a7b9e5ede7e2c"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/rotate-city-to-a-by-krtninja-c61075f1",
+      "title": "Razorvine rotation lineup toward A",
+      "mapSlug": "haven",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On attack, use the Razorvine lineup targeting Backside A. The creator describes it as a way to slow defenders there; follow the linked short clip for the exact stance and release reference.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "A"
+      },
+      "sourceKey": "tracker:vyse-haven-backside-a-krtninja-293930a4",
+      "source": {
+        "author": "KrtNinja",
+        "checkedAt": 1792982308896,
+        "evidence": "Tracker identifies this as a Vyse Haven guide and labels the ability Razorvine; the author description is 'Slow backside A'. Haven is in the current Competitive pool and Riot's 13.08 map update is limited to Corrode. The source is linked for its visual throw reference. Source-reviewed; not independently gameplay-tested.",
+        "patch": "13.08",
+        "publishedAt": "2026-04-26T12:40:29.822287+02:00",
+        "rightsBasis": "No source video, thumbnails, or images copied or rehosted; the original Tracker guide remains linked.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/backside-a-by-krtninja-293930a4",
+        "embedUrl": "https://iframe.videodelivery.net/f501f210edbc09144122f75a681436d6"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/backside-a-by-krtninja-293930a4",
+      "title": "Razorvine to slow Backside A",
+      "mapSlug": "haven",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On attack, use the Razorvine throw from A Lobby into A Tree shown in the linked community clip. The creator recommends it to discourage a push while the Spike is being planted; if an enemy shoots it, that also gives the team information. Follow the clip for the exact throw reference.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "A"
+      },
+      "sourceKey": "tracker:vyse-lotus-a-lobby-tree-mrakv-75b3f927",
+      "source": {
+        "author": "MrAKv",
+        "checkedAt": 1792982308896,
+        "evidence": "Tracker identifies this community clip as Vyse on Lotus attack and labels the ability Razorvine; its description names the A Lobby to Tree target and says it can prevent pushes during planting or provide intel when shot. The clip was posted about two months before this review, after Lotus's 12.05 rework. Current pool check confirms Lotus remains in Competitive. Exact stance and cast are in the linked clip. Source-reviewed; not independently gameplay-tested.",
+        "patch": "13.08",
+        "publishedAt": "2026-08-03T17:37:59.708393+02:00",
+        "rightsBasis": "No source video, thumbnails, or images copied or rehosted; the original Tracker guide remains linked.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/vyse-a-lobby-tree-lineup-by-mrakv-75b3f927",
+        "embedUrl": "https://iframe.videodelivery.net/dcb555a51f74874d956c9fa5727edfb7"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/vyse-a-lobby-tree-lineup-by-mrakv-75b3f927",
+      "title": "A Lobby Razorvine to A Tree",
+      "mapSlug": "lotus",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "On attack, use Killjoy's Nanoswarm to clear B Cubby. Follow the linked community clip for the exact throw position and release reference; the source describes a throw designed to reach the cubby consistently without breaking.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "B"
+      },
+      "sourceKey": "tracker:unbreakable-molly-b-cubby-f4123dbb-83b-5278bc8e",
+      "source": {
+        "author": "1enmaa",
+        "checkedAt": 1792981925218,
+        "evidence": "Tracker's community guide identifies Killjoy on Bind attack, names the B Cubby target, and says the Nanoswarm throw is designed to clear it consistently without breaking. Riot's 13.08 notes returned Bind to Competitive and list no Bind geometry changes; current map-pool check confirms Bind remains active. Exact lineup placement is demonstrated only in the linked source clip. Source reviewed; not independently gameplay-tested.",
+        "patch": "13.08",
+        "publishedAt": "2026-02-08T09:49:40.992727+01:00",
+        "rightsBasis": "No source video, thumbnails, or images copied or rehosted; original Tracker guide is linked for viewing.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/unbreakable-molly-for-b-cubby-by-f4123dbb-83b-5278bc8e",
+        "embedUrl": "https://iframe.videodelivery.net/4a3c8561fcfde7c8a391c1ae7ecec7ea"
+      },
+      "agentSlug": "killjoy",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/unbreakable-molly-for-b-cubby-by-f4123dbb-83b-5278bc8e",
+      "title": "B Cubby Nanoswarm clear",
+      "mapSlug": "bind",
+      "images": [],
+      "abilityType": "other"
+    },
+    {
+      "description": "From the position shown in the linked Tracker clip, line up the Razorvine ability HUD with the wall the creator pings, then cast. The clip labels this for an A Site attack; use its landing view to confirm the coverage before relying on it.",
+      "metadata": {
+        "abilitySlot": "Grenade",
+        "side": "atk",
+        "site": "A"
+      },
+      "sourceKey": "tracker:vyse:abyss:razorvine-a-site-attack-majimagaming",
+      "source": {
+        "author": "majimagaming",
+        "checkedAt": 1792976544000,
+        "evidence": "Tracker's source page labels the clip as a Vyse attack setup for Abyss A Site and states: line the Razorvine ability HUD up with the wall the creator pings. The clip was listed as published about one month before the 2026-10-26 review, after Abyss returned to Competitive; patch 13.08 lists no Abyss layout change. Source and compatibility reviewed; not independently gameplay-tested.",
+        "patch": "13.08",
+        "rightsBasis": "No Tracker screenshots, thumbnails, or video files copied or rehosted. This entry summarizes the creator's public clip and links to its original page; no media republication license is claimed.",
+        "testedInGame": false,
+        "url": "https://tracker.gg/valorant/guides/clips/abyss-a-site-attackers-linup-by-majimagaming-9cef3e4b",
+        "embedUrl": "https://iframe.videodelivery.net/8f19cbfb9ba3067dfe651d74bf411456",
+        "publishedAt": "2026-09-04T16:49:04.619608+02:00"
+      },
+      "agentSlug": "vyse",
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/abyss-a-site-attackers-linup-by-majimagaming-9cef3e4b",
+      "title": "Razorvine lineup for the A Site attack",
+      "mapSlug": "abyss",
+      "images": [],
+      "abilityType": "other"
+    }
+  ]
+}

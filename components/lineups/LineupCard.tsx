@@ -101,6 +101,7 @@ export default function LineupCard({
           {!src && screenshot.videoUrl ? (
             <LineupVideoCover
               map={screenshot.map?.name ?? ""}
+              videoUrl={screenshot.videoUrl}
               priority={priority}
             />
           ) : null}

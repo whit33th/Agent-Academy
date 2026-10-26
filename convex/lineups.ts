@@ -27,8 +27,35 @@ import {
   releaseAsset,
   type LineupImageInput,
 } from "./lib/lineupMedia";
-import { normalizeVideoUrl, isYouTubeVideoUrl } from "../lib/lineups/media";
+import {
+  getLineupVideoEmbedUrl,
+  isSafeSourceUrl,
+  normalizeVideoUrl,
+  trackerClipKey,
+} from "../lib/lineups/media";
+import { IMPORT_OWNER } from "../lib/lineups/import-policy";
 const SANITY_ASSET = /^image-([A-Za-z0-9]+)-(\d+x\d+)-(png|jpe?g|webp)$/;
+
+// Resolve legacy copies without modifying their provenance or reading user records.
+export const resolveVideoEmbed = query({
+  args: { videoUrl: v.string() },
+  returns: v.union(v.string(), v.null()),
+  handler: async (ctx, args) => {
+    if (args.videoUrl.length > 2048) return null;
+    const clip = trackerClipKey(args.videoUrl);
+    if (!clip) return null;
+    const row = await ctx.db
+      .query("lineups")
+      .withIndex("by_videoUrl_and_ownerTokenIdentifier_and_isPublic", (q) =>
+        q
+          .eq("videoUrl", `https://tracker.gg${clip}`)
+          .eq("ownerTokenIdentifier", IMPORT_OWNER)
+          .eq("isPublic", true),
+      )
+      .first();
+    return row ? getLineupVideoEmbedUrl(args.videoUrl, row.source) : null;
+  },
+});
 
 function assertSanityImage(imageUrl: string, imageAssetId: string) {
   const match = imageAssetId.match(SANITY_ASSET);
@@ -460,8 +487,8 @@ export const create = mutation({
     const videoUrl = args.videoUrl
       ? normalizeVideoUrl(args.videoUrl)
       : undefined;
-    if (!images.length && (!videoUrl || !isYouTubeVideoUrl(videoUrl)))
-      throw new Error("Choose an image or a YouTube video.");
+    if (!images.length && (!videoUrl || !isSafeSourceUrl(videoUrl)))
+      throw new Error("Choose an image or a safe external video source.");
     await validateImages(ctx, images, ownerTokenIdentifier);
     const id = await ctx.db.insert("lineups", {
       ...base,
@@ -519,8 +546,8 @@ export const update = mutation({
         : args.videoUrl.trim()
           ? normalizeVideoUrl(args.videoUrl)
           : undefined;
-    if (!images.length && (!videoUrl || !isYouTubeVideoUrl(videoUrl)))
-      throw new Error("Choose an image or a YouTube video.");
+    if (!images.length && (!videoUrl || !isSafeSourceUrl(videoUrl)))
+      throw new Error("Choose an image or a safe external video source.");
     await validateImages(ctx, images, owner, row);
     await ctx.db.patch(args.id, {
       title: args.title ?? row.title,

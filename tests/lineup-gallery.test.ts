@@ -139,7 +139,7 @@ describe("ordered lineup galleries", () => {
     expect(await t.run((ctx) => ctx.storage.getUrl(first))).toBeNull();
   });
 
-  it("supports YouTube-only entries, rejects empty media and external video-only entries", async () => {
+  it("supports safe external video links and rejects empty or unsafe media", async () => {
     const { alice } = fixture();
     await expect(
       alice.mutation(api.lineups.create, { ...base, images: [] }),
@@ -147,22 +147,30 @@ describe("ordered lineup galleries", () => {
     await expect(
       alice.mutation(api.lineups.create, {
         ...base,
-        videoUrl: "https://example.com/video",
+        videoUrl: "http://localhost/video",
       }),
-    ).rejects.toThrow("Choose an image");
+    ).rejects.toThrow("public HTTPS video URL");
+    const external = await alice.mutation(api.lineups.create, {
+      ...base,
+      videoUrl: "https://example.com/video",
+    });
     const { id } = await alice.mutation(api.lineups.create, {
       ...base,
       videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=30",
     });
-    const [row] = await alice.query(api.lineups.listByMapAgent, {
+    const rows = await alice.query(api.lineups.listByMapAgent, {
       mapSlug: base.mapSlug,
       agentSlug: base.agentSlug,
     });
-    expect(row.images).toEqual([]);
-    expect(row.videoUrl).toContain("dQw4w9WgXcQ");
+    const youtubeRow = rows.find((row) => row._id === id);
+    const externalRow = rows.find((row) => row._id === external.id);
+    expect(youtubeRow?.images).toEqual([]);
+    expect(youtubeRow?.videoUrl).toContain("dQw4w9WgXcQ");
+    expect(externalRow?.videoUrl).toBe("https://example.com/video");
     await expect(
       alice.mutation(api.lineups.update, { id, videoUrl: "" }),
     ).rejects.toThrow("Choose an image");
+    await alice.mutation(api.lineups.remove, { id: external.id });
   });
 
   it("preserves provenance but drops importer identity from personal copies; legacy references prevent deletion", async () => {

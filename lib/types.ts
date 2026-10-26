@@ -54,6 +54,7 @@ export interface LineupImageMedia {
 
 export interface LineupSource {
   url: string;
+  embedUrl?: string;
   author: string;
   publishedAt?: string;
   checkedAt: number;
@@ -76,8 +77,12 @@ export interface Screenshot {
   description: string | null;
   isPublic?: boolean;
   canEdit?: boolean;
-  map?: { name: string } | null;
-  agent?: { name: string } | null;
+  map?: {
+    name: string;
+    displayIcon?: string | null;
+    imageUrl?: string | null;
+  } | null;
+  agent?: { name: string; displayIcon?: string | null } | null;
   /** Client-only: data URL preview while optimistic. */
   tempPreview?: string;
 }

@@ -140,13 +140,20 @@ async function main() {
       );
     }
     if (process.argv.includes("--live")) {
+      const fromVersion =
+        process.argv.find((value) => value.startsWith("--from="))?.slice(7) ??
+        "0.7.1";
+      const expectedVersion = process.argv
+        .find((value) => value.startsWith("--expected="))
+        ?.slice(11);
       const { controller } = setup(
         { provider: "github", owner: "whit33th", repo: "Agent-Academy" },
-        "0.7.1",
+        fromVersion,
       );
       await controller.check();
       assert.equal(controller.get().status, "available");
       const availableVersion = controller.get().availableVersion;
+      if (expectedVersion) assert.equal(availableVersion, expectedVersion);
       await controller.download();
       assert.equal(controller.get().status, "downloaded");
       const same = setup(
@@ -156,7 +163,7 @@ async function main() {
       await same.controller.check();
       assert.equal(same.controller.get().status, "current");
       evidence.live = {
-        from: "0.7.1",
+        from: fromVersion,
         availableVersion,
         checksumVerifiedDownload: true,
         currentVersionCheck: true,

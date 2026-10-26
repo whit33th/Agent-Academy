@@ -33,6 +33,7 @@ import {
   createBoardLink,
 } from "../../lib/desktop/board-links";
 import { readValorantAimSettings } from "./aim-settings";
+import { rendererPermissionAllowed } from "../../lib/desktop/renderer-permissions";
 
 const profileDirectory =
   app.commandLine.getSwitchValue("user-data-dir") ||
@@ -318,6 +319,22 @@ async function start() {
   mainWindow.on("hide", suspendAim);
   mainWindow.on("minimize", suspendAim);
   mainWindow.on("leave-full-screen", suspendAim);
+  let htmlFullscreen = false;
+  mainWindow.webContents.on("enter-html-full-screen", () => {
+    htmlFullscreen = true;
+  });
+  mainWindow.webContents.on("leave-html-full-screen", () => {
+    htmlFullscreen = false;
+  });
+  mainWindow.webContents.on("before-input-event", (event, input) => {
+    if (htmlFullscreen && input.type === "keyDown" && input.key === "Escape") {
+      event.preventDefault();
+      // Escape first leaves the video player; a second press closes the modal.
+      void mainWindow?.webContents
+        .executeJavaScript("document.exitFullscreen()")
+        .catch(() => {});
+    }
+  });
   mainWindow.webContents.on("did-navigate", suspendAim);
   mainWindow.webContents.on("did-navigate-in-page", (_event, url) => {
     if (new URL(url).pathname !== "/aim") {
@@ -351,12 +368,17 @@ async function start() {
     return { action: "deny" };
   });
   mainWindow.webContents.session.setPermissionRequestHandler(
-    (_webContents, permission, callback) => {
-      callback(permission === "pointerLock");
+    (webContents, permission, callback, details) => {
+      callback(
+        webContents === mainWindow?.webContents &&
+          rendererPermissionAllowed(permission, details.requestingUrl, origin),
+      );
     },
   );
   mainWindow.webContents.session.setPermissionCheckHandler(
-    (_webContents, permission) => permission === "pointerLock",
+    (webContents, permission, requestingOrigin) =>
+      webContents === mainWindow?.webContents &&
+      rendererPermissionAllowed(permission, requestingOrigin, origin),
   );
   const authOrigin = publicConfig.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
     ? clerkIssuer(publicConfig.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY)
@@ -373,7 +395,7 @@ async function start() {
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self' data: blob: https://cdn.sanity.io https://*.convex.cloud https://img.clerk.com",
         `connect-src 'self' ${devUrl ? "ws://127.0.0.1:3000" : ""} ${authOrigin} ${publicConfig.NEXT_PUBLIC_CONVEX_URL ?? ""} ${publicConfig.NEXT_PUBLIC_CONVEX_URL?.replace("https://", "wss://") ?? ""} ${publicConfig.NEXT_PUBLIC_CONVEX_SITE_URL ?? publicConfig.NEXT_PUBLIC_CONVEX_URL?.replace(".cloud", ".site") ?? ""} https://*.protect.clerk.com:* https://clerk-telemetry.com https://*.clerk-telemetry.com`,
-        "frame-src https://challenges.cloudflare.com https://*.protect.clerk.com https://www.youtube-nocookie.com",
+        "frame-src https://challenges.cloudflare.com https://*.protect.clerk.com https://www.youtube-nocookie.com https://iframe.videodelivery.net",
         "font-src 'self' data:",
         "media-src 'self' data: blob:",
         "worker-src 'self' blob:",

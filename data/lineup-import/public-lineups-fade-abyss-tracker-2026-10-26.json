@@ -1,0 +1,109 @@
+{
+  "batchId": "public-lineups-fade-abyss-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:fade-abyss-bca9cc08",
+      "mapSlug": "abyss",
+      "agentSlug": "fade",
+      "title": "A Main Haunt for the A Site entry",
+      "description": "Stand against the wall behind the tall blue utility box in A Main. Look up at the box's upper front panel beneath the bent yellow conduit and match the crosshair offset in the clip. Throw Haunt from that corner to scan A Site, then move with the scan. The linked POV shows the exact stance and release.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "A",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/a-site-by-sk1p666-bca9cc08",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/a-site-by-sk1p666-bca9cc08",
+        "embedUrl": "https://iframe.videodelivery.net/a94d43cb152bfc3abc31144e294aeb69",
+        "author": "Sk1p#666",
+        "publishedAt": "2026-10-04T09:56:50.230361+00:00",
+        "checkedAt": 1792997785654,
+        "patch": "13.08",
+        "evidence": "Original Tracker guide identifies Fade on Abyss with the recorded side and author. Source footage shows client 13.06. Reviewed A Main stance at 2 and 6 seconds, Haunt release at 8 seconds, active scan on the minimap at 11.5 seconds, and A Site view at 15 seconds. Riot's intervening 13.08 notes change Corrode geometry and do not list an Abyss geometry or Fade Haunt trajectory change. Compatibility is inferred from unchanged relevant local surfaces and the reviewed source, not from independent gameplay testing.",
+        "rightsBasis": "Original external Tracker/Cloudflare Stream player with attribution and original guide link. No video, image, thumbnail or screenshot copied or rehosted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "tracker:fade-abyss-dc5061b9",
+      "mapSlug": "abyss",
+      "agentSlug": "fade",
+      "title": "B Nest Haunt for B Site without Lane",
+      "description": "Stand in the B Nest corner beside the gray structure with the wooden planter above it. Look upward at the wooden frame and match its lower-right edge reference shown in the clip before throwing Haunt toward B Site. Use the scan for the B entry. This throw does not scan Lane; clear Lane separately.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "atk",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/b-by-sk1p666-dc5061b9",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/b-by-sk1p666-dc5061b9",
+        "embedUrl": "https://iframe.videodelivery.net/48abb95f121d917c13801d9d656fa243",
+        "author": "Sk1p#666",
+        "publishedAt": "2026-10-04T10:19:29.705227+00:00",
+        "checkedAt": 1792997785655,
+        "patch": "13.08",
+        "evidence": "Original Tracker guide identifies Fade on Abyss with the recorded side and author. Source footage shows client 13.06. Reviewed B Nest corner at 3 seconds, wooden planter aim and Haunt cast at 6 seconds, landing marker at 9 seconds, and B Site result at 15 seconds. The creator explicitly warns that Lane is not scanned. Riot's intervening 13.08 notes change Corrode geometry and do not list an Abyss geometry or Fade Haunt trajectory change. Compatibility is inferred from unchanged relevant local surfaces and the reviewed source, not from independent gameplay testing.",
+        "rightsBasis": "Original external Tracker/Cloudflare Stream player with attribution and original guide link. No video, image, thumbnail or screenshot copied or rehosted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "tracker:fade-abyss-b2d72a43",
+      "mapSlug": "abyss",
+      "agentSlug": "fade",
+      "title": "B Site Haunt counterscan from wooden cover",
+      "description": "On B defense, tuck behind the tall wooden cover on B Site. Aim upward through the gap beside the blue connecting pipe, matching the wall reference shown in the clip, then throw Haunt over the cover. Use this counterscan when opponents pressure B; the source demonstrates the scan and an enemy spotted in B.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/b-scan-for-defense-by-sk1p666-b2d72a43",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/b-scan-for-defense-by-sk1p666-b2d72a43",
+        "embedUrl": "https://iframe.videodelivery.net/ff8d8b50e0ec59352e4d94c3883db56a",
+        "author": "Sk1p#666",
+        "publishedAt": "2026-10-04T10:29:28.091277+00:00",
+        "checkedAt": 1792997785655,
+        "patch": "13.08",
+        "evidence": "Original Tracker guide identifies Fade on Abyss with the recorded side and author. Source footage shows client 13.06. Reviewed Wooden-cover stance at 3 seconds, Haunt cast at 6 seconds, eye placement by the pipe at 8 seconds, and the enemy-spotted-in-B result at 13 seconds. Riot's intervening 13.08 notes change Corrode geometry and do not list an Abyss geometry or Fade Haunt trajectory change. Compatibility is inferred from unchanged relevant local surfaces and the reviewed source, not from independent gameplay testing.",
+        "rightsBasis": "Original external Tracker/Cloudflare Stream player with attribution and original guide link. No video, image, thumbnail or screenshot copied or rehosted.",
+        "testedInGame": false
+      }
+    },
+    {
+      "sourceKey": "tracker:fade-abyss-2928692a",
+      "mapSlug": "abyss",
+      "agentSlug": "fade",
+      "title": "B Main Haunt from the B Site cover notch",
+      "description": "Move into the notch between the low gray cube and the taller dark-faced cover on B Site. Turn toward B Main and look up at the wooden cap on the pipe-support column. Match the edge reference in the clip and throw Haunt over the structure to scan B Main. Stay behind site cover while the scan reveals the approach.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability2"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/b-main-by-sk1p666-2928692a",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/b-main-by-sk1p666-2928692a",
+        "embedUrl": "https://iframe.videodelivery.net/03aee64d2aae284ade9b8c24bbb318fc",
+        "author": "Sk1p#666",
+        "publishedAt": "2026-10-04T10:21:09.766099+00:00",
+        "checkedAt": 1792997785655,
+        "patch": "13.08",
+        "evidence": "Original Tracker guide identifies Fade on Abyss with the recorded side and author. Source footage shows client 13.06. Reviewed Two-height B Site cover and stance at 0.6 and 2 seconds, wooden-cap aim and Haunt cast at 4 seconds, trajectory at 6 seconds, and active B Main scan radius at 8 seconds. Riot's intervening 13.08 notes change Corrode geometry and do not list an Abyss geometry or Fade Haunt trajectory change. Compatibility is inferred from unchanged relevant local surfaces and the reviewed source, not from independent gameplay testing.",
+        "rightsBasis": "Original external Tracker/Cloudflare Stream player with attribution and original guide link. No video, image, thumbnail or screenshot copied or rehosted.",
+        "testedInGame": false
+      }
+    }
+  ]
+}

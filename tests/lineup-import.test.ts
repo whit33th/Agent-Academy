@@ -25,6 +25,81 @@ const candidate = {
 };
 
 describe("reviewed public library import", () => {
+  it("repairs Tracker playback for existing copies without modifying those copies or exposing private players", async () => {
+    const t = convexTest(schema, modules);
+    const videoUrl =
+      "https://tracker.gg/valorant/guides/clips/a-set-up-by-airtightriver41-3c3ef7b8";
+    const tracker = {
+      ...candidate,
+      sourceKey: "tracker-player",
+      videoUrl,
+      source: { ...candidate.source, url: videoUrl },
+    };
+    await t.mutation(internal.lineupImport.publish, {
+      batchId: "tracker-player",
+      records: [tracker],
+    });
+    const [original] = await t.query(api.lineups.listPublicFeed, {});
+    const alice = t.withIdentity({
+      subject: "alice",
+      tokenIdentifier: "alice",
+    });
+    const copy = await alice.mutation(api.lineups.forkPublic, {
+      sourceId: original._id,
+      mapSlug: "bind",
+      agentSlug: "killjoy",
+    });
+    const source = {
+      ...tracker.source,
+      embedUrl:
+        "https://iframe.videodelivery.net/68da8eba36d06f26503c9c3279a16893",
+    };
+    await t.mutation(internal.lineupImport.repairVideoEmbeds, {
+      records: [
+        { sourceKey: tracker.sourceKey, videoUrl, embedUrl: source.embedUrl },
+      ],
+    });
+    expect(
+      await t.query(api.lineups.resolveVideoEmbed, { videoUrl }),
+    ).toContain("muted=true");
+    expect((await t.run((ctx) => ctx.db.get(copy.id)))?.source).toEqual(
+      tracker.source,
+    );
+    const bob = t.withIdentity({ subject: "bob", tokenIdentifier: "bob" });
+    const second = await bob.mutation(api.lineups.forkPublic, {
+      sourceId: original._id,
+      mapSlug: "bind",
+      agentSlug: "killjoy",
+    });
+    expect(
+      (await t.run((ctx) => ctx.db.get(second.id)))?.source?.embedUrl,
+    ).toBe(source.embedUrl);
+    const [repaired] = await t.query(api.lineups.listPublicFeed, {});
+    expect(repaired.createdAt).toBe(original.createdAt);
+    expect(repaired.description).toBe(original.description);
+    await t.mutation(internal.lineupImport.withdrawBatch, {
+      batchId: "tracker-player",
+    });
+    expect(
+      await t.query(api.lineups.resolveVideoEmbed, { videoUrl }),
+    ).toBeNull();
+    expect(
+      await t.query(api.lineups.resolveVideoEmbed, {
+        videoUrl: "https://localhost/private",
+      }),
+    ).toBeNull();
+    await expect(
+      t.mutation(internal.lineupImport.repairVideoEmbeds, {
+        records: [
+          {
+            sourceKey: tracker.sourceKey,
+            videoUrl,
+            embedUrl: "https://example.com/unsafe",
+          },
+        ],
+      }),
+    ).rejects.toThrow("verified Tracker");
+  });
   it("previews without writes, resumes without duplicates, and withdraws only its managed originals", async () => {
     const t = convexTest(schema, modules);
     expect(

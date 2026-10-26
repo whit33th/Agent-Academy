@@ -159,6 +159,11 @@ export default defineSchema({
       "createdAt",
     ])
     .index("by_sourceKey", ["sourceKey"])
+    .index("by_videoUrl_and_ownerTokenIdentifier_and_isPublic", [
+      "videoUrl",
+      "ownerTokenIdentifier",
+      "isPublic",
+    ])
     .index("by_contentHash", ["contentHash"])
     .index("by_importBatchId", ["importBatchId"]),
   lineupImages: defineTable({

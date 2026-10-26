@@ -18,9 +18,10 @@ import CopyLineupButton from "./CopyLineupButton";
 import LineupImage from "./LineupImage";
 import LineupVideoCover from "./LineupVideoCover";
 import LineupMetadataBadges from "./LineupMetadataBadges";
+import LineupContextLabel from "./LineupContextLabel";
 import PublicFeedEmptyState from "./PublicFeedEmptyState";
 import SelectField from "@/components/ui/SelectField";
-import { getAgents, getMaps, findAgent } from "@/lib/catalog/catalog";
+import { getAgents, getMaps, findAgent, findMap } from "@/lib/catalog/catalog";
 import { LINEUP_BASELINE } from "@/lib/lineups/competitive-pool";
 import { getSlotKey } from "@/lib/utils/ability";
 import { RotateCcw } from "lucide-react";
@@ -191,8 +192,8 @@ function FilteredFeed({ filters }: { filters: FeedFilters }) {
             videoUrl: row.videoUrl,
             source: row.source,
             metadata: row.metadata,
-            map: { name: row.mapSlug },
-            agent: { name: row.agentSlug },
+            map: findMap(row.mapSlug) ?? { name: row.mapSlug },
+            agent: findAgent(row.agentSlug) ?? { name: row.agentSlug },
           }))}
           currentIndex={Math.min(detailIndex, rows.length - 1)}
           isOpen
@@ -236,7 +237,11 @@ function FilteredFeed({ filters }: { filters: FeedFilters }) {
                 />
               ) : null}
               {!l.imageUrl ? (
-                <LineupVideoCover map={l.mapSlug} priority={i < 2} />
+                <LineupVideoCover
+                  map={l.mapSlug}
+                  videoUrl={l.videoUrl}
+                  priority={i < 2}
+                />
               ) : null}
             </button>
             <div className="p-3 flex items-start justify-between gap-3">
@@ -246,9 +251,13 @@ function FilteredFeed({ filters }: { filters: FeedFilters }) {
                     {l.title}
                   </button>
                 </p>
-                <p className="mt-1 text-[11px] text-white/35 font-mono uppercase tracking-wider truncate">
-                  {l.mapSlug} / {l.agentSlug}
-                </p>
+                <div className="mt-1">
+                  <LineupContextLabel
+                    map={findMap(l.mapSlug) ?? { name: l.mapSlug }}
+                    agent={findAgent(l.agentSlug) ?? { name: l.agentSlug }}
+                    compact
+                  />
+                </div>
               </div>
               <CopyLineupButton
                 id={l._id}

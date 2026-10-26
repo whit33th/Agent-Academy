@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import type { Screenshot } from "@/lib/types";
 import Modal from "@/components/ui/Modal";
-import { getYouTubeEmbedUrl, isSafeSourceUrl } from "@/lib/lineups/media";
+import { isSafeSourceUrl } from "@/lib/lineups/media";
 import LineupImage from "./LineupImage";
 import LineupMetadataBadges from "./LineupMetadataBadges";
+import LineupContextLabel from "./LineupContextLabel";
+import LineupVideoPlayer from "./LineupVideoPlayer";
 interface Props {
   screenshots: Screenshot[];
   currentIndex: number;
@@ -36,7 +38,6 @@ function Gallery({
   const [index, setIndex] = useState(
     Math.min(current.coverIndex ?? 0, Math.max(images.length - 1, 0)),
   );
-  const embed = current.videoUrl ? getYouTubeEmbedUrl(current.videoUrl) : null;
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (
@@ -76,17 +77,23 @@ function Gallery({
       className="w-full max-w-5xl bg-val-bg border border-white/10 my-4 text-white clip-angular shadow-2xl"
     >
       <header className="flex justify-between items-center p-4 gap-3">
-        <h2 id="lineup-detail-title" className="font-oswald text-xl uppercase">
-          {current.title}
-        </h2>
+        <div className="flex min-w-0 items-center gap-3">
+          <LineupContextLabel map={current.map} agent={current.agent} />
+          <h2
+            id="lineup-detail-title"
+            className="min-w-0 truncate font-oswald text-xl uppercase"
+          >
+            {current.title}
+          </h2>
+        </div>
         <div className="flex shrink-0 items-center gap-2">
           {current.videoUrl && isSafeSourceUrl(current.videoUrl) ? (
             <a
               href={current.videoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Open original video"
-              title="Open original video"
+              aria-label="Open video source"
+              title="Open video source"
               className="flex size-10 items-center justify-center clip-angular-sm bg-white/10 text-white/70 transition-colors hover:bg-white/20 hover:text-white"
             >
               <ExternalLink size={18} />
@@ -171,23 +178,17 @@ function Gallery({
         {!image ? (
           <LineupMetadataBadges metadata={current.metadata} inline />
         ) : null}
-        <p className="text-xs uppercase text-val-teal">
-          {current.map?.name} / {current.agent?.name}
-        </p>
+        {current.videoUrl ? (
+          <LineupVideoPlayer
+            videoUrl={current.videoUrl}
+            source={current.source}
+            title={current.title}
+          />
+        ) : null}
         {current.description ? (
           <p className="text-sm text-white/70 whitespace-pre-wrap leading-relaxed">
             {current.description}
           </p>
-        ) : null}
-        {embed ? (
-          <iframe
-            src={embed}
-            title={`${current.title} video guide`}
-            className="aspect-video w-full border-0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            referrerPolicy="strict-origin-when-cross-origin"
-          />
         ) : null}
         {screenshots.length > 1 ? (
           <nav

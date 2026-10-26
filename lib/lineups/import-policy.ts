@@ -1,4 +1,4 @@
-import { isSafeSourceUrl, isYouTubeVideoUrl } from "./media";
+import { getTrackerEmbedUrl, isSafeSourceUrl } from "./media";
 import { validateLineupSelection } from "../catalog/lineup-options";
 import type { LineupMetadata } from "./metadata";
 
@@ -17,6 +17,7 @@ export interface ImportCandidate {
   videoUrl?: string;
   source: {
     url: string;
+    embedUrl?: string;
     author: string;
     publishedAt?: string;
     checkedAt: number;
@@ -63,6 +64,11 @@ export function validateImportCandidate(record: ImportCandidate): void {
       "Author, source, compatibility evidence and media usage basis are required",
     );
   const host = new URL(source.url).hostname;
+  if (
+    source.embedUrl !== undefined &&
+    !getTrackerEmbedUrl(source.url, source.embedUrl)
+  )
+    throw new Error("Only a verified Tracker Stream player may be embedded");
   if (/(^|\.)(strats\.gg|valorantscout\.com)$/.test(host))
     throw new Error("This source is excluded from systematic import");
   const reviewedDay = Date.parse(`${LINEUP_BASELINE.checkedOn}T00:00:00Z`);
@@ -84,10 +90,13 @@ export function validateImportCandidate(record: ImportCandidate): void {
       Date.parse(source.publishedAt) > source.checkedAt)
   )
     throw new Error("Invalid source publication date");
-  if (record.videoUrl && !isSafeSourceUrl(record.videoUrl))
+  if (
+    record.videoUrl &&
+    (record.videoUrl.length > 2048 || !isSafeSourceUrl(record.videoUrl))
+  )
     throw new Error("Invalid external video URL");
 }
 
-export function hasPlayableVideo(record: Pick<ImportCandidate, "videoUrl">) {
-  return Boolean(record.videoUrl && isYouTubeVideoUrl(record.videoUrl));
+export function hasVideoSource(record: Pick<ImportCandidate, "videoUrl">) {
+  return Boolean(record.videoUrl && isSafeSourceUrl(record.videoUrl));
 }

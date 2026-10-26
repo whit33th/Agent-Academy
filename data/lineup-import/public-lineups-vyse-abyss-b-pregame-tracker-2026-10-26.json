@@ -1,0 +1,31 @@
+{
+  "batchId": "public-lineups-vyse-abyss-b-pregame-tracker-2026-10-26",
+  "records": [
+    {
+      "sourceKey": "tracker:vyse-abyss-b-pregame-lineup-majimagaming-da79aa15",
+      "mapSlug": "abyss",
+      "agentSlug": "vyse",
+      "title": "B Site Pre-round Razorvine While the Team Anchors A",
+      "description": "During the buy phase, use the Razorvine throw shown to prepare the B-side approach while your team sets up to defend A. The clip shows the launch and its B-side landing; follow its exact standing and release references. The creator does not name a more specific landing callout, so use the visual in the source rather than assuming one.",
+      "abilityType": "other",
+      "metadata": {
+        "side": "def",
+        "site": "B",
+        "abilitySlot": "Ability1"
+      },
+      "videoUrl": "https://tracker.gg/valorant/guides/clips/b-site-pregame-lineup-by-majimagaming-da79aa15",
+      "images": [],
+      "source": {
+        "url": "https://tracker.gg/valorant/guides/clips/b-site-pregame-lineup-by-majimagaming-da79aa15",
+        "author": "majimagaming",
+        "checkedAt": 1792983951296,
+        "patch": "13.08",
+        "evidence": "Tracker labels the clip Vyse Abyss defense and titles it 'B site pregame lineup'; the creator says it is a lineup to use while defending A. The embedded clip was played and visually reviewed: it shows a pre-round setup and a Razorvine landing on the B-side floor. Abyss remains in the current Competitive pool; Riot patch 13.08 lists Corrode as the map with geometry updates. Source reviewed; not tested in a live match.",
+        "rightsBasis": "The clip remains embedded from its original Tracker page. No video, image, thumbnail or screenshot was copied or rehosted.",
+        "testedInGame": false,
+        "embedUrl": "https://iframe.videodelivery.net/08a3f85d55a1c3720c0dc7054dc42e0a",
+        "publishedAt": "2026-09-04T16:50:26.26834+02:00"
+      }
+    }
+  ]
+}

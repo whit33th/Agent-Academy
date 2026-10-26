@@ -15,6 +15,7 @@ await new Promise((resolve, reject) =>
   server.close((error) => (error ? reject(error) : resolve())),
 );
 const output = path.resolve("outputs/desktop-qa-package");
+const qaScript = process.argv[2] ?? "scripts/desktop-qa.mjs";
 await mkdir(path.dirname(output), { recursive: true });
 
 try {
@@ -62,10 +63,7 @@ try {
 
   const qa = spawnSync(
     process.execPath,
-    [
-      "scripts/desktop-qa.mjs",
-      path.join(output, "win-unpacked", "Agent Academy.exe"),
-    ],
+    [qaScript, path.join(output, "win-unpacked", "Agent Academy.exe")],
     {
       stdio: "inherit",
       env: { ...process.env, AGENT_ACADEMY_DESKTOP_QA_PORT: String(port) },
